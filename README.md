@@ -1,0 +1,2 @@
+# statistik
+Seminarfolien Angewandte Statistik
