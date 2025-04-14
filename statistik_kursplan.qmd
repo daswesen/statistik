@@ -1,0 +1,196 @@
+---
+title: "Statistik mit R & Tidyverse – Kursüberblick"
+format: pptx
+theme: default
+editor: visual
+---
+
+# Willkommen
+
+## Kursstruktur (13 × 90 Min.)
+
+-   Praxisorientiert
+-   Visuell & interaktiv
+-   Fokus auf Verständnis statt Formelwissen
+-   R + Tidyverse + Notebooks (RStudio)
+-   Statistik ohne Angst!
+
+------------------------------------------------------------------------
+
+# Sitzung 1 – Einstieg & Motivation
+
+## Ziele
+
+-   Statistik greifbar machen
+-   Ängste abbauen
+-   Interesse wecken
+
+## Inhalte
+
+-   Was ist Statistik?
+-   Wo begegnet uns Statistik im Alltag?
+-   Erste Schritte mit R (`read_csv`, `ggplot`)
+
+------------------------------------------------------------------------
+
+# Sitzung 2 – Deskriptive Statistik
+
+## Ziele
+
+-   Kennzahlen verstehen & berechnen
+
+## Inhalte
+
+-   Mittelwert, Median, Modus
+-   Varianz, Standardabweichung
+-   `summarise()`, `mean()`, `sd()`
+-   Visualisierung: Histogramme, Boxplots
+
+------------------------------------------------------------------------
+
+# Sitzung 3 – Datenvisualisierung mit ggplot2
+
+## Ziele
+
+-   Daten visuell explorieren und interpretieren
+
+## Inhalte
+
+-   `geom_point()`, `geom_histogram()`, `geom_boxplot()`
+-   Ästhetiken: Farbe, Form, Gruppierung
+
+------------------------------------------------------------------------
+
+# Sitzung 4 – Wahrscheinlichkeiten & Verteilungen
+
+## Ziele
+
+-   Intuitive Einführung in Zufall & Normalverteilung
+
+## Inhalte
+
+-   Laplace, Simulation, `rnorm()`, `dnorm()`
+-   Visualisierung von Wahrscheinlichkeitsdichte
+
+------------------------------------------------------------------------
+
+# Sitzung 5 – Zentrale Grenzwertsätze
+
+## Ziele
+
+-   Verstehen, warum Mittelwerte normalverteilt sind
+
+## Inhalte
+
+-   Simulationen mit `replicate()`, `mean()`
+-   Stichprobenverteilungen
+
+------------------------------------------------------------------------
+
+# Sitzung 6 – Konfidenzintervalle
+
+## Ziele
+
+-   Unsicherheiten abschätzen können
+
+## Inhalte
+
+-   Konfidenzintervall mit `t.test()`
+-   Visualisierung von CI über Punkteschätzungen
+
+------------------------------------------------------------------------
+
+# Sitzung 7 – Hypothesentests (Einführung)
+
+## Ziele
+
+-   Testlogik verstehen
+
+## Inhalte
+
+-   Null- und Alternativhypothese
+-   Fehler 1. & 2. Art
+-   Signifikanzniveau, p-Wert
+
+------------------------------------------------------------------------
+
+# Sitzung 8 – t-Test
+
+## Ziele
+
+-   Mittelwertvergleiche anwenden
+
+## Inhalte
+
+-   `t.test()` mit Beispieldaten
+-   Voraussetzungen & Interpretation
+-   Visualisierung mit ggplot2
+
+------------------------------------------------------------------------
+
+# Sitzung 9 – Chi-Quadrat-Test
+
+## Ziele
+
+-   Kategoriale Daten analysieren
+
+## Inhalte
+
+-   Häufigkeitstabellen, `chisq.test()`
+-   Visualisierung: Balken, Mosaikplots
+
+------------------------------------------------------------------------
+
+# Sitzung 10 – Korrelation
+
+## Ziele
+
+-   Zusammenhang erkennen
+
+## Inhalte
+
+-   `cor()`, Scatterplot mit `geom_point()`
+-   Kausalität vs. Korrelation
+
+------------------------------------------------------------------------
+
+# Sitzung 11 – Lineare Regression
+
+## Ziele
+
+-   Vorhersagen mit Regressionslinien
+
+## Inhalte
+
+-   `lm()`, `summary()`
+-   `geom_smooth(method = "lm")`
+-   Interpretation der Koeffizienten
+
+------------------------------------------------------------------------
+
+# Sitzung 12 – Wiederholung & Projekt
+
+## Ziele
+
+-   Gelerntes anwenden
+
+## Inhalte
+
+-   Mini-Datenanalyse als Gruppenarbeit
+-   Präsentation als R Notebook
+
+------------------------------------------------------------------------
+
+# Sitzung 13 – Abschluss & Ausblick
+
+## Ziele
+
+-   Reflexion & Motivation für weitere Statistik
+
+## Inhalte
+
+-   Was bleibt hängen?
+-   Statistik im Studium & Berufsleben
+-   Feedback, offene Fragerunde
+
+------------------------------------------------------------------------
