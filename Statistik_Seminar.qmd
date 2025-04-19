@@ -1,233 +1,248 @@
 ---
+title: "Untitled"
+author: "Dr. Tom Alby"
+format: pptx
+editor: visual
+---
+
+---
 title: "Statistik für die Angewandte Forschung"
 format: pptx
-theme: default
 author: "Dr. Tom Alby"
 ---
 
+# Sitzung 1: Einführung & Organisatorisches
 
-# Willkommen
+## Administratives
 
-## Kursstruktur (13 × 90 Min.)
-
--   Praxisorientiert
--   Visuell & interaktiv
--   Fokus auf Verständnis statt Formelwissen
--   R + Tidyverse + Notebooks (RStudio)
--   Statistik ohne Angst!
-
-------------------------------------------------------------------------
-
-# Einführung
-
-## Ziele der Veranstaltung
-
+### Ziele der Veranstaltung
 - Grundkenntnisse Statistik, nicht nur für die Uni :)
 - Werkzeuge für Datenanalyse in der Bachelor-Arbeit
 
-------------------------------------------------------------------------
+### Was Sie erwartet
+- Einführung in R und RStudio
+- Datenimport und -aufbereitung
+- Explorative Datenanalyse
+- Datenvisualisierung
+- Wahrscheinlichkeitsrechnung
+- Lineare Regression
+- Hypothesentests
+- Korrelationen
 
-## Was Sie erwartet
+### Erwartungen und Interaktion
+- **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
+  - 16 Uhr: #68430031
+  - 18 Uhr: #68430032
 
--   **Tools und Techniken:** Einführung in R und RStudio
--   **Fähigkeiten:** Datenimport und -aufbereitung, explorative Datenanalyse, Datenvisualisierung
--   **Statistische Konzepte:** Wahrscheinlichkeitsrechnung, lineare Regression, Hypothesentests, Korrelationen
+### Welche Note kann ich erwarten?
+![](images/grade-distribution.png)
 
-------------------------------------------------------------------------
+## Rules of Working I
+- **Fragen:** Bitte unterbrechen Sie mich für Fragen
+- **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
+- **Moodle:** Einschreibeschlüssel: iLoveStats!
+- **Materialien:** <https://alby.link/statistik>
 
-# Erwartungen und Interaktion
+## Rules of Working II
+- **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
+- **Keine Gruppenarbeit:** Im Kurs ja, für die Hausarbeit nein
+- **Teilnahme:** Präsenzpflicht, in Ausnahmefällen auch online via Zoom (HU), Aufzeichnungen verfügbar
+- **ChatGPT & Co:** Erlaubt, aber...
+- Bitte kein **bedeutungsloser Wohlklang**
 
--   **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
-    -   16 Uhr: #68430031
-    -   18 Uhr: #68430032
+## Wie sieht die Hausarbeit aus?
+- **Sie** suchen sich einen Datensatz aus und holen sich das "Ok"
+- Hausarbeit in einem speziellen **Dateiformat**, das im Kurs vermittelt wird
+- Enthält Code, Ergebnisse, Visualisierungen und Gedanken
+- Hausarbeit wird **während des Semesters** vorbereitet
+- Möglichkeit der **Probeabgabe**
+- **Bewertungskriterien** sind online
 
-# Rules of Working
+## Kurzer Rundgang durch RStudio
 
--   **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
--   **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
--   **Fragen:** Bitte unterbrechen Sie mich für Fragen
--   **Moodle:** Einschreibeschlüssel: iLoveStats!
--   **Forum:** Nutzen Sie das Forum im Moodle für Fragen, E-Mails nur in Ausnahmefällen
--   **Teilnahme:** Präsenzpflicht, in Ausnahmefällen auch online via Zoom (HU), Aufzeichnungen verfügbar
+## Notebooks: Format für Hausarbeiten
+- Demo: Gedanken, Code, Visualisierungen und Ergebnisse in einem Dokument
+- Dokumentation eigener Arbeit und Transparenz in der Zusammenarbeit
+- Markdown vs Markup
+- Export in verschiedene Formate
+- Snippets auch für andere Sprachen!
+- Ab jetzt: Mitschreiben im Notebook
+- Wichtig: Immer schön speichern zwischendurch (strg-s / ctrl-s)
 
-# Wie sieht die Hausarbeit aus?
-
-* Sie suchen sich einen Datensatz aus und lassen sich ihn von mir absegnen!
-* Spezielles Dateiformat, das im Kurs vermittelt wird
-* Enthält Code, Ergebnisse, Visualisierungen und Gedanken
-* Deliverable wird während des Semesters vorbereitet
-
-# Darf ich ChatGPT nutzen?
-
-* Kurze Antwort: Ja
-* Aber: Es ist relativ einfach zu erkennen, was von Ihnen stammt und was von ChatGPT
-* Erstes Nichtbestehen in 15 Jahren kam durch ChatGPT
-
-# Installation von R/RStudio versus Cloud-Version
-- Diskussion der Vorteile und Notwendigkeit der Cloud-Version für dieses Semester
-- Empfehlung für die Einrichtung einer stabilen Arbeitsumgebung für die Abschlussarbeit
-
-# Unterstützung für Studierende
+## Unterstützung für Studierende
 - Studentische Seelsorge, rund um die Uhr: 040 41170411
-- [Studierendenberatung@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
-- [krisenteam@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
+- [Studierendenberatung\@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
+- [krisenteam\@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
 - Psychologische Sprechzeit ohne Anmeldung (Dienstags 14-15 Uhr): +49 152 247 44 063
 - Weitere Infos: [HAW Beratung](https://www.haw-hamburg.de/beratung/)
 
-# Was sind Daten?
+## Letzte Fragen?
 
-# Was sind Daten?
+# Sitzung 2: Grundlagen der Datenanalyse
 
+## Let's start!
+![](images/marketoonist-big-data.png)
+
+## Was sind Daten?
 - **Daten**
-  - Roh, ungeordnet, noch nicht interpretiert  
-  - Bestehen aus Zahlen, Zeichen, Fakten ohne Kontext  
-  - Beispiel: `42`, `"blau"`, `2025-04-14`  
-
+  - Roh, ungeordnet, noch nicht interpretiert
+  - Bestehen aus Zahlen, Zeichen, Fakten ohne Kontext
 - **Informationen**
-  - Verarbeitete, kontextualisierte Daten  
-  - Haben Bedeutung und Relevanz für eine Fragestellung  
-  - Beispiel: *„Die Durchschnittstemperatur in Berlin am 14. April 2025 lag bei 18 °C – das sind 3 °C mehr als im April-Durchschnitt der letzten 30 Jahre.“*
+  - Verarbeitete, kontextualisierte Daten
+  - Haben Bedeutung und Relevanz für eine Fragestellung
+  - **Daten + Kontext = Information**
 
-**Kurz:**  
- **Daten + Kontext = Information**  
+## DIKW-Pyramide
+![](images/dikw-pyramid-removebg-preview.png)
 
-# Datenmerkmale
+## Toms Pyramide
+![](images/tattoo.png)
 
-| Statistische Einheit / Merkmalsträger | Merkmal            | Merkmalsausprägung | Typ / Skala                 | Erläuterung                                                                 |
-|--------------------------------------|--------------------|---------------------|-----------------------------|------------------------------------------------------------------------------|
-| n1                                   | Haarfarbe          | Rot                 | Kategorial / nominalskaliert| Keine Abstände                                                              |
-| n1                                   | Postleitzahl       | 22703               | Numerisch / nominalskaliert | Keine Abstände                                                              |
-| n1                                   | Schulabschluss     | Abitur              | Kategorial / ordinalskaliert| Abstände vorhanden, aber willkürlich                                        |
-| Fußballteam A                        | Tabellenplatz      | 7                   | Numerisch / ordinalskaliert | Abstände vorhanden, aber willkürlich                                        |
-| n1                                   | Körpertemperatur   | 36,5°C/F            | Numerisch / intervallskaliert| Abstände nicht willkürlich, aber kein Nullpunkt                             |
-| n1                                   | Alter              | 22                  | Numerisch / Verhältnisskaliert| Nullpunkt bedeutet Abwesenheit der Eigenschaft, keine Negativwerte möglich |
+## Datenmerkmale
 
-# Datenmerkmale am Beispiel
+| Statistische Einheit / Merkmalsträger | Merkmal | Ausprägung | Typ / Skala | Erläuterung |
+|---------------|---------------|---------------|---------------|---------------|
+| n1 | Haarfarbe | Rot | Kategorial / nominalskaliert | Keine Abstände |
+| n1 | Postleitzahl | 22703 | Numerisch / nominalskaliert | Keine Abstände |
+| n1 | Schulabschluss | Abitur | Kategorial / ordinalskaliert | willkürliche Abstände |
+| Sport-Team A | Tabellenplatz | 7 | Numerisch / ordinalskaliert | willkürliche Abstände |
+| n1 | Körpertemperatur | 36,5°C. | Numerisch / intervallskaliert | kein Nullpunkt |
+| n1 | Alter | 22 | Numerisch / verhältnisskal. | keine Negativwerte |
 
-| title                                                        | year | budget     | avg_vote |
-|--------------------------------------------------------------|------|------------|----------|
-| Miss Jerry                                                   | 1894 | NA         | 5.9      |
-| The Story of the Kelly Gang                                 | 1906 | $ 2250     | 6.1      |
-| Den sorte drøm                                               | 1911 | NA         | 5.8      |
-| Cleopatra                                                    | 1912 | $ 45000    | 5.2      |
-| L'Inferno                                                    | 1911 | NA         | 7.0      |
-| From the Manger to the Cross; or, Jesus of Nazareth          | 1912 | NA         | 5.7      |
-| Madame DuBarry                                               | 1919 | NA         | 6.8      |
-| Quo Vadis?                                                   | 1913 | ITL 45000  | 6.2      |
-| Independenta Romaniei                                        | 1912 | ROL 400000 | 6.7      |
-| Richard III                                                  | 1912 | $ 30000    | 5.5      |
+## Datenmerkmale am Beispiel
 
-- Verschiedene Skalierungen: Nominal, Ordinal, Intervall, Verhältnis
+| title | year | budget | avg_vote |
+|-------------------|------------------|------------------|------------------|
+| Miss Jerry | 1894 | NA | 5.9 |
+| The Story of the Kelly Gang | 1906 | \$ 2250 | 6.1 |
+| Den sorte drøm | 1911 | NA | 5.8 |
+| Cleopatra | 1912 | \$ 45000 | 5.2 |
+| L'Inferno | 1911 | NA | 7.0 |
+| From the Manger to the Cross; or, Jesus of Nazareth | 1912 | NA | 5.7 |
+| Madame DuBarry | 1919 | NA | 6.8 |
+| Quo Vadis? | 1913 | ITL 45000 | 6.2 |
+| Independenta Romaniei | 1912 | ROL 400000 | 6.7 |
+| Richard III | 1912 | \$ 30000 | 5.5 |
 
+## Daten oder Informationen?
+![](images/daten-oder-informationen.png)
 
-# Die Relevanz von Informationen
-- DIKW-Pyramide: Von Daten zu Weisheit
-- Rolle von Daten in der Entscheidungsfindung
+## Analytische Konzepte
 
-# Einführung in Analytische Konzepte
-- Deskriptive, Explorative, und Inferenzielle Statistik
-- Anwendungsbeispiele in der realen Welt
+| Phase & Leitfrage | Statistisches Äquivalent | Beispiel‑Methoden / Tools |
+|-------------------|-------------------|----------------------------------|
+| **Rückblick – Was ist passiert?** | **Deskriptive Statistik** | Lage‑ & Streuungsmaße, Häufigkeiten, Balken‑/Liniendiagramme |
+| **Erkenntnis – Warum passiert es?** | **Explorative & inferenzielle Statistik** | Korrelation, t‑Test, ANOVA, χ²‑Test, Konfidenz­intervalle, Regressionsdiagnostik |
+| **Vorausschau – Was wird passieren?** | **Prognostische (inferenzielle) Modelle** | Lineare/Logistische Regression, Random Forest, Zeitreihen‑Forecasts, Konfidenz­intervalle für Prognosen |
+| **Vorausschau – Was muss passieren, damit es eintritt?** | **Präskriptive (inferenzielle) Verfahren** | Simulation (Monte‑Carlo), Lineare/Ganzzahl‑Optimierung, Entscheidungsbäume mit Unsicherheits‑Berücksichtigung |
 
-# Technologie und Werkzeuge
-- Warum R und nicht Python oder SPSS?
-- Vor- und Nachteile verschiedener Analyse-Software
+## Wo finde ich Daten?
+- Kaggle.com
+- Statistisches Bundesamt
+- ...
+- **Wichtig:** Sie brauchen Rohdaten, keine aggregierten Daten!
 
-# Session 2: Einführung in R und RStudio
+## Warum nutzen wir R?
+![](images/r-vs-python.png)
 
-# Einführung in R und RStudio
-- Grundlagen und fortgeschrittene Funktionen von R
-- Überblick über die Benutzeroberfläche von RStudio und dessen Funktionen
+## R, Python, SPSS, ...
+- SPSS
+- SAS
+- Python
+- Scala
+- Julia
+- PSPP
+- R
 
-# Lageparameter
-- Einführung in verschiedene Lageparameter: Mittelwert, Median, Modus
-- Anwendung in R mit praktischen Beispielen
+## R/RStudio lokal versus Cloud-Version
+- Bitte versuchen Sie R und RStudio lokal zu installieren
+- Cloud-Version nur für dieses Semester
 
-# Tidyverse
+## Die ersten Schritte mit R
+- Nutzung von R als Taschenrechner
+- Einführung in grundlegende R-Operationen
+- Verständnis der Objekt- und Funktionsstruktur in R
+
+## Datentypen und Datenstrukturen in R
+- Vektoren, Dataframes und Listen
+- Anwendungsbeispiele zur Manipulation
+- Erste Übungen
+
+# Sitzung 3: Deskriptive Statistik I
+
+## Deskriptive Statistik: Let's talk about money
+![](images/einkommen.jpeg)
+
+## Deskriptive Statistik: Let's talk about money
+![](images/einkommensschichtung.png)
+
+## Lageparameter
+![](images/mean-mode-median.png)
+
+## Merke
+![](images/meme-durchschnitt.png)
+
+## It really happened
+![](images/clinton-average.png)
+
+## Typisch / ungewöhnlich / unmöglich
+![](images/hadlum.png)
+
+## Deskriptive Statistik: Übersicht
+
+| Kategorie | Typische Kennzahlen / Techniken |
+|--------------------|----------------------------------------------------|
+| **Lagemaße** | Mittelwert • Median • Modus |
+| **Streuungsmaße** | Spannweite (Range) • Quartilabstand (IQR) • Varianz & Standardabweichung |
+| **Formparameter** | Schiefe (Skewness) • Wölbung (Kurtosis) |
+| **Positionskennwerte** | Quantile • Perzentile • Quartile |
+
+## Wie macht man das in R?
+
+| Kennzahl           | R‑Befehl                         | Kurzbeschreibung                          |
+|--------------------|----------------------------------|-------------------------------------------|
+| Mittelwert         | `mean(data)`                     | Durchschnitt aller Werte                  |
+| Median             | `median(data)`                   | Zentralwert (50 %-Quantil)                |
+| Minimum            | `min(data)`                      | Kleinster Wert                            |
+| Maximum            | `max(data)`                      | Größter Wert                              |
+| Spannweite         | `diff(range(data))`              | Abstand = Max − Min                       |
+| Standardabweichung | `sd(data)`                       | Ø‑Abweichung vom Mittelwert               |
+| Varianz            | `var(data)`                      | Quadrat der Standardabweichung            |
+| Schiefe            | `skewness(data)` *(moments/e1071)* | Asymmetrie der Verteilung                 |
+| Wölbung (Kurtosis) | `kurtosis(data)` *(moments/e1071)* | "Spitzheit" der Verteilung               |
+| Quantile           | `quantile(data, c(.25,.5,.75))`  | 25 %, 50 %, 75 %-Werte (Quartile)         |
+
+## Übung
+- `summary(data)`
+
+# Sitzung 4: Deskriptive Statistik II & Datenmanipulation
+
+## Tidyverse
 - Einführung in das Tidyverse-Paket für effiziente Datenmanipulation und -visualisierung
 - Hands-on Beispiele zur Anwendung von `dplyr` und `ggplot2`
 
-
-
-# Explorative Datenanalyse mit Notebooks
-- Vorteile der Nutzung von Jupyter Notebooks für die explorative Datenanalyse
-- Praktisches Beispiel zur Analyse: [Data Science und SEO Analyse](https://tom.alby.de/analysis/data-science-seo.html)
-
-# Installation und Nutzung von Packages
+## Installation und Nutzung von Packages
 - Anleitung zum Laden und Installieren von R-Packages
 - Wichtige Packages für statistische Analysen und ihre Anwendungen
 
-# Die ersten Schritte mit R
-- Nutzung von R als Taschenrechner und Einführung in grundlegende R-Operationen
-- Verständnis der Objekt- und Funktionsstruktur in R
-
-# Datentypen und Datenstrukturen in R
-- Überblick über wichtige Datentypen und Datenstrukturen wie Vektoren, Dataframes, und Listen
-- Anwendungsbeispiele zur Manipulation von Dataframes und anderen Objekten in R
-
-# Die Arbeitsumgebung in RStudio
-- Erklärung der verschiedenen Bereiche der RStudio-Arbeitsumgebung
-- Tipps zur effizienten Nutzung des Arbeitsspeichers und zur Fehlervermeidung
-
-# Sitzung 3: Explorative Datenanalyse mit Notebooks
-
-## Einleitung
-- Einsatz von Notebooks für die explorative Datenanalyse
-- Integration von Gedanken, Code, Visualisierungen und Ergebnissen in einem Dokument
-
-# Vorteile von Notebooks
-- Dokumentation der eigenen Arbeit
-- Transparenz in der Zusammenarbeit
-- Vielseitige Exportmöglichkeiten in verschiedene Formate
-
-# Praktische Anwendung
-- [Beispielanalyse zur Data Science und SEO](https://tom.alby.de/analysis/data-science-seo.html)
-- Erstellen eines eigenen Notebooks als Seminarprojekt
-- Tipps zum effektiven Speichern und Versionieren der Arbeit
-
-# Installation und Nutzung von R-Packages
-- Wichtige R-Packages und deren Installation
-- Anleitung zur Einrichtung der Arbeitsumgebung für die Analyse
-
-# Hands-on Übung
-- Erste Schritte mit R für Datenanalyse
-- Verwendung von R als Taschenrechner
-- Umgang mit verschiedenen Datentypen und Datenstrukturen in R
-
-# Dataframes in R
+## Dataframes in R
 - Grundlagen zu Data Frames
 - Manipulation von Datenframes für Analysezwecke
 
-# Einführung eines neuen Datensatzes: BookCrossing
-- Diskussion über den BookCrossing-Datensatz und seine Besonderheiten.
-- Vorbereitung und erste Schritte für die Datenanalyse mit diesem Datensatz.
+## Explorative Datenanalyse mit Notebooks
+- Vorteile der Nutzung von Notebooks für die explorative Datenanalyse
+- Praktisches Beispiel zur Analyse: [Data Science und SEO Analyse](https://tom.alby.de/analysis/data-science-seo.html)
 
-# Datenreinigung
-- Methoden zur Reinigung und Vorbereitung des BookCrossing-Datensatzes.
-- Praktische Anwendung der gelernten Methoden zur Datenbereinigung.
+## Die Arbeitsumgebung in RStudio
+- Erklärung der verschiedenen Bereiche der RStudio-Arbeitsumgebung
+- Tipps zur effizienten Nutzung des Arbeitsspeichers und zur Fehlervermeidung
 
-## Einführung in die Datenvisualisierung
-- Grundlagen der Datenvisualisierung.
-- Nutzung von ggplot2 zur Erstellung erster Visualisierungen.
-- Interpretation der Ergebnisse durch visuelle Darstellungen.
-
-## Logistik und organisatorische Hinweise
-- Planung der Termine für Präsentationen und weitere Kursaktivitäten.
-- Hinweise zur Vorbereitung auf die kommenden Sessions.
-
-## Abschluss und Feedback
-- Zusammenfassung der Session und Diskussion der wichtigsten Erkenntnisse.
-- Feedbackrunde zur Verbesserung der weiteren Sessions.
-
-# Sitzung 5: Datenvisualisierung und Deskriptive Statistik
+# Sitzung 5: Datenvisualisierung
 
 ## Einführung in Datenvisualisierung
 - Grundlagen der Datenvisualisierung
 - Auswahl der richtigen Visualisierungsarten für verschiedene Datentypen
 - Einführung in gängige Visualisierungstools in R
-
-## Deskriptive Statistik verstehen
-- Bedeutung deskriptiver statistischer Maße wie Mittelwert, Median, Modus
-- Varianz, Standardabweichung und ihre Anwendungen in der Datenanalyse
 
 ## Visualisierung von Verteilungen
 - Erstellung von Histogrammen und Boxplots zur Darstellung von Datenverteilungen
@@ -237,23 +252,84 @@ author: "Dr. Tom Alby"
 - Scatter Plots und Korrelationsanalysen zur Untersuchung von Beziehungen zwischen Variablen
 - Einführung in fortgeschrittene Methoden wie Heatmaps und Paired Plots
 
-## Praktische Übungen
-- Anwendung der erlernten Visualisierungstechniken auf einen Beispiel-Datensatz
-- Gruppenarbeit zur Erstellung und Präsentation von Visualisierungen
+## Datenvisualisierung mit ggplot2
+- `geom_point()`, `geom_histogram()`, `geom_boxplot()`
+- Ästhetiken: Farbe, Form, Gruppierung
+- Praktische Übungen
 
-## Diskussion und Feedback
-- Besprechung der Übungsergebnisse und Feedback zur Visualisierungspraxis
-- Klärung von Fragen und Vorbereitung auf die nächste Sitzung
+## Einführung eines neuen Datensatzes: BookCrossing
+- Diskussion über den BookCrossing-Datensatz und seine Besonderheiten
+- Vorbereitung und erste Schritte für die Datenanalyse mit diesem Datensatz
 
-# Sitzung 6: Korrelation
+## Datenreinigung
+- Methoden zur Reinigung und Vorbereitung des BookCrossing-Datensatzes
+- Praktische Anwendung der gelernten Methoden zur Datenbereinigung
+
+# Sitzung 6: Wahrscheinlichkeiten & Verteilungen
+
+## Wahrscheinlichkeiten & Verteilungen
+- Intuitive Einführung in Zufall & Normalverteilung
+- Laplace, Simulation, `rnorm()`, `dnorm()`
+- Visualisierung von Wahrscheinlichkeitsdichte
+
+## Zentrale Grenzwertsätze
+- Verstehen, warum Mittelwerte normalverteilt sind
+- Simulationen mit `replicate()`, `mean()`
+- Stichprobenverteilungen
+
+## Der Mittelwert einer Stichprobe und Central Limit Theorem
+- Erklärung des zentralen Grenzwertsatzes und seiner Bedeutung für die Inferenzstatistik
+- Diskussion über die Berechnung und Interpretation von Stichprobenmittelwerten
+
+# Sitzung 7: Einführung in die Inferenzstatistik
+
+## Klassische Statistische Inferenz
+- Einführung in die Konzepte der Nullhypothese und Alternativhypothese
+- Diskussion über die Bedeutung von Placebos und Behandlungsgruppen in Experimenten
+
+## Konfidenzintervalle
+- Unsicherheiten abschätzen können
+- Konfidenzintervall mit `t.test()`
+- Visualisierung von CI über Punkteschätzungen
+
+## Hypothesentests
+- Testlogik verstehen
+- Null- und Alternativhypothese
+- Fehler 1. & 2. Art
+- Signifikanzniveau, p-Wert
+
+## Experimente - Die Statistik-Pille
+- Einführung eines hypothetischen Experiments zur Demonstration statistischer Prinzipien
+- Diskussion über die Auswirkungen der Intervention auf die Leistung
+
+# Sitzung 8: t-Tests
+
+## t-Test
+- Mittelwertvergleiche anwenden
+- `t.test()` mit Beispieldaten
+- Voraussetzungen & Interpretation
+- Visualisierung mit ggplot2
+
+## Vom Zentralen Grenzwertsatz zum t-Test
+- Überleitung von den Grundlagen des zentralen Grenzwertsatzes zu den Anwendungen des t-Tests
+- Diskussion über die Schätzung von Populationsparametern und die Anwendung des t-Tests
+
+## Guiness-Bier brachte die Lösung
+- Anekdote über William Sealy Gosset und die Entstehung der t-Verteilung
+- Diskussion über die Bedeutung von Freiheitsgraden und deren Einfluss auf die t-Verteilung
+
+## Wichtige Annahmen des t-Tests
+- Überblick über die Annahmen, die für die Durchführung des t-Tests erforderlich sind
+- Praktische Demonstration der Anwendung des t-Tests in R
+
+# Sitzung 9: Korrelationsanalyse
+
+## Was ist eine Korrelation?
 
 ## Warum sind Korrelationen interessant?
 - Manche Sachverhalte liegen in der Vergangenheit.
 - Manche Experimente können aus ethischen Gründen nicht durchgeführt werden.
 - **Beispiel**: Wir messen die Blutwerte aller Kursteilnehmer. Die Hälfte des Kurses ernährt sich 2 Wochen lang vegan, die andere Hälfte isst nur Burger bei McDonald's. Nach den 2 Wochen messen wir wieder die Blutwerte. Wie lange darf Tom dann noch an der HAW unterrichten?
-
-## Korrelation: Statistischer Zusammenhang
-- Wiederholung des Konzepts des statistischen Zusammenhangs mehrfach betont.
 
 ## Vor der Korrelation kommt die Kovarianz
 - Kovarianz misst, wie zwei Variablen gemeinsam variieren.
@@ -265,7 +341,7 @@ author: "Dr. Tom Alby"
 ## Wichtig
 - Korrelation beinhaltet keine Richtung.
 - Scheinkorrelation: zufällige oder indirekte Beziehung (z.B. Eis-Konsum und Anzahl Ertrunkener).
-- Pearson‘s Korrelationskoeffizient reicht von 1 bis -1:
+- Pearson's Korrelationskoeffizient reicht von 1 bis -1:
   - |0.7/0.8| Hohe Korrelation
   - |0.5| Moderate Korrelation
   - |0.3| Schwache Korrelation
@@ -273,57 +349,80 @@ author: "Dr. Tom Alby"
 - Was könnte ein Beispiel für eine negative Korrelation sein?
 - Erläuterung des p-Wertes folgt.
 
-# Unterschied Korrelation zu Regression
-- Korrelation misst die Stärke des Zusammenhangs zwischen zwei Variablen.
-- Regression prognostiziert den Wert einer abhängigen Variable basierend auf einer unabhängigen Variable.
+## Korrelations-Tests
 - Pearson-Korrelation: Misst den linearen Zusammenhang zwischen zwei kontinuierlichen Variablen.
 - Spearman-Korrelation: Misst den monotonen Zusammenhang zwischen zwei Variablen basierend auf ihren Rängen.
 - Kendall-Tau-Korrelation: Misst die Übereinstimmung in der Rangordnung zwischen zwei Variablen.
 
-# Wofür brauche ich lineare Regression denn wirklich?
+## Unterschied Korrelation zu Regression
+- Korrelation misst die Stärke des Zusammenhangs zwischen zwei Variablen.
+- Regression prognostiziert den Wert einer abhängigen Variable basierend auf einer unabhängigen Variable.
+
+## Korrelation in R
+```{r}
+cor.test(cars$speed, cars$dist)
+```
+- `cor()`, Scatterplot mit `geom_point()`
+- Kausalität vs. Korrelation
+
+# Sitzung 10: Einfache Lineare Regression
+
+## Wofür brauche ich lineare Regression denn wirklich?
 - Anwendungsbeispiel: Ermittlung eines fairen Preises für gebrauchte Artikel, z.B. Spiegelreflexkameras.
 
-# Heteroskedastizität beachten
+## Lineare Regression
+- Vorhersagen mit Regressionslinien
+- `lm()`, `summary()`
+- `geom_smooth(method = "lm")`
+- Interpretation der Koeffizienten
+
+## Heteroskedastizität beachten
 - Diskussion über die Verteilung der Residuen um die Regressionslinie.
 - Erklärung von Homoskedastizität und Heteroskedastizität und deren Bedeutung für das Modell.
 
-# Was mache ich bei einer nicht-linearen Beziehung?
+## Was mache ich bei einer nicht-linearen Beziehung?
 - Umgang mit nicht-linearen Beziehungen, z.B. Klickraten in Newslettern.
 - Anwendung von Transformationen zur Verbesserung der Modellpassung.
 
-# Experimente - Die Statistik-Pille
-- Einführung eines hypothetischen Experiments zur Demonstration statistischer Prinzipien.
-- Diskussion über die Auswirkungen der Intervention auf die Leistung.
+# Sitzung 11: Chi-Quadrat-Test & kategoriale Daten
 
-# Mittelwerte und ihre Bedeutung
+## Chi-Quadrat-Test
+- Kategoriale Daten analysieren
+- Häufigkeitstabellen, `chisq.test()`
+- Visualisierung: Balken, Mosaikplots
+
+## Mittelwerte und ihre Bedeutung
 - Diskussion über die Bedeutung und Anwendung von Mittelwerten in verschiedenen Kontexten.
 - Vergleich von Mittelwerten und deren statistische Signifikanz.
 
-# Klassische Statistische Inferenz
-- Einführung in die Konzepte der Nullhypothese und Alternativhypothese.
-- Diskussion über die Bedeutung von Placebos und Behandlungsgruppen in Experimenten.
+# Sitzung 12: Praktische Datenanalyse
 
-# Der Mittelwert einer Stichprobe und Central Limit Theorem
-- Erklärung des zentralen Grenzwertsatzes und seiner Bedeutung für die Inferenzstatistik.
-- Diskussion über die Berechnung und Interpretation von Stichprobenmittelwerten.
+## Integration der gelernten Methoden
+- Zusammenführung aller bisher gelernten Techniken
+- Fallstudie mit einem realen Datensatz
+- Von der Datenaufbereitung bis zur Interpretation
 
-# Vom Zentralen Grenzwertsatz zum t-Test
-- Überleitung von den Grundlagen des zentralen Grenzwertsatzes zu den Anwendungen des t-Tests.
-- Diskussion über die Schätzung von Populationsparametern und die Anwendung des t-Tests.
+## Tipps für die Hausarbeit
+- Aufbau und Struktur
+- Häufige Fallstricke vermeiden
+- Bewertungskriterien im Detail
 
-# Guiness-Bier brachte die Lösung
-- Anekdote über William Sealy Gosset und die Entstehung der t-Verteilung.
-- Diskussion über die Bedeutung von Freiheitsgraden und deren Einfluss auf die t-Verteilung.
+# Sitzung 13: Abschluss und Ausblick
 
-# Wichtige Annahmen des t-Tests
-- Überblick über die Annahmen, die für die Durchführung des t-Tests erforderlich sind.
-- Praktische Demonstration der Anwendung des t-Tests in R.
+## Zusammenfassung der wichtigsten Methoden
+- Deskriptive Statistik
+- Inferenzstatistik
+- Korrelation und Regression
+- Hypothesentests
 
-# Was ist denn nun „Signifikanz“?
-- Diskussion über das Konzept der statistischen Signifikanz und die Interpretation von p-Werten.
+## Überblick: Weiterführende statistische Methoden
+- ANOVA (Varianzanalyse)
+- Multiple Regression
+- Logistische Regression
+- Faktoranalyse
+- Zeitreihenanalyse
+- Bayesianische Statistik
 
-# Testauswahl und Interpretation der Ergebnisse
-- Überlegungen zur Auswahl geeigneter statistischer Tests.
-- Diskussion über die Interpretation der Outputs statistischer Tests.
+## Offene Fragen und Diskussion
 
-
+## Evaluation und Feedback
