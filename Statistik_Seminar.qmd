@@ -1,11 +1,4 @@
 ---
-title: "Untitled"
-author: "Dr. Tom Alby"
-format: pptx
-editor: visual
----
-
----
 title: "Statistik für die Angewandte Forschung"
 format: pptx
 author: "Dr. Tom Alby"
@@ -58,16 +51,6 @@ author: "Dr. Tom Alby"
 - Möglichkeit der **Probeabgabe**
 - **Bewertungskriterien** sind online
 
-## Kurzer Rundgang durch RStudio
-
-## Notebooks: Format für Hausarbeiten
-- Demo: Gedanken, Code, Visualisierungen und Ergebnisse in einem Dokument
-- Dokumentation eigener Arbeit und Transparenz in der Zusammenarbeit
-- Markdown vs Markup
-- Export in verschiedene Formate
-- Snippets auch für andere Sprachen!
-- Ab jetzt: Mitschreiben im Notebook
-- Wichtig: Immer schön speichern zwischendurch (strg-s / ctrl-s)
 
 ## Unterstützung für Studierende
 - Studentische Seelsorge, rund um die Uhr: 040 41170411
@@ -154,6 +137,32 @@ author: "Dr. Tom Alby"
 - PSPP
 - R
 
+## Die Programmiersprache R
+
+- R: Statistische Programmiersprache und Umgebung
+- Nachfolger von S (Unnützes Wissen, Teil 1)
+- Großer Vorteil: R ist von Statistikern für Statistiker
+- Großer Nachteil: R ist von Statistikern für Statistiker
+- Open Source
+- Packages (Libraries) erweitern den Umfang
+
+## Die IDE RStudio
+
+- “Wenn R ein Pferd ist, dann ist RStudio der Sattel.”
+- Entwickelt von RStudio PBC, heute Posit PBC
+- Kostenlos für den Heimgebrauch
+
+## Kurzer Rundgang durch RStudio
+
+## Notebooks: Format für Hausarbeiten
+- Demo: Gedanken, Code, Visualisierungen und Ergebnisse in einem Dokument
+- Dokumentation eigener Arbeit und Transparenz in der Zusammenarbeit
+- Markdown vs Markup
+- Export in verschiedene Formate
+- Snippets auch für andere Sprachen!
+- Ab jetzt: Mitschreiben im Notebook
+- Wichtig: Immer schön speichern zwischendurch (strg-s / ctrl-s)
+
 ## R/RStudio lokal versus Cloud-Version
 - Bitte versuchen Sie R und RStudio lokal zu installieren
 - Cloud-Version nur für dieses Semester
@@ -163,10 +172,32 @@ author: "Dr. Tom Alby"
 - Einführung in grundlegende R-Operationen
 - Verständnis der Objekt- und Funktionsstruktur in R
 
-## Datentypen und Datenstrukturen in R
-- Vektoren, Dataframes und Listen
-- Anwendungsbeispiele zur Manipulation
-- Erste Übungen
+## Datentypen in R
+
+- Character
+- Numerisch: integer und double
+- Factor
+- Datum
+- Datentypen sind wirklich wichtig, da viele Fehler wegen falscher Datentypen aufkommen
+- Dynamic typing
+- Demo
+
+## Datenstrukturen in R
+
+- Vektor: Liste mit gleichen Datentypen
+- Dataframe: Tabelle mit Vektoren als Spalten
+- Liste: verschiedene Datentypen
+- Matrix: Tabelle nur mit gleichen Datentypen
+- Array: Dreidimensionale Matrix
+- Demo
+
+## Dataframes
+
+- Data Frames sind ein fundamentales Konzept in R
+- Zeilen für Observationen, Spalten für Attribute
+- Um nur mit einer Spalte zu arbeiten, kann diese mit einem
+Dollarzeichen spezifiziert werden, z.B. cars$speed
+- Demo
 
 # Sitzung 3: Deskriptive Statistik I
 
