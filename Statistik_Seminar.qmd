@@ -7,74 +7,85 @@ author: "Dr. Tom Alby"
 # Sitzung 1: Einführung & Organisatorisches
 
 ## Administratives
-- Grundkenntnisse Statistik, nicht nur für die Uni
-- Werkzeuge für Datenanalyse in der Bachelor-Arbeit
+
+-   Grundkenntnisse Statistik, nicht nur für die Uni
+-   Werkzeuge für Datenanalyse in der Bachelor-Arbeit
 
 ## Was Sie erwartet
-- Einführung in R und RStudio
-- Datenimport und -aufbereitung
-- Explorative Datenanalyse
-- Datenvisualisierung
-- Wahrscheinlichkeitsrechnung
-- Lineare Regression
-- Hypothesentests
-- Korrelationen
+
+-   Einführung in R und RStudio
+-   Datenimport und -aufbereitung
+-   Explorative Datenanalyse
+-   Datenvisualisierung
+-   Wahrscheinlichkeitsrechnung
+-   Lineare Regression
+-   Hypothesentests
+-   Korrelationen
 
 ## Erwartungen und Interaktion
-- **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
-  - 16 Uhr: #68430031
-  - 18 Uhr: #68430032
+
+-   **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
+    -   16 Uhr: #68430031
+    -   18 Uhr: #68430032
 
 ## Welche Note kann ich erwarten?
+
 ![](images/grade-distribution.png)
 
 ## Rules of Working I
-- **Fragen:** Bitte unterbrechen Sie mich für Fragen
-- **Kontakt:** [tom@alby.de](mailto:tom@alby.de)
-- **Moodle:** Einschreibeschlüssel: iLoveStats!
-- **Materialien:** <https://alby.link/statistik>
-- Präsentation wird öfter aktualisiert
+
+-   **Fragen:** Bitte unterbrechen Sie mich für Fragen
+-   **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
+-   **Moodle:** Einschreibeschlüssel: iLoveStats!
+-   **Materialien:** <https://alby.link/statistik>
+-   Präsentation wird öfter aktualisiert
 
 ## Rules of Working II
-- **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
-- **Keine Gruppenarbeit:** Im Kurs ja, für die Hausarbeit nein
-- **Teilnahme:** Präsenzpflicht, in Ausnahmefällen auch online via Zoom (HU), Aufzeichnungen verfügbar
-- **ChatGPT & Co:** Erlaubt, aber...
-- Bitte kein **bedeutungsloser Wohlklang**
+
+-   **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
+-   **Keine Gruppenarbeit:** Im Kurs ja, für die Hausarbeit nein
+-   **Teilnahme:** Präsenzpflicht, in Ausnahmefällen auch online via Zoom (HU), Aufzeichnungen verfügbar
+-   **ChatGPT & Co:** Erlaubt, aber...
+-   Bitte kein **bedeutungsloser Wohlklang**
 
 ## Wie sieht die Hausarbeit aus?
-- **Sie** suchen sich einen Datensatz aus und **holen** sich das "Ok"
-- Hausarbeit in einem speziellen **Dateiformat**, das im Kurs vermittelt wird
-- Enthält Code, Ergebnisse, Visualisierungen und Gedanken
-- Hausarbeit wird **während des Semesters** vorbereitet
-- Wöchentliche Besprechung im Seminar
-- Möglichkeit der **Probeabgabe**
-- **Bewertungskriterien** sind online
+
+-   **Sie** suchen sich einen Datensatz aus und **holen** sich das "Ok"
+-   Hausarbeit in einem speziellen **Dateiformat**, das im Kurs vermittelt wird
+-   Enthält Code, Ergebnisse, Visualisierungen und Gedanken
+-   Hausarbeit wird **während des Semesters** vorbereitet
+-   Wöchentliche Besprechung im Seminar
+-   Möglichkeit der **Probeabgabe**
+-   **Bewertungskriterien** sind online
 
 ## Letzte Fragen?
 
 ## Unterstützung für Studierende
-- Studentische Seelsorge, rund um die Uhr: 040 41170411
-- [Studierendenberatung@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
-- [krisenteam@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
-- Psychologische Sprechzeit ohne Anmeldung (Dienstags 14-15 Uhr): +49 152 247 44 063
-- Weitere Infos: [HAW Beratung](https://www.haw-hamburg.de/beratung/)
+
+-   Studentische Seelsorge, rund um die Uhr: 040 41170411
+-   [Studierendenberatung\@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
+-   [krisenteam\@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
+-   Psychologische Sprechzeit ohne Anmeldung (Dienstags 14-15 Uhr): +49 152 247 44 063
+-   Weitere Infos: [HAW Beratung](https://www.haw-hamburg.de/beratung/)
 
 # Sitzung 2: Grundlagen der Datenanalyse
 
 ## Let's start!
+
 ![](images/marketoonist-big-data.png)
 
 ## Was sind Daten?
-- **Daten**
-  - Roh, ungeordnet, noch nicht interpretiert
-  - Bestehen aus Zahlen, Zeichen, Fakten ohne Kontext
-- **Informationen**
-  - Verarbeitete, kontextualisierte Daten
-  - Haben Bedeutung und Relevanz für eine Fragestellung
-  - **Daten + Kontext = Information**
+
+-   **Daten**
+    -   Roh, ungeordnet, noch nicht interpretiert
+    -   Bestehen aus Zahlen, Zeichen, Fakten ohne Kontext
+-   **Informationen**
+    -   Verarbeitete, kontextualisierte Daten
+    -   Haben Bedeutung und Relevanz für eine Fragestellung
+    -   **Daten + Kontext = Information**
 
 ## DIKW-Pyramide
+
 ![](images/dikw-pyramid-removebg-preview.png)
 
 ## Datenmerkmale
@@ -98,675 +109,1247 @@ author: "Dr. Tom Alby"
 | **Vorausschau – Was muss passieren, damit es eintritt?** | **Präskriptive (inferenzielle) Verfahren** | Simulation (Monte‑Carlo), Lineare/Ganzzahl‑Optimierung, Entscheidungsbäume mit Unsicherheits‑Berücksichtigung |
 
 ## Wo finde ich Daten?
-- Datenquellen: Kaggle, Statistisches Bundesamt, etc.
+
+-   Datenquellen: Kaggle, Statistisches Bundesamt, etc.
 
 ## Die Programmiersprache R
-- R: Statistische Programmiersprache und Umgebung
-- Vorteile und Nachteile von R
-- Open Source und Erweiterbarkeit durch Packages
+
+-   R: Statistische Programmiersprache und Umgebung
+-   Vorteile und Nachteile von R
+-   Open Source und Erweiterbarkeit durch Packages
 
 ## Packages laden und installieren
-- Packages als Erweiterungen zu base R
-- Installation und Laden von Packages
-- Praktische Anwendung im Projekt
+
+-   Packages als Erweiterungen zu base R
+-   Installation und Laden von Packages
+-   Praktische Anwendung im Projekt
 
 ## Die IDE RStudio
-- "Wenn R ein Pferd ist, dann ist RStudio der Sattel."
-- Entwickelt von RStudio PBC, heute Posit PBC
-- Kostenlos für den Heimgebrauch
+
+-   "Wenn R ein Pferd ist, dann ist RStudio der Sattel."
+-   Entwickelt von RStudio PBC, heute Posit PBC
+-   Kostenlos für den Heimgebrauch
 
 ## Die Arbeitsumgebung
-- Sozusagen der “Arbeitsspeicher”
-- Enthält nicht nur Objekte, sondern auch Packages
-- Häufige Fehlerursache: 
--- Man geht davon aus, dass etwas geladen ist, ist es aber nicht.
--- Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
-- R lädt alles (!) in den Arbeitsspeicher. 
+
+-   Sozusagen der “Arbeitsspeicher”
+-   Enthält nicht nur Objekte, sondern auch Packages
+-   Häufige Fehlerursache: -- Man geht davon aus, dass etwas geladen ist, ist es aber nicht. -- Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
+-   R lädt alles (!) in den Arbeitsspeicher.
 
 ## Die ersten Schritte mit R
-- R als Taschenrechner
-- Objekt- und Funktionsstruktur in R
-- Zuordnung über `<-`
-- Hilfe über `?FUNKTIONSNAME`
+
+-   R als Taschenrechner
+-   Objekt- und Funktionsstruktur in R
+-   Zuordnung über `<-`
+-   Hilfe über `?FUNKTIONSNAME`
 
 ## Funktionen
-- Funktionsstruktur: `funktionsname(Parameter)`
-- Beispiele: `plot()`, `summary()`, `str()`
-- Praktische Anwendung
+
+-   Funktionsstruktur: `funktionsname(Parameter)`
+-   Beispiele: `plot()`, `summary()`, `str()`
+-   Praktische Anwendung
 
 ## Datentypen in R
-- Character
-- Numerisch: integer und double
-- Factor
-- Datum
-- Dynamic typing und Bedeutung korrekter Datentypen
+
+-   Character
+-   Numerisch: integer und double
+-   Factor
+-   Datum
+-   Dynamic typing und Bedeutung korrekter Datentypen
 
 ## Datenstrukturen in R
+
 ![](images/data-structures.png)
 
 ## Datenstrukturen in R
-- Vektor: Liste mit gleichen Datentypen
-- Dataframe: Tabelle mit Vektoren als Spalten
-- Liste: verschiedene Datentypen
-- Matrix: Tabelle nur mit gleichen Datentypen
-- Array: Dreidimensionale Matrix
+
+-   Vektor: Liste mit gleichen Datentypen
+-   Dataframe: Tabelle mit Vektoren als Spalten
+-   Liste: verschiedene Datentypen
+-   Matrix: Tabelle nur mit gleichen Datentypen
+-   Array: Dreidimensionale Matrix
 
 ## Dataframes
-- Zentrales Konzept in R
-- Struktur: Zeilen für Observationen, Spalten für Attribute
-- Zugriff auf Spalten über Dollarzeichen (`$`)
+
+-   Zentrales Konzept in R
+-   Struktur: Zeilen für Observationen, Spalten für Attribute
+-   Zugriff auf Spalten über Dollarzeichen (`$`)
 
 # Sitzung 3: Deskriptive Statistik I
 
 ## Deskriptive Statistik: Let's talk about money
+
 ![](images/einkommen.jpeg)
 
 ![](images/einkommensschichtung.png)
 
 ## Lageparameter
+
 ![](images/mean-mode-median.png)
 
 ## Lageparameter
-- Mean bezeichnet das arithmetische Mittel, häufig als „Durchschnitt" bezeichnet: mean()
-- Neben dem arithmetischen Mittel existieren weitere Mittelwerte, zum Beispiel das geometrische Mittel
-- Der Median ist weniger anfällig für Ausreißer: median()
-- Der Modalwert kann auch mit kategorialen Variablen umgehen
-- In R existiert kein Befehl für den Modalwert ☹
+
+-   Mean bezeichnet das arithmetische Mittel, häufig als „Durchschnitt" bezeichnet: mean()
+-   Neben dem arithmetischen Mittel existieren weitere Mittelwerte, zum Beispiel das geometrische Mittel
+-   Der Median ist weniger anfällig für Ausreißer: median()
+-   Der Modalwert kann auch mit kategorialen Variablen umgehen
+-   In R existiert kein Befehl für den Modalwert ☹
 
 ## Typisch / ungewöhnlich / unmöglich
+
 ![](images/hadlum.png)
 
 ## Deskriptive Statistik: Übersicht
 
 | Kategorie | Typische Kennzahlen / Techniken |
-|--------------------|----------------------------------------------------|
+|----------------------|-------------------------------------------------|
 | **Lagemaße** | Mittelwert - Median - Modus |
 | **Streuungsmaße** | Spannweite (Range) - Quartilabstand (IQR) - Varianz & Standardabweichung |
 | **Formparameter** | Schiefe (Skewness) - Wölbung (Kurtosis) |
 | **Positionskennwerte** | Quantile - Perzentile - Quartile |
 
 ## Standardabweichung und Varianz
-- Bedeutung und Berechnung
-- Interpretation im Kontext der Normalverteilung
-- Praktische Anwendung mit `sd()` und `var()`
+
+-   Bedeutung und Berechnung
+-   Interpretation im Kontext der Normalverteilung
+-   Praktische Anwendung mit `sd()` und `var()`
 
 ## Wie macht man das in R?
 
-| Kennzahl           | R‑Befehl                         | Kurzbeschreibung                          |
-|--------------------|----------------------------------|-------------------------------------------|
-| Mittelwert         | `mean(data)`                     | Durchschnitt aller Werte                  |
-| Median             | `median(data)`                   | Zentralwert (50 %-Quantil)                |
-| Minimum            | `min(data)`                      | Kleinster Wert                            |
-| Maximum            | `max(data)`                      | Größter Wert                              |
-| Spannweite         | `diff(range(data))`              | Abstand = Max − Min                       |
-| Standardabweichung | `sd(data)`                       | Ø‑Abweichung vom Mittelwert               |
-| Varianz            | `var(data)`                      | Quadrat der Standardabweichung            |
-| Schiefe            | `skewness(data)` *(moments/e1071)* | Asymmetrie der Verteilung                 |
-| Wölbung (Kurtosis) | `kurtosis(data)` *(moments/e1071)* | "Spitzheit" der Verteilung               |
-| Quantile           | `quantile(data, c(.25,.5,.75))`  | 25 %, 50 %, 75 %-Werte (Quartile)         |
+| Kennzahl | R‑Befehl | Kurzbeschreibung |
+|-------------------|------------------------|------------------------------|
+| Mittelwert | `mean(data)` | Durchschnitt aller Werte |
+| Median | `median(data)` | Zentralwert (50 %-Quantil) |
+| Minimum | `min(data)` | Kleinster Wert |
+| Maximum | `max(data)` | Größter Wert |
+| Spannweite | `diff(range(data))` | Abstand = Max − Min |
+| Standardabweichung | `sd(data)` | Ø‑Abweichung vom Mittelwert |
+| Varianz | `var(data)` | Quadrat der Standardabweichung |
+| Schiefe | `skewness(data)` *(moments/e1071)* | Asymmetrie der Verteilung |
+| Wölbung (Kurtosis) | `kurtosis(data)` *(moments/e1071)* | "Spitzheit" der Verteilung |
+| Quantile | `quantile(data, c(.25,.5,.75))` | 25 %, 50 %, 75 %-Werte (Quartile) |
 
 ## Übung
-- Praktische Anwendung von deskriptiven Statistiken
+
+-   Praktische Anwendung von deskriptiven Statistiken
 
 # Sitzung 4: Deskriptive Statistik II & Datenmanipulation
 
 ## Tidyverse
-- Einführung in das Tidyverse-Paket
-- Code the way you think
-- Module wie dplyr und readr
+
+-   Einführung in das Tidyverse-Paket
+-   Code the way you think
+-   Module wie dplyr und readr
 
 ## Der typische Ablauf
-- Datenprozess von Import bis Analyse
+
+-   Datenprozess von Import bis Analyse
 
 ## Daten lesen und schreiben
-- Dateiformate: CSV, JSON, ARFF, Excel, Parquet
-- Vor- und Nachteile verschiedener Formate
-- Import-Methoden in R, besonders mit readr
+
+-   Dateiformate: CSV, JSON, ARFF, Excel, Parquet, u.a.
+-   Vor- und Nachteile verschiedener Formate
+-   Import-Beispiele
+
+## Pro-Tipp
+
+-   Importzeile aus Code Preview kopieren und ins Notebook kopieren
+-   library ignorieren (haben wir schon mit dem Tidyverse importiert)
+-   View(gadata) ignorieren (nervt nur)
 
 ## Rohdaten transformieren und zusammenfassen
-- Rohdaten versus aggregierte Daten
-- Daten transformieren mit Tidyverse
-- Das Pipe-Symbol `%>%` und `|>`
+
+> Beschreiben Sie die Schritte, um eine Tüte Gummibärchen nach Farben zu sortieren
+
+## Rohdaten transformieren und zusammenfassen
+
+![](images/gummibaerchen.png)
+
+-   Öffne die Gummibärchentüte
+-   Gruppiere die Gummibärchen nach Farbe
+-   Zähle die Gummibärchen pro Farbe durch
+-   Zugabe: Sortiere absteigend nach Häufigkeit
+
+## Rohdaten transformieren und zusammenfassen
+
+``` r
+Gummibärchentüte %>%
+  group_by(farbe) %>%
+  summarize(Anzahl = n()) %>%
+  arrange(desc(Anzahl))
+```
 
 ## Typische Funktionen in Tidyverse
-- `group_by()`: Gruppieren nach Variablen
-- `select()`: Spalten auswählen
-- `filter()`: Zeilen nach Werten filtern
-- `mutate()`: Variablen erstellen oder modifizieren
-- `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
-- `arrange()`: Sortierung ändern
+
+-   `group_by()`: Gruppieren nach Variablen
+-   `select()`: Spalten auswählen
+-   `filter()`: Zeilen nach Werten filtern
+-   `mutate()`: Variablen erstellen oder modifizieren
+-   `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
+-   `arrange()`: Sortierung ändern
 
 ## Reguläre Ausdrücke
-- Mustererkennung in Daten
-- Anwendung in `filter()` und `mutate()`
+
+-   Mustererkennung in Daten
+-   Anwendung in `filter()` und `mutate()`
 
 ## Typische Fehler
-- Package nicht geladen
-- Pipe-Symbol falsch verwendet
-- Unvollständige Code-Chunks
 
-## Dataframes in R
-- Grundlagen zu Data Frames
-- Manipulation von Datenframes
-
-## Explorative Datenanalyse mit Notebooks
-- Vorteile der Nutzung von Notebooks
-- Praktisches Beispiel zur Analyse
+-   Package nicht geladen
+-   Pipe-Symbol falsch verwendet
+-   Unvollständige Code-Chunks
 
 # Sitzung 5: Datenvisualisierung
 
 ## Warum Datenvisualisierung?
 
-> The greatest value of a picture is when it forces us to notice what we never expected to see.
-(John Tukey)
+> The greatest value of a picture is when it forces us to notice what we never expected to see. (John Tukey)
 
 ## 5 wichtige Schritte
-1. Was ist der Kontext?
-   - An wen wird kommuniziert?
-   - Was soll der Empfänger wissen oder tun?
-   - Welche Daten sind vorhanden, um den Case zu untermauern?
-2. Welche ist das passendste Visualierung?
-   - Ein oder zwei Zahlen, die im Fokus stehen? => Text!
-   - Liniendiagramme für continuous data
-   - Säulendiagramme für kategoriale Daten, müssen bei 0 anfangen
-   - Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
-   - Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
+
+1.  Was ist der Kontext?
+    -   An wen wird kommuniziert?
+    -   Was soll der Empfänger wissen oder tun?
+    -   Welche Daten sind vorhanden, um den Case zu untermauern?
+2.  Welche ist das passendste Visualierung?
+    -   Ein oder zwei Zahlen, die im Fokus stehen? =\> Text!
+    -   Liniendiagramme für continuous data
+    -   Säulendiagramme für kategoriale Daten, müssen bei 0 anfangen
+    -   Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
+    -   Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
 
 ## 5 wichtige Schritte, Teil II
-3. Entfernen Sie „Clutter"
-   1. Entfernen Sie alles, das keinen informativen Mehrwert hat (z.B. Farben für die Ästhetik)
-   2. Arbeiten Sie mit freiem Raum
-4. Fokussieren Sie die Aufmerksamkeit, wo Sie hin soll
-   - Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
-   - Wohin gehen die Augen?
-5. Nutzen Sie Storytelling
-   - Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
-   - Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
-   - Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
 
-## Farben sinnvoll nutzen, wenn überhaupt
-- Farben haben einen zusätzlichen Informationswert (z.B. Rot als Warnung, Gefahr, Blut).
-- Einsatz von Farben nur, wenn dadurch auch Informationen transportiert werden!
-- Vorsicht: Nicht immer werden Diagramme auch farbig ausgegeben (s/w-Druck, e-ink-Reader), so dass Diagramme auch ohne Farben funktionieren müssen.
+3.  Entfernen Sie „Clutter"
+    1.  Entfernen Sie alles, das keinen informativen Mehrwert hat (z.B. Farben für die Ästhetik)
+    2.  Arbeiten Sie mit freiem Raum
+4.  Fokussieren Sie die Aufmerksamkeit, wo Sie hin soll
+    -   Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
+    -   Wohin gehen die Augen?
+5.  Nutzen Sie Storytelling
+    -   Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
+    -   Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
+    -   Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
 
-## Weitere Prinzipien der Visualisierung
-Die besten Grafiken kommen ohne Legende aus!
+## Redundant Coding
 
-## Weitere Prinzipien der Visualisierung
 „Redundant Coding"
 
 ## Weitere Prinzipien der Visualisierung
+
 Weißer Space ist gut… aber nicht zu viel!
 
 ## Weitere Prinzipien der Visualisierung
-Vermeiden Sie Wiederholungen! Versuchen Sie Aussagen zu bündeln (also nicht Passagierklassen einzeln, Geschlechter einzeln, etc...
-Aber: Erwarten Sie nicht, dass Ihre Leser:innen komplexe Grafilen sofort verstehen!
 
-## Weitere Prinzipien der Visualisierung
 Highlighting hilft auf das zu fokussieren, was wirklich wichtig ist
 
-## How to identify the right diagram?
-- Charts are not decoration – they serve a narrative function
-- Each chart type answers a specific kind of question
-- Choose based on what you want the audience to see or decide
-- Five core purposes:
-  - Compare values
-  - Show change over time
-  - Show distribution of data
-  - Show relationships between variables
-  - Show composition of data
-- Good storytelling starts by picking the right question – not the fanciest chart
+## Wie identifiziert man das richtige Diagramm?
 
-## Relationship: Scatter Plot
-- Visualizes how two continuous variables relate to each other
-- Each dot represents a single observation (person, product, day)
-- Great for finding patterns, clusters, outliers, and correlations
-- X and Y axes must be numeric and continuous
-- Can add a third dimension with dot size or color
+## Scatter Plot / Streudiagramm
 
-## Relationship: Correlogram
-- Visualizes correlation strength between multiple variables
-- Uses color and size to indicate direction and magnitude
-- Positive and negative correlations are easily distinguishable
-- Great for spotting patterns, clusters, or redundant variables
-- Especially useful in exploratory data analysis
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Beziehung zwischen zwei kontinuierlichen Variablen
+-   Jeder Punkt = eine Beobachtung
+-   Erkennt Muster, Cluster, Ausreißer und Korrelationen
+-   Benötigt numerische X/Y-Achsen
+-   Dritte Dimension durch Punktgröße/Farbe möglich
+:::
 
-## Relationship: Overlap between Datasets w/ Venn Diagram
-- Visualizes shared and unique elements between groups
-- Overlaps = common ground; non-overlaps = differences
-- Great for comparing categories, traits, or stakeholder interests
-- Best with 2–3 groups; max. 5 before it gets confusing
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+scatter_data <- data.frame(
+  x = rnorm(100),
+  y = rnorm(100),
+  gruppe = sample(LETTERS[1:3], 100, replace = TRUE)
+)
+# Korrelation hinzufügen
+scatter_data$y <- scatter_data$y + scatter_data$x * 0.7 + rnorm(100, 0, 0.5)
+ggplot(scatter_data, aes(x = x, y = y, color = gruppe)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_brewer(palette = "Set1") +
+  theme_minimal() +
+  labs(x = "Variable X", y = "Variable Y", color = "Gruppe")
+```
+:::
+:::::
 
-## Relationship: Overlap between Datasets w/ UpSet Diagram
-- Visualizes intersections between multiple sets
-- More scalable than Venn diagrams for complex overlaps
-- Bars show size of each intersection
-- Dots show which sets are involved
-- Ideal for 4+ groups where Venn diagrams become unclear
+## Korrelationsmatrix
 
-## Relationship and Flows: Sankey Diagram
-- Visualizes flows between categories
-- Width of arrows represents volume or value
-- Great for showing distribution, conversions, or processes
-- Highlights where resources come from and go to
-- Ideal for understanding proportions across stages
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Korrelationsstärke zwischen Variablen
+-   Farbe/Größe visualisiert Richtung und Stärke
+-   Unterscheidet klar positive/negative Korrelationen
+-   Identifiziert Muster und redundante Variablen
+-   Essentiell für explorative Datenanalyse
+:::
 
-## Comparison: Horizontal Bar Chart
-- Compares values across categories
-- Bars run left to right, making labels easier to read
-- Ideal for long category names or many items
-- Great for ranking or comparing individual values
-- Simple, clear, and easy to scan at a glance
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+library(reshape2)
 
-## Comparison: Column Chart
-- Compares values across categories using vertical bars
-- Best used for ranking, performance, or discrete comparisons
-- Works well with few categories and clear labeling
-- Avoid rotating labels – keep category names short and readable
-- Use consistent baseline (zero) for honest comparisons
+# Direkt eine gültige Korrelationsmatrix erstellen
+set.seed(123)
+vars <- 5
+varNames <- LETTERS[1:vars]
+
+# Simulierte Daten direkt erstellen
+sim_data <- data.frame(
+  A = rnorm(100),
+  B = rnorm(100),
+  C = rnorm(100),
+  D = rnorm(100),
+  E = rnorm(100)
+)
+# Korrelationen hinzufügen
+sim_data$B <- sim_data$B + sim_data$A * 0.7 + rnorm(100, 0, 0.5)
+sim_data$C <- sim_data$C - sim_data$A * 0.4 + rnorm(100, 0, 0.5)
+sim_data$D <- sim_data$D + sim_data$B * 0.6 + rnorm(100, 0, 0.5)
+sim_data$E <- sim_data$E - sim_data$C * 0.5 + sim_data$D * 0.3 + rnorm(100, 0, 0.5)
+
+# Korrelationsmatrix berechnen
+cormat <- round(cor(sim_data), 2)
+melted_cormat <- melt(cormat)
+
+ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "firebrick", high = "steelblue", mid = "white", 
+                     midpoint = 0, limit = c(-1,1)) +
+  geom_text(aes(label = round(value, 2)), color = "black", size = 3) +
+  theme_minimal() +
+  coord_equal() +
+  labs(fill = "Korrelation")
+```
+:::
+:::::
+
+## Venn-Diagramm
+
+::::: columns
+::: {.column width="60%"}
+-   Zeigt gemeinsame und einzigartige Elemente
+-   Überschneidungen visualisieren Gemeinsamkeiten
+-   Ideal für Vergleich von Kategorien/Merkmalen
+-   Funktioniert am besten mit 2-3 Gruppen
+-   Wird mit mehr als 5 Gruppen unübersichtlich
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+# Vereinfachtes Venn-Diagramm mit ggplot2
+theta <- seq(0, 2*pi, length.out = 100)
+circle <- data.frame(
+  x = cos(theta),
+  y = sin(theta)
+)
+ggplot() +
+  # Kreis A
+  geom_polygon(data = circle, aes(x = x*1.2 - 0.5, y = y*1.2), 
+               fill = "steelblue", alpha = 0.5) +
+  # Kreis B
+  geom_polygon(data = circle, aes(x = x*1.2 + 0.5, y = y*1.2), 
+               fill = "firebrick", alpha = 0.5) +
+  # Labels
+  annotate("text", x = -1, y = 0, label = "A", size = 6, fontface = "bold", color = "white") +
+  annotate("text", x = 1, y = 0, label = "B", size = 6, fontface = "bold", color = "white") +
+  annotate("text", x = 0, y = 0, label = "A ∩ B", size = 5, fontface = "bold") +
+  theme_void() +
+  coord_equal()
+```
+:::
+:::::
+
+## UpSet Diagram
+
+::::: columns
+::: {.column width="60%"}
+-   Alternative für komplexe Überschneidungen
+-   Skalierbarer als klassische Venn-Diagramme
+-   Balken visualisieren Überschneidungsgrößen
+-   Punkte zeigen beteiligte Mengen
+-   Ideal für 4+ Gruppen/komplexe Beziehungen
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+# Vereinfachtes UpSet-Diagramm mit ggplot2
+sets <- c("A", "B", "C")
+combinations <- data.frame(
+  sets = c("A", "B", "C", "A∩B", "A∩C", "B∩C", "A∩B∩C"),
+  size = c(15, 10, 12, 8, 6, 5, 3),
+  A = c(1, 0, 0, 1, 1, 0, 1),
+  B = c(0, 1, 0, 1, 0, 1, 1),
+  C = c(0, 0, 1, 0, 1, 1, 1)
+)
+# Oberer Teil: Set-Größen
+p1 <- ggplot(combinations[1:3,], aes(x = sets, y = size)) +
+  geom_bar(stat = "identity", fill = "grey60", width = 0.6) +
+  theme_minimal() +
+  labs(x = NULL, y = "Set-Größe") +
+  theme(axis.text.x = element_text(angle = 0))
+# Unterer Teil: Überschneidungen
+p2 <- ggplot(combinations[4:7,], aes(x = sets, y = size)) +
+  geom_bar(stat = "identity", fill = "steelblue", width = 0.6) +
+  theme_minimal() +
+  labs(x = "Überschneidungen", y = "Größe") +
+  theme(axis.text.x = element_text(angle = 0, size = 8))
+gridExtra::grid.arrange(p1, p2, heights = c(1, 2))
+```
+:::
+:::::
+
+## Sankey Diagram
+
+::::: columns
+::: {.column width="60%"}
+-   Visualisiert Flüsse zwischen Kategorien
+-   Pfeilbreite zeigt Volumen/Wert
+-   Ideal für Verteilungen und Prozesse
+-   Zeigt Herkunft und Ziel von Ressourcen
+-   Verdeutlicht Proportionen über mehrere Stufen
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+library(ggalluvial)
+# Sankey/Alluvial Diagramm
+sankey_data <- data.frame(
+  Quelle = rep(c("A", "B", "C"), times = c(3, 2, 2)),
+  Ziel = c("X", "Y", "Z", "X", "Y", "Y", "Z"),
+  Wert = c(5, 3, 2, 2, 3, 1, 4)
+)
+ggplot(sankey_data, aes(axis1 = Quelle, axis2 = Ziel, y = Wert)) +
+  geom_alluvium(aes(fill = Quelle), width = 1/3) +
+  geom_stratum(width = 1/3, fill = "grey80", color = "grey50") +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_fill_brewer(palette = "Set1") +
+  theme_minimal() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = "none",
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+:::
+:::::
+
+## Horizontal Bar Chart
+
+::::: columns
+::: {.column width="60%"}
+-   Vergleicht Werte über Kategorien hinweg
+-   Horizontale Anordnung für bessere Lesbarkeit
+-   Ideal für lange Namen oder viele Kategorien
+-   Perfekt für Rankings und Wertvergleiche
+-   Einfach und übersichtlich
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+hbar_data <- data.frame(
+  kategorie = c("Kategorie mit sehr langem Namen A", 
+                "Kategorie B", 
+                "Kategorie C", 
+                "Kategorie D", 
+                "Kategorie E"),
+  wert = c(85, 72, 56, 41, 25)
+)
+ggplot(hbar_data, aes(x = reorder(kategorie, wert), y = wert)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  theme_minimal() +
+  labs(x = NULL, y = "Wert") +
+  geom_text(aes(label = wert), hjust = -0.2) +
+  ylim(0, max(hbar_data$wert) * 1.15)
+```
+:::
+:::::
+
+## Column Chart
+
+::::: columns
+::: {.column width="60%"}
+-   Vergleicht Werte mit vertikalen Balken
+-   Ideal für Ranking und Leistungsvergleiche
+-   Funktioniert gut mit wenigen, klaren Kategorien
+-   Kurze, lesbare Beschriftungen bevorzugen
+-   Konsistente Nullbasislinie für faire Vergleiche
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+column_data <- data.frame(
+  kategorie = factor(c("A", "B", "C", "D", "E"), levels = c("A", "B", "C", "D", "E")),
+  wert = c(85, 72, 56, 41, 25)
+)
+ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal() +
+  labs(x = NULL, y = "Wert") +
+  theme(legend.position = "none") +
+  geom_text(aes(label = wert), vjust = -0.5) +
+  ylim(0, max(column_data$wert) * 1.1)
+```
+:::
+:::::
 
 ## Comparison: Horizontal vs. Vertical Bar Charts
+
 | Feature | Horizontal | Vertical |
-|---------|------------|----------|
+|---------------------|----------------------------|-----------------------|
 | Best for | Long category labels, many items | Time-based or logical progression |
 | Readability | Easier when labels are long | Requires rotation for long labels |
 | Use case | Rankings, survey responses | Trends over time, grouped comparisons |
 | Scan direction | Left to right | Bottom to top |
 | Visual space | Efficient for many categories | Better for fewer, high-impact bars |
 
-Use horizontal when the text matters more.
-Use vertical when the order or time is key.
+Use horizontal when the text matters more. Use vertical when the order or time is key.
 
-## Comparison: Circular Bar Plot
-- Bar chart in a circular layout, grouped by category or type
-- Groups are shown through color coding or radial segments
-- Useful for showing patterns across categories in a compact, eye-catching way
-- Good for visual storytelling – but not for detailed comparison
-- Labels can be hard to read – use with care and strong legend
+## Circular Bar Plot
 
-## Comparison: Diverging Bars
-- Visualizes deviation in two directions from a central baseline
-- Bars extend left and right to show contrast or polarity
-- Commonly used for sentiment, change, or normalized values
-- Great for showing balance vs. imbalance across categories
-- Can be based on z-scores, means, or neutral reference points
+::::: columns
+::: {.column width="60%"}
+-   Kreisförmige Darstellung von Werten mit Kategorien
+-   Farbcodierung zeigt Gruppenzugehörigkeit
+-   Kompakte Darstellung von Mustern und Beziehungen
+-   Ideal für visuelles Storytelling
+-   Beschriftungen sparsam und deutlich halten
+:::
 
-## Comparison: Diverging Lollipop Chart
-- Like a diverging bar chart, but with dots instead of full bars
-- Cleaner visual with less ink-to-data ratio
-- Shows the same polarity or comparison with more elegance
-- Great for when precise values matter less than direction and magnitude
-- Particularly good in reports and presentations
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+library(dplyr)
+data <- data.frame(
+  category = rep(LETTERS[1:4], each = 5),
+  subcategory = rep(1:5, 4),
+  value = sample(20:100, 20)
+)
+ggplot(data, aes(x = subcategory, y = value, fill = category)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  coord_polar() +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+```
+:::
+:::::
 
-## Distribution: The Histogram
-- Shows the distribution of numerical data over intervals (bins)
-- Each bar represents the frequency of values in a given range
-- Great for detecting skew, spread, and outliers
-- Helps identify modes or clustering in data
-- Unlike bar charts, the bars are touching – to reflect continuity
+## Diverging Bars
 
-## Distribution: Boxplots – For Experts
-- Summarizes data with minimum, quartiles, and median
-- Highlights spread, skewness, and outliers
-- Excellent for comparing distributions across categories
-- Very compact – shows a lot with little space
-- Can be hard to interpret for non-technical audiences
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Abweichungen in zwei Richtungen
+-   Links/rechts von zentraler Basislinie
+-   Ideal für Kontraste (positiv/negativ)
+-   Zeigt Gleichgewicht vs. Ungleichgewicht
+-   Gut für normalisierte Werte oder Z-Scores
+:::
 
-## Distribution: Boxplots, in combination with a Violin Plot
-- Combines boxplot and density curve in one chart
-- Shows distribution shape, spread, and central tendency
-- Ideal for comparing multiple groups or conditions
-- Reveals skew, multimodality, and outliers more clearly than a boxplot alone
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+diverging_data <- data.frame(
+  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
+  value = c(5, -2, 8, -3, 6, -1, 4, -7)
+)
+ggplot(diverging_data, aes(x = category, y = value, fill = value > 0)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("firebrick", "steelblue"), guide = "none") +
+  coord_flip() +
+  theme_minimal() +
+  labs(y = "Abweichung vom Mittelwert")
+```
+:::
+:::::
 
-## Distribution: Choropleth Map
-- Colors geographic areas based on data values
-- Great for showing regional differences or spatial patterns
-- Easy to interpret at a glance, especially for ratios or percentages
-- Works best with normalized data (e.g. per capita, % change)
-- Can be misleading if areas differ greatly in size or population
+## Diverging Lollipop Chart
 
-## Composition: Stacked Area Chart
-- Shows how multiple categories contribute to a total over time
-- Layers are stacked, making cumulative trends visible
-- Good for tracking overall growth and category proportions
-- Works best with few categories to avoid clutter
-- Hard to compare individual segments precisely
+::::: columns
+::: {.column width="60%"}
+-   Elegantere Alternative zu Diverging Bars
+-   Nutzt Punkte statt Balken (weniger Tinte)
+-   Zeigt Richtung und Magnitude effektiv
+-   Ideal wenn genaue Werte sekundär sind
+-   Besonders gut für Präsentationen
+:::
 
-## Composition: Stacked 100% Area Chart
-- When you want to show relative proportions, not absolute values
-- Ideal for tracking how category shares change over time
-- Total always equals 100%, making comparisons easier across time
-- Best for emphasizing composition, not growth
-- Avoid when total size is also important – absolute trends get lost
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+lollipop_data <- data.frame(
+  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
+  value = c(5, -2, 8, -3, 6, -1, 4, -7)
+)
+ggplot(lollipop_data, aes(x = category, y = value, color = value > 0)) +
+  geom_segment(aes(y = 0, x = category, yend = value, xend = category), color = "grey") +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("firebrick", "steelblue"), guide = "none") +
+  coord_flip() +
+  theme_minimal() +
+  labs(y = "Abweichung vom Mittelwert")
+```
+:::
+:::::
 
-## Composition: Waterfall Diagram
-- Shows how individual values contribute to a total
-- Combines increases and decreases across categories
-- Highlights step-by-step change from a starting to an ending value
-- Great for explaining variance, profit breakdowns, or budget changes
-- Makes it easy to see which factors drive the final result
+## Histogram
 
-## Composition: Heatmap
-- Uses color intensity to represent values in a matrix
-- Great for spotting patterns, clusters, and anomalies
-- Works well for correlations, time series, or categorical combinations
-- Easy to scan – but not ideal for precise values
-- Color scale choice is crucial for correct interpretation
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Verteilung numerischer Daten in Bins
+-   Balken zeigen Häufigkeiten in Wertebereichen
+-   Erkennt Schiefe, Streuung und Ausreißer
+-   Zeigt Modi und Clustering in Daten
+-   Berührende Balken betonen Kontinuität
+:::
 
-## Composition: Square Area Chart
-- Represents parts of a whole using a grid of equal-sized squares
-- Each square typically = 1% (in a 10×10 grid)
-- Great for showing simple proportions or progress toward a goal
-- Easy to read and visually engaging
-- Best used with a few categories – not ideal for detailed comparisons
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(123)
+hist_data <- data.frame(
+  value = c(rnorm(400, mean = 5, sd = 1), rnorm(100, mean = 8, sd = 0.5))
+)
+ggplot(hist_data, aes(x = value)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  theme_minimal() +
+  labs(y = "Häufigkeit")
+```
+:::
+:::::
 
-## Composition: Treemap
-- Visualizes part-to-whole relationships using nested rectangles
-- Size of each square represents a value (e.g. revenue, count)
-- Can show hierarchies or groupings visually
-- Good for comparing proportions across categories
-- Can become hard to read with too many small tiles
+## Boxplots
+
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Minimum, Quartile und Median
+-   Kompakte Darstellung von Verteilungen
+-   Hebt Streuung und Ausreißer hervor
+-   Ideal zum Kategorienvergleich
+-   Kann für Laien schwer verständlich sein
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(123)
+box_data <- data.frame(
+  category = rep(c("A", "B", "C", "D"), each = 100),
+  value = c(
+    rnorm(100, mean = 5, sd = 1),
+    rnorm(100, mean = 7, sd = 1.5),
+    rnorm(100, mean = 4, sd = 0.8),
+    rnorm(100, mean = 6, sd = 2)
+  )
+)
+ggplot(box_data, aes(x = category, y = value, fill = category)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2", guide = "none") +
+  theme_minimal()
+```
+:::
+:::::
+
+## Boxplots mit Violin Plot
+
+::::: columns
+::: {.column width="60%"}
+-   Kombiniert Boxplot mit Dichteverteilung
+-   Zeigt Form, Streuung und zentrale Tendenz
+-   Ideal für Gruppenvergleiche
+-   Verdeutlicht Schiefe und Multimodalität
+-   Informationsreichere Alternative zum Boxplot
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(123)
+violin_data <- data.frame(
+  category = rep(c("A", "B", "C"), each = 100),
+  value = c(
+    c(rnorm(50, 5, 1), rnorm(50, 8, 0.5)),
+    rnorm(100, 7, 1.5),
+    rnorm(100, 6, 0.7)
+  )
+)
+ggplot(violin_data, aes(x = category, y = value, fill = category)) +
+  geom_violin(alpha = 0.7) +
+  geom_boxplot(width = 0.2, fill = "white", alpha = 0.7) +
+  scale_fill_brewer(palette = "Set2", guide = "none") +
+  theme_minimal()
+```
+:::
+:::::
+
+## Choropleth Map
+
+::::: columns
+::: {.column width="60%"}
+-   Färbt Regionen basierend auf Datenwerten
+-   Zeigt räumliche Muster und Unterschiede
+-   Gut für Verhältnisse und Prozentsätze
+-   Nutze normalisierte Daten (pro Kopf, %)
+-   Vorsicht bei großen Flächenunterschieden
+:::
+
+::: {.column width="40%"}
+![](images/map.png)
+:::
+:::::
+
+## Stacked Area Chart
+
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Kategorienbeiträge im Zeitverlauf
+-   Gestapelte Schichten zeigen Gesamtsumme
+-   Gut für Wachstum und Anteile
+-   Funktioniert am besten mit wenigen Kategorien
+-   Einzelsegmentvergleich schwierig
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+years <- 2010:2020
+area_data <- data.frame(
+  year = rep(years, 4),
+  category = rep(c("A", "B", "C", "D"), each = length(years)),
+  value = c(
+    10:20 + rnorm(11, 0, 1),
+    20:30 - rnorm(11, 0, 1),
+    15:25 + rnorm(11, 0, 2),
+    25:35 + rnorm(11, 0, 1.5)
+  )
+)
+ggplot(area_data, aes(x = year, y = value, fill = category)) +
+  geom_area() +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+```
+:::
+:::::
+
+## Stacked 100% Area Chart
+
+::::: columns
+::: {.column width="60%"}
+-   Zeigt relative Anteile, nicht absolute Werte
+-   Verfolgt Änderungen von Kategorienanteilen
+-   Summe immer 100% für leichte Vergleichbarkeit
+-   Fokus auf Zusammensetzung, nicht Wachstum
+-   Absolute Trends gehen verloren
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+years <- 2010:2020
+area100_data <- data.frame(
+  year = rep(years, 4),
+  category = rep(c("A", "B", "C", "D"), each = length(years)),
+  value = c(
+    10:20 + rnorm(11, 0, 1),
+    20:30 - rnorm(11, 0, 1),
+    15:25 + rnorm(11, 0, 2),
+    25:35 + rnorm(11, 0, 1.5)
+  )
+)
+ggplot(area100_data, aes(x = year, y = value, fill = category)) +
+  geom_area(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal() +
+  labs(y = "Anteil")
+```
+:::
+:::::
+
+## Waterfall Diagram
+
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Beiträge zu einer Gesamtsumme
+-   Visualisiert Zu- und Abnahmen über Kategorien
+-   Hebt schrittweise Veränderungen hervor
+-   Ideal für Gewinn- oder Budgetanalysen
+-   Zeigt Faktoren für das Endergebnis
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+waterfall_data <- data.frame(
+  stage = factor(c("Start", "Einnahmen", "Kosten", "Steuern", "Ende"), 
+                levels = c("Start", "Einnahmen", "Kosten", "Steuern", "Ende")),
+  value = c(0, 50, -30, -10, 0),
+  end = c(100, 150, 120, 110, 110),
+  start = c(100, 100, 150, 120, 110),
+  type = c("total", "in", "out", "out", "total")
+)
+ggplot(waterfall_data, aes(x = stage, y = value, fill = type)) +
+  geom_rect(aes(x = stage, xmin = as.numeric(stage) - 0.4, 
+                xmax = as.numeric(stage) + 0.4, 
+                ymin = pmin(start, end), ymax = pmax(start, end)), color = "black") +
+  scale_fill_manual(values = c("in" = "steelblue", "out" = "firebrick", "total" = "darkgrey"), 
+                    guide = "none") +
+  theme_minimal() +
+  labs(y = "Wert")
+```
+:::
+:::::
+
+## Heatmap
+
+::::: columns
+::: {.column width="60%"}
+-   Nutzt Farbintensität für Matrixwerte
+-   Zeigt Muster, Cluster und Anomalien
+-   Gut für Korrelationen und Zeitreihen
+-   Einfach zu überblicken, weniger präzise
+-   Farbskala entscheidend für Interpretation
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+n <- 10
+heatmap_data <- expand.grid(x = 1:n, y = 1:n)
+heatmap_data$value <- matrix(rnorm(n^2), n, n)[cbind(heatmap_data$x, heatmap_data$y)]
+ggplot(heatmap_data, aes(x = x, y = y, fill = value)) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  theme_minimal() +
+  coord_equal() +
+  labs(x = "", y = "")
+```
+:::
+:::::
+
+## Square Area Chart
+
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Anteile mit gleichgroßen Quadraten
+-   Typisch: 1 Quadrat = 1% (10×10-Raster)
+-   Ideal für einfache Proportionsdarstellung
+-   Leicht lesbar und ansprechend
+-   Am besten mit wenigen Kategorien
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+square_data <- data.frame(
+  x = rep(1:10, 10),
+  y = rep(1:10, each = 10),
+  category = c(rep("A", 40), rep("B", 25), rep("C", 20), rep("D", 15))
+)
+ggplot(square_data, aes(x = x, y = y, fill = category)) +
+  geom_tile(color = "white") +
+  scale_fill_brewer(palette = "Set2") +
+  coord_equal() +
+  theme_void() +
+  labs(fill = "Kategorie")
+```
+:::
+:::::
+
+## Treemap
+
+::::: columns
+::: {.column width="60%"}
+-   Zeigt Teil-Ganzes-Beziehungen mit Rechtecken
+-   Größe entspricht dem Wert (Umsatz, Anzahl)
+-   Visualisiert Hierarchien und Gruppierungen
+-   Gut für Proportionsvergleiche
+-   Vorsicht bei zu vielen kleinen Elementen
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+library(treemapify)
+treemap_data <- data.frame(
+  category = c("A", "B", "C", "D", "E", "F"),
+  subcategory = c("A1", "B1", "C1", "D1", "E1", "F1"),
+  value = c(25, 18, 12, 10, 8, 5)
+)
+ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
+  geom_treemap() +
+  geom_treemap_text(color = "white", fontface = "bold") +
+  scale_fill_brewer(palette = "Set2") +
+  theme_void()
+```
+:::
+:::::
 
 ## Nein, Sie verwenden bitte keine Pie Charts!
-#![](images/pie-chart-problem.png)
+
+\#![](images/pie-chart-problem.png)
 
 ## Was denken Sie über diese Grafik?
 
-
-## Visualisierung als Teil der Analyse
-- Histogramme (`hist()`) für eine Variable (Visualisierung einer Häufigkeitstabelle)
-- Scatterplots (`plot()`) für mehrere Variablen
-
-## Visualisierung von Verteilungen
-- Histogramme und Boxplots
-- Interpretation von Verteilungsdiagrammen
-
-## Der Boxplot
-- Aufbau und Interpretation
-- Quartile, Median, Ausreißer
-
-## Zusammenhänge visualisieren
-- Scatter Plots und Korrelationsanalysen
-- Fortgeschrittene Methoden wie Heatmaps und Paired Plots
-
 ## Datenvisualisierung mit ggplot2
-- Base Plot vs. ggplot2
-- Grammar of Graphics
-- `geom_point()`, `geom_histogram()`, `geom_boxplot()`
-- Ästhetiken: Farbe, Form, Gruppierung
 
-## Beispiele für Datenvisualisierungen
-- Stacked Area Chart
-- Wie viel trägt jedes Segment zu einem Gesamtergebnis bei?
-- Gibt es auch für Anteile von 100%
-
-## Beispiele für Datenvisualisierungen
-- Circular Bar Plot, rechts zusätzlich mit Gruppen
-- Sieht gut aus, ist modern, aber nicht immer nützlich
-- Kann weniger Platz verbrauchen als ein normales Bar Chart
-
-## Beispiele für Datenvisualisierungen
-- Sankey-Diagramm zur Veranschaulichung von Mengenflüssen
-
-## Beispiele für Datenvisualisierungen
-- Violinen-Plot (Warnung: kann Spurenelemente eines Boxplots enthalten)
-- Zeigt eine diskrete Verteilung; Punkt zeigt den Median
-- Zum Beispiel für die Übereinstimmung von Ratern
-
-## Beispiele für Datenvisualisierungen
-- Bubble Plot
-- Wie ein Scatterplot, nur mit einer oder zwei zusätzlichen Variablen
-- In diesem Beispiel x und y, Farbe, Größe und Zeit (aber die Animation besser nicht mitzählen!)
-
-
+-   Base Plot vs. ggplot2
+-   Grammar of Graphics
+-   `geom_point()`, `geom_histogram()`, `geom_boxplot()`
+-   Ästhetiken: Farbe, Form, Gruppierung
 
 # Sitzung 6: Wahrscheinlichkeiten & Verteilungen
 
 ## Wahrscheinlichkeiten & Verteilungen
-- Intuitive Einführung in Zufall & Normalverteilung
-- Laplace, Simulation, `rnorm()`, `dnorm()`
-- Visualisierung von Wahrscheinlichkeitsdichte
+
+-   Intuitive Einführung in Zufall & Normalverteilung
+-   Laplace, Simulation, `rnorm()`, `dnorm()`
+-   Visualisierung von Wahrscheinlichkeitsdichte
 
 ## Zentrale Grenzwertsätze
-- Warum Mittelwerte normalverteilt sind
-- Simulationen mit `replicate()`, `mean()`
-- Stichprobenverteilungen
+
+-   Warum Mittelwerte normalverteilt sind
+-   Simulationen mit `replicate()`, `mean()`
+-   Stichprobenverteilungen
 
 ## Sitzung 7: Einführung in die Inferenzstatistik
 
 ## Klassische Statistische Inferenz
-- Konzepte der Nullhypothese und Alternativhypothese
-- Placebos und Behandlungsgruppen in Experimenten
-- Randomisierung
+
+-   Konzepte der Nullhypothese und Alternativhypothese
+-   Placebos und Behandlungsgruppen in Experimenten
+-   Randomisierung
 
 ## Hypothesen
-- H0: Nullhypothese
-- H1: Alternativhypothese
-- Isolierbarkeit des Untersuchungsgegenstands
-- Arbeit mit Stichproben statt Grundgesamtheit
+
+-   H0: Nullhypothese
+-   H1: Alternativhypothese
+-   Isolierbarkeit des Untersuchungsgegenstands
+-   Arbeit mit Stichproben statt Grundgesamtheit
 
 ## Der Mittelwert einer Stichprobe
-- Stichprobenverteilung des Mittelwerts
-- Central Limit Theorem
-- Unsicherheiten in der Schätzung
+
+-   Stichprobenverteilung des Mittelwerts
+-   Central Limit Theorem
+-   Unsicherheiten in der Schätzung
 
 ## Konfidenzintervalle
-- Unsicherheiten abschätzen
-- Konfidenzintervall mit `t.test()`
-- Visualisierung von CI über Punkteschätzungen
+
+-   Unsicherheiten abschätzen
+-   Konfidenzintervall mit `t.test()`
+-   Visualisierung von CI über Punkteschätzungen
 
 ## Hypothesentests
-- Testlogik verstehen
-- Null- und Alternativhypothese
-- Fehler 1. & 2. Art
-- Signifikanzniveau, p-Wert
+
+-   Testlogik verstehen
+-   Null- und Alternativhypothese
+-   Fehler 1. & 2. Art
+-   Signifikanzniveau, p-Wert
 
 ## Experimente - Die Statistik-Pille
-#![](images/statistik-pille.png)
-- Mit dieser Pille schreiben Sie garantiert bessere Noten! Aber wie finden wir das heraus?
-- Experimentaufbau mit Test- und Kontrollgruppe
-- Blindtest versus Doppelblindtest
+
+\#![](images/statistik-pille.png) - Mit dieser Pille schreiben Sie garantiert bessere Noten! Aber wie finden wir das heraus? - Experimentaufbau mit Test- und Kontrollgruppe - Blindtest versus Doppelblindtest
 
 # Sitzung 8: t-Tests
 
 ## t-Test
-- Mittelwertvergleiche anwenden
-- `t.test()` mit Beispieldaten
-- Voraussetzungen & Interpretation
-- Visualisierung mit ggplot2
+
+-   Mittelwertvergleiche anwenden
+-   `t.test()` mit Beispieldaten
+-   Voraussetzungen & Interpretation
+-   Visualisierung mit ggplot2
 
 ## Vom Zentralen Grenzwertsatz zum t-Test
-- Stichprobenverteilung und Standardfehler
-- t-Verteilung bei unbekannter Populationsvarianz
-- Vergleich von Mittelwerten
+
+-   Stichprobenverteilung und Standardfehler
+-   t-Verteilung bei unbekannter Populationsvarianz
+-   Vergleich von Mittelwerten
 
 ## Guiness-Bier brachte die Lösung
-- William Sealy Gosset und die Entstehung der t-Verteilung
-- Bedeutung der Freiheitsgrade
+
+-   William Sealy Gosset und die Entstehung der t-Verteilung
+-   Bedeutung der Freiheitsgrade
 
 ## Die t-Verteilung
-#![](images/t-verteilung.png)
-- Eigenschaften im Vergleich zur Normalverteilung
-- Einfluss der Freiheitsgrade
+
+\#![](images/t-verteilung.png) - Eigenschaften im Vergleich zur Normalverteilung - Einfluss der Freiheitsgrade
 
 ## Wichtige Annahmen des t-Tests
-- Unabhängigkeit der Stichproben
-- Normalverteilung der Variablen
-- Metrische Variablen
-- Varianzhomogenität
+
+-   Unabhängigkeit der Stichproben
+-   Normalverteilung der Variablen
+-   Metrische Variablen
+-   Varianzhomogenität
 
 ## Was ist Signifikanz?
-- Definition des Signifikanzniveaus α
-- Interpretation des p-Werts
-- Häufige Fehlinterpretationen
+
+-   Definition des Signifikanzniveaus α
+-   Interpretation des p-Werts
+-   Häufige Fehlinterpretationen
 
 ## Fehler 1. und 2. Art
-- False Positive (α-Fehler)
-- False Negative (β-Fehler)
-- Sensitivität und Spezifität
+
+-   False Positive (α-Fehler)
+-   False Negative (β-Fehler)
+-   Sensitivität und Spezifität
 
 ## Ein- versus zweiseitiger Test
-- Wann ist welcher Test angemessen?
-- Auswirkungen auf p-Werte
+
+-   Wann ist welcher Test angemessen?
+-   Auswirkungen auf p-Werte
 
 ## Praktische Anwendung
-- Reale Beispiele für t-Tests
-- Interpretation von Ergebnissen
+
+-   Reale Beispiele für t-Tests
+-   Interpretation von Ergebnissen
 
 ## Sitzung 9: Umfragen und ANOVA
 
 ## Quantitativ versus Qualitativ
-- Unterschiede in Forschungsansätzen
+
+-   Unterschiede in Forschungsansätzen
 
 ## Datenerhebung
-- Primärdaten vs. Sekundärdaten
-- Umfragen, Interviews, Messungen
+
+-   Primärdaten vs. Sekundärdaten
+-   Umfragen, Interviews, Messungen
 
 ## Verzerrung zugunsten der Überlebenden
-#![](images/survivorship-bias.png)
+
+\#![](images/survivorship-bias.png)
 
 ## Stichprobenverzerrung
-#![](images/stichprobenverzerrung.png)
+
+\#![](images/stichprobenverzerrung.png)
 
 ## Probleme bei Umfragen
-- Convenience Sampling
-- Non-Responder
-- Yes bias
-- No bias
-- Bias towards the middle
-- Soziale Erwünschtheit
-- Logical Response
-- Kulturelle Unterschiede (ein „Nein" ist nicht überall akzeptabel)
+
+-   Convenience Sampling
+-   Non-Responder
+-   Yes bias
+-   No bias
+-   Bias towards the middle
+-   Soziale Erwünschtheit
+-   Logical Response
+-   Kulturelle Unterschiede (ein „Nein" ist nicht überall akzeptabel)
 
 ## Likert-Skala
-- Definition und Verwendung
-- Balance, Neutraloption, Skalenlänge
-- Vermeidung von Leading Questions
+
+-   Definition und Verwendung
+-   Balance, Neutraloption, Skalenlänge
+-   Vermeidung von Leading Questions
 
 ## Einführung in ANOVA
-- Analysis of Variance für mehr als zwei Gruppen
-- Nullhypothese: Alle Gruppenmittelwerte sind gleich
-- Alternativhypothese: Mindestens ein Gruppenmittelwert unterscheidet sich
+
+-   Analysis of Variance für mehr als zwei Gruppen
+-   Nullhypothese: Alle Gruppenmittelwerte sind gleich
+-   Alternativhypothese: Mindestens ein Gruppenmittelwert unterscheidet sich
 
 ## Voraussetzungen und Annahmen
-- Normalverteilung innerhalb der Gruppen
-- Homoskedastizität
-- Unabhängigkeit der Beobachtungen
+
+-   Normalverteilung innerhalb der Gruppen
+-   Homoskedastizität
+-   Unabhängigkeit der Beobachtungen
 
 ## Beispiel Book Crossing-Datensatz
-- Analyse von Unterschieden in Buchbewertungen zwischen Altersgruppen
+
+-   Analyse von Unterschieden in Buchbewertungen zwischen Altersgruppen
 
 ## Interpretation
-- F-Statistik und Varianzvergleich
-- Post-Hoc Tests zur Identifizierung spezifischer Gruppenunterschiede
+
+-   F-Statistik und Varianzvergleich
+-   Post-Hoc Tests zur Identifizierung spezifischer Gruppenunterschiede
 
 # Sitzung 10: Korrelationsanalyse
 
 ## Was ist eine Korrelation?
-- Definition statistischer Zusammenhänge
-- Beispiele für korrelierte Daten
+
+-   Definition statistischer Zusammenhänge
+-   Beispiele für korrelierte Daten
 
 ## Warum sind Korrelationen interessant?
-- Analyse historischer Daten
-- Ethische Einschränkungen bei Experimenten
+
+-   Analyse historischer Daten
+-   Ethische Einschränkungen bei Experimenten
 
 ## Vor der Korrelation kommt die Kovarianz
-- Berechnung und Bedeutung der Kovarianz
-- Standardisierung zur Korrelation
+
+-   Berechnung und Bedeutung der Kovarianz
+-   Standardisierung zur Korrelation
 
 ## Wichtige Aspekte der Korrelation
-- Keine implizierte Kausalrichtung
-- Scheinkorrelationen
-- Pearson's Korrelationskoeffizient und seine Interpretation
-- p-Wert bei Korrelationen
+
+-   Keine implizierte Kausalrichtung
+-   Scheinkorrelationen
+-   Pearson's Korrelationskoeffizient und seine Interpretation
+-   p-Wert bei Korrelationen
 
 ## Korrelations-Tests
-- Pearson-Korrelation: linear
-- Spearman-Korrelation: monoton, rangbasiert
-- Kendall-Tau-Korrelation: Rangordnungsübereinstimmung
+
+-   Pearson-Korrelation: linear
+-   Spearman-Korrelation: monoton, rangbasiert
+-   Kendall-Tau-Korrelation: Rangordnungsübereinstimmung
 
 ## Unterschied Korrelation zu Regression
-- Korrelation misst Stärke des Zusammenhangs
-- Regression prognostiziert Werte
+
+-   Korrelation misst Stärke des Zusammenhangs
+-   Regression prognostiziert Werte
 
 ## Korrelation in R
-- Anwendung von `cor.test()` und Scatterplots
-- Kausalität vs. Korrelation
+
+-   Anwendung von `cor.test()` und Scatterplots
+-   Kausalität vs. Korrelation
 
 ## Inter-Rater Reliability
-- Definition und Ziel der Inter-Rater Reliability
-- Konsistenz zwischen verschiedenen Beurteilern
+
+-   Definition und Ziel der Inter-Rater Reliability
+-   Konsistenz zwischen verschiedenen Beurteilern
 
 ## Methoden zur Messung der IRR
-- Cohen's Kappa: zwei Rater, kategoriale Daten
-- Fleiss' Kappa: mehr als zwei Rater, kategoriale Daten
-- Intraclass Correlation Coefficient (ICC): kontinuierliche Daten
+
+-   Cohen's Kappa: zwei Rater, kategoriale Daten
+-   Fleiss' Kappa: mehr als zwei Rater, kategoriale Daten
+-   Intraclass Correlation Coefficient (ICC): kontinuierliche Daten
 
 ## Interpretation von IRR-Maßen
-- Skalen für Cohen's Kappa, Fleiss' Kappa und ICC
-- Praktische Beispiele
+
+-   Skalen für Cohen's Kappa, Fleiss' Kappa und ICC
+-   Praktische Beispiele
 
 # Sitzung 11: Einfache Lineare Regression
 
 ## Wofür brauche ich lineare Regression?
-- Anwendungsbeispiele: Fairer Preis für gebrauchte Artikel
+
+-   Anwendungsbeispiele: Fairer Preis für gebrauchte Artikel
 
 ## Lineare Regression
-- Vorhersagen mit Regressionslinien
-- `lm()`, `summary()`
-- `geom_smooth(method = "lm")`
-- Interpretation der Koeffizienten
+
+-   Vorhersagen mit Regressionslinien
+-   `lm()`, `summary()`
+-   `geom_smooth(method = "lm")`
+-   Interpretation der Koeffizienten
 
 ## Heteroskedastizität beachten
-- Verteilung der Residuen um die Regressionslinie
-- Homoskedastizität vs. Heteroskedastizität
+
+-   Verteilung der Residuen um die Regressionslinie
+-   Homoskedastizität vs. Heteroskedastizität
 
 ## Nicht-lineare Beziehungen
-- Umgang mit nicht-linearen Beziehungen
-- Transformationen zur Verbesserung der Modellpassung
+
+-   Umgang mit nicht-linearen Beziehungen
+-   Transformationen zur Verbesserung der Modellpassung
 
 ## Logistische Regression
-- Vorhersage binärer abhängiger Variablen
-- Anwendungsbereiche: Medizin, Finanzen, Marketing
+
+-   Vorhersage binärer abhängiger Variablen
+-   Anwendungsbereiche: Medizin, Finanzen, Marketing
 
 ## Das logistische Regressionsmodell
-- Verwendung von `glm()` in R
-- Interpretation der Log-Odds
-- Modellbewertung mit Konfusionsmatrix und ROC-Kurve
+
+-   Verwendung von `glm()` in R
+-   Interpretation der Log-Odds
+-   Modellbewertung mit Konfusionsmatrix und ROC-Kurve
 
 # Sitzung 12: Chi-Quadrat-Test & kategoriale Daten
 
 ## Chi-Quadrat-Test
-- Kategoriale Daten analysieren
-- Häufigkeitstabellen, `chisq.test()`
-- Visualisierung: Balken, Mosaikplots
+
+-   Kategoriale Daten analysieren
+-   Häufigkeitstabellen, `chisq.test()`
+-   Visualisierung: Balken, Mosaikplots
 
 ## Integration der gelernten Methoden
-- Zusammenführung aller Techniken
-- Fallstudie mit einem realen Datensatz
-- Von der Datenaufbereitung bis zur Interpretation
 
-## Tipps für die Hausarbeit
-- Aufbau und Struktur
-- Häufige Fallstricke vermeiden
+-   Zusammenführung aller Techniken
+-   Fallstudie mit einem realen Datensatz
+-   Von der Datenaufbereitung bis zur Interpretation
 
 ## Sitzung 13: Abschluss und Ausblick
 
 ## Zusammenfassung der wichtigsten Methoden
-- Deskriptive Statistik
-- Inferenzstatistik
-- Korrelation und Regression
-- Hypothesentests
+
+-   Deskriptive Statistik
+-   Inferenzstatistik
+-   Korrelation und Regression
+-   Hypothesentests
 
 ## Überblick: Weiterführende statistische Methoden
-- ANOVA (Varianzanalyse)
-- Multiple Regression
-- Logistische Regression
-- Faktoranalyse
-- Zeitreihenanalyse
-- Bayesianische Statistik
+
+-   ANOVA (Varianzanalyse)
+-   Multiple Regression
+-   Faktoranalyse
+-   Zeitreihenanalyse
+-   Bayesianische Statistik
 
 ## Offene Fragen und Diskussion
 
 ## Evaluation und Feedback
-
