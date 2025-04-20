@@ -7,12 +7,10 @@ author: "Dr. Tom Alby"
 # Sitzung 1: Einführung & Organisatorisches
 
 ## Administratives
-
-### Ziele der Veranstaltung
-- Grundkenntnisse Statistik, nicht nur für die Uni :)
+- Grundkenntnisse Statistik, nicht nur für die Uni
 - Werkzeuge für Datenanalyse in der Bachelor-Arbeit
 
-### Was Sie erwartet
+## Was Sie erwartet
 - Einführung in R und RStudio
 - Datenimport und -aufbereitung
 - Explorative Datenanalyse
@@ -22,19 +20,20 @@ author: "Dr. Tom Alby"
 - Hypothesentests
 - Korrelationen
 
-### Erwartungen und Interaktion
+## Erwartungen und Interaktion
 - **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
   - 16 Uhr: #68430031
   - 18 Uhr: #68430032
 
-### Welche Note kann ich erwarten?
+## Welche Note kann ich erwarten?
 ![](images/grade-distribution.png)
 
 ## Rules of Working I
 - **Fragen:** Bitte unterbrechen Sie mich für Fragen
-- **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
+- **Kontakt:** [tom@alby.de](mailto:tom@alby.de)
 - **Moodle:** Einschreibeschlüssel: iLoveStats!
 - **Materialien:** <https://alby.link/statistik>
+- Präsentation wird öfter aktualisiert
 
 ## Rules of Working II
 - **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
@@ -44,22 +43,22 @@ author: "Dr. Tom Alby"
 - Bitte kein **bedeutungsloser Wohlklang**
 
 ## Wie sieht die Hausarbeit aus?
-- **Sie** suchen sich einen Datensatz aus und holen sich das "Ok"
+- **Sie** suchen sich einen Datensatz aus und **holen** sich das "Ok"
 - Hausarbeit in einem speziellen **Dateiformat**, das im Kurs vermittelt wird
 - Enthält Code, Ergebnisse, Visualisierungen und Gedanken
 - Hausarbeit wird **während des Semesters** vorbereitet
+- Wöchentliche Besprechung im Seminar
 - Möglichkeit der **Probeabgabe**
 - **Bewertungskriterien** sind online
 
+## Letzte Fragen?
 
 ## Unterstützung für Studierende
 - Studentische Seelsorge, rund um die Uhr: 040 41170411
-- [Studierendenberatung\@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
-- [krisenteam\@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
+- [Studierendenberatung@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
+- [krisenteam@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
 - Psychologische Sprechzeit ohne Anmeldung (Dienstags 14-15 Uhr): +49 152 247 44 063
 - Weitere Infos: [HAW Beratung](https://www.haw-hamburg.de/beratung/)
-
-## Letzte Fragen?
 
 # Sitzung 2: Grundlagen der Datenanalyse
 
@@ -78,9 +77,6 @@ author: "Dr. Tom Alby"
 ## DIKW-Pyramide
 ![](images/dikw-pyramid-removebg-preview.png)
 
-## Toms Pyramide
-![](images/tattoo.png)
-
 ## Datenmerkmale
 
 | Statistische Einheit / Merkmalsträger | Merkmal | Ausprägung | Typ / Skala | Erläuterung |
@@ -92,24 +88,6 @@ author: "Dr. Tom Alby"
 | n1 | Körpertemperatur | 36,5°C. | Numerisch / intervallskaliert | kein Nullpunkt |
 | n1 | Alter | 22 | Numerisch / verhältnisskal. | keine Negativwerte |
 
-## Datenmerkmale am Beispiel
-
-| title | year | budget | avg_vote |
-|-------------------|------------------|------------------|------------------|
-| Miss Jerry | 1894 | NA | 5.9 |
-| The Story of the Kelly Gang | 1906 | \$ 2250 | 6.1 |
-| Den sorte drøm | 1911 | NA | 5.8 |
-| Cleopatra | 1912 | \$ 45000 | 5.2 |
-| L'Inferno | 1911 | NA | 7.0 |
-| From the Manger to the Cross; or, Jesus of Nazareth | 1912 | NA | 5.7 |
-| Madame DuBarry | 1919 | NA | 6.8 |
-| Quo Vadis? | 1913 | ITL 45000 | 6.2 |
-| Independenta Romaniei | 1912 | ROL 400000 | 6.7 |
-| Richard III | 1912 | \$ 30000 | 5.5 |
-
-## Daten oder Informationen?
-![](images/daten-oder-informationen.png)
-
 ## Analytische Konzepte
 
 | Phase & Leitfrage | Statistisches Äquivalent | Beispiel‑Methoden / Tools |
@@ -120,101 +98,80 @@ author: "Dr. Tom Alby"
 | **Vorausschau – Was muss passieren, damit es eintritt?** | **Präskriptive (inferenzielle) Verfahren** | Simulation (Monte‑Carlo), Lineare/Ganzzahl‑Optimierung, Entscheidungsbäume mit Unsicherheits‑Berücksichtigung |
 
 ## Wo finde ich Daten?
-- Kaggle.com
-- Statistisches Bundesamt
-- ...
-- **Wichtig:** Sie brauchen Rohdaten, keine aggregierten Daten!
-
-## Warum nutzen wir R?
-![](images/r-vs-python.png)
-
-## R, Python, SPSS, ...
-- SPSS
-- SAS
-- Python
-- Scala
-- Julia
-- PSPP
-- R
+- Datenquellen: Kaggle, Statistisches Bundesamt, etc.
 
 ## Die Programmiersprache R
-
 - R: Statistische Programmiersprache und Umgebung
-- Nachfolger von S (Unnützes Wissen, Teil 1)
-- Großer Vorteil: R ist von Statistikern für Statistiker
-- Großer Nachteil: R ist von Statistikern für Statistiker
-- Open Source
-- Packages (Libraries) erweitern den Umfang
+- Vorteile und Nachteile von R
+- Open Source und Erweiterbarkeit durch Packages
+
+## Packages laden und installieren
+- Packages als Erweiterungen zu base R
+- Installation und Laden von Packages
+- Praktische Anwendung im Projekt
 
 ## Die IDE RStudio
-
-- “Wenn R ein Pferd ist, dann ist RStudio der Sattel.”
+- "Wenn R ein Pferd ist, dann ist RStudio der Sattel."
 - Entwickelt von RStudio PBC, heute Posit PBC
 - Kostenlos für den Heimgebrauch
 
-## Kurzer Rundgang durch RStudio
-
-## Notebooks: Format für Hausarbeiten
-- Demo: Gedanken, Code, Visualisierungen und Ergebnisse in einem Dokument
-- Dokumentation eigener Arbeit und Transparenz in der Zusammenarbeit
-- Markdown vs Markup
-- Export in verschiedene Formate
-- Snippets auch für andere Sprachen!
-- Ab jetzt: Mitschreiben im Notebook
-- Wichtig: Immer schön speichern zwischendurch (strg-s / ctrl-s)
-
-## R/RStudio lokal versus Cloud-Version
-- Bitte versuchen Sie R und RStudio lokal zu installieren
-- Cloud-Version nur für dieses Semester
+## Die Arbeitsumgebung
+- Sozusagen der “Arbeitsspeicher”
+- Enthält nicht nur Objekte, sondern auch Packages
+- Häufige Fehlerursache: 
+-- Man geht davon aus, dass etwas geladen ist, ist es aber nicht.
+-- Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
+- R lädt alles (!) in den Arbeitsspeicher. 
 
 ## Die ersten Schritte mit R
-- Nutzung von R als Taschenrechner
-- Einführung in grundlegende R-Operationen
-- Verständnis der Objekt- und Funktionsstruktur in R
+- R als Taschenrechner
+- Objekt- und Funktionsstruktur in R
+- Zuordnung über `<-`
+- Hilfe über `?FUNKTIONSNAME`
+
+## Funktionen
+- Funktionsstruktur: `funktionsname(Parameter)`
+- Beispiele: `plot()`, `summary()`, `str()`
+- Praktische Anwendung
 
 ## Datentypen in R
-
 - Character
 - Numerisch: integer und double
 - Factor
 - Datum
-- Datentypen sind wirklich wichtig, da viele Fehler wegen falscher Datentypen aufkommen
-- Dynamic typing
-- Demo
+- Dynamic typing und Bedeutung korrekter Datentypen
 
 ## Datenstrukturen in R
+![](images/data-structures.png)
 
+## Datenstrukturen in R
 - Vektor: Liste mit gleichen Datentypen
 - Dataframe: Tabelle mit Vektoren als Spalten
 - Liste: verschiedene Datentypen
 - Matrix: Tabelle nur mit gleichen Datentypen
 - Array: Dreidimensionale Matrix
-- Demo
 
 ## Dataframes
-
-- Data Frames sind ein fundamentales Konzept in R
-- Zeilen für Observationen, Spalten für Attribute
-- Um nur mit einer Spalte zu arbeiten, kann diese mit einem
-Dollarzeichen spezifiziert werden, z.B. cars$speed
-- Demo
+- Zentrales Konzept in R
+- Struktur: Zeilen für Observationen, Spalten für Attribute
+- Zugriff auf Spalten über Dollarzeichen (`$`)
 
 # Sitzung 3: Deskriptive Statistik I
 
 ## Deskriptive Statistik: Let's talk about money
 ![](images/einkommen.jpeg)
 
-## Deskriptive Statistik: Let's talk about money
 ![](images/einkommensschichtung.png)
 
 ## Lageparameter
 ![](images/mean-mode-median.png)
 
-## Merke
-![](images/meme-durchschnitt.png)
-
-## It really happened
-![](images/clinton-average.png)
+## Lageparameter
+- Mean bezeichnet das arithmetische Mittel, häufig als „Durchschnitt" bezeichnet: mean()
+- Neben dem arithmetischen Mittel existieren weitere Mittelwerte, zum Beispiel das geometrische Mittel
+- Der Median ist weniger anfällig für Ausreißer: median()
+- Der Modalwert kann auch mit kategorialen Variablen umgehen
+- In R existiert kein Befehl für den Modalwert ☹
 
 ## Typisch / ungewöhnlich / unmöglich
 ![](images/hadlum.png)
@@ -223,10 +180,15 @@ Dollarzeichen spezifiziert werden, z.B. cars$speed
 
 | Kategorie | Typische Kennzahlen / Techniken |
 |--------------------|----------------------------------------------------|
-| **Lagemaße** | Mittelwert • Median • Modus |
-| **Streuungsmaße** | Spannweite (Range) • Quartilabstand (IQR) • Varianz & Standardabweichung |
-| **Formparameter** | Schiefe (Skewness) • Wölbung (Kurtosis) |
-| **Positionskennwerte** | Quantile • Perzentile • Quartile |
+| **Lagemaße** | Mittelwert - Median - Modus |
+| **Streuungsmaße** | Spannweite (Range) - Quartilabstand (IQR) - Varianz & Standardabweichung |
+| **Formparameter** | Schiefe (Skewness) - Wölbung (Kurtosis) |
+| **Positionskennwerte** | Quantile - Perzentile - Quartile |
+
+## Standardabweichung und Varianz
+- Bedeutung und Berechnung
+- Interpretation im Kontext der Normalverteilung
+- Praktische Anwendung mit `sd()` und `var()`
 
 ## Wie macht man das in R?
 
@@ -244,57 +206,319 @@ Dollarzeichen spezifiziert werden, z.B. cars$speed
 | Quantile           | `quantile(data, c(.25,.5,.75))`  | 25 %, 50 %, 75 %-Werte (Quartile)         |
 
 ## Übung
-- `summary(data)`
+- Praktische Anwendung von deskriptiven Statistiken
 
 # Sitzung 4: Deskriptive Statistik II & Datenmanipulation
 
 ## Tidyverse
-- Einführung in das Tidyverse-Paket für effiziente Datenmanipulation und -visualisierung
-- Hands-on Beispiele zur Anwendung von `dplyr` und `ggplot2`
+- Einführung in das Tidyverse-Paket
+- Code the way you think
+- Module wie dplyr und readr
 
-## Installation und Nutzung von Packages
-- Anleitung zum Laden und Installieren von R-Packages
-- Wichtige Packages für statistische Analysen und ihre Anwendungen
+## Der typische Ablauf
+- Datenprozess von Import bis Analyse
+
+## Daten lesen und schreiben
+- Dateiformate: CSV, JSON, ARFF, Excel, Parquet
+- Vor- und Nachteile verschiedener Formate
+- Import-Methoden in R, besonders mit readr
+
+## Rohdaten transformieren und zusammenfassen
+- Rohdaten versus aggregierte Daten
+- Daten transformieren mit Tidyverse
+- Das Pipe-Symbol `%>%` und `|>`
+
+## Typische Funktionen in Tidyverse
+- `group_by()`: Gruppieren nach Variablen
+- `select()`: Spalten auswählen
+- `filter()`: Zeilen nach Werten filtern
+- `mutate()`: Variablen erstellen oder modifizieren
+- `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
+- `arrange()`: Sortierung ändern
+
+## Reguläre Ausdrücke
+- Mustererkennung in Daten
+- Anwendung in `filter()` und `mutate()`
+
+## Typische Fehler
+- Package nicht geladen
+- Pipe-Symbol falsch verwendet
+- Unvollständige Code-Chunks
 
 ## Dataframes in R
 - Grundlagen zu Data Frames
-- Manipulation von Datenframes für Analysezwecke
+- Manipulation von Datenframes
 
 ## Explorative Datenanalyse mit Notebooks
-- Vorteile der Nutzung von Notebooks für die explorative Datenanalyse
-- Praktisches Beispiel zur Analyse: [Data Science und SEO Analyse](https://tom.alby.de/analysis/data-science-seo.html)
-
-## Die Arbeitsumgebung in RStudio
-- Erklärung der verschiedenen Bereiche der RStudio-Arbeitsumgebung
-- Tipps zur effizienten Nutzung des Arbeitsspeichers und zur Fehlervermeidung
+- Vorteile der Nutzung von Notebooks
+- Praktisches Beispiel zur Analyse
 
 # Sitzung 5: Datenvisualisierung
 
-## Einführung in Datenvisualisierung
-- Grundlagen der Datenvisualisierung
-- Auswahl der richtigen Visualisierungsarten für verschiedene Datentypen
-- Einführung in gängige Visualisierungstools in R
+## Warum Datenvisualisierung?
+
+> The greatest value of a picture is when it forces us to notice what we never expected to see.
+(John Tukey)
+
+## 5 wichtige Schritte
+1. Was ist der Kontext?
+   - An wen wird kommuniziert?
+   - Was soll der Empfänger wissen oder tun?
+   - Welche Daten sind vorhanden, um den Case zu untermauern?
+2. Welche ist das passendste Visualierung?
+   - Ein oder zwei Zahlen, die im Fokus stehen? => Text!
+   - Liniendiagramme für continuous data
+   - Säulendiagramme für kategoriale Daten, müssen bei 0 anfangen
+   - Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
+   - Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
+
+## 5 wichtige Schritte, Teil II
+3. Entfernen Sie „Clutter"
+   1. Entfernen Sie alles, das keinen informativen Mehrwert hat (z.B. Farben für die Ästhetik)
+   2. Arbeiten Sie mit freiem Raum
+4. Fokussieren Sie die Aufmerksamkeit, wo Sie hin soll
+   - Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
+   - Wohin gehen die Augen?
+5. Nutzen Sie Storytelling
+   - Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
+   - Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
+   - Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
+
+## Farben sinnvoll nutzen, wenn überhaupt
+- Farben haben einen zusätzlichen Informationswert (z.B. Rot als Warnung, Gefahr, Blut).
+- Einsatz von Farben nur, wenn dadurch auch Informationen transportiert werden!
+- Vorsicht: Nicht immer werden Diagramme auch farbig ausgegeben (s/w-Druck, e-ink-Reader), so dass Diagramme auch ohne Farben funktionieren müssen.
+
+## Weitere Prinzipien der Visualisierung
+Die besten Grafiken kommen ohne Legende aus!
+
+## Weitere Prinzipien der Visualisierung
+„Redundant Coding"
+
+## Weitere Prinzipien der Visualisierung
+Weißer Space ist gut… aber nicht zu viel!
+
+## Weitere Prinzipien der Visualisierung
+Vermeiden Sie Wiederholungen! Versuchen Sie Aussagen zu bündeln (also nicht Passagierklassen einzeln, Geschlechter einzeln, etc...
+Aber: Erwarten Sie nicht, dass Ihre Leser:innen komplexe Grafilen sofort verstehen!
+
+## Weitere Prinzipien der Visualisierung
+Highlighting hilft auf das zu fokussieren, was wirklich wichtig ist
+
+## How to identify the right diagram?
+- Charts are not decoration – they serve a narrative function
+- Each chart type answers a specific kind of question
+- Choose based on what you want the audience to see or decide
+- Five core purposes:
+  - Compare values
+  - Show change over time
+  - Show distribution of data
+  - Show relationships between variables
+  - Show composition of data
+- Good storytelling starts by picking the right question – not the fanciest chart
+
+## Relationship: Scatter Plot
+- Visualizes how two continuous variables relate to each other
+- Each dot represents a single observation (person, product, day)
+- Great for finding patterns, clusters, outliers, and correlations
+- X and Y axes must be numeric and continuous
+- Can add a third dimension with dot size or color
+
+## Relationship: Correlogram
+- Visualizes correlation strength between multiple variables
+- Uses color and size to indicate direction and magnitude
+- Positive and negative correlations are easily distinguishable
+- Great for spotting patterns, clusters, or redundant variables
+- Especially useful in exploratory data analysis
+
+## Relationship: Overlap between Datasets w/ Venn Diagram
+- Visualizes shared and unique elements between groups
+- Overlaps = common ground; non-overlaps = differences
+- Great for comparing categories, traits, or stakeholder interests
+- Best with 2–3 groups; max. 5 before it gets confusing
+
+## Relationship: Overlap between Datasets w/ UpSet Diagram
+- Visualizes intersections between multiple sets
+- More scalable than Venn diagrams for complex overlaps
+- Bars show size of each intersection
+- Dots show which sets are involved
+- Ideal for 4+ groups where Venn diagrams become unclear
+
+## Relationship and Flows: Sankey Diagram
+- Visualizes flows between categories
+- Width of arrows represents volume or value
+- Great for showing distribution, conversions, or processes
+- Highlights where resources come from and go to
+- Ideal for understanding proportions across stages
+
+## Comparison: Horizontal Bar Chart
+- Compares values across categories
+- Bars run left to right, making labels easier to read
+- Ideal for long category names or many items
+- Great for ranking or comparing individual values
+- Simple, clear, and easy to scan at a glance
+
+## Comparison: Column Chart
+- Compares values across categories using vertical bars
+- Best used for ranking, performance, or discrete comparisons
+- Works well with few categories and clear labeling
+- Avoid rotating labels – keep category names short and readable
+- Use consistent baseline (zero) for honest comparisons
+
+## Comparison: Horizontal vs. Vertical Bar Charts
+| Feature | Horizontal | Vertical |
+|---------|------------|----------|
+| Best for | Long category labels, many items | Time-based or logical progression |
+| Readability | Easier when labels are long | Requires rotation for long labels |
+| Use case | Rankings, survey responses | Trends over time, grouped comparisons |
+| Scan direction | Left to right | Bottom to top |
+| Visual space | Efficient for many categories | Better for fewer, high-impact bars |
+
+Use horizontal when the text matters more.
+Use vertical when the order or time is key.
+
+## Comparison: Circular Bar Plot
+- Bar chart in a circular layout, grouped by category or type
+- Groups are shown through color coding or radial segments
+- Useful for showing patterns across categories in a compact, eye-catching way
+- Good for visual storytelling – but not for detailed comparison
+- Labels can be hard to read – use with care and strong legend
+
+## Comparison: Diverging Bars
+- Visualizes deviation in two directions from a central baseline
+- Bars extend left and right to show contrast or polarity
+- Commonly used for sentiment, change, or normalized values
+- Great for showing balance vs. imbalance across categories
+- Can be based on z-scores, means, or neutral reference points
+
+## Comparison: Diverging Lollipop Chart
+- Like a diverging bar chart, but with dots instead of full bars
+- Cleaner visual with less ink-to-data ratio
+- Shows the same polarity or comparison with more elegance
+- Great for when precise values matter less than direction and magnitude
+- Particularly good in reports and presentations
+
+## Distribution: The Histogram
+- Shows the distribution of numerical data over intervals (bins)
+- Each bar represents the frequency of values in a given range
+- Great for detecting skew, spread, and outliers
+- Helps identify modes or clustering in data
+- Unlike bar charts, the bars are touching – to reflect continuity
+
+## Distribution: Boxplots – For Experts
+- Summarizes data with minimum, quartiles, and median
+- Highlights spread, skewness, and outliers
+- Excellent for comparing distributions across categories
+- Very compact – shows a lot with little space
+- Can be hard to interpret for non-technical audiences
+
+## Distribution: Boxplots, in combination with a Violin Plot
+- Combines boxplot and density curve in one chart
+- Shows distribution shape, spread, and central tendency
+- Ideal for comparing multiple groups or conditions
+- Reveals skew, multimodality, and outliers more clearly than a boxplot alone
+
+## Distribution: Choropleth Map
+- Colors geographic areas based on data values
+- Great for showing regional differences or spatial patterns
+- Easy to interpret at a glance, especially for ratios or percentages
+- Works best with normalized data (e.g. per capita, % change)
+- Can be misleading if areas differ greatly in size or population
+
+## Composition: Stacked Area Chart
+- Shows how multiple categories contribute to a total over time
+- Layers are stacked, making cumulative trends visible
+- Good for tracking overall growth and category proportions
+- Works best with few categories to avoid clutter
+- Hard to compare individual segments precisely
+
+## Composition: Stacked 100% Area Chart
+- When you want to show relative proportions, not absolute values
+- Ideal for tracking how category shares change over time
+- Total always equals 100%, making comparisons easier across time
+- Best for emphasizing composition, not growth
+- Avoid when total size is also important – absolute trends get lost
+
+## Composition: Waterfall Diagram
+- Shows how individual values contribute to a total
+- Combines increases and decreases across categories
+- Highlights step-by-step change from a starting to an ending value
+- Great for explaining variance, profit breakdowns, or budget changes
+- Makes it easy to see which factors drive the final result
+
+## Composition: Heatmap
+- Uses color intensity to represent values in a matrix
+- Great for spotting patterns, clusters, and anomalies
+- Works well for correlations, time series, or categorical combinations
+- Easy to scan – but not ideal for precise values
+- Color scale choice is crucial for correct interpretation
+
+## Composition: Square Area Chart
+- Represents parts of a whole using a grid of equal-sized squares
+- Each square typically = 1% (in a 10×10 grid)
+- Great for showing simple proportions or progress toward a goal
+- Easy to read and visually engaging
+- Best used with a few categories – not ideal for detailed comparisons
+
+## Composition: Treemap
+- Visualizes part-to-whole relationships using nested rectangles
+- Size of each square represents a value (e.g. revenue, count)
+- Can show hierarchies or groupings visually
+- Good for comparing proportions across categories
+- Can become hard to read with too many small tiles
+
+## Nein, Sie verwenden bitte keine Pie Charts!
+#![](images/pie-chart-problem.png)
+
+## Was denken Sie über diese Grafik?
+
+
+## Visualisierung als Teil der Analyse
+- Histogramme (`hist()`) für eine Variable (Visualisierung einer Häufigkeitstabelle)
+- Scatterplots (`plot()`) für mehrere Variablen
 
 ## Visualisierung von Verteilungen
-- Erstellung von Histogrammen und Boxplots zur Darstellung von Datenverteilungen
-- Interpretation von Verteilungsdiagrammen zur Erkennung von Mustern und Anomalien
+- Histogramme und Boxplots
+- Interpretation von Verteilungsdiagrammen
+
+## Der Boxplot
+- Aufbau und Interpretation
+- Quartile, Median, Ausreißer
 
 ## Zusammenhänge visualisieren
-- Scatter Plots und Korrelationsanalysen zur Untersuchung von Beziehungen zwischen Variablen
-- Einführung in fortgeschrittene Methoden wie Heatmaps und Paired Plots
+- Scatter Plots und Korrelationsanalysen
+- Fortgeschrittene Methoden wie Heatmaps und Paired Plots
 
 ## Datenvisualisierung mit ggplot2
+- Base Plot vs. ggplot2
+- Grammar of Graphics
 - `geom_point()`, `geom_histogram()`, `geom_boxplot()`
 - Ästhetiken: Farbe, Form, Gruppierung
-- Praktische Übungen
 
-## Einführung eines neuen Datensatzes: BookCrossing
-- Diskussion über den BookCrossing-Datensatz und seine Besonderheiten
-- Vorbereitung und erste Schritte für die Datenanalyse mit diesem Datensatz
+## Beispiele für Datenvisualisierungen
+- Stacked Area Chart
+- Wie viel trägt jedes Segment zu einem Gesamtergebnis bei?
+- Gibt es auch für Anteile von 100%
 
-## Datenreinigung
-- Methoden zur Reinigung und Vorbereitung des BookCrossing-Datensatzes
-- Praktische Anwendung der gelernten Methoden zur Datenbereinigung
+## Beispiele für Datenvisualisierungen
+- Circular Bar Plot, rechts zusätzlich mit Gruppen
+- Sieht gut aus, ist modern, aber nicht immer nützlich
+- Kann weniger Platz verbrauchen als ein normales Bar Chart
+
+## Beispiele für Datenvisualisierungen
+- Sankey-Diagramm zur Veranschaulichung von Mengenflüssen
+
+## Beispiele für Datenvisualisierungen
+- Violinen-Plot (Warnung: kann Spurenelemente eines Boxplots enthalten)
+- Zeigt eine diskrete Verteilung; Punkt zeigt den Median
+- Zum Beispiel für die Übereinstimmung von Ratern
+
+## Beispiele für Datenvisualisierungen
+- Bubble Plot
+- Wie ein Scatterplot, nur mit einer oder zwei zusätzlichen Variablen
+- In diesem Beispiel x und y, Farbe, Größe und Zeit (aber die Animation besser nicht mitzählen!)
+
+
 
 # Sitzung 6: Wahrscheinlichkeiten & Verteilungen
 
@@ -304,22 +528,30 @@ Dollarzeichen spezifiziert werden, z.B. cars$speed
 - Visualisierung von Wahrscheinlichkeitsdichte
 
 ## Zentrale Grenzwertsätze
-- Verstehen, warum Mittelwerte normalverteilt sind
+- Warum Mittelwerte normalverteilt sind
 - Simulationen mit `replicate()`, `mean()`
 - Stichprobenverteilungen
 
-## Der Mittelwert einer Stichprobe und Central Limit Theorem
-- Erklärung des zentralen Grenzwertsatzes und seiner Bedeutung für die Inferenzstatistik
-- Diskussion über die Berechnung und Interpretation von Stichprobenmittelwerten
-
-# Sitzung 7: Einführung in die Inferenzstatistik
+## Sitzung 7: Einführung in die Inferenzstatistik
 
 ## Klassische Statistische Inferenz
-- Einführung in die Konzepte der Nullhypothese und Alternativhypothese
-- Diskussion über die Bedeutung von Placebos und Behandlungsgruppen in Experimenten
+- Konzepte der Nullhypothese und Alternativhypothese
+- Placebos und Behandlungsgruppen in Experimenten
+- Randomisierung
+
+## Hypothesen
+- H0: Nullhypothese
+- H1: Alternativhypothese
+- Isolierbarkeit des Untersuchungsgegenstands
+- Arbeit mit Stichproben statt Grundgesamtheit
+
+## Der Mittelwert einer Stichprobe
+- Stichprobenverteilung des Mittelwerts
+- Central Limit Theorem
+- Unsicherheiten in der Schätzung
 
 ## Konfidenzintervalle
-- Unsicherheiten abschätzen können
+- Unsicherheiten abschätzen
 - Konfidenzintervall mit `t.test()`
 - Visualisierung von CI über Punkteschätzungen
 
@@ -330,8 +562,10 @@ Dollarzeichen spezifiziert werden, z.B. cars$speed
 - Signifikanzniveau, p-Wert
 
 ## Experimente - Die Statistik-Pille
-- Einführung eines hypothetischen Experiments zur Demonstration statistischer Prinzipien
-- Diskussion über die Auswirkungen der Intervention auf die Leistung
+#![](images/statistik-pille.png)
+- Mit dieser Pille schreiben Sie garantiert bessere Noten! Aber wie finden wir das heraus?
+- Experimentaufbau mit Test- und Kontrollgruppe
+- Blindtest versus Doppelblindtest
 
 # Sitzung 8: t-Tests
 
@@ -342,64 +576,140 @@ Dollarzeichen spezifiziert werden, z.B. cars$speed
 - Visualisierung mit ggplot2
 
 ## Vom Zentralen Grenzwertsatz zum t-Test
-- Überleitung von den Grundlagen des zentralen Grenzwertsatzes zu den Anwendungen des t-Tests
-- Diskussion über die Schätzung von Populationsparametern und die Anwendung des t-Tests
+- Stichprobenverteilung und Standardfehler
+- t-Verteilung bei unbekannter Populationsvarianz
+- Vergleich von Mittelwerten
 
 ## Guiness-Bier brachte die Lösung
-- Anekdote über William Sealy Gosset und die Entstehung der t-Verteilung
-- Diskussion über die Bedeutung von Freiheitsgraden und deren Einfluss auf die t-Verteilung
+- William Sealy Gosset und die Entstehung der t-Verteilung
+- Bedeutung der Freiheitsgrade
+
+## Die t-Verteilung
+#![](images/t-verteilung.png)
+- Eigenschaften im Vergleich zur Normalverteilung
+- Einfluss der Freiheitsgrade
 
 ## Wichtige Annahmen des t-Tests
-- Überblick über die Annahmen, die für die Durchführung des t-Tests erforderlich sind
-- Praktische Demonstration der Anwendung des t-Tests in R
+- Unabhängigkeit der Stichproben
+- Normalverteilung der Variablen
+- Metrische Variablen
+- Varianzhomogenität
 
-# Sitzung 9: Korrelationsanalyse
+## Was ist Signifikanz?
+- Definition des Signifikanzniveaus α
+- Interpretation des p-Werts
+- Häufige Fehlinterpretationen
+
+## Fehler 1. und 2. Art
+- False Positive (α-Fehler)
+- False Negative (β-Fehler)
+- Sensitivität und Spezifität
+
+## Ein- versus zweiseitiger Test
+- Wann ist welcher Test angemessen?
+- Auswirkungen auf p-Werte
+
+## Praktische Anwendung
+- Reale Beispiele für t-Tests
+- Interpretation von Ergebnissen
+
+## Sitzung 9: Umfragen und ANOVA
+
+## Quantitativ versus Qualitativ
+- Unterschiede in Forschungsansätzen
+
+## Datenerhebung
+- Primärdaten vs. Sekundärdaten
+- Umfragen, Interviews, Messungen
+
+## Verzerrung zugunsten der Überlebenden
+#![](images/survivorship-bias.png)
+
+## Stichprobenverzerrung
+#![](images/stichprobenverzerrung.png)
+
+## Probleme bei Umfragen
+- Convenience Sampling
+- Non-Responder
+- Yes bias
+- No bias
+- Bias towards the middle
+- Soziale Erwünschtheit
+- Logical Response
+- Kulturelle Unterschiede (ein „Nein" ist nicht überall akzeptabel)
+
+## Likert-Skala
+- Definition und Verwendung
+- Balance, Neutraloption, Skalenlänge
+- Vermeidung von Leading Questions
+
+## Einführung in ANOVA
+- Analysis of Variance für mehr als zwei Gruppen
+- Nullhypothese: Alle Gruppenmittelwerte sind gleich
+- Alternativhypothese: Mindestens ein Gruppenmittelwert unterscheidet sich
+
+## Voraussetzungen und Annahmen
+- Normalverteilung innerhalb der Gruppen
+- Homoskedastizität
+- Unabhängigkeit der Beobachtungen
+
+## Beispiel Book Crossing-Datensatz
+- Analyse von Unterschieden in Buchbewertungen zwischen Altersgruppen
+
+## Interpretation
+- F-Statistik und Varianzvergleich
+- Post-Hoc Tests zur Identifizierung spezifischer Gruppenunterschiede
+
+# Sitzung 10: Korrelationsanalyse
 
 ## Was ist eine Korrelation?
+- Definition statistischer Zusammenhänge
+- Beispiele für korrelierte Daten
 
 ## Warum sind Korrelationen interessant?
-- Manche Sachverhalte liegen in der Vergangenheit.
-- Manche Experimente können aus ethischen Gründen nicht durchgeführt werden.
-- **Beispiel**: Wir messen die Blutwerte aller Kursteilnehmer. Die Hälfte des Kurses ernährt sich 2 Wochen lang vegan, die andere Hälfte isst nur Burger bei McDonald's. Nach den 2 Wochen messen wir wieder die Blutwerte. Wie lange darf Tom dann noch an der HAW unterrichten?
+- Analyse historischer Daten
+- Ethische Einschränkungen bei Experimenten
 
 ## Vor der Korrelation kommt die Kovarianz
-- Kovarianz misst, wie zwei Variablen gemeinsam variieren.
-- Berechnung durch Multiplikation der Abweichungen der Werte vom Mittelwert für beide Variablen und Bildung des Durchschnitts dieser Produkte.
-- Eine positive Kovarianz bedeutet, dass die Variablen tendenziell zusammen steigen oder fallen.
-- Die Interpretation der Kovarianz hängt von den Maßeinheiten der Variablen ab und ist daher bei unterschiedlichen Einheiten nicht leicht zu interpretieren.
-- Die standardisierte Form der Kovarianz ist die Korrelation.
+- Berechnung und Bedeutung der Kovarianz
+- Standardisierung zur Korrelation
 
-## Wichtig
-- Korrelation beinhaltet keine Richtung.
-- Scheinkorrelation: zufällige oder indirekte Beziehung (z.B. Eis-Konsum und Anzahl Ertrunkener).
-- Pearson's Korrelationskoeffizient reicht von 1 bis -1:
-  - |0.7/0.8| Hohe Korrelation
-  - |0.5| Moderate Korrelation
-  - |0.3| Schwache Korrelation
-  - 0 Keine Korrelation
-- Was könnte ein Beispiel für eine negative Korrelation sein?
-- Erläuterung des p-Wertes folgt.
+## Wichtige Aspekte der Korrelation
+- Keine implizierte Kausalrichtung
+- Scheinkorrelationen
+- Pearson's Korrelationskoeffizient und seine Interpretation
+- p-Wert bei Korrelationen
 
 ## Korrelations-Tests
-- Pearson-Korrelation: Misst den linearen Zusammenhang zwischen zwei kontinuierlichen Variablen.
-- Spearman-Korrelation: Misst den monotonen Zusammenhang zwischen zwei Variablen basierend auf ihren Rängen.
-- Kendall-Tau-Korrelation: Misst die Übereinstimmung in der Rangordnung zwischen zwei Variablen.
+- Pearson-Korrelation: linear
+- Spearman-Korrelation: monoton, rangbasiert
+- Kendall-Tau-Korrelation: Rangordnungsübereinstimmung
 
 ## Unterschied Korrelation zu Regression
-- Korrelation misst die Stärke des Zusammenhangs zwischen zwei Variablen.
-- Regression prognostiziert den Wert einer abhängigen Variable basierend auf einer unabhängigen Variable.
+- Korrelation misst Stärke des Zusammenhangs
+- Regression prognostiziert Werte
 
 ## Korrelation in R
-```{r}
-cor.test(cars$speed, cars$dist)
-```
-- `cor()`, Scatterplot mit `geom_point()`
+- Anwendung von `cor.test()` und Scatterplots
 - Kausalität vs. Korrelation
 
-# Sitzung 10: Einfache Lineare Regression
+## Inter-Rater Reliability
+- Definition und Ziel der Inter-Rater Reliability
+- Konsistenz zwischen verschiedenen Beurteilern
 
-## Wofür brauche ich lineare Regression denn wirklich?
-- Anwendungsbeispiel: Ermittlung eines fairen Preises für gebrauchte Artikel, z.B. Spiegelreflexkameras.
+## Methoden zur Messung der IRR
+- Cohen's Kappa: zwei Rater, kategoriale Daten
+- Fleiss' Kappa: mehr als zwei Rater, kategoriale Daten
+- Intraclass Correlation Coefficient (ICC): kontinuierliche Daten
+
+## Interpretation von IRR-Maßen
+- Skalen für Cohen's Kappa, Fleiss' Kappa und ICC
+- Praktische Beispiele
+
+# Sitzung 11: Einfache Lineare Regression
+
+## Wofür brauche ich lineare Regression?
+- Anwendungsbeispiele: Fairer Preis für gebrauchte Artikel
 
 ## Lineare Regression
 - Vorhersagen mit Regressionslinien
@@ -408,37 +718,39 @@ cor.test(cars$speed, cars$dist)
 - Interpretation der Koeffizienten
 
 ## Heteroskedastizität beachten
-- Diskussion über die Verteilung der Residuen um die Regressionslinie.
-- Erklärung von Homoskedastizität und Heteroskedastizität und deren Bedeutung für das Modell.
+- Verteilung der Residuen um die Regressionslinie
+- Homoskedastizität vs. Heteroskedastizität
 
-## Was mache ich bei einer nicht-linearen Beziehung?
-- Umgang mit nicht-linearen Beziehungen, z.B. Klickraten in Newslettern.
-- Anwendung von Transformationen zur Verbesserung der Modellpassung.
+## Nicht-lineare Beziehungen
+- Umgang mit nicht-linearen Beziehungen
+- Transformationen zur Verbesserung der Modellpassung
 
-# Sitzung 11: Chi-Quadrat-Test & kategoriale Daten
+## Logistische Regression
+- Vorhersage binärer abhängiger Variablen
+- Anwendungsbereiche: Medizin, Finanzen, Marketing
+
+## Das logistische Regressionsmodell
+- Verwendung von `glm()` in R
+- Interpretation der Log-Odds
+- Modellbewertung mit Konfusionsmatrix und ROC-Kurve
+
+# Sitzung 12: Chi-Quadrat-Test & kategoriale Daten
 
 ## Chi-Quadrat-Test
 - Kategoriale Daten analysieren
 - Häufigkeitstabellen, `chisq.test()`
 - Visualisierung: Balken, Mosaikplots
 
-## Mittelwerte und ihre Bedeutung
-- Diskussion über die Bedeutung und Anwendung von Mittelwerten in verschiedenen Kontexten.
-- Vergleich von Mittelwerten und deren statistische Signifikanz.
-
-# Sitzung 12: Praktische Datenanalyse
-
 ## Integration der gelernten Methoden
-- Zusammenführung aller bisher gelernten Techniken
+- Zusammenführung aller Techniken
 - Fallstudie mit einem realen Datensatz
 - Von der Datenaufbereitung bis zur Interpretation
 
 ## Tipps für die Hausarbeit
 - Aufbau und Struktur
 - Häufige Fallstricke vermeiden
-- Bewertungskriterien im Detail
 
-# Sitzung 13: Abschluss und Ausblick
+## Sitzung 13: Abschluss und Ausblick
 
 ## Zusammenfassung der wichtigsten Methoden
 - Deskriptive Statistik
@@ -457,3 +769,4 @@ cor.test(cars$speed, cars$dist)
 ## Offene Fragen und Diskussion
 
 ## Evaluation und Feedback
+
