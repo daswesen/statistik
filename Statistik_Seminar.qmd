@@ -203,7 +203,7 @@ author: "Dr. Tom Alby"
 ## Deskriptive Statistik: Übersicht
 
 | Kategorie | Typische Kennzahlen / Techniken |
-|----------------------|-------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | **Lagemaße** | Mittelwert - Median - Modus |
 | **Streuungsmaße** | Spannweite (Range) - Quartilabstand (IQR) - Varianz & Standardabweichung |
 | **Formparameter** | Schiefe (Skewness) - Wölbung (Kurtosis) |
@@ -218,7 +218,7 @@ author: "Dr. Tom Alby"
 ## Wie macht man das in R?
 
 | Kennzahl | R‑Befehl | Kurzbeschreibung |
-|-------------------|------------------------|------------------------------|
+|-------------------|------------------------|-----------------------------|
 | Mittelwert | `mean(data)` | Durchschnitt aller Werte |
 | Median | `median(data)` | Zentralwert (50 %-Quantil) |
 | Minimum | `min(data)` | Kleinster Wert |
