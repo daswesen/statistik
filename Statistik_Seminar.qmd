@@ -42,7 +42,6 @@ author: "Dr. Tom Alby"
 
 ## Rules of Working II
 
--   **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
 -   **Keine Gruppenarbeit:** Im Kurs ja, für die Hausarbeit nein
 -   **Teilnahme:** Präsenzpflicht, in Ausnahmefällen auch online via Zoom (HU), Aufzeichnungen verfügbar
 -   **ChatGPT & Co:** Erlaubt, aber...
@@ -50,9 +49,9 @@ author: "Dr. Tom Alby"
 
 ## Wie sieht die Hausarbeit aus?
 
--   **Sie** suchen sich einen Datensatz aus und **holen** sich das "Ok"
+-   **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
+-   **Sie** suchen sich einen Datensatz aus und **holen** sich das **Ok**
 -   Hausarbeit in einem speziellen **Dateiformat**, das im Kurs vermittelt wird
--   Enthält Code, Ergebnisse, Visualisierungen und Gedanken
 -   Hausarbeit wird **während des Semesters** vorbereitet
 -   Wöchentliche Besprechung im Seminar
 -   Möglichkeit der **Probeabgabe**
@@ -68,18 +67,19 @@ author: "Dr. Tom Alby"
 -   Psychologische Sprechzeit ohne Anmeldung (Dienstags 14-15 Uhr): +49 152 247 44 063
 -   Weitere Infos: [HAW Beratung](https://www.haw-hamburg.de/beratung/)
 
-# Sitzung 2: Grundlagen der Datenanalyse
-
 ## Let's start!
 
 ![](images/marketoonist-big-data.png)
 
 ## Was sind Daten?
 
--   **Daten**
+
+## Was sind Daten?
+
+-   *Daten*
     -   Roh, ungeordnet, noch nicht interpretiert
     -   Bestehen aus Zahlen, Zeichen, Fakten ohne Kontext
--   **Informationen**
+-   *Informationen*
     -   Verarbeitete, kontextualisierte Daten
     -   Haben Bedeutung und Relevanz für eine Fragestellung
     -   **Daten + Kontext = Information**
@@ -88,6 +88,9 @@ author: "Dr. Tom Alby"
 
 ![](images/dikw-pyramid-removebg-preview.png)
 
+## Toms Pyramide
+ ![](images/tattoo.png)
+ 
 ## Datenmerkmale
 
 | Statistische Einheit / Merkmalsträger | Merkmal | Ausprägung | Typ / Skala | Erläuterung |
@@ -99,6 +102,24 @@ author: "Dr. Tom Alby"
 | n1 | Körpertemperatur | 36,5°C. | Numerisch / intervallskaliert | kein Nullpunkt |
 | n1 | Alter | 22 | Numerisch / verhältnisskal. | keine Negativwerte |
 
+## Datenmerkmale am Beispiel
+ 
+ | title | year | budget | avg_vote |
+ |-------------------|------------------|------------------|------------------|
+ | Miss Jerry | 1894 | NA | 5.9 |
+ | The Story of the Kelly Gang | 1906 | \$ 2250 | 6.1 |
+ | Den sorte drøm | 1911 | NA | 5.8 |
+ | Cleopatra | 1912 | \$ 45000 | 5.2 |
+ | L'Inferno | 1911 | NA | 7.0 |
+ | From the Manger to the Cross; or, Jesus of Nazareth | 1912 | NA | 5.7 |
+ | Madame DuBarry | 1919 | NA | 6.8 |
+ | Quo Vadis? | 1913 | ITL 45000 | 6.2 |
+ | Independenta Romaniei | 1912 | ROL 400000 | 6.7 |
+ | Richard III | 1912 | \$ 30000 | 5.5 |
+ 
+## Daten oder Informationen?
+![](images/daten-oder-informationen.png)
+
 ## Analytische Konzepte
 
 | Phase & Leitfrage | Statistisches Äquivalent | Beispiel‑Methoden / Tools |
@@ -108,15 +129,36 @@ author: "Dr. Tom Alby"
 | **Vorausschau – Was wird passieren?** | **Prognostische (inferenzielle) Modelle** | Lineare/Logistische Regression, Random Forest, Zeitreihen‑Forecasts, Konfidenz­intervalle für Prognosen |
 | **Vorausschau – Was muss passieren, damit es eintritt?** | **Präskriptive (inferenzielle) Verfahren** | Simulation (Monte‑Carlo), Lineare/Ganzzahl‑Optimierung, Entscheidungsbäume mit Unsicherheits‑Berücksichtigung |
 
+
 ## Wo finde ich Daten?
 
--   Datenquellen: Kaggle, Statistisches Bundesamt, etc.
+- Kaggle
+- Statistisches Bundesamt
+- ...
+
+
+## Warum nutzen wir R?
+![](images/r-vs-python.png)
+
+
+## R, Python, SPSS, ...
+ - SPSS
+ - SAS
+ - Python
+ - Scala
+ - Julia
+ - PSPP
+ - R
+ 
 
 ## Die Programmiersprache R
 
--   R: Statistische Programmiersprache und Umgebung
--   Vorteile und Nachteile von R
--   Open Source und Erweiterbarkeit durch Packages
+- R: Statistische Programmiersprache und Umgebung
+- Nachfolger von S (Unnützes Wissen, Teil 1)
+- Großer Vorteil: R ist von Statistikern für Statistiker
+- Großer Nachteil: R ist von Statistikern für Statistiker
+- Open Source
+- Packages (Libraries) erweitern den Umfang
 
 ## Packages laden und installieren
 
@@ -134,7 +176,7 @@ author: "Dr. Tom Alby"
 
 -   Sozusagen der “Arbeitsspeicher”
 -   Enthält nicht nur Objekte, sondern auch Packages
--   Häufige Fehlerursache: -- Man geht davon aus, dass etwas geladen ist, ist es aber nicht. -- Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
+-   Häufige Fehlerursache: * Man geht davon aus, dass etwas geladen ist, ist es aber nicht. * Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
 -   R lädt alles (!) in den Arbeitsspeicher.
 
 ## Die ersten Schritte mit R
@@ -176,19 +218,19 @@ author: "Dr. Tom Alby"
 -   Struktur: Zeilen für Observationen, Spalten für Attribute
 -   Zugriff auf Spalten über Dollarzeichen (`$`)
 
-# Sitzung 3: Deskriptive Statistik I
+# Sitzung 2: Deskriptive Statistik I
 
-## Deskriptive Statistik: Let's talk about money
+## Let's talk about money
 
 ![](images/einkommen.jpeg)
 
 ![](images/einkommensschichtung.png)
 
-## Lageparameter
+## Lagemaße
 
 ![](images/mean-mode-median.png)
 
-## Lageparameter
+## Lagemaße
 
 -   Mean bezeichnet das arithmetische Mittel, häufig als „Durchschnitt" bezeichnet: mean()
 -   Neben dem arithmetischen Mittel existieren weitere Mittelwerte, zum Beispiel das geometrische Mittel
@@ -196,14 +238,22 @@ author: "Dr. Tom Alby"
 -   Der Modalwert kann auch mit kategorialen Variablen umgehen
 -   In R existiert kein Befehl für den Modalwert ☹
 
+
+## Merke
+![](images/meme-durchschnitt.png)
+ 
+## It really happened
+![](images/clinton-average.png)
+
 ## Typisch / ungewöhnlich / unmöglich
 
 ![](images/hadlum.png)
 
+
 ## Deskriptive Statistik: Übersicht
 
 | Kategorie | Typische Kennzahlen / Techniken |
-|-----------------------|-------------------------------------------------|
+|----------------------|-------------------------------------------------|
 | **Lagemaße** | Mittelwert - Median - Modus |
 | **Streuungsmaße** | Spannweite (Range) - Quartilabstand (IQR) - Varianz & Standardabweichung |
 | **Formparameter** | Schiefe (Skewness) - Wölbung (Kurtosis) |
@@ -218,7 +268,7 @@ author: "Dr. Tom Alby"
 ## Wie macht man das in R?
 
 | Kennzahl | R‑Befehl | Kurzbeschreibung |
-|-------------------|------------------------|-----------------------------|
+|-------------------|------------------------|------------------------------|
 | Mittelwert | `mean(data)` | Durchschnitt aller Werte |
 | Median | `median(data)` | Zentralwert (50 %-Quantil) |
 | Minimum | `min(data)` | Kleinster Wert |
@@ -234,7 +284,7 @@ author: "Dr. Tom Alby"
 
 -   Praktische Anwendung von deskriptiven Statistiken
 
-# Sitzung 4: Deskriptive Statistik II & Datenmanipulation
+# Sitzung 3: Deskriptive Statistik II & Datenmanipulation
 
 ## Tidyverse
 
@@ -300,7 +350,7 @@ Gummibärchentüte %>%
 -   Pipe-Symbol falsch verwendet
 -   Unvollständige Code-Chunks
 
-# Sitzung 5: Datenvisualisierung
+# Sitzung 4: Datenvisualisierung
 
 ## Warum Datenvisualisierung?
 
@@ -370,7 +420,7 @@ scatter_data <- data.frame(
   gruppe = sample(LETTERS[1:3], 100, replace = TRUE)
 )
 # Korrelation hinzufügen
-scatter_data$y <- scatter_data$y + scatter_data$x * 0.7 + rnorm(100, 0, 0.5)
+scatter_data$y <- scatter_data$y + scatter_data$x - 0.7 + rnorm(100, 0, 0.5)
 ggplot(scatter_data, aes(x = x, y = y, color = gruppe)) +
   geom_point(size = 3, alpha = 0.7) +
   scale_color_brewer(palette = "Set1") +
@@ -413,10 +463,10 @@ sim_data <- data.frame(
   E = rnorm(100)
 )
 # Korrelationen hinzufügen
-sim_data$B <- sim_data$B + sim_data$A * 0.7 + rnorm(100, 0, 0.5)
-sim_data$C <- sim_data$C - sim_data$A * 0.4 + rnorm(100, 0, 0.5)
-sim_data$D <- sim_data$D + sim_data$B * 0.6 + rnorm(100, 0, 0.5)
-sim_data$E <- sim_data$E - sim_data$C * 0.5 + sim_data$D * 0.3 + rnorm(100, 0, 0.5)
+sim_data$B <- sim_data$B + sim_data$A - 0.7 + rnorm(100, 0, 0.5)
+sim_data$C <- sim_data$C - sim_data$A - 0.4 + rnorm(100, 0, 0.5)
+sim_data$D <- sim_data$D + sim_data$B - 0.6 + rnorm(100, 0, 0.5)
+sim_data$E <- sim_data$E - sim_data$C - 0.5 + sim_data$D - 0.3 + rnorm(100, 0, 0.5)
 
 # Korrelationsmatrix berechnen
 cormat <- round(cor(sim_data), 2)
@@ -452,17 +502,17 @@ ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
 #| fig-height: 5
 library(ggplot2)
 # Vereinfachtes Venn-Diagramm mit ggplot2
-theta <- seq(0, 2*pi, length.out = 100)
+theta <- seq(0, 2-pi, length.out = 100)
 circle <- data.frame(
   x = cos(theta),
   y = sin(theta)
 )
 ggplot() +
   # Kreis A
-  geom_polygon(data = circle, aes(x = x*1.2 - 0.5, y = y*1.2), 
+  geom_polygon(data = circle, aes(x = x-1.2 - 0.5, y = y-1.2), 
                fill = "steelblue", alpha = 0.5) +
   # Kreis B
-  geom_polygon(data = circle, aes(x = x*1.2 + 0.5, y = y*1.2), 
+  geom_polygon(data = circle, aes(x = x-1.2 + 0.5, y = y-1.2), 
                fill = "firebrick", alpha = 0.5) +
   # Labels
   annotate("text", x = -1, y = 0, label = "A", size = 6, fontface = "bold", color = "white") +
@@ -586,7 +636,7 @@ ggplot(hbar_data, aes(x = reorder(kategorie, wert), y = wert)) +
   theme_minimal() +
   labs(x = NULL, y = "Wert") +
   geom_text(aes(label = wert), hjust = -0.2) +
-  ylim(0, max(hbar_data$wert) * 1.15)
+  ylim(0, max(hbar_data$wert) - 1.15)
 ```
 :::
 :::::
@@ -619,12 +669,14 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
   labs(x = NULL, y = "Wert") +
   theme(legend.position = "none") +
   geom_text(aes(label = wert), vjust = -0.5) +
-  ylim(0, max(column_data$wert) * 1.1)
+  ylim(0, max(column_data$wert) - 1.1)
 ```
 :::
 :::::
 
 ## Comparison: Horizontal vs. Vertical Bar Charts
+
+Use horizontal when the text matters more. Use vertical when the order or time is key.
 
 | Feature | Horizontal | Vertical |
 |---------------------|----------------------------|-----------------------|
@@ -634,7 +686,7 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
 | Scan direction | Left to right | Bottom to top |
 | Visual space | Efficient for many categories | Better for fewer, high-impact bars |
 
-Use horizontal when the text matters more. Use vertical when the order or time is key.
+
 
 ## Circular Bar Plot
 
@@ -1067,7 +1119,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   `geom_point()`, `geom_histogram()`, `geom_boxplot()`
 -   Ästhetiken: Farbe, Form, Gruppierung
 
-# Sitzung 6: Wahrscheinlichkeiten & Verteilungen
+# Sitzung 5: Wahrscheinlichkeiten & Verteilungen
 
 ## Wahrscheinlichkeiten & Verteilungen
 
@@ -1081,7 +1133,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   Simulationen mit `replicate()`, `mean()`
 -   Stichprobenverteilungen
 
-## Sitzung 7: Einführung in die Inferenzstatistik
+# Sitzung 6: Einführung in die Inferenzstatistik
 
 ## Klassische Statistische Inferenz
 
@@ -1119,7 +1171,232 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 \#![](images/statistik-pille.png) - Mit dieser Pille schreiben Sie garantiert bessere Noten! Aber wie finden wir das heraus? - Experimentaufbau mit Test- und Kontrollgruppe - Blindtest versus Doppelblindtest
 
-# Sitzung 8: t-Tests
+# Sitzung 7: t-Tests
+
+## Historischer Hintergrund
+
+* Entwicklung durch William Sealy Gosset (unter Pseudonym "Student")
+* Ursprüngliche Anwendung in der Brauerei Guinness
+* Evolution von "Student's t-Test" zu modernen Varianten
+
+::: {.notes}
+- **William Sealy Gosset**: Entwickelte den t-Test 1908, während er bei der Guinness-Brauerei arbeitete. Da Guinness Mitarbeitern nicht erlaubte, zu publizieren, veröffentlichte er unter dem Pseudonym "Student".
+- **Ursprüngliche Anwendung**: Gosset brauchte eine Methode, um die Qualität von Brauerei-Rohstoffen mit kleinen Stichproben zu testen.
+- **Evolution**: Vom ursprünglichen "Student's t-Test" haben sich verschiedene Varianten entwickelt, um unterschiedlichen Forschungsfragen gerecht zu werden.
+:::
+
+## Theoretische Grundlagen
+
+* t-Verteilung
+* Freiheitsgrade
+* Unterschied zur Normalverteilung
+* Zentraler Grenzwertsatz
+
+::: {.notes}
+- **t-Verteilung**: Eine kontinuierliche Wahrscheinlichkeitsverteilung, die der Normalverteilung ähnelt, aber breitere "Schwänze" hat, was sie für kleine Stichproben geeigneter macht.
+- **Freiheitsgrade**: Bestimmen die Form der t-Verteilung. Bei großen Freiheitsgraden nähert sich die t-Verteilung der Normalverteilung an.
+- **Unterschied zur Normalverteilung**: Die t-Verteilung berücksichtigt die zusätzliche Unsicherheit, die durch die Schätzung der Populationsvarianz aus einer kleinen Stichprobe entsteht.
+- **Zentraler Grenzwertsatz**: Erklärt, warum wir den t-Test auch bei nicht perfekt normalverteilten Daten anwenden können, wenn die Stichprobe groß genug ist.
+:::
+
+## Arten von t-Tests
+
+* Einstichproben-t-Test
+* Zweistichproben-t-Test (unabhängig)
+* Gepaarter t-Test (abhängig)
+* Welch-Test (ungleiche Varianzen)
+
+::: {.notes}
+- **Einstichproben-t-Test**: Vergleicht den Mittelwert einer Stichprobe mit einem bekannten oder hypothetischen Wert.
+- **Zweistichproben-t-Test (unabhängig)**: Vergleicht die Mittelwerte zweier unabhängiger Gruppen.
+- **Gepaarter t-Test (abhängig)**: Vergleicht Mittelwerte von zwei verbundenen Messungen (z.B. vorher-nachher).
+- **Welch-Test**: Modifikation des t-Tests für den Fall ungleicher Varianzen, was eine häufige Verletzung der Annahmen des klassischen t-Tests ist.
+:::
+
+## Voraussetzungen
+
+* Normalverteilung
+* Varianzhomogenität (bei unabhängigem t-Test)
+* Unabhängigkeit der Beobachtungen
+* Skalenniveau der Daten
+
+::: {.notes}
+- **Normalverteilung**: Die Daten sollten annähernd normalverteilt sein. Bei großen Stichproben (n > 30) ist der Test robust gegenüber Verletzungen dieser Annahme.
+- **Varianzhomogenität**: Bei unabhängigem t-Test sollten beide Gruppen ähnliche Varianzen aufweisen, sonst sollte der Welch-Test verwendet werden.
+- **Unabhängigkeit der Beobachtungen**: Die Daten sollten nicht durch Messwiederholungen oder Clustering beeinflusst sein (außer beim gepaarten t-Test).
+- **Skalenniveau der Daten**: Die abhängige Variable sollte metrisch sein (Intervall- oder Verhältnisskala).
+:::
+
+## Hypothesenbildung
+
+* Nullhypothese (H₀)
+* Alternativhypothese (H₁)
+* Gerichtete vs. ungerichtete Hypothesen
+* Fehler 1. und 2. Art
+
+::: {.notes}
+- **Nullhypothese (H₀)**: Typischerweise, dass kein Unterschied zwischen den Gruppen besteht oder der Stichprobenmittelwert dem Populationsmittelwert entspricht.
+- **Alternativhypothese (H₁)**: Die Gegenposition zur Nullhypothese, z.B. dass ein Unterschied existiert.
+- **Gerichtete vs. ungerichtete Hypothesen**: Ungerichtete testen auf generelle Unterschiede (≠), gerichtete auf spezifische Richtungen (< oder >).
+- **Fehler 1. und 2. Art**: Typ-I-Fehler = fälschliche Ablehnung der Nullhypothese (α); Typ-II-Fehler = fälschliche Beibehaltung der Nullhypothese (β).
+:::
+
+## Praktische Durchführung
+
+* Formelapparat
+* Berechnung der Teststatistik
+* Kritische Werte bestimmen
+* p-Wert-Berechnung
+
+::: {.notes}
+- **Formelapparat**: Zeige die relevanten Formeln für die Berechnung der t-Statistik je nach Art des t-Tests.
+- **Berechnung der Teststatistik**: Erklärung, wie Mittelwertdifferenz, Standardfehler und Freiheitsgrade zur t-Statistik kombiniert werden.
+- **Kritische Werte bestimmen**: Wie man anhand von t-Tabellen oder Software die kritischen Grenzen für die Entscheidung findet.
+- **p-Wert-Berechnung**: Erläuterung, dass der p-Wert die Wahrscheinlichkeit angibt, die beobachtete oder eine extremere Differenz zu erhalten, wenn H₀ wahr ist.
+:::
+
+## Effektstärken
+
+* Cohen's d
+* Hedges' g
+* Glass' Δ
+* Interpretation von Effektgrößen
+
+::: {.notes}
+- **Cohen's d**: Standardisierte Mittelwertdifferenz, übliche Interpretation: 0.2 = klein, 0.5 = mittel, 0.8 = groß.
+- **Hedges' g**: Korrektur von Cohen's d für kleine Stichproben.
+- **Glass' Δ**: Verwendet nur die Standardabweichung der Kontrollgruppe, nützlich bei ungleichen Varianzen.
+- **Interpretation von Effektgrößen**: Betone, dass Effektstärken oft aussagekräftiger sind als p-Werte, da sie die praktische Bedeutsamkeit eines Befundes zeigen.
+:::
+
+## Interpretation der Ergebnisse
+
+* Signifikanz vs. Relevanz
+* Konfidenzintervalle
+* Typische Fehlinterpretationen
+* Schlussfolgerungen formulieren
+
+::: {.notes}
+- **Signifikanz vs. Relevanz**: Ein statistisch signifikantes Ergebnis bedeutet nicht automatisch, dass es praktisch relevant ist.
+- **Konfidenzintervalle**: Geben zusätzlich zur Entscheidung "signifikant/nicht signifikant" einen Bereich für die wahre Effektgröße an.
+- **Typische Fehlinterpretationen**: p < 0.05 bedeutet nicht, dass die Wahrscheinlichkeit der Nullhypothese < 5% ist oder dass der Effekt zu 95% in der Population existiert.
+- **Schlussfolgerungen formulieren**: Wie man Ergebnisse korrekt und präzise in wissenschaftlicher Sprache formuliert.
+:::
+
+## Anwendungsbeispiele
+
+* Klinische Studien
+* Experimentelle Psychologie
+* A/B-Testing im Marketing
+* Qualitätskontrolle in der Produktion
+
+::: {.notes}
+- **Klinische Studien**: Vergleich von Behandlungs- und Kontrollgruppen, z.B. bei Medikamentenwirksamkeit.
+- **Experimentelle Psychologie**: Beispiele für typische psychologische Experimente, die mit t-Tests ausgewertet werden.
+- **A/B-Testing im Marketing**: Wie Unternehmen verschiedene Versionen von Websites oder Werbungen vergleichen.
+- **Qualitätskontrolle in der Produktion**: Anwendung von t-Tests zur Überwachung von Produktionsparametern.
+:::
+
+## Alternativen zum t-Test
+
+* Nichtparametrische Verfahren (Mann-Whitney-U, Wilcoxon)
+* ANOVA bei mehr als zwei Gruppen
+* Robuste Verfahren bei Verletzung der Voraussetzungen
+
+::: {.notes}
+- **Nichtparametrische Verfahren**: Wann Mann-Whitney-U oder Wilcoxon-Test als Alternative sinnvoll sind (bei Verletzung der Normalverteilungsannahme).
+- **ANOVA**: Bei mehr als zwei zu vergleichenden Gruppen als Erweiterung des t-Tests.
+- **Robuste Verfahren**: Trimmed-Mean-t-Tests und andere Ansätze, die weniger anfällig für Ausreißer sind.
+:::
+
+## Software-Implementierung
+
+* Umsetzung in R/Python/SPSS
+* Ausgabeinterpretation
+* Grafische Darstellung der Ergebnisse
+* Reproduzierbarkeit sicherstellen
+
+::: {.notes}
+- **Umsetzung in R/Python/SPSS**: Konkrete Codebeispiele für verschiedene Statistikprogramme.
+- **Ausgabeinterpretation**: Wie man die typische Ausgabe statistischer Software richtig liest und interpretiert.
+- **Grafische Darstellung**: Sinnvolle Visualisierungen für t-Test-Ergebnisse (Boxplots, Mittelwerte mit Konfidenzintervallen).
+- **Reproduzierbarkeit sicherstellen**: Tipps zur Dokumentation der Analyse für wissenschaftliche Transparenz.
+:::
+
+## Aktuelle Diskussion und Kritik
+
+* p-Wert-Problematik
+* Bayes'sche Alternativen
+* Replikationskrise
+* Power-Analysen und Stichprobenplanung
+
+::: {.notes}
+- **p-Wert-Problematik**: Die aktuelle Diskussion um die Überbetonung der Signifikanz und p-Hacking.
+- **Bayes'sche Alternativen**: Kurze Einführung in Bayes-Faktoren als Alternative zu p-Werten.
+- **Replikationskrise**: Wie mangelnde statistische Power und Publikationsbias zu nicht-replizierbaren Befunden führen können.
+- **Power-Analysen**: Betonung der Wichtigkeit adäquater Stichprobengrößen für zuverlässige t-Tests.
+:::
+
+## R-Code-Beispiel
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Beispieldaten
+gruppe_1 <- c(25, 28, 30, 32, 33, 35, 38, 40)
+gruppe_2 <- c(20, 22, 24, 25, 28, 30, 31, 32)
+
+# Unabhängiger t-Test
+t.test(gruppe_1, gruppe_2, var.equal = TRUE)
+
+# Welch-Test (ungleiche Varianzen)
+t.test(gruppe_1, gruppe_2)
+
+# Effektstärke berechnen
+library(effsize)
+cohen.d(gruppe_1, gruppe_2)
+```
+
+::: {.notes}
+Hier demonstriere ich einen typischen R-Code für die Durchführung eines t-Tests:
+- Der erste Test ist ein klassischer t-Test mit der Annahme gleicher Varianzen
+- Der zweite ist ein Welch-Test, der keine Varianzhomogenität voraussetzt
+- Das Effektstärkenmaß Cohen's d wird mit dem Paket "effsize" berechnet
+- In der Vorlesung könntest du diese Befehle live ausführen und die Ergebnisse besprechen
+:::
+
+## Visualisierung der Ergebnisse
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(ggplot2)
+
+# Daten vorbereiten
+daten <- data.frame(
+  Wert = c(gruppe_1, gruppe_2),
+  Gruppe = factor(rep(c("Gruppe 1", "Gruppe 2"), each = 8))
+)
+
+# Boxplot erstellen
+ggplot(daten, aes(x = Gruppe, y = Wert, fill = Gruppe)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 3) +
+  labs(title = "Vergleich der Gruppenmittelwerte", 
+       y = "Messwert") +
+  theme_minimal()
+```
+
+::: {.notes}
+Diese Visualisierung zeigt:
+- Boxplots für beide Gruppen, die die Verteilung veranschaulichen
+- Die einzelnen Datenpunkte als Punkte (Jitter verhindert Überlappungen)
+- Die Mittelwerte als größere Rauten
+- Diese Art der Darstellung ist informativer als ein einfacher Balkendiagramm, da sie die Streuung der Daten zeigt
+:::
 
 ## t-Test
 
@@ -1172,7 +1449,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   Reale Beispiele für t-Tests
 -   Interpretation von Ergebnissen
 
-## Sitzung 9: Umfragen und ANOVA
+## Sitzung 8: Umfragen und ANOVA
 
 ## Quantitativ versus Qualitativ
 
@@ -1229,7 +1506,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   F-Statistik und Varianzvergleich
 -   Post-Hoc Tests zur Identifizierung spezifischer Gruppenunterschiede
 
-# Sitzung 10: Korrelationsanalyse
+# Sitzung 9: Korrelationsanalyse
 
 ## Was ist eine Korrelation?
 
@@ -1285,7 +1562,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   Skalen für Cohen's Kappa, Fleiss' Kappa und ICC
 -   Praktische Beispiele
 
-# Sitzung 11: Einfache Lineare Regression
+# Sitzung 10: Einfache Lineare Regression
 
 ## Wofür brauche ich lineare Regression?
 
@@ -1319,7 +1596,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   Interpretation der Log-Odds
 -   Modellbewertung mit Konfusionsmatrix und ROC-Kurve
 
-# Sitzung 12: Chi-Quadrat-Test & kategoriale Daten
+# Sitzung 11: Chi-Quadrat-Test & kategoriale Daten
 
 ## Chi-Quadrat-Test
 
@@ -1333,7 +1610,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   Fallstudie mit einem realen Datensatz
 -   Von der Datenaufbereitung bis zur Interpretation
 
-## Sitzung 13: Abschluss und Ausblick
+## Sitzung 12: Abschluss und Ausblick
 
 ## Zusammenfassung der wichtigsten Methoden
 
