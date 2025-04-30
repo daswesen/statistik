@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+# Einleitung
+
+Dies ist ein toller Code!
+
+```{r}
+plot(cars)
+```
+
+```{r}
+2+2
+```
+

@@ -215,7 +215,70 @@ author: "Dr. Tom Alby"
 
 ![](images/einkommen.jpeg)
 
+## Wie könnte man die Einkommensverteilung beschreiben?
+
 ![](images/einkommensschichtung.png)
+
+## Histogramm
+
+- Was: Grafische Darstellung der Häufigkeitsverteilung in Klassen
+- Bestandteile: X-Achse (Werte), Y-Achse (Häufigkeit), Balken (Klassenhäufigkeit)
+- Wozu: Schneller Überblick über Datenverteilung und -muster
+- Interpretation: Form (symmetrisch/schief), Modalität (uni-/multimodal), Ausreißer
+- Wichtig: Klassenanzahl beeinflusst sichtbare Form
+- In R: `hist(data, breaks = 10)`
+
+## Warum sind statistische Kennzahlen wichtig?
+
+## Daten zusammenfassen und vereinfachen
+
+-   **Reduktion von Komplexität**: Große Datenmengen werden durch wenige Werte beschreibbar
+-   **Kommunikation**: Leichtere Vermittlung von Erkenntnissen an Nicht-Statistiker
+-   **Vergleichbarkeit**: Unterschiedliche Datensätze werden vergleichbar
+
+## Entscheidungsgrundlage in vielen Anwendungsbereichen
+
+-   **Wirtschaft**: Grundlage für Investitionsentscheidungen und Marktanalysen
+-   **Medizin**: Interpretation von Studienergebnissen und diagnostischen Tests
+-   **Politik**: Faktenbasis für gesellschaftliche und wirtschaftliche Maßnahmen
+-   **Wissenschaft**: Prüfung von Hypothesen und Interpretation von Experimenten
+
+## Typische Anwendungsfälle
+
+| Kennzahl | Wichtig für... | Beispielanwendung |
+|------------------|-------------------------|------------------------------|
+| **Mittelwert** | Durchschnittswerte, Summenbetrachtungen | Durchschnittseinkommen einer Region |
+| **Median** | Typische Werte, robust gegen Ausreißer | Typisches Haushaltseinkommen |
+| **Standardabweichung** | Streuung, Qualitätskontrolle | Produktionsgenauigkeit in der Fertigung |
+| **Quartile/Boxplot** | Verteilungsform, Ausreißererkennung | Identifikation von Ungleichheiten |
+| **Schiefe/Wölbung** | Abweichungen von der Normalverteilung | Risikobewertung im Finanzwesen |
+
+## Von der Beschreibung zur Inferenz
+
+-   Deskriptive Statistik als Grundlage für **statistische Tests**
+-   Möglichkeit der **Stichprobenerhebung** statt Vollerhebung
+-   Basis für **statistische Modellierung** und **Vorhersagen**
+
+## Erkennung von Mustern und Besonderheiten
+
+-   **Ausreißer**: Potentielle Fehler oder besondere Fälle
+-   **Trends**: Entwicklungen über Zeit
+-   **Gruppenunterschiede**: Systematische Variation zwischen Teilgruppen
+
+## Typisch / ungewöhnlich / unmöglich
+
+![](images/hadlum.png)
+
+## Weitere Beispiele
+
+
+| Anwendungsgebiet | Kennzahlen | Nutzen |
+|---------------------------------|----------------------|------------------|
+| **Medizin** | Referenzwerte (z.B. Blutdruck, BMI) | Diagnostik, Risikoeinschätzung |
+| **Finanzmarkt** | Volatilität (Standardabweichung) | Risikobewertung von Anlagen |
+| **Qualitätssicherung** | Prozessfähigkeitsindizes (basierend auf σ) | Optimierung von Produktionsprozessen |
+| **Sozialforschung** | Gini-Koeffizient (basierend auf Verteilung) | Ungleichheitsmaße in der Gesellschaft |
+| **Meteorologie** | Durchschnittstemperaturen + Extremwerte | Klimaforschung, Wettervorhersage |
 
 ## Lagemaße
 
@@ -237,24 +300,99 @@ author: "Dr. Tom Alby"
 
 ![](images/clinton-average.png)
 
-## Typisch / ungewöhnlich / unmöglich
+## Streuungsmaße
 
-![](images/hadlum.png)
+## Spannweite (Range)
 
-## Deskriptive Statistik: Übersicht
+-   Die Spannweite ist der einfachste Streuungsparameter
+-   Berechnung: Maximum - Minimum
+-   Sehr anfällig für Ausreißer
+-   In R: `diff(range(data))` oder `max(data) - min(data)`
 
-| Kategorie | Typische Kennzahlen / Techniken |
-|-----------------------|------------------------------------------------|
-| **Lagemaße** | Mittelwert - Median - Modus |
-| **Streuungsmaße** | Spannweite (Range) - Quartilabstand (IQR) - Varianz & Standardabweichung |
-| **Formparameter** | Schiefe (Skewness) - Wölbung (Kurtosis) |
-| **Positionskennwerte** | Quantile - Perzentile - Quartile |
+## Interquartilsabstand (IQR)
 
-## Standardabweichung und Varianz
+-   Robusteres Streuungsmaß, das Ausreißer besser berücksichtigt
+-   Berechnung: 75%-Quartil minus 25%-Quartil (Q3 - Q1)
+-   Enthält die mittleren 50% der Daten
+-   In R: `IQR(data)` oder `quantile(data, 0.75) - quantile(data, 0.25)`
 
--   Bedeutung und Berechnung
--   Interpretation im Kontext der Normalverteilung
--   Praktische Anwendung mit `sd()` und `var()`
+## Varianz
+
+-   Durchschnittliche quadratische Abweichung vom Mittelwert
+-   Berechnung für Grundgesamtheit: $$\sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2$$
+-   Berechnung für Stichprobe (korrigierte Varianz): $$s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2$$
+-   Einheit: Quadrat der Einheit der Ursprungsdaten
+-   In R: `var(data)`
+
+## Standardabweichung
+
+![](images/Standard_deviation_diagram.svg.png)
+
+## Standardabweichung
+
+-   Wurzel aus der Varianz: Dieselbe Einheit wie die Ursprungsdaten
+-   Berechnung für Grundgesamtheit: $$\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2}$$
+-   Berechnung für Stichprobe: $$s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}$$
+-   In R: `sd(data)`
+
+## Interpretation der Standardabweichung im Kontext der Normalverteilung
+
+-   Bei normalverteilten Daten liegen ca. 68% der Werte innerhalb von μ ± σ (Mittelwert ± 1 Standardabweichung)
+-   Ca. 95% der Werte liegen innerhalb von μ ± 2σ
+-   Ca. 99,7% der Werte liegen innerhalb von μ ± 3σ ("Drei-Sigma-Regel")
+
+
+## Formparameter
+
+![](images/3-s2.0-B9780128207178000087-f05-03-9780128207178.jpg)
+
+## Schiefe (Skewness)
+
+-   Misst die Asymmetrie einer Verteilung
+-   Positive Schiefe: rechtsschiefe Verteilung (längerer "Schwanz" nach rechts)
+-   Negative Schiefe: linksschiefe Verteilung (längerer "Schwanz" nach links)
+-   Schiefe von 0: symmetrische Verteilung (z.B. Normalverteilung)
+-   In R: `skewness(data)` aus dem Paket **moments** oder **e1071**
+
+
+
+## Wölbung (Kurtosis)
+
+-   Misst die "Spitzheit" bzw. "Flachheit" einer Verteilung
+-   Normalverteilung hat eine Kurtosis von 3 (manchmal als Exzess-Kurtosis = 0 dargestellt)
+-   Hohe Kurtosis (\>3): spitze Verteilung mit "schweren Enden" (mehr Extremwerte)
+-   Niedrige Kurtosis (\<3): flache Verteilung mit "leichten Enden" (weniger Extremwerte)
+-   In R: `kurtosis(data)` aus dem Paket **moments** oder **e1071**
+
+
+
+## Positionskennwerte
+
+## Quantile und Perzentile
+
+-   Teile die Daten in gleich große Teile
+-   Median = 0,5-Quantil (50%-Perzentil)
+-   Quartile teilen die Daten in vier gleiche Teile:
+      -   Q1 = 0,25-Quantil (25%-Perzentil)
+      -   Q2 = 0,5-Quantil (50%-Perzentil) = Median
+      -   Q3 = 0,75-Quantil (75%-Perzentil)
+-   In R: `quantile(data, probs = c(0.25, 0.5, 0.75))` für Quartile
+
+## Boxplot
+
+![](images/Elements_of_a_boxplot.svg.png)
+
+## Boxplot
+
+-   Visuelle Darstellung von Quartilen und Ausreißern
+-   Box: Interquartilsabstand (IQR) von Q1 bis Q3
+-   Mittellinie: Median (Q2)
+-   Whiskers: Typischerweise bis max. 1,5 × IQR von der Box
+-   Punkte außerhalb der Whiskers: potenzielle Ausreißer
+-   In R: `boxplot(data)`
+
+\#![](images/boxplot-explained.png)
+
 
 ## Wie macht man das in R?
 
@@ -271,9 +409,9 @@ author: "Dr. Tom Alby"
 | Wölbung (Kurtosis) | `kurtosis(data)` *(moments/e1071)* | "Spitzheit" der Verteilung |
 | Quantile | `quantile(data, c(.25,.5,.75))` | 25 %, 50 %, 75 %-Werte (Quartile) |
 
-## Übung
+## Übungen
 
--   Praktische Anwendung von deskriptiven Statistiken
+
 
 # Sitzung 3: Deskriptive Statistik II & Datenmanipulation
 
