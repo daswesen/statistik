@@ -409,8 +409,17 @@ author: "Dr. Tom Alby"
 | Wölbung (Kurtosis) | `kurtosis(data)` *(moments/e1071)* | "Spitzheit" der Verteilung |
 | Quantile | `quantile(data, c(.25,.5,.75))` | 25 %, 50 %, 75 %-Werte (Quartile) |
 
-## Übungen
+## Übung mit dem Datensatz iris
 
+| Kennzahl | R‑Befehl | Kurzbeschreibung |
+|-------------------|------------------------|-----------------------------|
+| Mittelwert | `mean(data)` | Durchschnitt aller Werte |
+| Median | `median(data)` | Zentralwert (50 %-Quantil) |
+| Minimum | `min(data)` | Kleinster Wert |
+| Maximum | `max(data)` | Größter Wert |
+| Spannweite | `diff(range(data))` | Abstand = Max − Min |
+| Standardabweichung | `sd(data)` | Ø‑Abweichung vom Mittelwert |
+| Varianz | `var(data)` | Quadrat der Standardabweichung |
 
 
 # Sitzung 3: Deskriptive Statistik II & Datenmanipulation

@@ -3,8 +3,6 @@ title: "R Notebook"
 output:
   html_document:
     df_print: paged
-  html_notebook: default
-  pdf_document: default
 ---
 
 # Einleitung
@@ -17,5 +15,12 @@ plot(cars)
 
 ```{r}
 2+2
+```
+
+```{r}
+summary(cars)
+```
+```{r}
+hist(cars$speed)
 ```
 
