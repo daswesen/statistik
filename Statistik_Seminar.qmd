@@ -108,7 +108,7 @@ author: "Dr. Tom Alby"
 ## Skalenniveau am Beispiel
 
 | title | year | budget | avg_vote |
-|-------------------|------------------|------------------|------------------|
+|------------------|------------------|------------------|------------------|
 | Miss Jerry | 1894 | NA | 5.9 |
 | The Story of the Kelly Gang | 1906 | \$ 2250 | 6.1 |
 | Den sorte drøm | 1911 | NA | 5.8 |
@@ -123,7 +123,7 @@ author: "Dr. Tom Alby"
 ## Analytische Konzepte
 
 | Phase & Leitfrage | Statistisches Äquivalent | Beispiel‑Methoden / Tools |
-|-------------------|-------------------|----------------------------------|
+|------------------------|------------------------|------------------------|
 | **Rückblick – Was ist passiert?** | **Deskriptive Statistik** | Lage‑ & Streuungsmaße, Häufigkeiten, Balken‑/Liniendiagramme |
 | **Erkenntnis – Warum passiert es?** | **Explorative & inferenzielle Statistik** | Korrelation, t‑Test, ANOVA, χ²‑Test, Konfidenz­intervalle, Regressionsdiagnostik |
 | **Vorausschau – Was wird passieren?** | **Prognostische (inferenzielle) Modelle** | Lineare/Logistische Regression, Random Forest, Zeitreihen‑Forecasts, Konfidenz­intervalle für Prognosen |
@@ -221,12 +221,12 @@ author: "Dr. Tom Alby"
 
 ## Histogramm
 
-- Was: Grafische Darstellung der Häufigkeitsverteilung in Klassen
-- Bestandteile: X-Achse (Werte), Y-Achse (Häufigkeit), Balken (Klassenhäufigkeit)
-- Wozu: Schneller Überblick über Datenverteilung und -muster
-- Interpretation: Form (symmetrisch/schief), Modalität (uni-/multimodal), Ausreißer
-- Wichtig: Klassenanzahl beeinflusst sichtbare Form
-- In R: `hist(data, breaks = 10)`
+-   Was: Grafische Darstellung der Häufigkeitsverteilung in Klassen
+-   Bestandteile: X-Achse (Werte), Y-Achse (Häufigkeit), Balken (Klassenhäufigkeit)
+-   Wozu: Schneller Überblick über Datenverteilung und -muster
+-   Interpretation: Form (symmetrisch/schief), Modalität (uni-/multimodal), Ausreißer
+-   Wichtig: Klassenanzahl beeinflusst sichtbare Form
+-   In R: `hist(data, breaks = 10)`
 
 ## Warum sind statistische Kennzahlen wichtig?
 
@@ -246,7 +246,7 @@ author: "Dr. Tom Alby"
 ## Typische Anwendungsfälle
 
 | Kennzahl | Wichtig für... | Beispielanwendung |
-|------------------|-------------------------|------------------------------|
+|------------------------|------------------------|------------------------|
 | **Mittelwert** | Durchschnittswerte, Summenbetrachtungen | Durchschnittseinkommen einer Region |
 | **Median** | Typische Werte, robust gegen Ausreißer | Typisches Haushaltseinkommen |
 | **Standardabweichung** | Streuung, Qualitätskontrolle | Produktionsgenauigkeit in der Fertigung |
@@ -271,9 +271,8 @@ author: "Dr. Tom Alby"
 
 ## Weitere Beispiele
 
-
 | Anwendungsgebiet | Kennzahlen | Nutzen |
-|---------------------------------|----------------------|------------------|
+|------------------------|------------------------|------------------------|
 | **Medizin** | Referenzwerte (z.B. Blutdruck, BMI) | Diagnostik, Risikoeinschätzung |
 | **Finanzmarkt** | Volatilität (Standardabweichung) | Risikobewertung von Anlagen |
 | **Qualitätssicherung** | Prozessfähigkeitsindizes (basierend auf σ) | Optimierung von Produktionsprozessen |
@@ -299,6 +298,10 @@ author: "Dr. Tom Alby"
 ## It really happened
 
 ![](images/clinton-average.png)
+
+## Auch die MOPO...
+
+![](images/Bildschirmfoto%202025-05-09%20um%2011.34.35.png)
 
 ## Streuungsmaße
 
@@ -341,7 +344,6 @@ author: "Dr. Tom Alby"
 -   Ca. 95% der Werte liegen innerhalb von μ ± 2σ
 -   Ca. 99,7% der Werte liegen innerhalb von μ ± 3σ ("Drei-Sigma-Regel")
 
-
 ## Formparameter
 
 ![](images/3-s2.0-B9780128207178000087-f05-03-9780128207178.jpg)
@@ -354,8 +356,6 @@ author: "Dr. Tom Alby"
 -   Schiefe von 0: symmetrische Verteilung (z.B. Normalverteilung)
 -   In R: `skewness(data)` aus dem Paket **moments** oder **e1071**
 
-
-
 ## Wölbung (Kurtosis)
 
 -   Misst die "Spitzheit" bzw. "Flachheit" einer Verteilung
@@ -364,8 +364,6 @@ author: "Dr. Tom Alby"
 -   Niedrige Kurtosis (\<3): flache Verteilung mit "leichten Enden" (weniger Extremwerte)
 -   In R: `kurtosis(data)` aus dem Paket **moments** oder **e1071**
 
-
-
 ## Positionskennwerte
 
 ## Quantile und Perzentile
@@ -373,9 +371,9 @@ author: "Dr. Tom Alby"
 -   Teile die Daten in gleich große Teile
 -   Median = 0,5-Quantil (50%-Perzentil)
 -   Quartile teilen die Daten in vier gleiche Teile:
-      -   Q1 = 0,25-Quantil (25%-Perzentil)
-      -   Q2 = 0,5-Quantil (50%-Perzentil) = Median
-      -   Q3 = 0,75-Quantil (75%-Perzentil)
+    -   Q1 = 0,25-Quantil (25%-Perzentil)
+    -   Q2 = 0,5-Quantil (50%-Perzentil) = Median
+    -   Q3 = 0,75-Quantil (75%-Perzentil)
 -   In R: `quantile(data, probs = c(0.25, 0.5, 0.75))` für Quartile
 
 ## Boxplot
@@ -393,11 +391,10 @@ author: "Dr. Tom Alby"
 
 \#![](images/boxplot-explained.png)
 
-
 ## Wie macht man das in R?
 
 | Kennzahl | R‑Befehl | Kurzbeschreibung |
-|-------------------|------------------------|-----------------------------|
+|------------------------|------------------------|------------------------|
 | Mittelwert | `mean(data)` | Durchschnitt aller Werte |
 | Median | `median(data)` | Zentralwert (50 %-Quantil) |
 | Minimum | `min(data)` | Kleinster Wert |
@@ -411,49 +408,38 @@ author: "Dr. Tom Alby"
 
 ## Übung mit dem Datensatz iris
 
-| Kennzahl | R‑Befehl | Kurzbeschreibung |
-|-------------------|------------------------|-----------------------------|
-| Mittelwert | `mean(data)` | Durchschnitt aller Werte |
-| Median | `median(data)` | Zentralwert (50 %-Quantil) |
-| Minimum | `min(data)` | Kleinster Wert |
-| Maximum | `max(data)` | Größter Wert |
-| Spannweite | `diff(range(data))` | Abstand = Max − Min |
-| Standardabweichung | `sd(data)` | Ø‑Abweichung vom Mittelwert |
-| Varianz | `var(data)` | Quadrat der Standardabweichung |
-
+| Kennzahl           | R‑Befehl            | Kurzbeschreibung               |
+|--------------------|---------------------|--------------------------------|
+| Mittelwert         | `mean(data)`        | Durchschnitt aller Werte       |
+| Median             | `median(data)`      | Zentralwert (50 %-Quantil)     |
+| Minimum            | `min(data)`         | Kleinster Wert                 |
+| Maximum            | `max(data)`         | Größter Wert                   |
+| Spannweite         | `diff(range(data))` | Abstand = Max − Min            |
+| Standardabweichung | `sd(data)`          | Ø‑Abweichung vom Mittelwert    |
+| Varianz            | `var(data)`         | Quadrat der Standardabweichung |
 
 # Sitzung 3: Deskriptive Statistik II & Datenmanipulation
 
+## Typischer Ablauf
+
+![](images/CRISP-DM_Process_Diagram.png)
+
 ## Tidyverse
 
--   Einführung in das Tidyverse-Paket
+-   Das Tidyverse-Paket von Hadley Wickham
 -   Code the way you think
--   Module wie dplyr und readr
+-   Enthält Packages wie dplyr und readr
 
 ## Packages laden und installieren
 
 -   Packages als Erweiterungen zu base R
--   Installation und Laden von Packages
-
-## Der typische Ablauf
-
--   Datenprozess von Import bis Analyse
-
-## Daten lesen und schreiben
-
--   Dateiformate: CSV, JSON, ARFF, Excel, Parquet, u.a.
--   Vor- und Nachteile verschiedener Formate
--   Import-Beispiele
-
-## Pro-Tipp
-
--   Importzeile aus Code Preview kopieren und ins Notebook kopieren
--   library ignorieren (haben wir schon mit dem Tidyverse importiert)
--   View(gadata) ignorieren (nervt nur)
+-   Installation über Tools =\> Install Packages
+-   Laden über library(NAME)
+-   tidyverse und nycflights23
 
 ## Rohdaten transformieren und zusammenfassen
 
-> Beschreiben Sie die Schritte, um eine Tüte Gummibärchen nach Farben zu sortieren
+Beschreiben Sie die Schritte, um eine Tüte Gummibärchen nach Farben zu sortieren
 
 ## Rohdaten transformieren und zusammenfassen
 
@@ -482,16 +468,38 @@ Gummibärchentüte %>%
 -   `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
 -   `arrange()`: Sortierung ändern
 
-## Reguläre Ausdrücke
+## Ausprobieren mit nycflights23
 
--   Mustererkennung in Daten
--   Anwendung in `filter()` und `mutate()`
+-   5 Datensätze
+    -   flights
+    -   planes
+    -   airlines
+    -   airports
+    -   weather
+
+## Demo
 
 ## Typische Fehler
 
 -   Package nicht geladen
 -   Pipe-Symbol falsch verwendet
 -   Unvollständige Code-Chunks
+
+## Datensätze miteinander verbinden
+
+![](images/joins.png)
+
+## Daten lesen und schreiben
+
+-   Dateiformate: CSV, JSON, ARFF, Excel, Parquet, u.a.
+-   Was sind die Vor- und Nachteile der Formate?
+-   Import-Beispiele
+
+## Pro-Tipp
+
+-   Importzeile aus Code Preview kopieren und ins Notebook kopieren
+-   library ignorieren (haben wir schon mit dem Tidyverse importiert)
+-   View(gadata) ignorieren (nervt nur)
 
 # Sitzung 4: Datenvisualisierung
 
@@ -822,7 +830,7 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
 Use horizontal when the text matters more. Use vertical when the order or time is key.
 
 | Feature | Horizontal | Vertical |
-|---------------------|----------------------------|-----------------------|
+|------------------------|------------------------|------------------------|
 | Best for | Long category labels, many items | Time-based or logical progression |
 | Readability | Easier when labels are long | Requires rotation for long labels |
 | Use case | Rankings, survey responses | Trends over time, grouped comparisons |
@@ -1763,3 +1771,8 @@ Diese Visualisierung zeigt: - Boxplots für beide Gruppen, die die Verteilung ve
 ## Offene Fragen und Diskussion
 
 ## Evaluation und Feedback
+
+## Reguläre Ausdrücke
+
+-   Mustererkennung in Daten
+-   Anwendung in `filter()` und `mutate()`
