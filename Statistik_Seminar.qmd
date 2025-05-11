@@ -430,7 +430,7 @@ author: "Dr. Tom Alby"
 -   Code the way you think
 -   Enthält Packages wie dplyr und readr
 
-## Packages laden und installieren
+## Packages installieren und laden
 
 -   Packages als Erweiterungen zu base R
 -   Installation über Tools =\> Install Packages

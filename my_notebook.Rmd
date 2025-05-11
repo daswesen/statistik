@@ -27,6 +27,26 @@ hist(cars$speed)
 ```{r}
 library(tidyverse)
 ```
+
+```{r}
+library(nycflights23)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```{r}
 nummer <- 1:18
 farbe <- c("rot","rot","rot","rot","orange","orange","orange","orange","grün","grün","grün","grün","dunkelrot","dunkelrot","rot","dunkelrot","gelb","gelb")
@@ -35,40 +55,85 @@ Gummibärchentüte
 ```
 
 ```{r}
-Gummibärchentüte %>%
-  group_by(farbe) %>%
-  summarise(n = n()) %>%
-  arrange(desc(n))
+library(tidyverse)
 ```
-
 ```{r}
 library(nycflights23)
 ```
 
+
 ```{r}
-flights
+Gummibärchentüte %>%
+  group_by(farbe) %>%
+  summarise(Anzahl_pro_farbe = n()) %>%
+  arrange(desc(Anzahl_pro_farbe))
+```
+
+```{r}
+my_flights <- flights
 ```
 
 ```{r}
 flights %>%
   group_by(origin) %>%
-  summarise(n = n())
+  summarise(Anzahl_Fluege_pro_Carrier = n())
+```
 
+```{r}
+data <- flights %>%
+  full_join(airlines) %>%
+  full_join(airports, join_by("dest" == "faa")) %>%
+  rename(airline_name = name.x, dest_name = name.y) 
+```
+
+```{r}
+write_csv(data, "data.csv")
+```
+
+```{r}
+data <- read_csv("data.csv")
+```
+
+
+```{r}
+airports
+```
+
+```{r}
+weather
+```
+
+
+```{r}
 flights %>%
   group_by(dest) %>%
-  summarise(n = n()) %>%
-  arrange(desc(n))
-```
-
-```{r}
-flights %>%
-  summarise(my_mean = mean(dep_delay, na.rm = TRUE), my_median = median(dep_delay, na.rm = TRUE))
+  summarise(Anzahl_destinations = n())
 ```
 
 
 ```{r}
-flights
+airlines
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ```{r}
