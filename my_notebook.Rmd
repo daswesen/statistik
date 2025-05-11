@@ -131,34 +131,3 @@ airlines
 
 
 
-
-
-
-
-
-```{r}
-library(ggplot2)
-library(ggforce)
-library(gridExtra)
-
-plot_join <- function(title, fill_x, fill_y) {
-  ggplot() +
-    geom_circle(aes(x0 = 1, y0 = 1, r = 1), fill = fill_x, alpha = 0.6, color = "black") +
-    geom_circle(aes(x0 = 2, y0 = 1, r = 1), fill = fill_y, alpha = 0.6, color = "black") +
-    annotate("text", x = 0.5, y = 2.2, label = title, size = 5, hjust = 0) +
-    annotate("text", x = 1, y = 1, label = "x", size = 6) +
-    annotate("text", x = 2, y = 1, label = "y", size = 6) +
-    theme_void() +
-    coord_fixed()
-}
-
-inner <- plot_join("inner_join", "white", "white")
-left  <- plot_join("left_join", "#56B4E9", "white")
-right <- plot_join("right_join", "white", "#E69F00")
-full  <- plot_join("full_join", "#56B4E9", "#E69F00")
-semi  <- plot_join("semi_join", "#56B4E9", "white")  # nur x-Teil mit Match
-anti  <- plot_join("anti_join", "#56B4E9", "white")  # nur x-Teil ohne Match
-
-grid.arrange(inner, left, right, full, semi, anti, ncol = 3)
-```
-
