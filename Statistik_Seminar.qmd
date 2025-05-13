@@ -505,7 +505,11 @@ Gummibärchentüte %>%
 
 ## Warum Datenvisualisierung?
 
-> The greatest value of a picture is when it forces us to notice what we never expected to see. (John Tukey)
+The greatest value of a picture is when it forces us to notice what we never expected to see. (John Tukey)
+
+## Warum Datenvisualisierung, Teil 2
+
+![](images/Anscombe's_quartet_3.svg.png)
 
 ## 5 wichtige Schritte
 
@@ -513,6 +517,9 @@ Gummibärchentüte %>%
     -   An wen wird kommuniziert?
     -   Was soll der Empfänger wissen oder tun?
     -   Welche Daten sind vorhanden, um den Case zu untermauern?
+
+## 5 wichtige Schritte
+
 2.  Welche ist das passendste Visualierung?
     -   Ein oder zwei Zahlen, die im Fokus stehen? =\> Text!
     -   Liniendiagramme für continuous data
@@ -520,32 +527,71 @@ Gummibärchentüte %>%
     -   Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
     -   Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
 
-## 5 wichtige Schritte, Teil II
+## 5 wichtige Schritte
 
 3.  Entfernen Sie „Clutter"
     1.  Entfernen Sie alles, das keinen informativen Mehrwert hat (z.B. Farben für die Ästhetik)
     2.  Arbeiten Sie mit freiem Raum
+
+## 5 wichtige Schritte
+
 4.  Fokussieren Sie die Aufmerksamkeit, wo Sie hin soll
     -   Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
     -   Wohin gehen die Augen?
+
+## 5 wichtige Schritte
+
+::::: columns
+::: {.column width="60%"}
 5.  Nutzen Sie Storytelling
     -   Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
     -   Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
     -   Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
+:::
+
+::: {.column width="40%"}
+![](images/storytelling.png)
+:::
+:::::
+
 
 ## Redundant Coding
 
-„Redundant Coding"
+::::: columns
+::: {.column width="50%"}
+![](images/redudant_coding1.png)
+:::
 
-## Weitere Prinzipien der Visualisierung
+::: {.column width="50%"}
+![](images/redudant_coding2.png)
+:::
+:::::
 
-Weißer Space ist gut… aber nicht zu viel!
+## Weißer Space ist gut… aber nicht zu viel!
 
-## Weitere Prinzipien der Visualisierung
 
-Highlighting hilft auf das zu fokussieren, was wirklich wichtig ist
+
+::::: columns
+::: {.column width="50%"}
+![](images/white_space1.png)
+:::
+
+::: {.column width="50%"}
+![](images/white_space2.png)
+:::
+:::::
+
+## Highlighting
+
+![](images/highlighting.png)
+
+## Hatten wir diese Frage nicht schon mal?
+
+![](images/highlighting.png)
 
 ## Wie identifiziert man das richtige Diagramm?
+
+![](images/overview.png)
 
 ## Scatter Plot / Streudiagramm
 
@@ -647,31 +693,7 @@ ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
 :::
 
 ::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-# Vereinfachtes Venn-Diagramm mit ggplot2
-theta <- seq(0, 2-pi, length.out = 100)
-circle <- data.frame(
-  x = cos(theta),
-  y = sin(theta)
-)
-ggplot() +
-  # Kreis A
-  geom_polygon(data = circle, aes(x = x-1.2 - 0.5, y = y-1.2), 
-               fill = "steelblue", alpha = 0.5) +
-  # Kreis B
-  geom_polygon(data = circle, aes(x = x-1.2 + 0.5, y = y-1.2), 
-               fill = "firebrick", alpha = 0.5) +
-  # Labels
-  annotate("text", x = -1, y = 0, label = "A", size = 6, fontface = "bold", color = "white") +
-  annotate("text", x = 1, y = 0, label = "B", size = 6, fontface = "bold", color = "white") +
-  annotate("text", x = 0, y = 0, label = "A ∩ B", size = 5, fontface = "bold") +
-  theme_void() +
-  coord_equal()
-```
+![](images/relationship_venn_4_3.png)
 :::
 :::::
 
@@ -687,34 +709,7 @@ ggplot() +
 :::
 
 ::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-# Vereinfachtes UpSet-Diagramm mit ggplot2
-sets <- c("A", "B", "C")
-combinations <- data.frame(
-  sets = c("A", "B", "C", "A∩B", "A∩C", "B∩C", "A∩B∩C"),
-  size = c(15, 10, 12, 8, 6, 5, 3),
-  A = c(1, 0, 0, 1, 1, 0, 1),
-  B = c(0, 1, 0, 1, 0, 1, 1),
-  C = c(0, 0, 1, 0, 1, 1, 1)
-)
-# Oberer Teil: Set-Größen
-p1 <- ggplot(combinations[1:3,], aes(x = sets, y = size)) +
-  geom_bar(stat = "identity", fill = "grey60", width = 0.6) +
-  theme_minimal() +
-  labs(x = NULL, y = "Set-Größe") +
-  theme(axis.text.x = element_text(angle = 0))
-# Unterer Teil: Überschneidungen
-p2 <- ggplot(combinations[4:7,], aes(x = sets, y = size)) +
-  geom_bar(stat = "identity", fill = "steelblue", width = 0.6) +
-  theme_minimal() +
-  labs(x = "Überschneidungen", y = "Größe") +
-  theme(axis.text.x = element_text(angle = 0, size = 8))
-gridExtra::grid.arrange(p1, p2, heights = c(1, 2))
-```
+![](images/upset.png)
 :::
 :::::
 
@@ -825,9 +820,9 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
 :::
 :::::
 
-## Comparison: Horizontal vs. Vertical Bar Charts
+## Vergleich: Horizontal vs. Vertical Bar Charts
 
-Use horizontal when the text matters more. Use vertical when the order or time is key.
+
 
 | Feature | Horizontal | Vertical |
 |------------------------|------------------------|------------------------|
@@ -1255,11 +1250,15 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 :::
 :::::
 
+## Treemap
+
+![](images/treemap.png)
+
 ## Nein, Sie verwenden bitte keine Pie Charts!
 
-\#![](images/pie-chart-problem.png)
+![](images/pie-chart.png)
 
-## Was denken Sie über diese Grafik?
+
 
 ## Datenvisualisierung mit ggplot2
 

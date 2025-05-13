@@ -24,6 +24,8 @@ summary(cars)
 hist(cars$speed)
 ```
 
+# Sitzung 3
+
 ```{r}
 library(tidyverse)
 ```
@@ -115,7 +117,28 @@ flights %>%
 airlines
 ```
 
+# Sitzung 4
 
+```{r}
+flights %>%
+  group_by(carrier) %>%
+  mutate(number_of_flights = n()) %>%
+  filter(arr_delay > 0) %>%
+  mutate(number_of_delays = n()) %>%
+  mutate(delay_ration = number_of_delays / number_of_flights) %>%
+  select(carrier, number_of_delays, number_of_flights, delay_ration) %>%
+  distinct() %>%
+  arrange(desc(delay_ration)) %>%
+  left_join(airlines) %>%
+  rename(airline=name) %>%
+  ggplot(. , aes(x = carrier, y = delay_ration)) +
+  geom_col()
+
+```
+
+```{r}
+
+```
 
 
 
