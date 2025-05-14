@@ -1267,511 +1267,741 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   `geom_point()`, `geom_histogram()`, `geom_boxplot()`
 -   Ästhetiken: Farbe, Form, Gruppierung
 
+
 # Sitzung 5: Wahrscheinlichkeiten & Verteilungen
 
-## Wahrscheinlichkeiten & Verteilungen
+## Einführung in Wahrscheinlichkeiten
+- **Was ist Zufall?** Konzeptuelle Einführung 
+- **Laplace-Wahrscheinlichkeit**: Anzahl günstiger/Anzahl möglicher Fälle
+- **Empirische Wahrscheinlichkeit**: Relative Häufigkeit bei Wiederholung
+- **Bedingte Wahrscheinlichkeit**: P(A|B) - Wahrscheinlichkeit von A unter der Bedingung B
 
--   Intuitive Einführung in Zufall & Normalverteilung
--   Laplace, Simulation, `rnorm()`, `dnorm()`
--   Visualisierung von Wahrscheinlichkeitsdichte
+## Zufallsvariablen und Verteilungen
+- **Diskrete vs. stetige Zufallsvariablen**: Konzeptioneller Unterschied
+- **Wichtige diskrete Verteilungen**:
+  - Binomialverteilung (Anzahl Erfolge bei n Versuchen)
+  - Poisson-Verteilung (Anzahl Ereignisse in Zeitintervall)
+- **Wichtige stetige Verteilungen**:
+  - Gleichverteilung (konstante Wahrscheinlichkeitsdichte)
+  - Normalverteilung (Gaußsche Glockenkurve)
 
-## Zentrale Grenzwertsätze
+## Normalverteilung im Detail
+- **Eigenschaften**: Symmetrie, Mittelwert = Median = Modus
+- **Standardnormalverteilung**: Z-Transformation
+- **68-95-99,7 Regel** (Ein-, Zwei-, Dreisigma-Regel)
+- **Praktische Anwendungen**: Warum viele natürliche Phänomene normalverteilt sind
 
--   Warum Mittelwerte normalverteilt sind
--   Simulationen mit `replicate()`, `mean()`
--   Stichprobenverteilungen
+## Zentraler Grenzwertsatz
+- **Konzept**: Warum Stichprobenmittelwerte zur Normalverteilung tendieren
+- **Demonstration durch Simulation in R**:
+  ```r
+  # Simulation des Zentralen Grenzwertsatzes
+  n_samples <- 1000
+  sample_means <- numeric(n_samples)
+  
+  for(i in 1:n_samples) {
+    # Ziehe 30 Werte aus einer nicht-normalverteilten Grundgesamtheit
+    sample_data <- runif(30, min=0, max=10)  # Gleichverteilung
+    sample_means[i] <- mean(sample_data)
+  }
+  
+  # Visualisierung der Verteilung der Stichprobenmittelwerte
+  hist(sample_means, breaks=30, main="Verteilung der Stichprobenmittelwerte",
+       xlab="Mittelwert", probability=TRUE)
+  curve(dnorm(x, mean=mean(sample_means), sd=sd(sample_means)), 
+        add=TRUE, col="red", lwd=2)
+  ```
+
+## Konzept des Standardfehlers
+- **Definition**: Standardabweichung der Stichprobenmittelwerte
+- **Formel**: $SE = \frac{\sigma}{\sqrt{n}}$
+- **Bedeutung**: Grundlage für Konfidenzintervalle und Hypothesentests
+
+## Praktische Anwendung in R
+
+- **Funktionen für Wahrscheinlichkeitsverteilungen**:
+  - `rnorm()`, `dnorm()`, `pnorm()`, `qnorm()`
+  - Ebenso für andere Verteilungen (`rbinom`, `rpois`, etc.)
+- **Visualisierung von Wahrscheinlichkeitsdichten**:
+
+  # Normalverteilungen mit unterschiedlichen Parametern
+  x <- seq(-4, 4, length.out = 1000)
+  y1 <- dnorm(x, mean = 0, sd = 0.5)
+  y2 <- dnorm(x, mean = 0, sd = 1)
+  y3 <- dnorm(x, mean = 0, sd = 2)
+  
+  plot(x, y2, type="l", lwd=2, col="red", 
+       main="Normalverteilungen mit unterschiedlichen Standardabweichungen",
+       xlab="x", ylab="Wahrscheinlichkeitsdichte")
+  lines(x, y1, lwd=2, col="blue")
+  lines(x, y3, lwd=2, col="green")
+  legend("topright", legend=c("σ = 0.5", "σ = 1", "σ = 2"),
+         col=c("blue", "red", "green"), lwd=2)
+
 
 # Sitzung 6: Einführung in die Inferenzstatistik
 
-## Klassische Statistische Inferenz
+## Grundkonzepte der statistischen Inferenz
+- **Von der Stichprobe zur Grundgesamtheit**: Warum Inferenzstatistik?
+- **Punktschätzung vs. Intervallschätzung**: Einzelwerte vs. Vertrauensbereiche
+- **Statistische Unsicherheit**: Warum exakte Rückschlüsse unmöglich sind
 
--   Konzepte der Nullhypothese und Alternativhypothese
--   Placebos und Behandlungsgruppen in Experimenten
--   Randomisierung
+## Hypothesentesten: Grundlagen
+- **Nullhypothese (H₀)**: Annahme keines Effekts/Unterschieds
+- **Alternativhypothese (H₁)**: Annahme eines Effekts/Unterschieds
+- **Arten von Hypothesen**:
+  - Ungerichtete Hypothesen (zweiseitig): µ₁ ≠ µ₂
+  - Gerichtete Hypothesen (einseitig): µ₁ > µ₂ oder µ₁ < µ₂
 
-## Hypothesen
+## Die Logik des Hypothesentestens
+- **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
+- **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
+- **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
 
--   H0: Nullhypothese
--   H1: Alternativhypothese
--   Isolierbarkeit des Untersuchungsgegenstands
--   Arbeit mit Stichproben statt Grundgesamtheit
+## Fehler beim Hypothesentesten
+- **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
+- **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
+- **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
+- **Balanceakt**: Abwägung zwischen α und β
 
-## Der Mittelwert einer Stichprobe
-
--   Stichprobenverteilung des Mittelwerts
--   Central Limit Theorem
--   Unsicherheiten in der Schätzung
+## Signifikanzniveau und p-Wert
+- **Signifikanzniveau α**: Vorab festgelegte Irrtumswahrscheinlichkeit (typisch: 0.05)
+- **p-Wert**: Wahrscheinlichkeit, die beobachteten (oder extremeren) Daten unter H₀ zu erhalten
+- **Entscheidungsregel**: Verwerfe H₀, wenn p < α
+- **Kritische Werte**: Alternative Darstellung der Entscheidungsregel
 
 ## Konfidenzintervalle
+- **Definition**: Bereich, der mit einer bestimmten Wahrscheinlichkeit den wahren Parameter enthält
+- **Interpretation**: Was bedeutet ein 95%-Konfidenzintervall?
+- **Zusammenhang mit Hypothesentests**: Enthält ein 95%-KI den Wert der Nullhypothese?
+- **Visualisierung von Konfidenzintervallen**:
+  ```r
+  # Beispiel: 95%-Konfidenzintervall für einen Mittelwert
+  set.seed(123)
+  sample_data <- rnorm(30, mean = 10, sd = 2)
+  
+  # t-Test für das Konfidenzintervall
+  test_result <- t.test(sample_data)
+  
+  # Visualisierung
+  plot(c(1), mean(sample_data), ylim=c(min(sample_data), max(sample_data)),
+       pch=19, xlab="", ylab="Wert", xaxt="n", main="95%-Konfidenzintervall")
+  axis(1, at=1, labels="Stichprobe")
+  arrows(1, test_result$conf.int[1], 1, test_result$conf.int[2], 
+         angle=90, code=3, length=0.1)
+  abline(h=test_result$conf.int, lty=2, col="red")
+  text(1.1, test_result$conf.int[1], round(test_result$conf.int[1], 2))
+  text(1.1, test_result$conf.int[2], round(test_result$conf.int[2], 2))
+  ```
 
--   Unsicherheiten abschätzen
--   Konfidenzintervall mit `t.test()`
--   Visualisierung von CI über Punkteschätzungen
-
-## Hypothesentests
-
--   Testlogik verstehen
--   Null- und Alternativhypothese
--   Fehler 1. & 2. Art
--   Signifikanzniveau, p-Wert
-
-## Experimente - Die Statistik-Pille
-
-\#![](images/statistik-pille.png) - Mit dieser Pille schreiben Sie garantiert bessere Noten! Aber wie finden wir das heraus? - Experimentaufbau mit Test- und Kontrollgruppe - Blindtest versus Doppelblindtest
+## Experimentelles Design
+- **Wichtige Konzepte**: Randomisierung, Kontrolle, Randomized Control Trial (RCT)
+- **Experimentierfehler vermeiden**:
+  - Placebo-Effekt
+  - Hawthorne-Effekt
+  - Observer Bias
+  - Selection Bias
+- **Die Statistik-Pille**: Praktisches Beispiel eines Experimentaufbaus
+  - Testgruppe vs. Kontrollgruppe
+  - Blindtest vs. Doppelblindtest
 
 # Sitzung 7: t-Tests
 
-## Historischer Hintergrund
-
--   Entwicklung durch William Sealy Gosset (unter Pseudonym "Student")
--   Ursprüngliche Anwendung in der Brauerei Guinness
--   Evolution von "Student's t-Test" zu modernen Varianten
-
-::: notes
--   **William Sealy Gosset**: Entwickelte den t-Test 1908, während er bei der Guinness-Brauerei arbeitete. Da Guinness Mitarbeitern nicht erlaubte, zu publizieren, veröffentlichte er unter dem Pseudonym "Student".
--   **Ursprüngliche Anwendung**: Gosset brauchte eine Methode, um die Qualität von Brauerei-Rohstoffen mit kleinen Stichproben zu testen.
--   **Evolution**: Vom ursprünglichen "Student's t-Test" haben sich verschiedene Varianten entwickelt, um unterschiedlichen Forschungsfragen gerecht zu werden.
-:::
-
-## Theoretische Grundlagen
-
--   t-Verteilung
--   Freiheitsgrade
--   Unterschied zur Normalverteilung
--   Zentraler Grenzwertsatz
-
-::: notes
--   **t-Verteilung**: Eine kontinuierliche Wahrscheinlichkeitsverteilung, die der Normalverteilung ähnelt, aber breitere "Schwänze" hat, was sie für kleine Stichproben geeigneter macht.
--   **Freiheitsgrade**: Bestimmen die Form der t-Verteilung. Bei großen Freiheitsgraden nähert sich die t-Verteilung der Normalverteilung an.
--   **Unterschied zur Normalverteilung**: Die t-Verteilung berücksichtigt die zusätzliche Unsicherheit, die durch die Schätzung der Populationsvarianz aus einer kleinen Stichprobe entsteht.
--   **Zentraler Grenzwertsatz**: Erklärt, warum wir den t-Test auch bei nicht perfekt normalverteilten Daten anwenden können, wenn die Stichprobe groß genug ist.
-:::
-
-## Arten von t-Tests
-
--   Einstichproben-t-Test
--   Zweistichproben-t-Test (unabhängig)
--   Gepaarter t-Test (abhängig)
--   Welch-Test (ungleiche Varianzen)
-
-::: notes
--   **Einstichproben-t-Test**: Vergleicht den Mittelwert einer Stichprobe mit einem bekannten oder hypothetischen Wert.
--   **Zweistichproben-t-Test (unabhängig)**: Vergleicht die Mittelwerte zweier unabhängiger Gruppen.
--   **Gepaarter t-Test (abhängig)**: Vergleicht Mittelwerte von zwei verbundenen Messungen (z.B. vorher-nachher).
--   **Welch-Test**: Modifikation des t-Tests für den Fall ungleicher Varianzen, was eine häufige Verletzung der Annahmen des klassischen t-Tests ist.
-:::
-
-## Voraussetzungen
-
--   Normalverteilung
--   Varianzhomogenität (bei unabhängigem t-Test)
--   Unabhängigkeit der Beobachtungen
--   Skalenniveau der Daten
-
-::: notes
--   **Normalverteilung**: Die Daten sollten annähernd normalverteilt sein. Bei großen Stichproben (n \> 30) ist der Test robust gegenüber Verletzungen dieser Annahme.
--   **Varianzhomogenität**: Bei unabhängigem t-Test sollten beide Gruppen ähnliche Varianzen aufweisen, sonst sollte der Welch-Test verwendet werden.
--   **Unabhängigkeit der Beobachtungen**: Die Daten sollten nicht durch Messwiederholungen oder Clustering beeinflusst sein (außer beim gepaarten t-Test).
--   **Skalenniveau der Daten**: Die abhängige Variable sollte metrisch sein (Intervall- oder Verhältnisskala).
-:::
-
-## Hypothesenbildung
-
--   Nullhypothese (H₀)
--   Alternativhypothese (H₁)
--   Gerichtete vs. ungerichtete Hypothesen
--   Fehler 1. und 2. Art
-
-::: notes
--   **Nullhypothese (H₀)**: Typischerweise, dass kein Unterschied zwischen den Gruppen besteht oder der Stichprobenmittelwert dem Populationsmittelwert entspricht.
--   **Alternativhypothese (H₁)**: Die Gegenposition zur Nullhypothese, z.B. dass ein Unterschied existiert.
--   **Gerichtete vs. ungerichtete Hypothesen**: Ungerichtete testen auf generelle Unterschiede (≠), gerichtete auf spezifische Richtungen (\< oder \>).
--   **Fehler 1. und 2. Art**: Typ-I-Fehler = fälschliche Ablehnung der Nullhypothese (α); Typ-II-Fehler = fälschliche Beibehaltung der Nullhypothese (β).
-:::
-
-## Praktische Durchführung
-
--   Formelapparat
--   Berechnung der Teststatistik
--   Kritische Werte bestimmen
--   p-Wert-Berechnung
-
-::: notes
--   **Formelapparat**: Zeige die relevanten Formeln für die Berechnung der t-Statistik je nach Art des t-Tests.
--   **Berechnung der Teststatistik**: Erklärung, wie Mittelwertdifferenz, Standardfehler und Freiheitsgrade zur t-Statistik kombiniert werden.
--   **Kritische Werte bestimmen**: Wie man anhand von t-Tabellen oder Software die kritischen Grenzen für die Entscheidung findet.
--   **p-Wert-Berechnung**: Erläuterung, dass der p-Wert die Wahrscheinlichkeit angibt, die beobachtete oder eine extremere Differenz zu erhalten, wenn H₀ wahr ist.
-:::
-
-## Effektstärken
-
--   Cohen's d
--   Hedges' g
--   Glass' Δ
--   Interpretation von Effektgrößen
-
-::: notes
--   **Cohen's d**: Standardisierte Mittelwertdifferenz, übliche Interpretation: 0.2 = klein, 0.5 = mittel, 0.8 = groß.
--   **Hedges' g**: Korrektur von Cohen's d für kleine Stichproben.
--   **Glass' Δ**: Verwendet nur die Standardabweichung der Kontrollgruppe, nützlich bei ungleichen Varianzen.
--   **Interpretation von Effektgrößen**: Betone, dass Effektstärken oft aussagekräftiger sind als p-Werte, da sie die praktische Bedeutsamkeit eines Befundes zeigen.
-:::
-
-## Interpretation der Ergebnisse
-
--   Signifikanz vs. Relevanz
--   Konfidenzintervalle
--   Typische Fehlinterpretationen
--   Schlussfolgerungen formulieren
-
-::: notes
--   **Signifikanz vs. Relevanz**: Ein statistisch signifikantes Ergebnis bedeutet nicht automatisch, dass es praktisch relevant ist.
--   **Konfidenzintervalle**: Geben zusätzlich zur Entscheidung "signifikant/nicht signifikant" einen Bereich für die wahre Effektgröße an.
--   **Typische Fehlinterpretationen**: p \< 0.05 bedeutet nicht, dass die Wahrscheinlichkeit der Nullhypothese \< 5% ist oder dass der Effekt zu 95% in der Population existiert.
--   **Schlussfolgerungen formulieren**: Wie man Ergebnisse korrekt und präzise in wissenschaftlicher Sprache formuliert.
-:::
-
-## Anwendungsbeispiele
-
--   Klinische Studien
--   Experimentelle Psychologie
--   A/B-Testing im Marketing
--   Qualitätskontrolle in der Produktion
-
-::: notes
--   **Klinische Studien**: Vergleich von Behandlungs- und Kontrollgruppen, z.B. bei Medikamentenwirksamkeit.
--   **Experimentelle Psychologie**: Beispiele für typische psychologische Experimente, die mit t-Tests ausgewertet werden.
--   **A/B-Testing im Marketing**: Wie Unternehmen verschiedene Versionen von Websites oder Werbungen vergleichen.
--   **Qualitätskontrolle in der Produktion**: Anwendung von t-Tests zur Überwachung von Produktionsparametern.
-:::
-
-## Alternativen zum t-Test
-
--   Nichtparametrische Verfahren (Mann-Whitney-U, Wilcoxon)
--   ANOVA bei mehr als zwei Gruppen
--   Robuste Verfahren bei Verletzung der Voraussetzungen
-
-::: notes
--   **Nichtparametrische Verfahren**: Wann Mann-Whitney-U oder Wilcoxon-Test als Alternative sinnvoll sind (bei Verletzung der Normalverteilungsannahme).
--   **ANOVA**: Bei mehr als zwei zu vergleichenden Gruppen als Erweiterung des t-Tests.
--   **Robuste Verfahren**: Trimmed-Mean-t-Tests und andere Ansätze, die weniger anfällig für Ausreißer sind.
-:::
-
-## Software-Implementierung
-
--   Umsetzung in R/Python/SPSS
--   Ausgabeinterpretation
--   Grafische Darstellung der Ergebnisse
--   Reproduzierbarkeit sicherstellen
-
-::: notes
--   **Umsetzung in R/Python/SPSS**: Konkrete Codebeispiele für verschiedene Statistikprogramme.
--   **Ausgabeinterpretation**: Wie man die typische Ausgabe statistischer Software richtig liest und interpretiert.
--   **Grafische Darstellung**: Sinnvolle Visualisierungen für t-Test-Ergebnisse (Boxplots, Mittelwerte mit Konfidenzintervallen).
--   **Reproduzierbarkeit sicherstellen**: Tipps zur Dokumentation der Analyse für wissenschaftliche Transparenz.
-:::
-
-## Aktuelle Diskussion und Kritik
-
--   p-Wert-Problematik
--   Bayes'sche Alternativen
--   Replikationskrise
--   Power-Analysen und Stichprobenplanung
-
-::: notes
--   **p-Wert-Problematik**: Die aktuelle Diskussion um die Überbetonung der Signifikanz und p-Hacking.
--   **Bayes'sche Alternativen**: Kurze Einführung in Bayes-Faktoren als Alternative zu p-Werten.
--   **Replikationskrise**: Wie mangelnde statistische Power und Publikationsbias zu nicht-replizierbaren Befunden führen können.
--   **Power-Analysen**: Betonung der Wichtigkeit adäquater Stichprobengrößen für zuverlässige t-Tests.
-:::
-
-## R-Code-Beispiel
-
-```{r}
-#| echo: true
-#| eval: false
-
-# Beispieldaten
-gruppe_1 <- c(25, 28, 30, 32, 33, 35, 38, 40)
-gruppe_2 <- c(20, 22, 24, 25, 28, 30, 31, 32)
-
-# Unabhängiger t-Test
-t.test(gruppe_1, gruppe_2, var.equal = TRUE)
-
-# Welch-Test (ungleiche Varianzen)
-t.test(gruppe_1, gruppe_2)
-
-# Effektstärke berechnen
-library(effsize)
-cohen.d(gruppe_1, gruppe_2)
-```
-
-::: notes
-Hier demonstriere ich einen typischen R-Code für die Durchführung eines t-Tests: - Der erste Test ist ein klassischer t-Test mit der Annahme gleicher Varianzen - Der zweite ist ein Welch-Test, der keine Varianzhomogenität voraussetzt - Das Effektstärkenmaß Cohen's d wird mit dem Paket "effsize" berechnet - In der Vorlesung könntest du diese Befehle live ausführen und die Ergebnisse besprechen
-:::
-
-## Visualisierung der Ergebnisse
-
-```{r}
-#| echo: true
-#| eval: false
-
-library(ggplot2)
-
-# Daten vorbereiten
-daten <- data.frame(
-  Wert = c(gruppe_1, gruppe_2),
-  Gruppe = factor(rep(c("Gruppe 1", "Gruppe 2"), each = 8))
-)
-
-# Boxplot erstellen
-ggplot(daten, aes(x = Gruppe, y = Wert, fill = Gruppe)) +
-  geom_boxplot() +
-  geom_jitter(width = 0.2) +
-  stat_summary(fun = mean, geom = "point", shape = 18, size = 3) +
-  labs(title = "Vergleich der Gruppenmittelwerte", 
-       y = "Messwert") +
-  theme_minimal()
-```
-
-::: notes
-Diese Visualisierung zeigt: - Boxplots für beide Gruppen, die die Verteilung veranschaulichen - Die einzelnen Datenpunkte als Punkte (Jitter verhindert Überlappungen) - Die Mittelwerte als größere Rauten - Diese Art der Darstellung ist informativer als ein einfacher Balkendiagramm, da sie die Streuung der Daten zeigt
-:::
-
-## t-Test
-
--   Mittelwertvergleiche anwenden
--   `t.test()` mit Beispieldaten
--   Voraussetzungen & Interpretation
--   Visualisierung mit ggplot2
-
-## Vom Zentralen Grenzwertsatz zum t-Test
-
--   Stichprobenverteilung und Standardfehler
--   t-Verteilung bei unbekannter Populationsvarianz
--   Vergleich von Mittelwerten
-
-## Guiness-Bier brachte die Lösung
-
--   William Sealy Gosset und die Entstehung der t-Verteilung
--   Bedeutung der Freiheitsgrade
-
-## Die t-Verteilung
-
-\#![](images/t-verteilung.png) - Eigenschaften im Vergleich zur Normalverteilung - Einfluss der Freiheitsgrade
-
-## Wichtige Annahmen des t-Tests
-
--   Unabhängigkeit der Stichproben
--   Normalverteilung der Variablen
--   Metrische Variablen
--   Varianzhomogenität
-
-## Was ist Signifikanz?
-
--   Definition des Signifikanzniveaus α
--   Interpretation des p-Werts
--   Häufige Fehlinterpretationen
-
-## Fehler 1. und 2. Art
-
--   False Positive (α-Fehler)
--   False Negative (β-Fehler)
--   Sensitivität und Spezifität
-
-## Ein- versus zweiseitiger Test
-
--   Wann ist welcher Test angemessen?
--   Auswirkungen auf p-Werte
-
-## Praktische Anwendung
-
--   Reale Beispiele für t-Tests
--   Interpretation von Ergebnissen
-
-## Sitzung 8: Umfragen und ANOVA
-
-## Quantitativ versus Qualitativ
-
--   Unterschiede in Forschungsansätzen
-
-## Datenerhebung
-
--   Primärdaten vs. Sekundärdaten
--   Umfragen, Interviews, Messungen
-
-## Verzerrung zugunsten der Überlebenden
-
-\#![](images/survivorship-bias.png)
-
-## Stichprobenverzerrung
-
-\#![](images/stichprobenverzerrung.png)
-
-## Probleme bei Umfragen
-
--   Convenience Sampling
--   Non-Responder
--   Yes bias
--   No bias
--   Bias towards the middle
--   Soziale Erwünschtheit
--   Logical Response
--   Kulturelle Unterschiede (ein „Nein" ist nicht überall akzeptabel)
-
-## Likert-Skala
-
--   Definition und Verwendung
--   Balance, Neutraloption, Skalenlänge
--   Vermeidung von Leading Questions
-
-## Einführung in ANOVA
-
--   Analysis of Variance für mehr als zwei Gruppen
--   Nullhypothese: Alle Gruppenmittelwerte sind gleich
--   Alternativhypothese: Mindestens ein Gruppenmittelwert unterscheidet sich
-
-## Voraussetzungen und Annahmen
-
--   Normalverteilung innerhalb der Gruppen
--   Homoskedastizität
--   Unabhängigkeit der Beobachtungen
-
-## Beispiel Book Crossing-Datensatz
-
--   Analyse von Unterschieden in Buchbewertungen zwischen Altersgruppen
-
-## Interpretation
-
--   F-Statistik und Varianzvergleich
--   Post-Hoc Tests zur Identifizierung spezifischer Gruppenunterschiede
-
-# Sitzung 9: Korrelationsanalyse
-
-## Was ist eine Korrelation?
-
--   Definition statistischer Zusammenhänge
--   Beispiele für korrelierte Daten
-
-## Warum sind Korrelationen interessant?
-
--   Analyse historischer Daten
--   Ethische Einschränkungen bei Experimenten
-
-## Vor der Korrelation kommt die Kovarianz
-
--   Berechnung und Bedeutung der Kovarianz
--   Standardisierung zur Korrelation
-
-## Wichtige Aspekte der Korrelation
-
--   Keine implizierte Kausalrichtung
--   Scheinkorrelationen
--   Pearson's Korrelationskoeffizient und seine Interpretation
--   p-Wert bei Korrelationen
-
-## Korrelations-Tests
-
--   Pearson-Korrelation: linear
--   Spearman-Korrelation: monoton, rangbasiert
--   Kendall-Tau-Korrelation: Rangordnungsübereinstimmung
-
-## Unterschied Korrelation zu Regression
-
--   Korrelation misst Stärke des Zusammenhangs
--   Regression prognostiziert Werte
-
-## Korrelation in R
-
--   Anwendung von `cor.test()` und Scatterplots
--   Kausalität vs. Korrelation
-
-## Inter-Rater Reliability
-
--   Definition und Ziel der Inter-Rater Reliability
--   Konsistenz zwischen verschiedenen Beurteilern
-
-## Methoden zur Messung der IRR
-
--   Cohen's Kappa: zwei Rater, kategoriale Daten
--   Fleiss' Kappa: mehr als zwei Rater, kategoriale Daten
--   Intraclass Correlation Coefficient (ICC): kontinuierliche Daten
-
-## Interpretation von IRR-Maßen
-
--   Skalen für Cohen's Kappa, Fleiss' Kappa und ICC
--   Praktische Beispiele
+### Historischer Kontext und Entwicklung
+- **William Sealy Gosset und Guinness**: Ein Statistiker in der Brauerei
+- **Warum "Student's t-Test"?**: Das Pseudonym hinter der Methode
+- **Entwicklung über die Zeit**: Vom originalen t-Test zu modernen Varianten
+
+### Theoretische Grundlagen
+- **Die t-Verteilung**: Ähnlichkeit zur Normalverteilung mit dickeren "Schwänzen"
+- **Freiheitsgrade**: Wie sie die Form der t-Verteilung beeinflussen
+- **Visualisierung unterschiedlicher t-Verteilungen**:
+  ```r
+  # Vergleich von t-Verteilungen mit unterschiedlichen Freiheitsgraden
+  x <- seq(-4, 4, length.out = 1000)
+  y_normal <- dnorm(x)
+  y_t1 <- dt(x, df = 1)  # 1 Freiheitsgrad
+  y_t5 <- dt(x, df = 5)  # 5 Freiheitsgrade
+  y_t30 <- dt(x, df = 30)  # 30 Freiheitsgrade
+  
+  plot(x, y_normal, type="l", lwd=2, col="black", 
+       main="t-Verteilungen im Vergleich zur Normalverteilung",
+       xlab="x", ylab="Wahrscheinlichkeitsdichte")
+  lines(x, y_t1, lwd=2, col="red")
+  lines(x, y_t5, lwd=2, col="blue")
+  lines(x, y_t30, lwd=2, col="green")
+  legend("topright", 
+         legend=c("Normalverteilung", "t (df=1)", "t (df=5)", "t (df=30)"),
+         col=c("black", "red", "blue", "green"), lwd=2)
+  ```
+
+### Arten von t-Tests
+- **Einstichproben-t-Test**: Vergleich mit bekanntem oder hypothetischem Wert
+  - Anwendungsbeispiel: Entspricht der mittlere Blutzuckerwert einer Patientengruppe dem Normalwert?
+  - Formel: $t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$
+  
+- **Zweistichproben-t-Test (unabhängig)**: Vergleich zweier unabhängiger Gruppen
+  - Anwendungsbeispiel: Unterscheiden sich die Testergebnisse zweier unterschiedlicher Lernmethoden?
+  - Formel bei gleichen Varianzen: $t = \frac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$
+  
+- **Gepaarter t-Test (abhängig)**: Vergleich verbundener Messungen
+  - Anwendungsbeispiel: Vor-Nach-Vergleich einer Intervention
+  - Formel: $t = \frac{\bar{d}}{s_d / \sqrt{n}}$
+  
+- **Welch-Test**: Variante für ungleiche Varianzen
+  - Anwendungsbeispiel: Wenn die Streuung in beiden Gruppen deutlich unterschiedlich ist
+  - Angepasste Freiheitsgrade
+
+### Voraussetzungen der t-Tests
+- **Normalverteilung**: Robustheit bei Verletzungen
+- **Varianzhomogenität**: Bedeutung und Tests (Levene-Test, F-Test)
+- **Unabhängigkeit der Beobachtungen**: Kritisch für die Gültigkeit
+- **Zentraler Grenzwertsatz als Rettungsanker**: Wann können wir uns darauf verlassen?
+
+### Praktische Durchführung in R
+- **Einstichproben-t-Test**:
+  ```r
+  # Hypothetischer Wert: 100
+  t.test(daten$werte, mu = 100)
+  ```
+
+- **Zweistichproben-t-Test**:
+  ```r
+  # Unabhängige Gruppen, gleiche Varianzen
+  t.test(werte ~ gruppe, data = daten, var.equal = TRUE)
+  
+  # Unabhängige Gruppen, ungleiche Varianzen (Welch-Test)
+  t.test(werte ~ gruppe, data = daten)
+  ```
+
+- **Gepaarter t-Test**:
+  ```r
+  # Verbundene Messungen (z.B. vorher-nachher)
+  t.test(daten$nachher, daten$vorher, paired = TRUE)
+  ```
+
+### Effektstärken für t-Tests
+- **Cohen's d**: Standardisierte Mittelwertdifferenz
+  - Kleine (d = 0.2), mittlere (d = 0.5) und große (d = 0.8) Effekte
+  - Berechnung in R:
+    ```r
+    library(effsize)
+    cohen.d(werte ~ gruppe, data = daten)
+    ```
+
+- **Hedges' g**: Korrektur für kleine Stichproben
+- **Bedeutung der Effektstärke**: Praktische Relevanz vs. statistische Signifikanz
+
+### Visualisierung von t-Test-Ergebnissen
+- **Boxplots mit Signifikanzmarkierungen**:
+  ```r
+  library(ggplot2)
+  ggplot(daten, aes(x = gruppe, y = werte, fill = gruppe)) +
+    geom_boxplot() +
+    stat_summary(fun = mean, geom = "point", shape = 18, size = 3) +
+    theme_minimal() +
+    labs(title = "Vergleich der Gruppenmittelwerte",
+         subtitle = "t-Test: p < 0.05*")
+  ```
+
+- **Mittelwerte mit Konfidenzintervallen**:
+  ```r
+  ggplot(daten_summary, aes(x = gruppe, y = mittelwert, fill = gruppe)) +
+    geom_bar(stat = "identity", position = position_dodge()) +
+    geom_errorbar(aes(ymin = mittelwert - ci, ymax = mittelwert + ci),
+                 width = 0.2, position = position_dodge(0.9)) +
+    theme_minimal() +
+    labs(title = "Mittelwerte mit 95%-Konfidenzintervallen")
+  ```
+
+### Interpretation und Berichterstattung
+- **Korrekte Interpretation des p-Werts**: Häufige Fehlinterpretationen vermeiden
+- **Angabe des Konfidenzintervalls**: Zusätzliche Information zur Präzision
+- **Standardisierte Berichtsform**: APA-Style für wissenschaftliche Publikationen
+- **Beispiel**: "Ein unabhängiger t-Test zeigte einen signifikanten Unterschied zwischen den Gruppen (t(28) = 2.45, p = 0.02, d = 0.89). Die Experimentalgruppe (M = 25.3, SD = 4.2) erzielte höhere Werte als die Kontrollgruppe (M = 21.7, SD = 3.8)."
+
+## Sitzung 8: ANOVA und Umfragedesign
+
+### ANOVA-Grundlagen
+- **Vom t-Test zur ANOVA**: Natürliche Erweiterung für mehr als zwei Gruppen
+- **Varianzzerlegung**: Zwischen- vs. Innerhalb-Gruppenvarianz
+- **F-Verteilung und F-Statistik**: Verhältnis der Varianzen
+- **Grundformel**: $F = \frac{\text{Varianz zwischen Gruppen}}{\text{Varianz innerhalb Gruppen}}$
+
+### Einfaktorielle ANOVA
+- **Voraussetzungen**:
+  - Normalverteilung der Residuen
+  - Homoskedastizität (Varianzhomogenität)
+  - Unabhängigkeit der Beobachtungen
+- **Durchführung in R**:
+  ```r
+  # Einfaktorielle ANOVA
+  anova_result <- aov(werte ~ gruppe, data = daten)
+  summary(anova_result)
+  ```
+
+### Post-hoc Tests
+- **Warum Post-hoc Tests?**: ANOVA sagt nur, dass Unterschiede existieren
+- **Tukey's HSD**: Häufig verwendeter Test für alle paarweisen Vergleiche
+- **Bonferroni-Korrektur**: Kontrolle des Alpha-Fehlers bei multiplen Vergleichen
+- **Durchführung in R**:
+  ```r
+  # Tukey's HSD
+  TukeyHSD(anova_result)
+  
+  # Alternativ mit dem Paket 'multcomp'
+  library(multcomp)
+  post_hoc <- glht(anova_result, linfct = mcp(gruppe = "Tukey"))
+  summary(post_hoc)
+  ```
+
+### Visualisierung von ANOVA-Ergebnissen
+- **Boxplots mit Post-hoc-Informationen**:
+  ```r
+  library(ggplot2)
+  ggplot(daten, aes(x = gruppe, y = werte, fill = gruppe)) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(title = "Vergleich der Gruppen (ANOVA)",
+         subtitle = "F(2, 57) = 14.3, p < 0.001")
+  ```
+
+- **Interaktionsplots (für mehrfaktorielle ANOVA)**:
+  ```r
+  # Für mehrfaktorielle ANOVA
+  interaction.plot(daten$faktor1, daten$faktor2, daten$werte,
+                  mean, xlab = "Faktor 1", ylab = "Mittelwert",
+                  trace.label = "Faktor 2")
+  ```
+
+### Umfragen und Datenerhebung
+
+#### Grundsätzliche Aspekte der Datenerhebung
+- **Primärdaten vs. Sekundärdaten**: Vor- und Nachteile
+- **Quantitative vs. qualitative Forschung**: Unterschiedliche Ansätze und Zielsetzungen
+- **Mixed Methods**: Kombination verschiedener Ansätze
+
+#### Umfragedesign
+- **Fragentypen**:
+  - Offene vs. geschlossene Fragen
+  - Single-Choice vs. Multiple-Choice
+  - Likert-Skalen: Abstufungen und Best Practices
+- **Skalendesign**:
+  - Balance: Gleiche Anzahl positiver und negativer Optionen
+  - Neutraloption: Ja oder nein?
+  - Skalenlänge: 5-, 7- oder 10-Punkt-Skalen
+
+#### Typische Fehlerquellen und Verzerrungen
+- **Stichprobenverzerrung (Sampling Bias)**:
+  - Convenience Sampling
+  - Self-Selection Bias
+  - Non-Response Bias
+- **Antwortverzerrungen**:
+  - Social Desirability Bias
+  - Acquiescence Bias (Ja-Sage-Tendenz)
+  - Extremity Bias (Tendenz zu Extremantworten)
+  - Central Tendency Bias (Tendenz zur Mitte)
+
+#### Fallbeispiele von Verzerrungen
+- **Survivorship Bias**: Beobachtungen der "Überlebenden"
+- **Verzerrung durch fehlende Daten**: Systematische vs. zufällige fehlende Werte
+- **Kulturelle Unterschiede in der Beantwortung**: Internationale Studien
+
+#### Praktische Tipps für bessere Umfragen
+- **Frageformulierung**: Klar, präzise, neutral
+- **Umfragelänge**: Ermüdung und Abbruchquoten
+- **Pretests durchführen**: Frühe Probleme erkennen
+- **Datenqualitätsprüfung**: Validierung während und nach der Erhebung
+
+#### Online-Tools und Software
+- **Umfragetools**: SurveyMonkey, Google Forms, LimeSurvey, Qualtrics
+- **Integration mit R**: Datenimport und -analyse
+
+## Sitzung 9: Korrelationsanalyse
+
+### Grundkonzepte der Korrelation
+- **Definition**: Stärke und Richtung eines Zusammenhangs zwischen Variablen
+- **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkungs-Beziehung
+- **Gemeinsame Varianz**: Was der Korrelationskoeffizient wirklich misst
+
+### Von der Kovarianz zur Korrelation
+- **Kovarianz**: Unstandarisiertes Maß für gemeinsame Variation
+  - Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
+- **Pearson-Korrelation**: Standardisierte Kovarianz
+  - Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
+  - Wertebereich: -1 bis +1
+
+### Pearson-Korrelation
+- **Voraussetzungen**:
+  - Lineare Beziehung
+  - Normalverteilung der Variablen (für Hypothesentests)
+  - Keine Ausreißer (starker Einfluss auf r)
+- **Interpretation der Stärke**:
+  - Schwach: |r| ≈ 0.1-0.3
+  - Mittel: |r| ≈ 0.3-0.5
+  - Stark: |r| > 0.5
+- **Durchführung in R**:
+  ```r
+  # Pearson-Korrelation
+  cor.test(daten$x, daten$y, method = "pearson")
+  ```
+
+### Alternative Korrelationsmaße
+- **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
+  - Formel: Pearson-Korrelation der rangtransformierten Daten
+  - Robuster gegenüber Ausreißern
+  - R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
+
+- **Kendall's Tau**: Alternative rangbasierte Korrelation
+  - Basiert auf konkordanten vs. diskordanten Paaren
+  - Robuster bei kleinen Stichproben
+  - R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
+
+### Visualisierung von Korrelationen
+- **Streudiagramme (Scatterplots)**:
+  ```r
+  plot(daten$x, daten$y, main = "Streudiagramm", 
+       xlab = "Variable X", ylab = "Variable Y")
+  abline(lm(daten$y ~ daten$x), col = "red")  # Regressionslinie
+  ```
+
+- **Korrelationsmatrizen**:
+  ```r
+  # Einfache Korrelationsmatrix
+  cor(daten[, c("var1", "var2", "var3", "var4")])
+  
+  # Visualisierung mit corrplot
+  library(corrplot)
+  corrplot(cor(daten[, c("var1", "var2", "var3", "var4")]), 
+           method = "circle", type = "upper", 
+           addCoef.col = "black", number.cex = 0.7)
+  ```
+
+### Fallstricke und Fehlinterpretationen
+- **Scheinkorrelationen**: Effekt von Drittvariablen
+- **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
+- **Aggregationsprobleme**: Simpson's Paradoxon
+- **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
+
+### Anscombe's Quartett
+- **Gleiche statistische Kennwerte, unterschiedliche Beziehungen**
+- **Bedeutung der visuellen Inspektion**:
+  ```r
+  # Anscombe's Quartett in R demonstrieren
+  library(datasauRus)
+  data(anscombe)
+  
+  par(mfrow = c(2, 2))
+  for(i in 1:4) {
+    plot(anscombe[, i], anscombe[, i+4], 
+         main = paste("Datensatz", i),
+         xlab = "x", ylab = "y")
+    abline(lm(anscombe[, i+4] ~ anscombe[, i]), col = "red")
+  }
+  ```
+
+### Inter-Rater Reliability
+- **Definition**: Konsistenz zwischen verschiedenen Beurteilern
+- **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
+- **Maße für kategoriale Daten**:
+  - Cohen's Kappa (zwei Rater)
+  - Fleiss' Kappa (mehr als zwei Rater)
+- **Maße für kontinuierliche Daten**:
+  - Intraclass Correlation Coefficient (ICC)
+- **Durchführung in R**:
+
+  # Cohen's Kappa für zwei Rater
+  library(irr)
+  kappa2(ratings[, c("rater1", "rater2")])
+  
+  # ICC für kontinuierliche Bewertungen
+  icc(ratings[, c("rater1", "rater2", "rater3")])
+
+- **Interpretation**: Abstufungen von "schlecht" bis "ausgezeichnet"
 
 # Sitzung 10: Einfache Lineare Regression
 
-## Wofür brauche ich lineare Regression?
+## Von der Korrelation zur Regression
+- **Unterschied**: Korrelation beschreibt Zusammenhang, Regression ermöglicht Vorhersagen
+- **Abhängige vs. unabhängige Variable**: Y als Funktion von X
+- **Lineare Beziehung**: Modellierung durch eine Gerade
 
--   Anwendungsbeispiele: Fairer Preis für gebrauchte Artikel
+## Das lineare Regressionsmodell
+- **Grundgleichung**: $Y = \beta_0 + \beta_1 X + \varepsilon$
+- **Parameter**:
+  - Achsenabschnitt (Intercept) $\beta_0$: Wert von Y, wenn X = 0
+  - Steigung (Slope) $\beta_1$: Änderung in Y bei Erhöhung von X um eine Einheit
+  - Fehlerterm $\varepsilon$: Zufällige Abweichung (normalverteilt mit Mittelwert 0)
+- **Kleinstquadrateschätzung**: Minimierung der quadrierten Residuen
 
-## Lineare Regression
+## Durchführung in R
+- **Einfache lineare Regression**:
 
--   Vorhersagen mit Regressionslinien
--   `lm()`, `summary()`
--   `geom_smooth(method = "lm")`
--   Interpretation der Koeffizienten
+  # Modell erstellen
+  model <- lm(y ~ x, data = daten)
+  
+  # Zusammenfassung anzeigen
+  summary(model)
+  
+  # Diagnostische Plots
+  par(mfrow = c(2, 2))
+  plot(model)
 
-## Heteroskedastizität beachten
 
--   Verteilung der Residuen um die Regressionslinie
--   Homoskedastizität vs. Heteroskedastizität
+## Interpretation der Ergebnisse
+- **Regressionskoeffizienten**: Bedeutung von Intercept und Slope
+- **Standardfehler der Koeffizienten**: Präzision der Schätzung
+- **t-Werte und p-Werte**: Signifikanz der Koeffizienten
+- **R²**: Erklärte Varianz bzw. Bestimmtheitsmaß
+  - Interpretation: Anteil der Varianz in Y, der durch X erklärt wird
+  - Adjustiertes R²: Korrektur für die Anzahl der Prädiktoren
 
-## Nicht-lineare Beziehungen
+## Voraussetzungen und Diagnostik
+- **Linearität**: Beziehung sollte linear sein
+- **Normalverteilung der Residuen**: QQ-Plot zur Überprüfung
+- **Homoskedastizität**: Konstante Varianz der Residuen
+- **Unabhängigkeit der Beobachtungen**: Keine Autokorrelation
+- **Ausreißer und einflussreiche Beobachtungen**: Cook's Distance, Leverage
 
--   Umgang mit nicht-linearen Beziehungen
--   Transformationen zur Verbesserung der Modellpassung
+## Visualisierung von Regressionsmodellen
+- **Streudiagramm mit Regressionslinie**:
+
+  library(ggplot2)
+  ggplot(daten, aes(x = x, y = y)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = TRUE) +
+    theme_minimal() +
+    labs(title = "Lineare Regression",
+         subtitle = paste("R² =", round(summary(model)$r.squared, 3)))
+
+
+- **Residuenplots**:
+
+  # Residuen gegen vorhergesagte Werte
+  ggplot(data.frame(fitted = fitted(model), residuals = residuals(model)), 
+         aes(x = fitted, y = residuals)) +
+    geom_point() +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+    theme_minimal() +
+    labs(title = "Residuen vs. vorhergesagte Werte")
+
+
+## Praktische Anwendungsbeispiele
+
+- **Fairer Preis für gebrauchte Artikel**: Preisvorhersage basierend auf Alter, Zustand, etc.
+- **Verkaufsprognosen**: Vorhersage des Umsatzes basierend auf Werbeausgaben
+- **Biometrische Zusammenhänge**: z.B. Zusammenhang zwischen Größe und Gewicht
+
+## Transformation nicht-linearer Beziehungen
+- **Logarithmische Transformation**: Für exponentielle Beziehungen
+- **Quadratische Transformation**: Für U-förmige Beziehungen
+- **Box-Cox-Transformation**: Systematische Suche nach optimaler Transformation
+- **Beispiel in R**:
+  ```r
+  # Log-Transformation
+  model_log <- lm(log(y) ~ x, data = daten)
+  
+  # Quadratische Transformation
+  model_quad <- lm(y ~ x + I(x^2), data = daten)
+  
+  # Vergleich der Modelle mittels AIC
+  AIC(model, model_log, model_quad)
+  ```
 
 ## Logistische Regression
+- **Unterschied zur linearen Regression**: Binäre abhängige Variable
+- **Logit-Funktion**: Transformation von Wahrscheinlichkeiten in Log-Odds
+- **Grundgleichung**: $\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X$
+- **Interpretation**: Odds Ratios statt direkter Effekte
 
--   Vorhersage binärer abhängiger Variablen
--   Anwendungsbereiche: Medizin, Finanzen, Marketing
+## Durchführung der logistischen Regression in R
+- **Modellschätzung**:
+  ```r
+  # Logistische Regression
+  logit_model <- glm(erfolg ~ x, data = daten, family = binomial)
+  summary(logit_model)
+  
+  # Odds Ratios berechnen
+  exp(coef(logit_model))
+  ```
 
-## Das logistische Regressionsmodell
+- **Vorhersagen und Evaluation**:
+  ```r
+  # Wahrscheinlichkeiten vorhersagen
+  pred_probs <- predict(logit_model, type = "response")
+  
+  # ROC-Kurve und AUC
+  library(pROC)
+  roc_curve <- roc(daten$erfolg, pred_probs)
+  plot(roc_curve)
+  auc(roc_curve)
+  ```
 
--   Verwendung von `glm()` in R
--   Interpretation der Log-Odds
--   Modellbewertung mit Konfusionsmatrix und ROC-Kurve
+## Anwendungsbeispiele für logistische Regression
+- **Medizin**: Vorhersage von Krankheitsrisiken
+- **Marketing**: Conversion-Wahrscheinlichkeit von Kunden
+- **Kreditwesen**: Ausfallwahrscheinlichkeit bei Krediten
 
-# Sitzung 11: Chi-Quadrat-Test & kategoriale Daten
+# Sitzung 11: Chi-Quadrat-Test & Kategoriale Daten
 
-## Chi-Quadrat-Test
+## Einführung in kategoriale Datenanalyse
+- **Charakteristika kategorialer Daten**: Nominal- und Ordinalskalen
+- **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
+- **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
 
--   Kategoriale Daten analysieren
--   Häufigkeitstabellen, `chisq.test()`
--   Visualisierung: Balken, Mosaikplots
+## Der Chi-Quadrat-Test
+- **Grundprinzip**: Vergleich beobachteter und erwarteter Häufigkeiten
+- **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
+  - O: beobachtete Häufigkeit
+  - E: erwartete Häufigkeit
+- **Freiheitsgrade**: (Zeilen - 1) × (Spalten - 1)
 
-## Integration der gelernten Methoden
+## Arten von Chi-Quadrat-Tests
+- **Anpassungstest (Goodness-of-Fit)**: Vergleich mit theoretischer Verteilung
+  - Anwendung: Prüfung, ob Würfel fair ist
+  - R-Code: `chisq.test(observed, p = expected_prob)`
 
--   Zusammenführung aller Techniken
--   Fallstudie mit einem realen Datensatz
--   Von der Datenaufbereitung bis zur Interpretation
+- **Unabhängigkeitstest**: Zusammenhang zwischen zwei kategorialen Variablen
+  - Anwendung: Zusammenhang zwischen Geschlecht und Studienfach
+  - R-Code: `chisq.test(table(daten$var1, daten$var2))`
 
-## Sitzung 12: Abschluss und Ausblick
+- **Homogenitätstest**: Vergleich von Verteilungen in verschiedenen Gruppen
+  - Anwendung: Gleiche Verteilung einer Variablen in verschiedenen Populationen
+  - R-Code: ähnlich zum Unabhängigkeitstest
 
-## Zusammenfassung der wichtigsten Methoden
+## Voraussetzungen des Chi-Quadrat-Tests
+- **Unabhängigkeit der Beobachtungen**: Keine wiederholten Messungen
+- **Erwartete Häufigkeiten**: Idealerweise > 5 in jeder Zelle
+- **Alternativen bei Verletzung der Voraussetzungen**:
+  - Fisher's Exakter Test: Für kleine Stichproben
+  - Yates-Korrektur: Für 2×2-Tabellen
 
--   Deskriptive Statistik
--   Inferenzstatistik
--   Korrelation und Regression
--   Hypothesentests
+## Durchführung in R
+- **Einfacher Chi-Quadrat-Test**:
+  ```r
+  # Kontingenztabelle erstellen
+  kontingenztabelle <- table(daten$kategorie1, daten$kategorie2)
+  
+  # Chi-Quadrat-Test durchführen
+  chi_test <- chisq.test(kontingenztabelle)
+  chi_test
+  
+  # Residuen anzeigen
+  chi_test$residuals
+  ```
 
-## Überblick: Weiterführende statistische Methoden
+## Effektstärken für Chi-Quadrat-Tests
+- **Phi-Koeffizient**: Für 2×2-Tabellen
+  - Formel: $\phi = \sqrt{\frac{\chi^2}{n}}$
+  - R-Code: `sqrt(chi_test$statistic / sum(kontingenztabelle))`
 
--   ANOVA (Varianzanalyse)
--   Multiple Regression
--   Faktoranalyse
--   Zeitreihenanalyse
--   Bayesianische Statistik
+- **Cramér's V**: Für größere Tabellen
+  - Formel: $V = \sqrt{\frac{\chi^2}{n \times \min(r-1, c-1)}}$
+  - R-Code: `library(vcd); assocstats(kontingenztabelle)`
 
-## Offene Fragen und Diskussion
+## Visualisierung kategorialer Daten
+- **Balkendiagramme**:
+  ```r
+  barplot(kontingenztabelle, beside = TRUE, 
+          legend.text = TRUE, col = c("lightblue", "salmon"))
+  ```
 
-## Evaluation und Feedback
+- **Mosaikplots**: Visualisierung von Kontingenztabellen
+  ```r
+  library(vcd)
+  mosaic(kontingenztabelle, shade = TRUE, 
+         legend = TRUE, labeling = labeling_border(rot_labels = c(45, 0, 0, 0)))
+  ```
 
-## Reguläre Ausdrücke
+## Praktische Anwendungsbeispiele
+- **Marktforschung**: Zusammenhänge zwischen demografischen Merkmalen und Kaufverhalten
+- **Medizin**: Zusammenhänge zwischen Risikofaktoren und Krankheiten
+- **Sozialforschung**: Analyse von Umfrageergebnissen
 
--   Mustererkennung in Daten
--   Anwendung in `filter()` und `mutate()`
+## Weitere Tests für kategoriale Daten
+- **McNemar-Test**: Für abhängige Stichproben (vor-nach-Vergleich)
+  - R-Code: `mcnemar.test(table(vor, nach))`
+
+- **Cochran-Mantel-Haenszel-Test**: Für stratifizierte Tabellen
+  - R-Code: `mantelhaen.test(x)`
+
+- **Loglineare Modelle**: Für komplexe Zusammenhänge in mehrdimensionalen Tabellen
+  - R-Code: `glm(count ~ var1 * var2, family = poisson, data = daten)`
+
+## Analyse mit regulären Ausdrücken
+- **Grundlegende reguläre Ausdrücke in R**:
+  - `^` (Anfang), `
+
+
+
+
+# Sitzung 12: Abschluss und Ausblick
+
+## Zusammenfassung der wichtigsten Konzepte
+- **Deskriptive Statistik**: Kennzahlen, Verteilungen, Visualisierung
+- **Inferenzstatistik**: Stichproben, Hypothesentests, Konfidenzintervalle
+- **Korrelation und Regression**: Zusammenhänge und Vorhersagen
+- **Kategoriale Datenanalyse**: Chi-Quadrat-Tests und Kontingenztabellen
+
+## Integration der Methoden an praktischen Beispielen
+- **Fallstudie**: Durchführung einer vollständigen Datenanalyse
+  1. Datenimport und -bereinigung
+  2. Explorative Datenanalyse
+  3. Hypothesenbildung
+  4. Statistische Tests
+  5. Modellierung (Regression)
+  6. Interpretation und Berichterstattung
+
+## Bewertungskriterien für die Hausarbeit
+- **Datenauswahl und -aufbereitung**: Sinnvolle Auswahl, korrekte Aufbereitung
+- **Methodik**: Angemessene Auswahl und korrekte Anwendung statistischer Verfahren
+- **Visualisierung**: Informative, korrekte und ästhetisch ansprechende Grafiken
+- **Interpretation**: Korrekte Deutung der Ergebnisse, Verständnis der Grenzen
+- **Dokumentation**: Klare, nachvollziehbare Darstellung der Analyse mit R Markdown
+
+## Weiterführende statistische Methoden
+- **Mehrfaktorielle ANOVA**: Analyse mehrerer Einflussfaktoren und ihrer Interaktionen
+- **Multiple Regression**: Mehrere unabhängige Variablen
+- **Nicht-parametrische Verfahren**: Alternativen bei Verletzung der Normalverteilungsannahme
+- **Zeitreihenanalyse**: Analyse von Daten mit zeitlicher Struktur
+- **Faktorenanalyse**: Reduktion von Variablen auf latente Faktoren
+- **Clusteranalyse**: Identifikation von Gruppen in Daten
+- **Machine Learning**: Vorhersagemodelle und Klassifikation
+
+## Praktische Hinweise für statistisches Arbeiten
+- **Reproduzierbarkeit**: Verwendung von R Markdown für nachvollziehbare Analysen
+- **Visualisierung vor Berechnung**: Daten immer zuerst visualisieren
+- **Datenvalidierung**: Überprüfung auf Ausreißer, fehlende Werte, unmögliche Werte
+- **Kritisches Denken**: Hinterfragen von Ergebnissen und Methoden
+- **Effektgrößen beachten**: Nicht nur auf p-Werte fixieren
+
+## Ressourcen für das Selbststudium
+- **Bücher**:
+  - "R for Data Science" von Hadley Wickham und Garrett Grolemund
+  - "Discovering Statistics Using R" von Andy Field
+  - "An Introduction to Statistical Learning" von James, Witten, Hastie und Tibshirani
+
+- **Online-Ressourcen**:
+  - RStudio Cheatsheets: https://www.rstudio.com/resources/cheatsheets/
+  - R-bloggers: https://www.r-bloggers.com/
+  - Datacamp-Kurse: https://www.datacamp.com/courses/tech:r
+  - Stackoverflow für R-spezifische Fragen
+
+## Datenkritisches Denken und ethische Aspekte
+- **Datenqualität und -herkunft**: Kritische Bewertung von Datenquellen
+- **Fallstricke der Statistik**: Häufige Fehlinterpretationen und wie man sie vermeidet
+- **Ethik in der Datenanalyse**: Datenschutz, Fairness, Transparenz
+- **Kommunikation statistischer Ergebnisse**: Verantwortungsvoller Umgang mit Daten in der Öffentlichkeit
+
+## Abschlussdiskussion und Feedback
+- **Offene Fragen**: Klärung verbleibender Unklarheiten
+- **Rückblick**: Was waren die wichtigsten Erkenntnisse?
+- **Ausblick**: Wie können die Studierenden die erlernten Methoden in ihren Abschlussarbeiten anwenden?
+- **Kursevaluation**: Feedback zum Seminar und Verbesserungsvorschläge
+
+## Tipp des Tages: Statistische Fallstricke vermeiden
+- **Data Dredging (p-Hacking)**: Nicht so lange testen, bis ein signifikantes Ergebnis erscheint
+- **HARKing (Hypothesizing After Results are Known)**: Hypothesen vor der Analyse festlegen
+- **Cherry Picking**: Alle relevanten Ergebnisse berichten, nicht nur die "schönen"
+- **Überinterpretation von p-Werten**: p < 0.05 bedeutet nicht "wahr" oder "wichtig"
+- **Ignorieren von Effektgrößen**: Praktische Bedeutsamkeit ist oft wichtiger als statistische Signifikanz
