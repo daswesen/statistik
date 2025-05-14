@@ -1407,12 +1407,12 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 # Sitzung 7: t-Tests
 
-### Historischer Kontext und Entwicklung
+## Historischer Kontext und Entwicklung
 - **William Sealy Gosset und Guinness**: Ein Statistiker in der Brauerei
 - **Warum "Student's t-Test"?**: Das Pseudonym hinter der Methode
 - **Entwicklung über die Zeit**: Vom originalen t-Test zu modernen Varianten
 
-### Theoretische Grundlagen
+## Theoretische Grundlagen
 - **Die t-Verteilung**: Ähnlichkeit zur Normalverteilung mit dickeren "Schwänzen"
 - **Freiheitsgrade**: Wie sie die Form der t-Verteilung beeinflussen
 - **Visualisierung unterschiedlicher t-Verteilungen**:
@@ -1435,7 +1435,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
          col=c("black", "red", "blue", "green"), lwd=2)
   ```
 
-### Arten von t-Tests
+## Arten von t-Tests
 - **Einstichproben-t-Test**: Vergleich mit bekanntem oder hypothetischem Wert
   - Anwendungsbeispiel: Entspricht der mittlere Blutzuckerwert einer Patientengruppe dem Normalwert?
   - Formel: $t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$
@@ -1452,13 +1452,13 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   - Anwendungsbeispiel: Wenn die Streuung in beiden Gruppen deutlich unterschiedlich ist
   - Angepasste Freiheitsgrade
 
-### Voraussetzungen der t-Tests
+## Voraussetzungen der t-Tests
 - **Normalverteilung**: Robustheit bei Verletzungen
 - **Varianzhomogenität**: Bedeutung und Tests (Levene-Test, F-Test)
 - **Unabhängigkeit der Beobachtungen**: Kritisch für die Gültigkeit
 - **Zentraler Grenzwertsatz als Rettungsanker**: Wann können wir uns darauf verlassen?
 
-### Praktische Durchführung in R
+## Praktische Durchführung in R
 - **Einstichproben-t-Test**:
   ```r
   # Hypothetischer Wert: 100
@@ -1480,7 +1480,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   t.test(daten$nachher, daten$vorher, paired = TRUE)
   ```
 
-### Effektstärken für t-Tests
+## Effektstärken für t-Tests
 - **Cohen's d**: Standardisierte Mittelwertdifferenz
   - Kleine (d = 0.2), mittlere (d = 0.5) und große (d = 0.8) Effekte
   - Berechnung in R:
@@ -1492,7 +1492,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 - **Hedges' g**: Korrektur für kleine Stichproben
 - **Bedeutung der Effektstärke**: Praktische Relevanz vs. statistische Signifikanz
 
-### Visualisierung von t-Test-Ergebnissen
+## Visualisierung von t-Test-Ergebnissen
 - **Boxplots mit Signifikanzmarkierungen**:
   ```r
   library(ggplot2)
@@ -1514,21 +1514,21 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
     labs(title = "Mittelwerte mit 95%-Konfidenzintervallen")
   ```
 
-### Interpretation und Berichterstattung
+## Interpretation und Berichterstattung
 - **Korrekte Interpretation des p-Werts**: Häufige Fehlinterpretationen vermeiden
 - **Angabe des Konfidenzintervalls**: Zusätzliche Information zur Präzision
 - **Standardisierte Berichtsform**: APA-Style für wissenschaftliche Publikationen
 - **Beispiel**: "Ein unabhängiger t-Test zeigte einen signifikanten Unterschied zwischen den Gruppen (t(28) = 2.45, p = 0.02, d = 0.89). Die Experimentalgruppe (M = 25.3, SD = 4.2) erzielte höhere Werte als die Kontrollgruppe (M = 21.7, SD = 3.8)."
 
-## Sitzung 8: ANOVA und Umfragedesign
+# Sitzung 8: ANOVA und Umfragedesign
 
-### ANOVA-Grundlagen
+## ANOVA-Grundlagen
 - **Vom t-Test zur ANOVA**: Natürliche Erweiterung für mehr als zwei Gruppen
 - **Varianzzerlegung**: Zwischen- vs. Innerhalb-Gruppenvarianz
 - **F-Verteilung und F-Statistik**: Verhältnis der Varianzen
 - **Grundformel**: $F = \frac{\text{Varianz zwischen Gruppen}}{\text{Varianz innerhalb Gruppen}}$
 
-### Einfaktorielle ANOVA
+## Einfaktorielle ANOVA
 - **Voraussetzungen**:
   - Normalverteilung der Residuen
   - Homoskedastizität (Varianzhomogenität)
@@ -1540,7 +1540,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   summary(anova_result)
   ```
 
-### Post-hoc Tests
+## Post-hoc Tests
 - **Warum Post-hoc Tests?**: ANOVA sagt nur, dass Unterschiede existieren
 - **Tukey's HSD**: Häufig verwendeter Test für alle paarweisen Vergleiche
 - **Bonferroni-Korrektur**: Kontrolle des Alpha-Fehlers bei multiplen Vergleichen
@@ -1555,7 +1555,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   summary(post_hoc)
   ```
 
-### Visualisierung von ANOVA-Ergebnissen
+## Visualisierung von ANOVA-Ergebnissen
 - **Boxplots mit Post-hoc-Informationen**:
   ```r
   library(ggplot2)
@@ -1574,14 +1574,14 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
                   trace.label = "Faktor 2")
   ```
 
-### Umfragen und Datenerhebung
+## Umfragen und Datenerhebung
 
-#### Grundsätzliche Aspekte der Datenerhebung
+### Grundsätzliche Aspekte der Datenerhebung
 - **Primärdaten vs. Sekundärdaten**: Vor- und Nachteile
 - **Quantitative vs. qualitative Forschung**: Unterschiedliche Ansätze und Zielsetzungen
 - **Mixed Methods**: Kombination verschiedener Ansätze
 
-#### Umfragedesign
+### Umfragedesign
 - **Fragentypen**:
   - Offene vs. geschlossene Fragen
   - Single-Choice vs. Multiple-Choice
@@ -1591,7 +1591,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   - Neutraloption: Ja oder nein?
   - Skalenlänge: 5-, 7- oder 10-Punkt-Skalen
 
-#### Typische Fehlerquellen und Verzerrungen
+### Typische Fehlerquellen und Verzerrungen
 - **Stichprobenverzerrung (Sampling Bias)**:
   - Convenience Sampling
   - Self-Selection Bias
@@ -1602,36 +1602,36 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   - Extremity Bias (Tendenz zu Extremantworten)
   - Central Tendency Bias (Tendenz zur Mitte)
 
-#### Fallbeispiele von Verzerrungen
+### Fallbeispiele von Verzerrungen
 - **Survivorship Bias**: Beobachtungen der "Überlebenden"
 - **Verzerrung durch fehlende Daten**: Systematische vs. zufällige fehlende Werte
 - **Kulturelle Unterschiede in der Beantwortung**: Internationale Studien
 
-#### Praktische Tipps für bessere Umfragen
+### Praktische Tipps für bessere Umfragen
 - **Frageformulierung**: Klar, präzise, neutral
 - **Umfragelänge**: Ermüdung und Abbruchquoten
 - **Pretests durchführen**: Frühe Probleme erkennen
 - **Datenqualitätsprüfung**: Validierung während und nach der Erhebung
 
-#### Online-Tools und Software
+### Online-Tools und Software
 - **Umfragetools**: SurveyMonkey, Google Forms, LimeSurvey, Qualtrics
 - **Integration mit R**: Datenimport und -analyse
 
-## Sitzung 9: Korrelationsanalyse
+# Sitzung 9: Korrelationsanalyse
 
-### Grundkonzepte der Korrelation
+## Grundkonzepte der Korrelation
 - **Definition**: Stärke und Richtung eines Zusammenhangs zwischen Variablen
 - **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkungs-Beziehung
 - **Gemeinsame Varianz**: Was der Korrelationskoeffizient wirklich misst
 
-### Von der Kovarianz zur Korrelation
+## Von der Kovarianz zur Korrelation
 - **Kovarianz**: Unstandarisiertes Maß für gemeinsame Variation
   - Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
 - **Pearson-Korrelation**: Standardisierte Kovarianz
   - Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
   - Wertebereich: -1 bis +1
 
-### Pearson-Korrelation
+## Pearson-Korrelation
 - **Voraussetzungen**:
   - Lineare Beziehung
   - Normalverteilung der Variablen (für Hypothesentests)
@@ -1646,7 +1646,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   cor.test(daten$x, daten$y, method = "pearson")
   ```
 
-### Alternative Korrelationsmaße
+## Alternative Korrelationsmaße
 - **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
   - Formel: Pearson-Korrelation der rangtransformierten Daten
   - Robuster gegenüber Ausreißern
@@ -1657,7 +1657,7 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
   - Robuster bei kleinen Stichproben
   - R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
 
-### Visualisierung von Korrelationen
+## Visualisierung von Korrelationen
 - **Streudiagramme (Scatterplots)**:
   ```r
   plot(daten$x, daten$y, main = "Streudiagramm", 
@@ -1677,30 +1677,15 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
            addCoef.col = "black", number.cex = 0.7)
   ```
 
-### Fallstricke und Fehlinterpretationen
+## Fallstricke und Fehlinterpretationen
 - **Scheinkorrelationen**: Effekt von Drittvariablen
 - **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
 - **Aggregationsprobleme**: Simpson's Paradoxon
 - **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
 
-### Anscombe's Quartett
-- **Gleiche statistische Kennwerte, unterschiedliche Beziehungen**
-- **Bedeutung der visuellen Inspektion**:
-  ```r
-  # Anscombe's Quartett in R demonstrieren
-  library(datasauRus)
-  data(anscombe)
-  
-  par(mfrow = c(2, 2))
-  for(i in 1:4) {
-    plot(anscombe[, i], anscombe[, i+4], 
-         main = paste("Datensatz", i),
-         xlab = "x", ylab = "y")
-    abline(lm(anscombe[, i+4] ~ anscombe[, i]), col = "red")
-  }
-  ```
 
-### Inter-Rater Reliability
+
+## Inter-Rater Reliability
 - **Definition**: Konsistenz zwischen verschiedenen Beurteilern
 - **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
 - **Maße für kategoriale Daten**:
