@@ -137,10 +137,79 @@ flights %>%
 ```
 
 ```{r}
+# Benötigte Pakete laden
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
 
+# Mittlere Ankunftsverspätung pro Fluggesellschaft berechnen
+airline_delays <- flights %>%
+  group_by(carrier) %>%
+  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  #filter(mean_delay > 0) %>%
+  # Fluggesellschaftsnamen hinzufügen
+  left_join(airlines, by = "carrier") %>%
+  # Nach Verspätung sortieren
+  arrange(mean_delay)
+
+# Einen Vektor für Farben erstellen (alle grau außer ExpressJet, das hervorgehoben wird)
+# ExpressJet hat im Datensatz den Code "EV"
+farben <- ifelse(airline_delays$carrier == "G4", "#B22222", "#AAAAAA")
+
+# Horizontalen Balkenplot erstellen
+ggplot(airline_delays, aes(x = reorder(name, mean_delay), y = mean_delay)) +
+  geom_col(fill = farben) +
+  coord_flip() +  # Für horizontale Balken
+  labs(
+    title = "",
+    x = "",
+    y = "mean arrival delay (min.)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
 ```
 
 
+```{r}
+# Benötigte Pakete laden
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
+
+# Daten filtern (nur positive Verspätungen) und vorbereiten
+delay_data <- flights %>%
+  left_join(airlines, by = "carrier")  # Fluggesellschaftsnamen hinzufügen
+
+# Reihenfolge der Fluggesellschaften nach Median-Verspätung festlegen
+carrier_order <- delay_data %>%
+  group_by(carrier, name) %>%
+  summarise(median_delay = median(arr_delay, na.rm = TRUE), .groups = "drop") %>%
+  arrange(median_delay)
+
+# Farben definieren (ExpressJet hervorgehoben, Rest grau)
+# (Angenommen, Sie möchten ExpressJet hervorheben, das Code "EV" hat)
+delay_data$color <- ifelse(delay_data$carrier == "G4", "#B22222", "#AAAAAA")
+
+# Boxplot erstellen
+ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name), y = arr_delay)) +
+  geom_boxplot(aes(fill = color), outlier.shape = NA, varwidth = TRUE) +  # outlier.shape = NA entfernt Ausreißer für bessere Lesbarkeit
+  coord_flip() +  # Horizontale Boxplots
+  scale_fill_identity() +  # Verwende die definierten Farben direkt
+  scale_y_continuous(limits = c(-50, 150)) +  # Limitiere y-Achse für bessere Lesbarkeit
+  labs(
+    title = "Verteilung der Ankunftsverspätungen nach Fluggesellschaft",
+    x = "",
+    y = "arrival delay (min.)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
 
 
 

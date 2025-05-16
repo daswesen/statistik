@@ -557,13 +557,65 @@ The greatest value of a picture is when it forces us to notice what we never exp
 
 ## Redundant Coding
 
+
 ::::: columns
 ::: {.column width="50%"}
-![](images/redudant_coding1.png)
+```{r, fig.width=10, fig.height=10, out.width="100%"}
+# Pakete laden
+library(ggplot2)
+
+# Pakete laden
+library(ggplot2)
+
+# Linker Plot (mit Kreisen für alle Arten)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_manual(values = c("setosa" = "#d8b365", 
+                               "virginica" = "#5ab4ac", 
+                               "versicolor" = "#a6cee3")) +
+  scale_x_continuous(limits = c(4, 8), breaks = seq(4, 8, 1)) +
+  scale_y_continuous(limits = c(2, 4.5), breaks = seq(2, 4.5, 0.5)) +
+  labs(x = "sepal length", y = "sepal width") +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        panel.grid.minor = element_blank(),
+        aspect.ratio = 1) # Macht den Plot quadratisch
+
+# Um den Plot zu speichern mit quadratischen Abmessungen
+# ggsave("iris_plot_left.png", width = 7, height = 7)
+```
+
 :::
 
 ::: {.column width="50%"}
-![](images/redudant_coding2.png)
+```{r, fig.width=10, fig.height=10, out.width="100%"}
+# Pakete laden
+library(ggplot2)
+
+# Rechter Plot (mit unterschiedlichen Symbolen für jede Art)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, 
+                 color = Species, shape = Species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_manual(values = c("setosa" = "#a6cee3", 
+                               "virginica" = "#5ab4ac", 
+                               "versicolor" = "#d8b365")) +
+  scale_shape_manual(values = c("setosa" = 16,  # Kreis (gefüllt)
+                               "virginica" = 21, # Kreis (leer)
+                               "versicolor" = 22)) + # Quadrat (leer)
+  scale_x_continuous(limits = c(4, 8), breaks = seq(4, 8, 1)) +
+  scale_y_continuous(limits = c(2, 4.5), breaks = seq(2, 4.5, 0.5)) +
+  labs(x = "sepal length", y = "sepal width") +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        panel.grid.minor = element_blank(),
+        aspect.ratio = 1) # Macht den Plot quadratisch
+
+# Um den Plot zu speichern mit quadratischen Abmessungen
+# ggsave("iris_plot_right.png", width = 7, height = 7)
+```
+
 :::
 :::::
 
@@ -571,23 +623,139 @@ The greatest value of a picture is when it forces us to notice what we never exp
 
 
 
+
 ::::: columns
 ::: {.column width="50%"}
-![](images/white_space1.png)
+
+```{r}
+# Benötigte Pakete
+library(ggplot2)
+library(dplyr)
+
+# Daten vorbereiten (Titanic-Datensatz)
+# Falls nicht vorhanden: install.packages("titanic")
+library(titanic)
+data("titanic_train")
+
+# Daten aufbereiten
+titanic_data <- titanic_train %>%
+  mutate(
+    Sex = factor(Sex, levels = c("female", "male")),
+    Survived = factor(ifelse(Survived == 1, "survived", "died")),
+    Pclass = factor(Pclass, labels = c("1st", "2nd", "3rd"))
+  ) %>%
+  count(Pclass, Sex, Survived) %>%
+  rename(count = n)
+
+# Linker Plot (komplett ohne Linien, "ugly")
+ggplot(titanic_data, aes(x = Sex, y = count, fill = Sex)) +
+  geom_col() +
+  facet_grid(Pclass ~ Survived) +
+  scale_fill_manual(values = c("female" = "#E69F00", "male" = "#4472C4")) +
+  scale_y_continuous(limits = c(0, 180), breaks = c(0, 50, 100, 150)) +
+  labs(y = "count") +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(0.5, "mm"),      # Minimaler Abstand zwischen Panels
+    panel.grid.major = element_blank(),   # Keine Hauptgitterlinien
+    panel.grid.minor = element_blank(),   # Keine Nebengitterlinien
+    panel.border = element_blank(),       # Kein Panelrahmen
+    panel.background = element_blank(),   # Kein Panelhintergrund
+    strip.background = element_blank(),   # Kein Hintergrund für Beschriftungen
+    strip.text = element_text(hjust = 0.5, size = 10),
+    axis.line = element_blank(),          # Keine Achsenlinien
+    axis.ticks = element_blank(),         # Keine Achsenmarkierungen
+    axis.title.x = element_blank(),
+    plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "mm")  # Minimaler Außenabstand
+  )
+```
+
+
 :::
 
 ::: {.column width="50%"}
-![](images/white_space2.png)
+```{r}
+# Benötigte Pakete
+library(ggplot2)
+library(dplyr)
+
+# Daten vorbereiten (Titanic-Datensatz)
+# Falls nicht vorhanden: install.packages("titanic")
+library(titanic)
+data("titanic_train")
+
+# Daten aufbereiten
+titanic_data <- titanic_train %>%
+  mutate(
+    Sex = factor(Sex, levels = c("female", "male")),
+    Survived = factor(ifelse(Survived == 1, "survived", "died")),
+    Pclass = factor(Pclass, labels = c("1st", "2nd", "3rd"))
+  ) %>%
+  count(Pclass, Sex, Survived) %>%
+  rename(count = n)
+
+# Rechter Plot (mehr Weißraum, besser lesbar)
+ggplot(titanic_data, aes(x = Sex, y = count, fill = Sex)) +
+  geom_col() +
+  facet_grid(Pclass ~ Survived) +
+  scale_fill_manual(values = c("female" = "#E69F00", "male" = "#4472C4")) +
+  scale_y_continuous(limits = c(0, 180), breaks = c(0, 50, 100, 150)) +
+  labs(y = "count") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(5, "mm"),     # Mehr Abstand zwischen Panels
+    panel.background = element_rect(fill = "#F1F1F1", color = NA), # Hellgrauer Hintergrund
+    strip.background = element_rect(fill = "white", color = NA), # Weißer Streifen für Überschriften
+    strip.text = element_text(hjust = 0.5, size = 10),
+    axis.title.x = element_blank(),
+    plot.margin = unit(c(5, 5, 5, 5), "mm")  # Mehr Außenabstand
+  )
+```
+
 :::
 :::::
 
+
 ## Highlighting
 
-![](images/highlighting.png)
 
-## Hatten wir diese Frage nicht schon mal?
+```{r}
+# Benötigte Pakete laden
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
 
-![](images/highlighting.png)
+# Mittlere Ankunftsverspätung pro Fluggesellschaft berechnen
+airline_delays <- flights %>%
+  group_by(carrier) %>%
+  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  #filter(mean_delay > 0) %>%
+  # Fluggesellschaftsnamen hinzufügen
+  left_join(airlines, by = "carrier") %>%
+  # Nach Verspätung sortieren
+  arrange(mean_delay)
+
+# Einen Vektor für Farben erstellen (alle grau außer ExpressJet, das hervorgehoben wird)
+# ExpressJet hat im Datensatz den Code "EV"
+farben <- ifelse(airline_delays$carrier == "G4", "#B22222", "#AAAAAA")
+
+# Horizontalen Balkenplot erstellen
+ggplot(airline_delays, aes(x = reorder(name, mean_delay), y = mean_delay)) +
+  geom_col(fill = farben) +
+  coord_flip() +  # Für horizontale Balken
+  labs(
+    title = "",
+    x = "",
+    y = "mean arrival delay (min.)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
+
 
 ## Wie identifiziert man das richtige Diagramm?
 
@@ -990,6 +1158,47 @@ ggplot(box_data, aes(x = category, y = value, fill = category)) +
 ```
 :::
 :::::
+
+## Boxplot mit unseren Verspätungsdaten
+
+```{r}
+# Benötigte Pakete laden
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
+
+# Daten filtern (nur positive Verspätungen) und vorbereiten
+delay_data <- flights %>%
+  left_join(airlines, by = "carrier")  # Fluggesellschaftsnamen hinzufügen
+
+# Reihenfolge der Fluggesellschaften nach Median-Verspätung festlegen
+carrier_order <- delay_data %>%
+  group_by(carrier, name) %>%
+  summarise(median_delay = median(arr_delay, na.rm = TRUE), .groups = "drop") %>%
+  arrange(median_delay)
+
+# Farben definieren (ExpressJet hervorgehoben, Rest grau)
+# (Angenommen, Sie möchten ExpressJet hervorheben, das Code "EV" hat)
+delay_data$color <- ifelse(delay_data$carrier == "G4", "#B22222", "#AAAAAA")
+
+# Boxplot erstellen
+ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name), y = arr_delay)) +
+  geom_boxplot(aes(fill = color), outlier.shape = NA, varwidth = TRUE) +  # outlier.shape = NA entfernt Ausreißer für bessere Lesbarkeit
+  coord_flip() +  # Horizontale Boxplots
+  scale_fill_identity() +  # Verwende die definierten Farben direkt
+  scale_y_continuous(limits = c(-50, 150)) +  # Limitiere y-Achse für bessere Lesbarkeit
+  labs(
+    title = "Verteilung der Ankunftsverspätungen nach Fluggesellschaft",
+    x = "",
+    y = "arrival delay (min.)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
+
 
 ## Boxplots mit Violin Plot
 
