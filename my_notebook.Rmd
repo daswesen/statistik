@@ -121,6 +121,114 @@ airlines
 
 ```{r}
 flights %>%
+  select(carrier, dep_delay) %>%
+  filter(dep_delay > 0) %>%
+  group_by(carrier) %>%
+  summarise(anzahl = n()) %>%
+  arrange(desc(anzahl)) %>%
+  ggplot(., aes(x = carrier, y = anzahl)) +
+  geom_col() +
+  theme_light()
+```
+
+```{r}
+flights %>% # der ganze Datensatz
+  select(carrier, dep_delay) %>% # Auswahl der relevanten Spalten
+  group_by(carrier) %>% # Airlines in Häufchen legen
+  mutate(anzahl_fluege = n()) %>% # neue Spalte erstellen mit der Anzahl Flüge pro Häufchen (Airline)
+  filter(dep_delay > 0) %>% # Alle Flüge rausfiltern, die pünktlich waren
+  mutate(anzahl_verspaetungen = n()) %>% # neues Zählen der Flüge
+  select(-dep_delay) %>% # Entfernen der Spalte dep_delay
+  unique() %>% # einzigartige Zahlen
+  mutate(ratio = anzahl_verspaetungen / anzahl_fluege) %>% # Verhältnis unpünktlicher Flüge zu allen Flügen
+  arrange(desc(ratio)) # Sortieren absteigend
+```
+
+```{r}
+flights %>% # der ganze Datensatz
+  select(carrier, dep_delay) %>% # Auswahl der relevanten Spalten
+  group_by(carrier) %>% # Airlines in Häufchen legen
+  mutate(anzahl_fluege = n()) %>% # neue Spalte erstellen mit der Anzahl Flüge pro Häufchen (Airline)
+  filter(dep_delay > 0) %>% # Alle Flüge rausfiltern, die pünktlich waren
+  mutate(anzahl_verspaetungen = n()) %>% # neues Zählen der Flüge
+  mutate(avg_delay = mean(dep_delay)) %>%
+  mutate(median_delay = median(dep_delay)) %>%
+  select(-dep_delay) %>%
+  unique() %>%
+  mutate(ratio = anzahl_verspaetungen / anzahl_fluege) %>% # Verhältnis unpünktlicher Flüge zu allen Flügen
+  arrange(desc(ratio)) # Sortieren absteigend
+
+```
+
+
+
+
+
+
+
+
+```{r}
+flights %>%
+  group_by(carrier) %>%
+  summarise(anzahl_fluege = n())
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+flights %>%
+  select(carrier, dep_delay) %>%
+  group_by(carrier) %>%
+  mutate(anzahl_fluege = n()) %>%
+  filter(dep_delay > 0) %>%
+  mutate(anzahl_verspaetungen = n()) %>%
+  mutate(ratio = anzahl_verspaetungen / anzahl_fluege *100) %>%
+  select(carrier, ratio) %>%
+  unique() %>%
+  ggplot(., aes(x = carrier, y = ratio)) +
+  geom_col() + 
+  theme_minimal()
+```
+
+
+```{r}
+flights %>%
+  select(carrier, dep_delay) %>%
+  group_by(carrier) %>%
+  mutate(median_delay = median(dep_delay, na.rm = TRUE), mean_delay = mean(dep_delay, na.rm = TRUE), max_delay = max(dep_delay, na.rm = TRUE)) %>%
+  select(-dep_delay) %>%
+  unique()
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+flights %>%
   group_by(carrier) %>%
   mutate(number_of_flights = n()) %>%
   filter(arr_delay > 0) %>%
