@@ -56,6 +56,8 @@ Gummibärchentüte <- data.frame(nummer,farbe)
 Gummibärchentüte
 ```
 
+# Sitzung 4
+
 ```{r}
 library(tidyverse)
 ```
@@ -125,10 +127,7 @@ flights %>%
   filter(dep_delay > 0) %>%
   group_by(carrier) %>%
   summarise(anzahl = n()) %>%
-  arrange(desc(anzahl)) %>%
-  ggplot(., aes(x = carrier, y = anzahl)) +
-  geom_col() +
-  theme_light()
+  arrange(desc(anzahl))
 ```
 
 ```{r}
@@ -319,6 +318,14 @@ ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name), y = arr_de
   )
 ```
 
+# Sitzung 5
+
+```{r}
+flights %>%
+  filter(dep_delay > 5) %>%
+  ggplot(., aes(x = dep_delay)) +
+  geom_histogram(bins = 50)
+```
 
 
 
