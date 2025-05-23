@@ -1464,6 +1464,13 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 # Sitzung 5: Wahrscheinlichkeiten & Verteilungen
 
+## Organisatorisches
+
+-   Die Veranstaltung findet nächste Woche statt!
+-   Zu viel los zum Semesterende? Sie können früher abgeben!
+-   Bitte bitte bitte beachten Sie die zur Verfügung gestellten Materialien!
+-   Nachtrag Stacked Area Charts
+
 ## Ihre Aufgabe heute
 
 1.   Notebook ist erstellt (mit der Vorlage)
