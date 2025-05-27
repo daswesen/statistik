@@ -1662,16 +1662,29 @@ plot(x, y, type = "l", col = "darkgreen", lwd = 2,
 -   Welche Verteilungen erwarten Sie in Ihren Forschungsfragen?
 -   Welche Wahrscheinlichkeiten erwarten Sie?
 
+
+
 # Sitzung 6: Einführung in die Inferenzstatistik
 
-## Der Zentrale Grenzwertsatz: Warum er revolutionär ist
+## Was ist Inferenzstatistik?
 
--   **Konzept**: Stichprobenmittelwerte tendieren zur Normalverteilung
--   **Bedeutung**: Ermöglicht inferenzstatistische Methoden auch bei nicht-normalverteilten Daten
--   **Voraussetzung**: Ausreichend große Stichprobe
--   **Demonstration** durch Simulation in R
+- Von der Stichprobe auf die Grundgesamtheit schließen
+- Berücksichtigt Zufallsfehler und Unsicherheit
+- Zentral: **Wahrscheinlichkeit**, **Stichprobenverteilung**, **Testen von Hypothesen**
 
-## Live-Demo: Zentraler Grenzwertsatz
+## Würfeln und der Zufall: Zentraler Grenzwertsatz
+
+- Jeder Studierende würfelt 60x → 1 Mittelwert
+- Wiederholung über viele → Verteilung der Mittelwerte
+- Was ist der Erwartungswert?
+
+## Würfeln und der Zufall: Zentraler Grenzwertsatz
+
+- Jeder Studierende würfelt 60x → 1 Mittelwert
+- Wiederholung über viele → Verteilung der Mittelwerte
+- Erwartungswert (fairer Würfel): 3.5
+
+## Würfeln und der Zufall: Zentraler Grenzwertsatz
 
 ```{r}
 # Simulation des Zentralen Grenzwertsatzes
@@ -1680,7 +1693,7 @@ sample_means <- numeric(n_samples)
 
 for(i in 1:n_samples) {
   # Ziehe 30 Werte aus einer nicht-normalverteilten Grundgesamtheit
-  sample_data <- runif(30, min=0, max=10)  # Gleichverteilung
+  sample_data <- runif(30, min=1, max=6)  # Gleichverteilung
   sample_means[i] <- mean(sample_data)
 }
 
@@ -1691,97 +1704,84 @@ curve(dnorm(x, mean=mean(sample_means), sd=sd(sample_means)),
       add=TRUE, col="red", lwd=2)
 ```
 
-## Von der Theorie zur Praxis: Standardfehler
 
--   **Definition**: Standardabweichung der Stichprobenmittelwerte
--   **Formel**: $SE = \frac{\sigma}{\sqrt{n}}$
--   **Praktische Bedeutung**: Je größer die Stichprobe, desto präziser die Schätzung
--   **Anwendung**: Grundlage für Konfidenzintervalle und Hypothesentests
 
-## Wahrscheinlichkeitsfunktionen in R
+## Warum ist das wichtig?
 
--   **Vier Funktionstypen** für jede Verteilung:
-    -   `d...()`: Dichte/Wahrscheinlichkeitsfunktion
-    -   `p...()`: Kumulative Verteilungsfunktion
-    -   `q...()`: Quantilfunktion
-    -   `r...()`: Zufallszahlengenerator
--   **Beispiel**: `dnorm()`, `pnorm()`, `qnorm()`, `rnorm()` für die Normalverteilung
-
-## Visualisierung von Verteilungen
-
-```{r}
-x <- seq(-4, 4, length=500)
-y1 <- dnorm(x, mean=0, sd=0.5)
-y2 <- dnorm(x, mean=0, sd=1)
-y3 <- dnorm(x, mean=0, sd=2)
-
-# Mehr Platz für den Titel durch Anpassung der Ränder
-par(mar=c(4, 4, 3, 2) + 0.1)  # unten, links, oben, rechts
-
-plot(x, y2, type="l", lwd=2, col="red", 
-     main="Normalverteilungen", xlab="x", ylab="Dichte",
-     # Plot-Höhe reduzieren, damit mehr Platz für Titel bleibt
-     ylim=c(0, max(y1)*1.1))  
-lines(x, y1, lwd=2, col="blue")
-lines(x, y3, lwd=2, col="green")
-
-# Legend weiter nach unten verschieben
-legend("topright", inset=c(0.05, 0.05),
-       legend=c("σ = 0.5", "σ = 1", "σ = 2"),
-       col=c("blue", "red", "green"), lwd=2)
-```
-
-## Brücke zur nächsten Sitzung: Von Verteilungen zu Hypothesentests
-
--   **Wie wir Verteilungen nutzen werden**:
-    -   Konfidenzintervalle berechnen
-    -   Hypothesen testen
-    -   Unterschiede zwischen Gruppen analysieren
-    -   Vorhersagen treffen und deren Unsicherheit quantifizieren
--   **Nächste Sitzung**: Inferenzstatistik – Von der Stichprobe zur Grundgesamtheit
-
-## Übungsaufgabe
-
--   **Datensatz**: flights aus nycflights23
--   **Aufgabe**: 
-    1. Untersuchen Sie die Verteilung der Ankunftsverspätungen
-    2. Prüfen Sie, ob die Verspätungen normalverteilt sind
-    3. Berechnen Sie die Wahrscheinlichkeit für Verspätungen > 30 Minuten
-    4. Visualisieren Sie verschiedene Verteilungsannahmen
-
-## Grundkonzepte der statistischen Inferenz
-
--   **Von der Stichprobe zur Grundgesamtheit**: Warum Inferenzstatistik?
--   **Punktschätzung vs. Intervallschätzung**: Einzelwerte vs. Vertrauensbereiche
--   **Statistische Unsicherheit**: Warum exakte Rückschlüsse unmöglich sind
+- Diese Verteilung erlaubt uns Aussagen über:
+  - Vertrauensbereiche (Konfidenzintervalle)
+  - Signifikanztests (z. B. t-Test)
+- **Beispiel**: Ist ein Würfel gezinkt?
+- Stichprobe: z. B. Mittelwert = 3.8
+- **Ist dieser Unterschied Zufall oder nicht?**
 
 ## Hypothesentesten: Grundlagen
 
--   **Nullhypothese (H₀)**: Annahme keines Effekts/Unterschieds
--   **Alternativhypothese (H₁)**: Annahme eines Effekts/Unterschieds
--   **Arten von Hypothesen**:
-    -   Ungerichtete Hypothesen (zweiseitig): µ₁ ≠ µ₂
-    -   Gerichtete Hypothesen (einseitig): µ₁ \> µ₂ oder µ₁ \< µ₂
+- **Nullhypothese (H₀)**: Annahme keines Effekts/Unterschieds
+- **Alternativhypothese (H₁)**: Annahme eines Effekts/Unterschieds
+- **Arten von Hypothesen**:
+  - Ungerichtete Hypothesen (zweiseitig): µ₁ ≠ µ₂
+  - Gerichtete Hypothesen (einseitig): µ₁ > µ₂ oder µ₁ < µ₂
 
 ## Die Logik des Hypothesentestens
 
--   **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
--   **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
--   **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
+- **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
+- **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
+- **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
 
-## Fehler beim Hypothesentesten
 
--   **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
--   **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
--   **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
--   **Balanceakt**: Abwägung zwischen α und β
 
 ## Signifikanzniveau und p-Wert
 
--   **Signifikanzniveau α**: Vorab festgelegte Irrtumswahrscheinlichkeit (typisch: 0.05)
--   **p-Wert**: Wahrscheinlichkeit, die beobachteten (oder extremeren) Daten unter H₀ zu erhalten
--   **Entscheidungsregel**: Verwerfe H₀, wenn p \< α
--   **Kritische Werte**: Alternative Darstellung der Entscheidungsregel
+- **Signifikanzniveau α**: Vorab festgelegte Irrtumswahrscheinlichkeit (typisch: 0.05)
+- **p-Wert**: Wahrscheinlichkeit, die beobachteten (oder extremeren) Daten unter H₀ zu erhalten
+- **Entscheidungsregel**: Verwerfe H₀, wenn p < α
+- **Kritische Werte**: Alternative Darstellung der Entscheidungsregel
+
+## Von der Stichprobenverteilung zum t-Test
+
+- Die **Stichprobenverteilung der Mittelwerte** zeigt: Wie stark Mittelwerte **zufällig schwanken**, selbst wenn H₀ stimmt
+- Diese Schwankung hat eine Streuung: den **Standardfehler (SE)**
+
+$$ SE = \frac{s}{\sqrt{n}} $$
+
+- Der t-Test prüft, ob der beobachtete Mittelwert **außerhalb** dieser erwarteten Schwankung liegt
+
+## Der Standardfehler
+
+-   **Definition**: Standardabweichung der Stichprobenmittelwerte
+-   **Praktische Bedeutung**: Je größer die Stichprobe, desto präziser die Schätzung
+
+```{r echo=TRUE}
+set.seed(42)
+würfe <- sample(1:6, 60, replace = TRUE)
+se <- sd(würfe) / sqrt(length(würfe))
+se
+```
+
+## t-Test in R (Einzelstichprobe)
+
+::: {.small}
+```{r}
+mean(würfe)
+t.test(würfe, mu = 3.5)
+```
+:::
+
+## Interpretation des t-Tests
+
+- **p < 0.05** → Ablehnung der Nullhypothese (Würfel evtl. gezinkt)
+- **p ≥ 0.05** → Kein ausreichender Hinweis auf Manipulation
+
+
+## Was ist denn nun „signifikant“?
+
+- Ein signifikantes Ergebnis heißt nicht, dass es „wichtig“ ist
+- Es heißt nur: Unterschied ist **nicht gut durch Zufall erklärbar**
+- Immer im Kontext interpretieren (Effektgröße, Relevanz)
+
+
+
 
 ## Konfidenzintervalle
 
@@ -1791,26 +1791,6 @@ legend("topright", inset=c(0.05, 0.05),
 
 -   **Zusammenhang mit Hypothesentests**: Enthält ein 95%-KI den Wert der Nullhypothese?
 
--   **Visualisierung von Konfidenzintervallen**:
-
-    ``` r
-    # Beispiel: 95%-Konfidenzintervall für einen Mittelwert
-    set.seed(123)
-    sample_data <- rnorm(30, mean = 10, sd = 2)
-
-    # t-Test für das Konfidenzintervall
-    test_result <- t.test(sample_data)
-
-    # Visualisierung
-    plot(c(1), mean(sample_data), ylim=c(min(sample_data), max(sample_data)),
-         pch=19, xlab="", ylab="Wert", xaxt="n", main="95%-Konfidenzintervall")
-    axis(1, at=1, labels="Stichprobe")
-    arrows(1, test_result$conf.int[1], 1, test_result$conf.int[2], 
-           angle=90, code=3, length=0.1)
-    abline(h=test_result$conf.int, lty=2, col="red")
-    text(1.1, test_result$conf.int[1], round(test_result$conf.int[1], 2))
-    text(1.1, test_result$conf.int[2], round(test_result$conf.int[2], 2))
-    ```
 
 ## Experimentelles Design
 
@@ -1820,27 +1800,45 @@ legend("topright", inset=c(0.05, 0.05),
     -   Hawthorne-Effekt
     -   Observer Bias
     -   Selection Bias
--   **Die Statistik-Pille**: Praktisches Beispiel eines Experimentaufbaus
-    -   Testgruppe vs. Kontrollgruppe
-    -   Blindtest vs. Doppelblindtest
 
-# Sitzung 7: t-Tests
 
-## Historischer Kontext und Entwicklung
+## Ursprung der t-Verteilung: William S. Gosset
 
--   **William Sealy Gosset und Guinness**: Ein Statistiker in der Brauerei
--   **Warum "Student's t-Test"?**: Das Pseudonym hinter der Methode
--   **Entwicklung über die Zeit**: Vom originalen t-Test zu modernen Varianten
+- **William S. Gosset** war Chemiker und Statistiker bei der Guinness-Brauerei (Anfang 1900er).
+- Aufgabe: Qualitätskontrolle (z. B. Stärkegehalt von Gerste messen).
+- Problem: Nur **kleine Stichproben** pro Tag (z. B. n = 4 oder 5).
+- Damalige Statistik: Basierte auf **großen Stichproben** und der **Normalverteilung**.
 
-## Theoretische Grundlagen
+## Das statistische Problem
 
--   **Die t-Verteilung**: Ähnlichkeit zur Normalverteilung mit dickeren "Schwänzen"
+- Ziel: Testen, ob der Mittelwert von Proben vom Sollwert abweicht.
+- Normalformel:
+  \[
+  \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
+  \]
+  → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
+- Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden:
+  \[
+  \frac{\bar{x} - \mu}{s / \sqrt{n}}
+  \]
+- Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
 
--   **Freiheitsgrade**: Wie sie die Form der t-Verteilung beeinflussen
+## Die Lösung
 
--   **Visualisierung unterschiedlicher t-Verteilungen**:
+- Gosset zeigte: Die neue Verteilung hängt von der Anzahl an Beobachtungen ab → **Freiheitsgrade (n−1)**.
+- Daraus entstand eine neue Verteilung: die **t-Verteilung mit df**.
+- Diese berücksichtigt die **größere Unsicherheit bei kleinen n** durch dickere „Schwänze“ (heavy tails).
 
-    ``` r
+## Warum „Student“?
+
+- Guinness verbot es Mitarbeitern, unter eigenem Namen zu publizieren.
+- Gosset veröffentlichte 1908 unter dem Pseudonym **„Student“**:
+  - *„The Probable Error of a Mean“* (in *Biometrika*)
+- Der t-Test wurde dadurch bekannt als **„Student’s t-Test“**.
+
+## Visualisierung unterschiedlicher t-Verteilungen
+
+```{r}
     # Vergleich von t-Verteilungen mit unterschiedlichen Freiheitsgraden
     x <- seq(-4, 4, length.out = 1000)
     y_normal <- dnorm(x)
@@ -1857,19 +1855,47 @@ legend("topright", inset=c(0.05, 0.05),
     legend("topright", 
            legend=c("Normalverteilung", "t (df=1)", "t (df=5)", "t (df=30)"),
            col=c("black", "red", "blue", "green"), lwd=2)
-    ```
+```
+
+## Freiheitsgrade (Degrees of Freedom, df)
+
+- Anzahl der **unabhängigen Informationen**, die zur Schätzung einer Größe verfügbar sind.
+- Bei der Berechnung der **Stichprobenvarianz** geht 1 Freiheitsgrad verloren:
+  \[
+  df = n - 1
+  \]
+  (weil der Mittelwert bereits aus den Daten berechnet wurde)
+- Freiheitsgrade bestimmen die **Form der t-Verteilung**:
+  - Wenige df → **dickere Randbereiche**
+  - Viele df → t-Verteilung nähert sich der **Normalverteilung**
+  
+## Freiheitsgrade (Degrees of Freedom, df)
+
+- Freiheitsgrade sind wichtig für:
+  - Auswahl des richtigen **kritischen t-Werts**
+  - **Vertrauensintervalle** und **p-Werte**
+
 
 ## Arten von t-Tests
 
 -   **Einstichproben-t-Test**: Vergleich mit bekanntem oder hypothetischem Wert
     -   Anwendungsbeispiel: Entspricht der mittlere Blutzuckerwert einer Patientengruppe dem Normalwert?
     -   Formel: $t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$
+    
+## Arten von t-Tests
+
 -   **Zweistichproben-t-Test (unabhängig)**: Vergleich zweier unabhängiger Gruppen
     -   Anwendungsbeispiel: Unterscheiden sich die Testergebnisse zweier unterschiedlicher Lernmethoden?
     -   Formel bei gleichen Varianzen: $t = \frac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$
+    
+## Arten von t-Tests
+
 -   **Gepaarter t-Test (abhängig)**: Vergleich verbundener Messungen
     -   Anwendungsbeispiel: Vor-Nach-Vergleich einer Intervention
     -   Formel: $t = \frac{\bar{d}}{s_d / \sqrt{n}}$
+
+## Arten von t-Tests
+
 -   **Welch-Test**: Variante für ungleiche Varianzen
     -   Anwendungsbeispiel: Wenn die Streuung in beiden Gruppen deutlich unterschiedlich ist
     -   Angepasste Freiheitsgrade
@@ -1881,77 +1907,19 @@ legend("topright", inset=c(0.05, 0.05),
 -   **Unabhängigkeit der Beobachtungen**: Kritisch für die Gültigkeit
 -   **Zentraler Grenzwertsatz als Rettungsanker**: Wann können wir uns darauf verlassen?
 
-## Praktische Durchführung in R
-
--   **Einstichproben-t-Test**:
-
-    ``` r
-    # Hypothetischer Wert: 100
-    t.test(daten$werte, mu = 100)
-    ```
-
--   **Zweistichproben-t-Test**:
-
-    ``` r
-    # Unabhängige Gruppen, gleiche Varianzen
-    t.test(werte ~ gruppe, data = daten, var.equal = TRUE)
-
-    # Unabhängige Gruppen, ungleiche Varianzen (Welch-Test)
-    t.test(werte ~ gruppe, data = daten)
-    ```
-
--   **Gepaarter t-Test**:
-
-    ``` r
-    # Verbundene Messungen (z.B. vorher-nachher)
-    t.test(daten$nachher, daten$vorher, paired = TRUE)
-    ```
-
-## Effektstärken für t-Tests
-
--   **Cohen's d**: Standardisierte Mittelwertdifferenz
-    -   Kleine (d = 0.2), mittlere (d = 0.5) und große (d = 0.8) Effekte
-
-    -   Berechnung in R:
-
-        ``` r
-        library(effsize)
-        cohen.d(werte ~ gruppe, data = daten)
-        ```
--   **Hedges' g**: Korrektur für kleine Stichproben
--   **Bedeutung der Effektstärke**: Praktische Relevanz vs. statistische Signifikanz
-
-## Visualisierung von t-Test-Ergebnissen
-
--   **Boxplots mit Signifikanzmarkierungen**:
-
-    ``` r
-    library(ggplot2)
-    ggplot(daten, aes(x = gruppe, y = werte, fill = gruppe)) +
-      geom_boxplot() +
-      stat_summary(fun = mean, geom = "point", shape = 18, size = 3) +
-      theme_minimal() +
-      labs(title = "Vergleich der Gruppenmittelwerte",
-           subtitle = "t-Test: p < 0.05*")
-    ```
-
--   **Mittelwerte mit Konfidenzintervallen**:
-
-    ``` r
-    ggplot(daten_summary, aes(x = gruppe, y = mittelwert, fill = gruppe)) +
-      geom_bar(stat = "identity", position = position_dodge()) +
-      geom_errorbar(aes(ymin = mittelwert - ci, ymax = mittelwert + ci),
-                   width = 0.2, position = position_dodge(0.9)) +
-      theme_minimal() +
-      labs(title = "Mittelwerte mit 95%-Konfidenzintervallen")
-    ```
 
 ## Interpretation und Berichterstattung
 
--   **Korrekte Interpretation des p-Werts**: Häufige Fehlinterpretationen vermeiden
 -   **Angabe des Konfidenzintervalls**: Zusätzliche Information zur Präzision
 -   **Standardisierte Berichtsform**: APA-Style für wissenschaftliche Publikationen
 -   **Beispiel**: "Ein unabhängiger t-Test zeigte einen signifikanten Unterschied zwischen den Gruppen (t(28) = 2.45, p = 0.02, d = 0.89). Die Experimentalgruppe (M = 25.3, SD = 4.2) erzielte höhere Werte als die Kontrollgruppe (M = 21.7, SD = 3.8)."
+
+## Fehler beim Hypothesentesten
+
+- **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
+- **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
+- **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
+- **Balanceakt**: Abwägung zwischen α und β
 
 # Sitzung 8: ANOVA und Umfragedesign
 
