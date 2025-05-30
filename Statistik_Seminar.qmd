@@ -1751,18 +1751,23 @@ $$ SE = \frac{s}{\sqrt{n}} $$
 -   **Praktische Bedeutung**: Je größer die Stichprobe, desto präziser die Schätzung
 
 ```{r echo=TRUE}
-set.seed(42)
+set.seed(422)
 würfe <- sample(1:6, 60, replace = TRUE)
 se <- sd(würfe) / sqrt(length(würfe))
 se
 ```
+
+```{r}
+mean(würfe)
+```
+
 
 ## t-Test in R (Einzelstichprobe)
 
 ::: {.small}
 ```{r}
 mean(würfe)
-t.test(würfe, mu = 3.5)
+t.test(data$X1, mu = 3.5)
 ```
 :::
 
