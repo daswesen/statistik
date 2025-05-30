@@ -1662,8 +1662,6 @@ plot(x, y, type = "l", col = "darkgreen", lwd = 2,
 -   Welche Verteilungen erwarten Sie in Ihren Forschungsfragen?
 -   Welche Wahrscheinlichkeiten erwarten Sie?
 
-
-
 # Sitzung 6: Einführung in die Inferenzstatistik
 
 ## Was ist Inferenzstatistik?
@@ -1817,10 +1815,8 @@ t.test(würfe, mu = 3.5)
   \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
   \]
   → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
-- Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden:
-  \[
-  \frac{\bar{x} - \mu}{s / \sqrt{n}}
-  \]
+- Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: 
+$$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
 - Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
 
 ## Die Lösung
@@ -1921,7 +1917,340 @@ t.test(würfe, mu = 3.5)
 - **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
 - **Balanceakt**: Abwägung zwischen α und β
 
-# Sitzung 8: ANOVA und Umfragedesign
+
+# Sitzung 7: Chi-Quadrat-Test für Häufigkeiten
+
+## Einführung in kategoriale Datenanalyse
+
+-   **Charakteristika kategorialer Daten**: Nominal- und Ordinalskalen
+-   **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
+-   **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
+
+## Der Chi-Quadrat-Test
+
+-   **Grundprinzip**: Vergleich beobachteter und erwarteter Häufigkeiten
+-   **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
+    -   O: beobachtete Häufigkeit
+    -   E: erwartete Häufigkeit
+-   **Freiheitsgrade**: (Zeilen - 1) × (Spalten - 1)
+
+## Arten von Chi-Quadrat-Tests
+
+-   **Anpassungstest (Goodness-of-Fit)**: Vergleich mit theoretischer Verteilung
+    -   Anwendung: Prüfung, ob Würfel fair ist
+    -   R-Code: `chisq.test(observed, p = expected_prob)`
+-   **Unabhängigkeitstest**: Zusammenhang zwischen zwei kategorialen Variablen
+    -   Anwendung: Zusammenhang zwischen Geschlecht und Studienfach
+    -   R-Code: `chisq.test(table(daten$var1, daten$var2))`
+-   **Homogenitätstest**: Vergleich von Verteilungen in verschiedenen Gruppen
+    -   Anwendung: Gleiche Verteilung einer Variablen in verschiedenen Populationen
+    -   R-Code: ähnlich zum Unabhängigkeitstest
+
+## Voraussetzungen des Chi-Quadrat-Tests
+
+-   **Unabhängigkeit der Beobachtungen**: Keine wiederholten Messungen
+-   **Erwartete Häufigkeiten**: Idealerweise \> 5 in jeder Zelle
+-   **Alternativen bei Verletzung der Voraussetzungen**:
+    -   Fisher's Exakter Test: Für kleine Stichproben
+    -   Yates-Korrektur: Für 2×2-Tabellen
+
+## Durchführung in R
+
+-   **Einfacher Chi-Quadrat-Test**:
+
+    ``` r
+    # Kontingenztabelle erstellen
+    kontingenztabelle <- table(daten$kategorie1, daten$kategorie2)
+
+    # Chi-Quadrat-Test durchführen
+    chi_test <- chisq.test(kontingenztabelle)
+    chi_test
+
+    # Residuen anzeigen
+    chi_test$residuals
+    ```
+
+## Effektstärken für Chi-Quadrat-Tests
+
+-   **Phi-Koeffizient**: Für 2×2-Tabellen
+    -   Formel: $\phi = \sqrt{\frac{\chi^2}{n}}$
+    -   R-Code: `sqrt(chi_test$statistic / sum(kontingenztabelle))`
+-   **Cramér's V**: Für größere Tabellen
+    -   Formel: $V = \sqrt{\frac{\chi^2}{n \times \min(r-1, c-1)}}$
+    -   R-Code: `library(vcd); assocstats(kontingenztabelle)`
+
+## Visualisierung kategorialer Daten
+
+-   **Balkendiagramme**:
+
+    ``` r
+    barplot(kontingenztabelle, beside = TRUE, 
+            legend.text = TRUE, col = c("lightblue", "salmon"))
+    ```
+
+-   **Mosaikplots**: Visualisierung von Kontingenztabellen
+
+    ``` r
+    library(vcd)
+    mosaic(kontingenztabelle, shade = TRUE, 
+           legend = TRUE, labeling = labeling_border(rot_labels = c(45, 0, 0, 0)))
+    ```
+
+## Praktische Anwendungsbeispiele
+
+-   **Marktforschung**: Zusammenhänge zwischen demografischen Merkmalen und Kaufverhalten
+-   **Medizin**: Zusammenhänge zwischen Risikofaktoren und Krankheiten
+-   **Sozialforschung**: Analyse von Umfrageergebnissen
+
+## Weitere Tests für kategoriale Daten
+
+-   **McNemar-Test**: Für abhängige Stichproben (vor-nach-Vergleich)
+    -   R-Code: `mcnemar.test(table(vor, nach))`
+-   **Cochran-Mantel-Haenszel-Test**: Für stratifizierte Tabellen
+    -   R-Code: `mantelhaen.test(x)`
+-   **Loglineare Modelle**: Für komplexe Zusammenhänge in mehrdimensionalen Tabellen
+    -   R-Code: `glm(count ~ var1 * var2, family = poisson, data = daten)`
+
+## Analyse mit regulären Ausdrücken
+
+-   **Grundlegende reguläre Ausdrücke in R**:
+    -   `^` (Anfang), \`
+    
+# Sitzung 8: Korrelationsanalyse
+
+## Grundkonzepte der Korrelation
+
+-   **Definition**: Stärke und Richtung eines Zusammenhangs zwischen Variablen
+-   **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkungs-Beziehung
+-   **Gemeinsame Varianz**: Was der Korrelationskoeffizient wirklich misst
+
+## Von der Kovarianz zur Korrelation
+
+-   **Kovarianz**: Unstandarisiertes Maß für gemeinsame Variation
+    -   Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
+-   **Pearson-Korrelation**: Standardisierte Kovarianz
+    -   Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
+    -   Wertebereich: -1 bis +1
+
+## Pearson-Korrelation
+
+-   **Voraussetzungen**:
+
+    -   Lineare Beziehung
+    -   Normalverteilung der Variablen (für Hypothesentests)
+    -   Keine Ausreißer (starker Einfluss auf r)
+
+-   **Interpretation der Stärke**:
+
+    -   Schwach: \|r\| ≈ 0.1-0.3
+    -   Mittel: \|r\| ≈ 0.3-0.5
+    -   Stark: \|r\| \> 0.5
+
+-   **Durchführung in R**:
+
+    ``` r
+    # Pearson-Korrelation
+    cor.test(daten$x, daten$y, method = "pearson")
+    ```
+
+## Alternative Korrelationsmaße
+
+-   **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
+    -   Formel: Pearson-Korrelation der rangtransformierten Daten
+    -   Robuster gegenüber Ausreißern
+    -   R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
+-   **Kendall's Tau**: Alternative rangbasierte Korrelation
+    -   Basiert auf konkordanten vs. diskordanten Paaren
+    -   Robuster bei kleinen Stichproben
+    -   R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
+
+## Visualisierung von Korrelationen
+
+-   **Streudiagramme (Scatterplots)**:
+
+    ``` r
+    plot(daten$x, daten$y, main = "Streudiagramm", 
+         xlab = "Variable X", ylab = "Variable Y")
+    abline(lm(daten$y ~ daten$x), col = "red")  # Regressionslinie
+    ```
+
+-   **Korrelationsmatrizen**:
+
+    ``` r
+    # Einfache Korrelationsmatrix
+    cor(daten[, c("var1", "var2", "var3", "var4")])
+
+    # Visualisierung mit corrplot
+    library(corrplot)
+    corrplot(cor(daten[, c("var1", "var2", "var3", "var4")]), 
+             method = "circle", type = "upper", 
+             addCoef.col = "black", number.cex = 0.7)
+    ```
+
+## Fallstricke und Fehlinterpretationen
+
+-   **Scheinkorrelationen**: Effekt von Drittvariablen
+-   **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
+-   **Aggregationsprobleme**: Simpson's Paradoxon
+-   **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
+
+## Inter-Rater Reliability
+
+-   **Definition**: Konsistenz zwischen verschiedenen Beurteilern
+
+-   **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
+
+-   **Maße für kategoriale Daten**:
+
+    -   Cohen's Kappa (zwei Rater)
+    -   Fleiss' Kappa (mehr als zwei Rater)
+
+-   **Maße für kontinuierliche Daten**:
+
+    -   Intraclass Correlation Coefficient (ICC)
+
+-   **Durchführung in R**:
+
+    # Cohen's Kappa für zwei Rater
+
+    library(irr) kappa2(ratings\[, c("rater1", "rater2")\])
+
+    # ICC für kontinuierliche Bewertungen
+
+    icc(ratings\[, c("rater1", "rater2", "rater3")\])
+
+-   **Interpretation**: Abstufungen von "schlecht" bis "ausgezeichnet"
+
+# Sitzung 9: Einfache Lineare Regression
+
+## Von der Korrelation zur Regression
+
+-   **Unterschied**: Korrelation beschreibt Zusammenhang, Regression ermöglicht Vorhersagen
+-   **Abhängige vs. unabhängige Variable**: Y als Funktion von X
+-   **Lineare Beziehung**: Modellierung durch eine Gerade
+
+## Das lineare Regressionsmodell
+
+-   **Grundgleichung**: $Y = \beta_0 + \beta_1 X + \varepsilon$
+-   **Parameter**:
+    -   Achsenabschnitt (Intercept) $\beta_0$: Wert von Y, wenn X = 0
+    -   Steigung (Slope) $\beta_1$: Änderung in Y bei Erhöhung von X um eine Einheit
+    -   Fehlerterm $\varepsilon$: Zufällige Abweichung (normalverteilt mit Mittelwert 0)
+-   **Kleinstquadrateschätzung**: Minimierung der quadrierten Residuen
+
+## Durchführung in R
+
+-   **Einfache lineare Regression**:
+
+    # Modell erstellen
+
+    model \<- lm(y \~ x, data = daten)
+
+    # Zusammenfassung anzeigen
+
+    summary(model)
+
+    # Diagnostische Plots
+
+    par(mfrow = c(2, 2)) plot(model)
+
+## Interpretation der Ergebnisse
+
+-   **Regressionskoeffizienten**: Bedeutung von Intercept und Slope
+-   **Standardfehler der Koeffizienten**: Präzision der Schätzung
+-   **t-Werte und p-Werte**: Signifikanz der Koeffizienten
+-   **R²**: Erklärte Varianz bzw. Bestimmtheitsmaß
+    -   Interpretation: Anteil der Varianz in Y, der durch X erklärt wird
+    -   Adjustiertes R²: Korrektur für die Anzahl der Prädiktoren
+
+## Voraussetzungen und Diagnostik
+
+-   **Linearität**: Beziehung sollte linear sein
+-   **Normalverteilung der Residuen**: QQ-Plot zur Überprüfung
+-   **Homoskedastizität**: Konstante Varianz der Residuen
+-   **Unabhängigkeit der Beobachtungen**: Keine Autokorrelation
+-   **Ausreißer und einflussreiche Beobachtungen**: Cook's Distance, Leverage
+
+## Visualisierung von Regressionsmodellen
+
+-   **Streudiagramm mit Regressionslinie**:
+
+    library(ggplot2) ggplot(daten, aes(x = x, y = y)) + geom_point() + geom_smooth(method = "lm", se = TRUE) + theme_minimal() + labs(title = "Lineare Regression", subtitle = paste("R² =", round(summary(model)\$r.squared, 3)))
+
+-   **Residuenplots**:
+
+    # Residuen gegen vorhergesagte Werte
+
+    ggplot(data.frame(fitted = fitted(model), residuals = residuals(model)), aes(x = fitted, y = residuals)) + geom_point() + geom_hline(yintercept = 0, linetype = "dashed", color = "red") + theme_minimal() + labs(title = "Residuen vs. vorhergesagte Werte")
+
+## Praktische Anwendungsbeispiele
+
+-   **Fairer Preis für gebrauchte Artikel**: Preisvorhersage basierend auf Alter, Zustand, etc.
+-   **Verkaufsprognosen**: Vorhersage des Umsatzes basierend auf Werbeausgaben
+-   **Biometrische Zusammenhänge**: z.B. Zusammenhang zwischen Größe und Gewicht
+
+## Transformation nicht-linearer Beziehungen
+
+-   **Logarithmische Transformation**: Für exponentielle Beziehungen
+
+-   **Quadratische Transformation**: Für U-förmige Beziehungen
+
+-   **Box-Cox-Transformation**: Systematische Suche nach optimaler Transformation
+
+-   **Beispiel in R**:
+
+    ``` r
+    # Log-Transformation
+    model_log <- lm(log(y) ~ x, data = daten)
+
+    # Quadratische Transformation
+    model_quad <- lm(y ~ x + I(x^2), data = daten)
+
+    # Vergleich der Modelle mittels AIC
+    AIC(model, model_log, model_quad)
+    
+
+# Sitzung 10: Logistische Regression
+
+-   **Unterschied zur linearen Regression**: Binäre abhängige Variable
+-   **Logit-Funktion**: Transformation von Wahrscheinlichkeiten in Log-Odds
+-   **Grundgleichung**: $\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X$
+-   **Interpretation**: Odds Ratios statt direkter Effekte
+
+## Durchführung der logistischen Regression in R
+
+-   **Modellschätzung**:
+
+    ``` r
+    # Logistische Regression
+    logit_model <- glm(erfolg ~ x, data = daten, family = binomial)
+    summary(logit_model)
+
+    # Odds Ratios berechnen
+    exp(coef(logit_model))
+    ```
+
+-   **Vorhersagen und Evaluation**:
+
+    ``` r
+    # Wahrscheinlichkeiten vorhersagen
+    pred_probs <- predict(logit_model, type = "response")
+
+    # ROC-Kurve und AUC
+    library(pROC)
+    roc_curve <- roc(daten$erfolg, pred_probs)
+    plot(roc_curve)
+    auc(roc_curve)
+    ```
+
+## Anwendungsbeispiele für logistische Regression
+
+-   **Medizin**: Vorhersage von Krankheitsrisiken
+-   **Marketing**: Conversion-Wahrscheinlichkeit von Kunden
+-   **Kreditwesen**: Ausfallwahrscheinlichkeit bei Krediten
+
+
+# Sitzung 11: ANOVA und Umfragedesign
 
 ## ANOVA-Grundlagen
 
@@ -2037,336 +2366,9 @@ t.test(würfe, mu = 3.5)
 -   **Umfragetools**: SurveyMonkey, Google Forms, LimeSurvey, Qualtrics
 -   **Integration mit R**: Datenimport und -analyse
 
-# Sitzung 9: Korrelationsanalyse
 
-## Grundkonzepte der Korrelation
-
--   **Definition**: Stärke und Richtung eines Zusammenhangs zwischen Variablen
--   **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkungs-Beziehung
--   **Gemeinsame Varianz**: Was der Korrelationskoeffizient wirklich misst
-
-## Von der Kovarianz zur Korrelation
-
--   **Kovarianz**: Unstandarisiertes Maß für gemeinsame Variation
-    -   Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
--   **Pearson-Korrelation**: Standardisierte Kovarianz
-    -   Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
-    -   Wertebereich: -1 bis +1
-
-## Pearson-Korrelation
-
--   **Voraussetzungen**:
-
-    -   Lineare Beziehung
-    -   Normalverteilung der Variablen (für Hypothesentests)
-    -   Keine Ausreißer (starker Einfluss auf r)
-
--   **Interpretation der Stärke**:
-
-    -   Schwach: \|r\| ≈ 0.1-0.3
-    -   Mittel: \|r\| ≈ 0.3-0.5
-    -   Stark: \|r\| \> 0.5
-
--   **Durchführung in R**:
-
-    ``` r
-    # Pearson-Korrelation
-    cor.test(daten$x, daten$y, method = "pearson")
     ```
 
-## Alternative Korrelationsmaße
-
--   **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
-    -   Formel: Pearson-Korrelation der rangtransformierten Daten
-    -   Robuster gegenüber Ausreißern
-    -   R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
--   **Kendall's Tau**: Alternative rangbasierte Korrelation
-    -   Basiert auf konkordanten vs. diskordanten Paaren
-    -   Robuster bei kleinen Stichproben
-    -   R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
-
-## Visualisierung von Korrelationen
-
--   **Streudiagramme (Scatterplots)**:
-
-    ``` r
-    plot(daten$x, daten$y, main = "Streudiagramm", 
-         xlab = "Variable X", ylab = "Variable Y")
-    abline(lm(daten$y ~ daten$x), col = "red")  # Regressionslinie
-    ```
-
--   **Korrelationsmatrizen**:
-
-    ``` r
-    # Einfache Korrelationsmatrix
-    cor(daten[, c("var1", "var2", "var3", "var4")])
-
-    # Visualisierung mit corrplot
-    library(corrplot)
-    corrplot(cor(daten[, c("var1", "var2", "var3", "var4")]), 
-             method = "circle", type = "upper", 
-             addCoef.col = "black", number.cex = 0.7)
-    ```
-
-## Fallstricke und Fehlinterpretationen
-
--   **Scheinkorrelationen**: Effekt von Drittvariablen
--   **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
--   **Aggregationsprobleme**: Simpson's Paradoxon
--   **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
-
-## Inter-Rater Reliability
-
--   **Definition**: Konsistenz zwischen verschiedenen Beurteilern
-
--   **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
-
--   **Maße für kategoriale Daten**:
-
-    -   Cohen's Kappa (zwei Rater)
-    -   Fleiss' Kappa (mehr als zwei Rater)
-
--   **Maße für kontinuierliche Daten**:
-
-    -   Intraclass Correlation Coefficient (ICC)
-
--   **Durchführung in R**:
-
-    # Cohen's Kappa für zwei Rater
-
-    library(irr) kappa2(ratings\[, c("rater1", "rater2")\])
-
-    # ICC für kontinuierliche Bewertungen
-
-    icc(ratings\[, c("rater1", "rater2", "rater3")\])
-
--   **Interpretation**: Abstufungen von "schlecht" bis "ausgezeichnet"
-
-# Sitzung 10: Einfache Lineare Regression
-
-## Von der Korrelation zur Regression
-
--   **Unterschied**: Korrelation beschreibt Zusammenhang, Regression ermöglicht Vorhersagen
--   **Abhängige vs. unabhängige Variable**: Y als Funktion von X
--   **Lineare Beziehung**: Modellierung durch eine Gerade
-
-## Das lineare Regressionsmodell
-
--   **Grundgleichung**: $Y = \beta_0 + \beta_1 X + \varepsilon$
--   **Parameter**:
-    -   Achsenabschnitt (Intercept) $\beta_0$: Wert von Y, wenn X = 0
-    -   Steigung (Slope) $\beta_1$: Änderung in Y bei Erhöhung von X um eine Einheit
-    -   Fehlerterm $\varepsilon$: Zufällige Abweichung (normalverteilt mit Mittelwert 0)
--   **Kleinstquadrateschätzung**: Minimierung der quadrierten Residuen
-
-## Durchführung in R
-
--   **Einfache lineare Regression**:
-
-    # Modell erstellen
-
-    model \<- lm(y \~ x, data = daten)
-
-    # Zusammenfassung anzeigen
-
-    summary(model)
-
-    # Diagnostische Plots
-
-    par(mfrow = c(2, 2)) plot(model)
-
-## Interpretation der Ergebnisse
-
--   **Regressionskoeffizienten**: Bedeutung von Intercept und Slope
--   **Standardfehler der Koeffizienten**: Präzision der Schätzung
--   **t-Werte und p-Werte**: Signifikanz der Koeffizienten
--   **R²**: Erklärte Varianz bzw. Bestimmtheitsmaß
-    -   Interpretation: Anteil der Varianz in Y, der durch X erklärt wird
-    -   Adjustiertes R²: Korrektur für die Anzahl der Prädiktoren
-
-## Voraussetzungen und Diagnostik
-
--   **Linearität**: Beziehung sollte linear sein
--   **Normalverteilung der Residuen**: QQ-Plot zur Überprüfung
--   **Homoskedastizität**: Konstante Varianz der Residuen
--   **Unabhängigkeit der Beobachtungen**: Keine Autokorrelation
--   **Ausreißer und einflussreiche Beobachtungen**: Cook's Distance, Leverage
-
-## Visualisierung von Regressionsmodellen
-
--   **Streudiagramm mit Regressionslinie**:
-
-    library(ggplot2) ggplot(daten, aes(x = x, y = y)) + geom_point() + geom_smooth(method = "lm", se = TRUE) + theme_minimal() + labs(title = "Lineare Regression", subtitle = paste("R² =", round(summary(model)\$r.squared, 3)))
-
--   **Residuenplots**:
-
-    # Residuen gegen vorhergesagte Werte
-
-    ggplot(data.frame(fitted = fitted(model), residuals = residuals(model)), aes(x = fitted, y = residuals)) + geom_point() + geom_hline(yintercept = 0, linetype = "dashed", color = "red") + theme_minimal() + labs(title = "Residuen vs. vorhergesagte Werte")
-
-## Praktische Anwendungsbeispiele
-
--   **Fairer Preis für gebrauchte Artikel**: Preisvorhersage basierend auf Alter, Zustand, etc.
--   **Verkaufsprognosen**: Vorhersage des Umsatzes basierend auf Werbeausgaben
--   **Biometrische Zusammenhänge**: z.B. Zusammenhang zwischen Größe und Gewicht
-
-## Transformation nicht-linearer Beziehungen
-
--   **Logarithmische Transformation**: Für exponentielle Beziehungen
-
--   **Quadratische Transformation**: Für U-förmige Beziehungen
-
--   **Box-Cox-Transformation**: Systematische Suche nach optimaler Transformation
-
--   **Beispiel in R**:
-
-    ``` r
-    # Log-Transformation
-    model_log <- lm(log(y) ~ x, data = daten)
-
-    # Quadratische Transformation
-    model_quad <- lm(y ~ x + I(x^2), data = daten)
-
-    # Vergleich der Modelle mittels AIC
-    AIC(model, model_log, model_quad)
-    ```
-
-## Logistische Regression
-
--   **Unterschied zur linearen Regression**: Binäre abhängige Variable
--   **Logit-Funktion**: Transformation von Wahrscheinlichkeiten in Log-Odds
--   **Grundgleichung**: $\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X$
--   **Interpretation**: Odds Ratios statt direkter Effekte
-
-## Durchführung der logistischen Regression in R
-
--   **Modellschätzung**:
-
-    ``` r
-    # Logistische Regression
-    logit_model <- glm(erfolg ~ x, data = daten, family = binomial)
-    summary(logit_model)
-
-    # Odds Ratios berechnen
-    exp(coef(logit_model))
-    ```
-
--   **Vorhersagen und Evaluation**:
-
-    ``` r
-    # Wahrscheinlichkeiten vorhersagen
-    pred_probs <- predict(logit_model, type = "response")
-
-    # ROC-Kurve und AUC
-    library(pROC)
-    roc_curve <- roc(daten$erfolg, pred_probs)
-    plot(roc_curve)
-    auc(roc_curve)
-    ```
-
-## Anwendungsbeispiele für logistische Regression
-
--   **Medizin**: Vorhersage von Krankheitsrisiken
--   **Marketing**: Conversion-Wahrscheinlichkeit von Kunden
--   **Kreditwesen**: Ausfallwahrscheinlichkeit bei Krediten
-
-# Sitzung 11: Chi-Quadrat-Test & Kategoriale Daten
-
-## Einführung in kategoriale Datenanalyse
-
--   **Charakteristika kategorialer Daten**: Nominal- und Ordinalskalen
--   **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
--   **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
-
-## Der Chi-Quadrat-Test
-
--   **Grundprinzip**: Vergleich beobachteter und erwarteter Häufigkeiten
--   **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
-    -   O: beobachtete Häufigkeit
-    -   E: erwartete Häufigkeit
--   **Freiheitsgrade**: (Zeilen - 1) × (Spalten - 1)
-
-## Arten von Chi-Quadrat-Tests
-
--   **Anpassungstest (Goodness-of-Fit)**: Vergleich mit theoretischer Verteilung
-    -   Anwendung: Prüfung, ob Würfel fair ist
-    -   R-Code: `chisq.test(observed, p = expected_prob)`
--   **Unabhängigkeitstest**: Zusammenhang zwischen zwei kategorialen Variablen
-    -   Anwendung: Zusammenhang zwischen Geschlecht und Studienfach
-    -   R-Code: `chisq.test(table(daten$var1, daten$var2))`
--   **Homogenitätstest**: Vergleich von Verteilungen in verschiedenen Gruppen
-    -   Anwendung: Gleiche Verteilung einer Variablen in verschiedenen Populationen
-    -   R-Code: ähnlich zum Unabhängigkeitstest
-
-## Voraussetzungen des Chi-Quadrat-Tests
-
--   **Unabhängigkeit der Beobachtungen**: Keine wiederholten Messungen
--   **Erwartete Häufigkeiten**: Idealerweise \> 5 in jeder Zelle
--   **Alternativen bei Verletzung der Voraussetzungen**:
-    -   Fisher's Exakter Test: Für kleine Stichproben
-    -   Yates-Korrektur: Für 2×2-Tabellen
-
-## Durchführung in R
-
--   **Einfacher Chi-Quadrat-Test**:
-
-    ``` r
-    # Kontingenztabelle erstellen
-    kontingenztabelle <- table(daten$kategorie1, daten$kategorie2)
-
-    # Chi-Quadrat-Test durchführen
-    chi_test <- chisq.test(kontingenztabelle)
-    chi_test
-
-    # Residuen anzeigen
-    chi_test$residuals
-    ```
-
-## Effektstärken für Chi-Quadrat-Tests
-
--   **Phi-Koeffizient**: Für 2×2-Tabellen
-    -   Formel: $\phi = \sqrt{\frac{\chi^2}{n}}$
-    -   R-Code: `sqrt(chi_test$statistic / sum(kontingenztabelle))`
--   **Cramér's V**: Für größere Tabellen
-    -   Formel: $V = \sqrt{\frac{\chi^2}{n \times \min(r-1, c-1)}}$
-    -   R-Code: `library(vcd); assocstats(kontingenztabelle)`
-
-## Visualisierung kategorialer Daten
-
--   **Balkendiagramme**:
-
-    ``` r
-    barplot(kontingenztabelle, beside = TRUE, 
-            legend.text = TRUE, col = c("lightblue", "salmon"))
-    ```
-
--   **Mosaikplots**: Visualisierung von Kontingenztabellen
-
-    ``` r
-    library(vcd)
-    mosaic(kontingenztabelle, shade = TRUE, 
-           legend = TRUE, labeling = labeling_border(rot_labels = c(45, 0, 0, 0)))
-    ```
-
-## Praktische Anwendungsbeispiele
-
--   **Marktforschung**: Zusammenhänge zwischen demografischen Merkmalen und Kaufverhalten
--   **Medizin**: Zusammenhänge zwischen Risikofaktoren und Krankheiten
--   **Sozialforschung**: Analyse von Umfrageergebnissen
-
-## Weitere Tests für kategoriale Daten
-
--   **McNemar-Test**: Für abhängige Stichproben (vor-nach-Vergleich)
-    -   R-Code: `mcnemar.test(table(vor, nach))`
--   **Cochran-Mantel-Haenszel-Test**: Für stratifizierte Tabellen
-    -   R-Code: `mantelhaen.test(x)`
--   **Loglineare Modelle**: Für komplexe Zusammenhänge in mehrdimensionalen Tabellen
-    -   R-Code: `glm(count ~ var1 * var2, family = poisson, data = daten)`
-
-## Analyse mit regulären Ausdrücken
-
--   **Grundlegende reguläre Ausdrücke in R**:
-    -   `^` (Anfang), \`
 
 # Sitzung 12: Abschluss und Ausblick
 
