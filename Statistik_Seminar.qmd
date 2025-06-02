@@ -1767,7 +1767,7 @@ mean(würfe)
 ::: {.small}
 ```{r}
 mean(würfe)
-t.test(data$X1, mu = 3.5)
+t.test(würfe, mu = 3.5)
 ```
 :::
 
@@ -1922,3 +1922,445 @@ $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
 - **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
 - **Balanceakt**: Abwägung zwischen α und β
 
+# Sitzung 7: Chi-Quadrat-Test für Häufigkeiten
+
+## Rückblick: Von t-Tests zu kategorialen Daten
+
+- **Letzte Woche**: t-Tests für kontinuierliche Daten (Mittelwerte)
+- **Heute**: Tests für kategoriale Daten (Häufigkeiten)
+- **Verbindung**: Beide testen Hypothesen, aber mit verschiedenen Datentypen
+- **Beispiel**: Statt "Ist der mittlere Würfelwert 3.5?" → "Sind alle Würfelseiten gleich häufig?"
+
+## Würfel-Motivation: Ein praktisches Problem
+
+:::: {.columns}
+::: {.column width="50%"}
+**Situation**: Ein Freund behauptet, sein Würfel sei fair
+
+**Daten sammeln**: 60 Würfe
+- 1er: 8 mal
+- 2er: 12 mal  
+- 3er: 9 mal
+- 4er: 11 mal
+- 5er: 10 mal
+- 6er: 10 mal
+:::
+
+::: {.column width="50%"}
+**Fragen**:
+- Ist dieser Würfel fair?
+- Wie können wir das statistisch testen?
+- Was erwarten wir bei einem fairen Würfel?
+
+**Bei fairem Würfel**: Jede Zahl sollte etwa 10 mal fallen (60 ÷ 6 = 10)
+:::
+::::
+
+## Einführung in kategoriale Datenanalyse
+
+- **Charakteristika kategorialer Daten**: 
+  - Nominal (Geschlecht, Farben, Würfelzahlen)
+  - Ordinal (Schulnoten, Zufriedenheitsskalen)
+- **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
+- **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
+
+```{r}
+# Beispiel: Würfeldaten einlesen
+würfel_daten <- c(rep(1, 8), rep(2, 12), rep(3, 9), 
+                  rep(4, 11), rep(5, 10), rep(6, 10))
+
+# Häufigkeitstabelle erstellen
+table(würfel_daten)
+```
+
+## Der Chi-Quadrat-Test: Grundprinzip
+
+- **Kernidee**: Vergleich beobachteter und erwarteter Häufigkeiten
+- **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
+  - O: beobachtete Häufigkeit (observed)
+  - E: erwartete Häufigkeit (expected)
+- **Logik**: Große Abweichungen → große χ²-Werte → Hinweis auf Unterschied
+
+## Würfelbeispiel: Schritt für Schritt
+
+```{r}
+# Beobachtete Häufigkeiten
+beobachtet <- c(8, 12, 9, 11, 10, 10)
+names(beobachtet) <- 1:6
+
+# Erwartete Häufigkeiten (fairer Würfel)
+erwartet <- rep(60/6, 6)  # 10 für jede Seite
+
+# Chi-Quadrat-Wert manuell berechnen
+chi_quadrat <- sum((beobachtet - erwartet)^2 / erwartet)
+chi_quadrat
+```
+
+## Visualisierung: Beobachtet vs Erwartet
+
+```{r}
+# Vergleichsplot erstellen
+barplot(rbind(beobachtet, erwartet), 
+        beside = TRUE, 
+        names.arg = 1:6,
+        legend.text = c("Beobachtet", "Erwartet"),
+        col = c("lightblue", "salmon"),
+        main = "Würfelergebnisse: Beobachtet vs Erwartet",
+        xlab = "Würfelzahl", ylab = "Häufigkeit")
+```
+
+## Chi-Quadrat-Test in R durchführen
+
+```{r}
+# Automatischer Chi-Quadrat-Test
+chi_test <- chisq.test(beobachtet)
+chi_test
+
+# Was bedeuten die Ergebnisse?
+# X-squared: Chi-Quadrat-Wert
+# df: Freiheitsgrade (6-1 = 5)
+# p-value: Wahrscheinlichkeit unter H₀
+```
+
+## Freiheitsgrade verstehen
+
+- **Formel für Anpassungstest**: df = Kategorien - 1 = 6 - 1 = 5
+- **Warum -1?**: Wenn 5 Häufigkeiten festgelegt sind, ist die 6. automatisch bestimmt
+- **Einfluss auf kritische Werte**: Mehr Freiheitsgrade → höhere kritische Werte
+
+```{r}
+# Kritische Werte anzeigen
+qchisq(0.95, df = 5)  # 95%-Quantil
+qchisq(0.99, df = 5)  # 99%-Quantil
+```
+
+## Praktische Gruppenübung 🎲
+
+**Aufgabe**: Jede Gruppe würfelt 60 mal und sammelt die Daten
+
+1. **Daten sammeln**: Jeder würfelt 10 mal, Gruppe sammelt
+2. **Eingeben**: `meine_daten <- c(...)`
+3. **Testen**: `chisq.test(table(meine_daten))`
+4. **Interpretieren**: Ist euer Würfel fair?
+
+**Diskussion**: Warum unterscheiden sich die Ergebnisse zwischen den Gruppen?
+
+## Arten von Chi-Quadrat-Tests
+
+### 1. Anpassungstest (Goodness-of-Fit)
+- **Zweck**: Vergleich mit theoretischer Verteilung
+- **Beispiel**: Ist unser Würfel fair?
+- **H₀**: Alle Würfelseiten sind gleich wahrscheinlich
+- **H₁**: Mindestens eine Seite weicht ab
+
+```{r echo=TRUE}
+# Unser Würfeltest
+chisq.test(beobachtet, p = rep(1/6, 6))
+```
+
+## Arten von Chi-Quadrat-Tests
+
+### 2. Unabhängigkeitstest
+- **Zweck**: Zusammenhang zwischen zwei kategorialen Variablen
+- **Beispiel**: Hängt die Würfelzahl vom Werfer ab?
+
+```{r}
+# Simulierte Daten: Zwei Personen würfeln
+set.seed(123)
+person_a <- sample(1:6, 30, replace = TRUE)
+person_b <- sample(1:6, 30, replace = TRUE, 
+                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
+
+# Kontingenztabelle erstellen
+kontingenztab_beispiel <- table(
+  Person = rep(c("A", "B"), each = 30),
+  Würfelzahl = c(person_a, person_b)
+)
+
+print("Kontingenztabelle:")
+print(kontingenztab_beispiel)
+```
+
+## Unabhängigkeitstest durchführen
+
+```{r}
+# Daten für Unabhängigkeitstest erstellen
+set.seed(123)
+person_a <- sample(1:6, 30, replace = TRUE)
+person_b <- sample(1:6, 30, replace = TRUE, 
+                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
+
+# Kontingenztabelle für Unabhängigkeitstest
+kontingenztab_unabh <- table(
+  Person = rep(c("A", "B"), each = 30),
+  Würfelzahl = c(person_a, person_b)
+)
+
+print("Kontingenztabelle:")
+print(kontingenztab_unabh)
+
+# Chi-Quadrat-Test für Unabhängigkeit
+chi_unabhängigkeit <- chisq.test(kontingenztab_unabh)
+print(chi_unabhängigkeit)
+
+# Interpretation: 
+# H₀: Würfelergebnis unabhängig von Person
+# H₁: Würfelergebnis hängt von Person ab
+```
+
+## Residuen analysieren: Wo sind die Unterschiede?
+
+```{r}
+# Daten für Residuenanalyse erstellen
+set.seed(123)
+person_a <- sample(1:6, 30, replace = TRUE)
+person_b <- sample(1:6, 30, replace = TRUE, 
+                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
+
+# Kontingenztabelle und Test für Residuen
+kontingenztab_residuen <- table(
+  Person = rep(c("A", "B"), each = 30),
+  Würfelzahl = c(person_a, person_b)
+)
+
+chi_test_residuen <- chisq.test(kontingenztab_residuen)
+
+# Standardisierte Residuen anzeigen
+print("Kontingenztabelle:")
+print(kontingenztab_residuen)
+
+print("Standardisierte Residuen:")
+print(chi_test_residuen$stdres)
+
+# Große Residuen (|r| > 2) zeigen Zellen mit starken Abweichungen
+# Positive Werte: Häufiger als erwartet
+# Negative Werte: Seltener als erwartet
+```
+
+## Arten von Chi-Quadrat-Tests
+
+### 3. Homogenitätstest
+- **Zweck**: Vergleich von Verteilungen in verschiedenen Gruppen
+- **Beispiel**: Haben drei verschiedene Würfel die gleiche Verteilung?
+
+```{r echo=TRUE}
+# Drei Würfel vergleichen
+würfel_1 <- sample(1:6, 60, replace = TRUE)
+würfel_2 <- sample(1:6, 60, replace = TRUE)
+würfel_3 <- sample(1:6, 60, replace = TRUE, 
+                   prob = c(0.05, 0.15, 0.15, 0.2, 0.2, 0.25))
+
+alle_würfel <- data.frame(
+  ergebnis = c(würfel_1, würfel_2, würfel_3),
+  würfel_typ = rep(c("Typ1", "Typ2", "Typ3"), each = 60)
+)
+
+tab_homogenität <- table(alle_würfel$würfel_typ, alle_würfel$ergebnis)
+chisq.test(tab_homogenität)
+```
+
+## Voraussetzungen des Chi-Quadrat-Tests
+
+### Wichtige Bedingungen:
+1. **Unabhängigkeit der Beobachtungen**
+   - Jeder Würfelwurf unabhängig
+   - Keine wiederholten Messungen derselben Person
+2. **Erwartete Häufigkeiten ≥ 5**
+   - In jeder Zelle der Tabelle
+   - Bei Verletzung: Kategorien zusammenfassen oder andere Tests
+
+```{r echo=TRUE}
+# Erwartete Häufigkeiten prüfen
+chi_test$expected
+
+# Alle Werte ≥ 5? 
+all(chi_test$expected >= 5)
+```
+
+## Alternativen bei kleinen Stichproben
+
+### Fisher's Exakter Test
+- **Wann**: Erwartete Häufigkeiten < 5 in 2×2-Tabellen
+- **Vorteil**: Exakte p-Werte, keine Approximation
+
+```{r echo=TRUE}
+# Beispiel mit kleiner 2x2-Tabelle
+kleine_tabelle <- matrix(c(2, 3, 1, 4), nrow = 2)
+fisher.test(kleine_tabelle)
+```
+
+### Yates-Korrektur
+- **Wann**: 2×2-Tabellen mit kleinen Häufigkeiten
+- **Funktion**: Konservativere Schätzung
+
+```{r echo=TRUE}
+chisq.test(kleine_tabelle, correct = TRUE)
+```
+
+## Effektstärken für Chi-Quadrat-Tests
+
+### Phi-Koeffizient (φ) für 2×2-Tabellen
+```{r}
+# Beispiel-Kontingenztabelle für Phi
+beispiel_2x2 <- matrix(c(10, 15, 8, 17), nrow = 2)
+chi_beispiel <- chisq.test(beispiel_2x2)
+
+# Phi-Koeffizient berechnen
+phi <- sqrt(chi_beispiel$statistic / sum(beispiel_2x2))
+phi
+
+# Interpretation:
+# 0.1 = kleiner Effekt
+# 0.3 = mittlerer Effekt  
+# 0.5 = großer Effekt
+```
+
+### Cramér's V für größere Tabellen
+```{r echo=TRUE}
+# Cramér's V installieren falls nötig: install.packages("vcd")
+library(vcd)
+
+# Daten für Cramér's V erstellen
+set.seed(123)
+person_a <- sample(1:6, 30, replace = TRUE)
+person_b <- sample(1:6, 30, replace = TRUE, 
+                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
+
+# Kontingenztabelle für Cramér's V
+kontingenztab_cramers <- table(
+  Person = rep(c("A", "B"), each = 30),
+  Würfelzahl = c(person_a, person_b)
+)
+
+print(kontingenztab_cramers)
+assocstats(kontingenztab_cramers)
+```
+
+## Visualisierung kategorialer Daten
+
+### Balkendiagramme
+```{r}
+# Daten für Balkendiagramm erstellen
+set.seed(123)
+person_a <- sample(1:6, 30, replace = TRUE)
+person_b <- sample(1:6, 30, replace = TRUE, 
+                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
+
+# Kontingenztabelle für Balkendiagramm
+kontingenztab_balken <- table(
+  Person = rep(c("A", "B"), each = 30),
+  Würfelzahl = c(person_a, person_b)
+)
+
+# Gruppierte Balkendiagramme
+barplot(kontingenztab_balken, beside = TRUE, 
+        legend.text = TRUE, 
+        col = c("lightblue", "salmon"),
+        main = "Würfelergebnisse nach Person",
+        xlab = "Würfelzahl", ylab = "Häufigkeit")
+```
+
+### Mosaikplots
+```{r echo=TRUE}
+# Alle notwendigen Daten für Mosaikplot erstellen
+library(vcd)
+set.seed(123)
+
+# Simulierte Daten: Zwei Personen würfeln
+person_a <- sample(1:6, 30, replace = TRUE)
+person_b <- sample(1:6, 30, replace = TRUE, 
+                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
+
+# Kontingenztabelle für Mosaikplot
+kontingenztab_mosaic <- table(
+  Person = rep(c("A", "B"), each = 30),
+  Würfelzahl = c(person_a, person_b)
+)
+
+print(kontingenztab_mosaic)
+
+# Mosaikplot erstellen
+mosaic(kontingenztab_mosaic, shade = TRUE, 
+       legend = TRUE, 
+       main = "Zusammenhang: Person und Würfelergebnis")
+```
+
+## Erweiterte Würfel-Simulation
+
+```{r echo=TRUE}
+# Simulation verschiedener Würfeltypen
+set.seed(123)
+
+# Fairer Würfel
+fair <- sample(1:6, 120, replace = TRUE)
+
+# Leicht gezinkter Würfel (6 bevorzugt)
+gezinkt <- sample(1:6, 120, replace = TRUE, 
+                  prob = c(0.15, 0.15, 0.15, 0.15, 0.15, 0.25))
+
+# Stark gezinkter Würfel
+stark_gezinkt <- sample(1:6, 120, replace = TRUE,
+                        prob = c(0.1, 0.1, 0.1, 0.1, 0.1, 0.5))
+
+# Alle testen
+chisq.test(table(fair))
+chisq.test(table(gezinkt))
+chisq.test(table(stark_gezinkt))
+```
+
+## Praktische Anwendungsbeispiele
+
+### Marktforschung
+- **Frage**: Bevorzugen verschiedene Altersgruppen unterschiedliche Produktfarben?
+- **Test**: Unabhängigkeitstest (Alter × Farbpräferenz)
+
+### Medizin
+- **Frage**: Ist ein neues Medikament wirksam?
+- **Test**: Unabhängigkeitstest (Behandlung × Heilung)
+
+### Qualitätskontrolle
+- **Frage**: Produziert eine Maschine gleichmäßig?
+- **Test**: Anpassungstest (beobachtete vs erwartete Produktverteilung)
+
+## Weiterführende Tests für kategoriale Daten
+
+### McNemar-Test
+- **Zweck**: Für abhängige Stichproben (vor-nach-Vergleich)
+- **Beispiel**: Meinungsänderung vor/nach Information
+
+```{r echo=TRUE}
+# Beispiel: Meinung vor und nach Präsentation
+# Matrix: (vorher_ja/nachher_ja, vorher_ja/nachher_nein,
+#          vorher_nein/nachher_ja, vorher_nein/nachher_nein)
+vorher_nachher <- matrix(c(25, 5, 10, 20), nrow = 2)
+mcnemar.test(vorher_nachher)
+```
+
+### Loglineare Modelle
+- **Zweck**: Komplexe Zusammenhänge in mehrdimensionalen Tabellen
+- **Vorteil**: Kontrolle für mehrere Variablen gleichzeitig
+
+## Interpretation und Berichterstattung
+
+### APA-Style Beispiel:
+*"Ein Chi-Quadrat-Anpassungstest zeigte keinen signifikanten Unterschied zwischen den beobachteten und erwarteten Häufigkeiten beim Würfeltest, χ²(5) = 2.40, p = .79. Der Würfel kann als fair betrachtet werden."*
+
+## Wichtige Elemente:
+- Art des Tests
+- Chi-Quadrat-Wert
+- Freiheitsgrade
+- p-Wert
+- Interpretation im Kontext
+
+## Häufige Fehler vermeiden
+
+### ❌ Falsch:
+- Kontinuierliche Daten kategorisieren nur für Chi-Quadrat-Test
+- Chi-Quadrat für Korrelationen verwenden
+- Erwartete Häufigkeiten < 5 ignorieren
+
+### ✅ Richtig:
+- Angemessene Teststärke durch ausreichende Stichproben
+- Voraussetzungen prüfen
+- Effektstärken zusätzlich berichten
+- Residuen für detaillierte Analyse nutzen
