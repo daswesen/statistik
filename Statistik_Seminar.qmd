@@ -2089,22 +2089,6 @@ print(chi_unabhängigkeit)
 -   **Zweck**: Vergleich von Verteilungen in verschiedenen Gruppen
 -   **Beispiel**: Haben drei verschiedene Würfel die gleiche Verteilung?
 
-```{r}
-# Drei Würfel vergleichen
-würfel_1 <- sample(1:6, 60, replace = TRUE)
-würfel_2 <- sample(1:6, 60, replace = TRUE)
-würfel_3 <- sample(1:6, 60, replace = TRUE, 
-                   prob = c(0.05, 0.15, 0.15, 0.2, 0.2, 0.25))
-
-alle_würfel <- data.frame(
-  ergebnis = c(würfel_1, würfel_2, würfel_3),
-  würfel_typ = rep(c("Typ1", "Typ2", "Typ3"), each = 60)
-)
-
-tab_homogenität <- table(alle_würfel$würfel_typ, alle_würfel$ergebnis)
-chisq.test(tab_homogenität)
-```
-
 ------------------------------------------------------------------------
 
 ## Voraussetzungen des Chi-Quadrat-Tests
@@ -2118,16 +2102,7 @@ chisq.test(tab_homogenität)
 2.  **Erwartete Häufigkeiten ≥ 5**
     -   In jeder Zelle der Tabelle
     -   Bei Verletzung: Kategorien zusammenfassen oder andere Tests
-    
-## Voraussetzungen des Chi-Quadrat-Tests
-
-```{r echo=TRUE}
-# Erwartete Häufigkeiten prüfen
-chi_test$expected
-
-# Alle Werte ≥ 5? 
-all(chi_test$expected >= 5)
-```
+   
 
 ------------------------------------------------------------------------
 
@@ -2234,9 +2209,11 @@ mosaic(kontingenztab, shade = TRUE,
 **Intuitive Interpretation:** 
 
 -   **sr = 0**: Genau wie erwartet 
--   **sr = +1**: Ein bisschen mehr als erwartet\
+-   **sr = +1**: Ein bisschen mehr als erwartet
 -   **sr = +2**: Deutlich mehr als erwartet
 -   **sr = +3**: Sehr viel mehr als erwartet
+
+## Standardisierte Residuen verstehen
 
 **Interpretationsrichtlinien:** 
 -   $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung 
@@ -2252,13 +2229,24 @@ mosaic(kontingenztab, shade = TRUE,
 
 ::::: columns
 ::: {.column width="50%"}
-**p-Wert beantwortet nur:** - "Gibt es einen Effekt?" (Ja/Nein) - Wird bei großen Stichproben fast immer signifikant
+**p-Wert beantwortet nur:**
 
-**p-Wert sagt NICHT:** - Wie stark ist der Effekt? - Ist der Effekt praktisch relevant?
+-   Gibt es einen Effekt?" (Ja/Nein)
+-   Wird bei großen Stichproben fast immer signifikant
+
+**p-Wert sagt NICHT:**
+
+-   Wie stark ist der Effekt?
+-   Ist der Effekt praktisch relevant?
 :::
 
 ::: {.column width="50%"}
-**Beispiel Problem:** - 10.000 Personen - Winziger, praktisch irrelevanter Unterschied - Trotzdem p \< 0.001 - **Ohne Effektstärke:** Fehlinterpretation!
+**Beispiel Problem:**
+
+-   10.000 Personen
+-   Winziger, praktisch irrelevanter Unterschied
+-   Trotzdem p \< 0.001
+-   **Ohne Effektstärke:** Fehlinterpretation!
 :::
 :::::
 
@@ -2272,7 +2260,7 @@ mosaic(kontingenztab, shade = TRUE,
 
 Wo: 
 
--   n = Gesamtstichprobengröße\
+-   n = Gesamtstichprobengröße
 -   r = Anzahl Zeilen 
 -   c = Anzahl Spalten
 
@@ -2304,37 +2292,6 @@ Wo:
 
 **Interpretation:** Um wie viel mal wahrscheinlicher ist ein Ereignis in Gruppe A vs. B?
 
-```{r echo=TRUE}
-# Beispiel 2x2-Tabelle
-behandlung <- matrix(c(40, 10, 20, 30), nrow = 2,
-                    dimnames = list(
-                      Behandlung = c("Neu", "Standard"),
-                      Heilung = c("Geheilt", "Nicht_geheilt")
-                    ))
-print(behandlung)
-```
-
-------------------------------------------------------------------------
-
-## Odds Ratio berechnen
-
-```{r echo=TRUE}
-# Odds Ratio manuell
-a <- behandlung[1,1]  # Neue Behandlung, geheilt
-b <- behandlung[1,2]  # Neue Behandlung, nicht geheilt  
-c <- behandlung[2,1]  # Standard, geheilt
-d <- behandlung[2,2]  # Standard, nicht geheilt
-
-odds_ratio <- (a * d) / (b * c)
-print(paste("Odds Ratio =", round(odds_ratio, 2)))
-```
-
-```{r echo=TRUE}
-# Mit Konfidenzintervall
-fisher.test(behandlung)$estimate
-```
-
-**Interpretation:** OR = 6 → Neue Behandlung ist 6× erfolgreicher
 
 ------------------------------------------------------------------------
 

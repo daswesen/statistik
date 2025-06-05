@@ -334,17 +334,374 @@ data <- read_delim("data.csv", delim = ";",
 ```
 
 
-```{r}
-hist(data$X1, breaks = 20)
-```
 
 ```{r}
 mean(data$X1)
 ```
 
+# Session 7: Chi-Quadrat-Tests mit Würfelbeispielen
 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(vcd)        # für Cramér's V
+library(DescTools)  # für weitere Effektstärken
+library(corrplot)   # für Visualisierungen
+```
 
+
+## 1. Anpassungstest (Goodness of Fit)
+
+### Prüfung auf faire Würfel
+```{r}
+# Beobachtete Häufigkeiten (simuliert einen unfairen Würfel)
+set.seed(123)
+# Unfairer Würfel: 6 kommt häufiger vor
+wuerfe <- sample(1:6, 120, replace = TRUE, prob = c(1,1,1,1,1,2))
+beobachtet <- table(wuerfe)
+print("Beobachtete Häufigkeiten:")
+print(beobachtet)
+
+# Erwartete Häufigkeiten bei fairem Würfel
+erwartet <- rep(120/6, 6)
+names(erwartet) <- 1:6
+
+# Chi-Quadrat-Anpassungstest
+chi_test <- chisq.test(beobachtet, p = rep(1/6, 6))
+print(chi_test)
+
+# Teststatistik manuell berechnen
+chi_quadrat <- sum((beobachtet - erwartet)^2 / erwartet)
+cat("Manuell berechnetes Chi²:", chi_quadrat)
+```
+
+## 2. Residuenanalyse
+
+### Standardisierte Residuen
+```{r}
+# Rohe Residuen
+rohe_residuen <- beobachtet - erwartet
+print("Rohe Residuen:")
+print(rohe_residuen)
+
+# Pearson-Residuen
+pearson_residuen <- (beobachtet - erwartet) / sqrt(erwartet)
+print("Pearson-Residuen:")
+print(round(pearson_residuen, 2))
+
+# Standardisierte Residuen (bei Anpassungstest)
+# Formel: (beobachtet - erwartet) / sqrt(erwartet * (1 - 1/k))
+# wobei k = Anzahl Kategorien
+n_kategorien <- 6
+standardisierte_residuen <- (beobachtet - erwartet) / sqrt(erwartet * (1 - 1/n_kategorien))
+print("Standardisierte Residuen:")
+print(round(standardisierte_residuen, 2))
+
+# Visualisierung der standardisierten Residuen
+barplot(standardisierte_residuen, 
+        main = "Standardisierte Residuen",
+        xlab = "Augenzahl", 
+        ylab = "Standardisierte Residuen",
+        col = ifelse(abs(standardisierte_residuen) > 2, "red", "lightblue"))
+abline(h = c(-2, 2), col = "red", lty = 2)
+
+# Erklärung der Residuen-Arten für Anpassungstest
+cat("\nErkl\u00e4rung der Residuen beim Anpassungstest:\n")
+cat("- Pearson-Residuen: (O-E)/sqrt(E)\n")
+cat("- Standardisierte Residuen: (O-E)/sqrt(E*(1-1/k))\n")
+cat("- k = Anzahl Kategorien (hier: 6)\n")
+cat("- |Residuum| > 2: Hinweis auf systematische Abweichung\n")
+```
+
+## 3. Effektstärken für Anpassungstests
+
+### Cohen's w
+```{r}
+# Cohen's w für Anpassungstest
+# Formel: w = sqrt(sum((p_beobachtet - p_erwartet)^2 / p_erwartet))
+p_beobachtet <- beobachtet / sum(beobachtet)
+p_erwartet <- rep(1/6, 6)
+
+cohens_w <- sqrt(sum((p_beobachtet - p_erwartet)^2 / p_erwartet))
+cat("Cohen's w:", round(cohens_w, 3), "\n")
+
+# Interpretation nach Cohen (1988)
+cat("Interpretation:\n")
+if(cohens_w < 0.1) {
+  cat("Kleiner Effekt (w < 0.1)\n")
+} else if(cohens_w < 0.3) {
+  cat("Mittlerer Effekt (0.1 ≤ w < 0.3)\n")
+} else {
+  cat("Großer Effekt (w ≥ 0.3)\n")
+}
+```
+
+## 4. Kontingenztabellen (Unabhängigkeitstest)
+
+### Beispiel: Zwei Würfel - Summe vs. Differenz
+```{r}
+# Simulation von zwei Würfeln
+n_wuerfe <- 1000
+wurf1 <- sample(1:6, n_wuerfe, replace = TRUE)
+wurf2 <- sample(1:6, n_wuerfe, replace = TRUE)
+
+# Kategorisierung
+summe_kat <- cut(wurf1 + wurf2, breaks = c(1, 6, 8, 13), 
+                 labels = c("niedrig (2-6)", "mittel (7-8)", "hoch (9-12)"))
+differenz_kat <- cut(abs(wurf1 - wurf2), breaks = c(-1, 1, 3, 6), 
+                     labels = c("klein (0-1)", "mittel (2-3)", "groß (4-5)"))
+
+# Kontingenztabelle
+kontingenz <- table(summe_kat, differenz_kat)
+print("Kontingenztabelle:")
+print(kontingenz)
+
+# Chi-Quadrat-Unabhängigkeitstest
+chi_unabh <- chisq.test(kontingenz)
+print(chi_unabh)
+```
+
+## 5. Residuenanalyse für Kontingenztabellen
+
+### Verschiedene Arten von Residuen
+```{r}
+# Erwartete Häufigkeiten
+erwartet_matrix <- chi_unabh$expected
+print("Erwartete Häufigkeiten:")
+print(round(erwartet_matrix, 1))
+
+# Rohe Residuen
+rohe_res_matrix <- kontingenz - erwartet_matrix
+print("Rohe Residuen:")
+print(round(rohe_res_matrix, 1))
+
+# Pearson-Residuen
+pearson_res_matrix <- (kontingenz - erwartet_matrix) / sqrt(erwartet_matrix)
+print("Pearson-Residuen:")
+print(round(pearson_res_matrix, 2))
+
+# Standardisierte Residuen (berücksichtigen Randverteilungen)
+# Berechnung der Randwahrscheinlichkeiten
+n_total <- sum(kontingenz)
+rand_zeilen <- rowSums(kontingenz) / n_total
+rand_spalten <- colSums(kontingenz) / n_total
+
+# Standardisierte Residuen
+std_res_matrix <- matrix(0, nrow = nrow(kontingenz), ncol = ncol(kontingenz))
+for(i in 1:nrow(kontingenz)) {
+  for(j in 1:ncol(kontingenz)) {
+    variance <- erwartet_matrix[i,j] * (1 - rand_zeilen[i]) * (1 - rand_spalten[j])
+    std_res_matrix[i,j] <- (kontingenz[i,j] - erwartet_matrix[i,j]) / sqrt(variance)
+  }
+}
+rownames(std_res_matrix) <- rownames(kontingenz)
+colnames(std_res_matrix) <- colnames(kontingenz)
+print("Standardisierte Residuen:")
+print(round(std_res_matrix, 2))
+
+# Adjustierte standardisierte Residuen (echte Berechnung)
+# Diese berücksichtigen die Korrelation zwischen Zellen
+# Formel: (O-E) / sqrt(E * (1-p_i) * (1-p_j) * (1-chi²/n))
+chi_stat <- chi_unabh$statistic
+n_total <- sum(kontingenz)
+adjustment_factor <- sqrt(1 - chi_stat/n_total)
+
+adj_std_res_matrix <- matrix(0, nrow = nrow(kontingenz), ncol = ncol(kontingenz))
+for(i in 1:nrow(kontingenz)) {
+  for(j in 1:ncol(kontingenz)) {
+    variance <- erwartet_matrix[i,j] * (1 - rand_zeilen[i]) * (1 - rand_spalten[j])
+    adj_std_res_matrix[i,j] <- (kontingenz[i,j] - erwartet_matrix[i,j]) / 
+                              (sqrt(variance) * adjustment_factor)
+  }
+}
+rownames(adj_std_res_matrix) <- rownames(kontingenz)
+colnames(adj_std_res_matrix) <- colnames(kontingenz)
+print("Adjustierte standardisierte Residuen:")
+print(round(adj_std_res_matrix, 2))
+
+# Zum Vergleich: Was R als 'residuals' ausgibt (das sind nur Pearson-Residuen)
+print("R's chi$residuals (= Pearson-Residuen):")
+print(round(chi_unabh$residuals, 2))
+
+# Vergleich: Welche Zellen sind auffällig?
+cat("\nAuff\u00e4llige Zellen (|Residuum| > 2):\n")
+auffaellige_zellen <- which(abs(adj_std_res_matrix) > 2, arr.ind = TRUE)
+for(i in 1:nrow(auffaellige_zellen)) {
+  zeile <- auffaellige_zellen[i, 1]
+  spalte <- auffaellige_zellen[i, 2]
+  residuum <- adj_std_res_matrix[zeile, spalte]
+  cat(sprintf("%s + %s: Residuum = %.2f\n", 
+              rownames(adj_std_res_matrix)[zeile],
+              colnames(adj_std_res_matrix)[spalte],
+              residuum))
+}
+
+# Visualisierung der adjustierten Residuen
+library(corrplot)
+corrplot(adj_std_res_matrix, is.corr = FALSE, method = "color",
+         title = "Adjustierte standardisierte Residuen",
+         mar = c(1,1,2,1))
+
+# Erklärung der verschiedenen Residuen-Arten
+cat("\nErkl\u00e4rung der Residuen-Arten:\n")
+cat("1. Rohe Residuen: Einfache Differenz (Beobachtet - Erwartet)\n")
+cat("2. Pearson-Residuen: Normalisiert durch sqrt(Erwartet)\n")
+cat("3. Standardisierte Residuen: Ber\u00fccksichtigen Randverteilungen\n")
+cat("4. Adjustierte Residuen: Zus\u00e4tzliche Varianzkorrektur\n")
+cat("\nInterpretation: |Residuum| > 2 deutet auf systematische Abweichung hin\n")
+```
+
+## 6. Effektstärken für Kontingenztabellen
+
+### Cramér's V
+```{r}
+# Cramér's V
+n <- sum(kontingenz)
+min_dim <- min(nrow(kontingenz), ncol(kontingenz))
+cramers_v <- sqrt(chi_unabh$statistic / (n * (min_dim - 1)))
+cat("Cramér's V:", round(cramers_v, 3), "\n")
+
+# Alternative Berechnung mit vcd-Paket
+library(vcd)
+cramers_v_vcd <- assocstats(kontingenz)$cramer
+cat("Cramér's V (vcd):", round(cramers_v_vcd, 3), "\n")
+
+# Interpretation
+cat("Interpretation:\n")
+if(cramers_v < 0.1) {
+  cat("Schwacher Zusammenhang (V < 0.1)\n")
+} else if(cramers_v < 0.3) {
+  cat("Mittlerer Zusammenhang (0.1 ≤ V < 0.3)\n")
+} else {
+  cat("Starker Zusammenhang (V ≥ 0.3)\n")
+}
+```
+
+### Phi-Koeffizient (nur für 2x2-Tabellen)
+```{r}
+# Für Phi erstellen wir eine 2x2-Tabelle
+summe_2kat <- ifelse(wurf1 + wurf2 <= 7, "niedrig", "hoch")
+differenz_2kat <- ifelse(abs(wurf1 - wurf2) <= 2, "klein", "groß")
+
+kontingenz_2x2 <- table(summe_2kat, differenz_2kat)
+print("2x2 Kontingenztabelle:")
+print(kontingenz_2x2)
+
+# Chi-Quadrat-Test
+chi_2x2 <- chisq.test(kontingenz_2x2)
+
+# Phi-Koeffizient
+phi <- sqrt(chi_2x2$statistic / sum(kontingenz_2x2))
+cat("Phi-Koeffizient:", round(phi, 3), "\n")
+
+# Alternative mit DescTools
+library(DescTools)
+phi_desc <- Phi(kontingenz_2x2)
+cat("Phi (DescTools):", round(phi_desc, 3), "\n")
+```
+
+## 7. Odds Ratio (für 2x2-Tabellen)
+```{r}
+# Odds Ratio berechnen
+or <- OddsRatio(kontingenz_2x2, conf.level = 0.95)
+print("Odds Ratio mit 95% Konfidenzintervall:")
+print(or)
+
+# Interpretation
+cat("Interpretation:\n")
+if(or[1] > 1) {
+  cat("Positive Assoziation (OR > 1)\n")
+} else if(or[1] < 1) {
+  cat("Negative Assoziation (OR < 1)\n")
+} else {
+  cat("Keine Assoziation (OR ≈ 1)\n")
+}
+```
+
+## 8. Zusammenfassung der Effektstärken
+
+```{r}
+cat("Übersicht der Effektstärken:\n\n")
+cat("Anpassungstest:\n")
+cat("- Cohen's w:", round(cohens_w, 3), "\n\n")
+
+cat("Kontingenztabelle (", nrow(kontingenz), "x", ncol(kontingenz), "):\n")
+cat("- Cramér's V:", round(cramers_v, 3), "\n\n")
+
+cat("2x2-Tabelle:\n")
+cat("- Phi-Koeffizient:", round(phi, 3), "\n")
+cat("- Odds Ratio:", round(or[1], 3), "\n\n")
+
+cat("Interpretation der Effektstärken:\n")
+cat("- Klein: w/V/|φ| < 0.1, OR: 1.2-1.5\n")
+cat("- Mittel: w/V/|φ| = 0.1-0.3, OR: 1.5-3.0\n")
+cat("- Groß: w/V/|φ| > 0.3, OR: > 3.0\n")
+```
+
+## 9. Power-Analyse für Chi-Quadrat-Tests
+
+```{r}
+# Power-Analyse mit pwr-Paket
+library(pwr)
+
+# Power für gegebene Effektstärke
+power_anpassung <- pwr.chisq.test(w = cohens_w, N = 120, df = 5)
+cat("Power für Anpassungstest:", round(power_anpassung$power, 3), "\n")
+
+# Benötigte Stichprobengröße für Power = 0.8
+n_needed <- pwr.chisq.test(w = cohens_w, power = 0.8, df = 5)
+cat("Benötigte Stichprobengröße für Power = 0.8:", ceiling(n_needed$N), "\n")
+```
+
+# Zusammenfassung: Residuen-Arten und ihre praktische Bedeutung
+
+## Wichtige Erkenntnisse aus den Analysen
+
+### 1. Verschiedene Residuen-Arten zeigen dramatische Unterschiede
+
+**Kontingenztabelle - Beispiel "mittel + groß":**
+- **Pearson-Residuen**: 9.38
+- **Standardisierte Residuen**: 12.22 (30% größer)
+- **Adjustierte Residuen**: 13.58 (45% größer)
+
+Die Residuen werden mit jeder Korrektur extremer, was zu **stärkerer Evidenz** für systematische Abweichungen führt.
+
+### 2. R's `chisq.test()$residuals` ist irreführend
+
+**Problem**: R's Standardfunktion gibt fälschlicherweise nur **Pearson-Residuen** aus, obwohl diese oft als "standardisierte Residuen" interpretiert werden.
+
+**Lösung**: Echte standardisierte und adjustierte Residuen müssen manuell berechnet werden (wie in diesem Notebook gezeigt).
+
+### 3. Praktische Auswirkungen für die Interpretation
+
+**Schwellenwert |Residuum| > 2:**
+- **Pearson-Residuen**: 4 auffällige Zellen
+- **Echte adjustierte Residuen**: 6 auffällige Zellen
+
+**Konsequenz**: Bei ausschließlicher Verwendung von Pearson-Residuen werden systematische Abweichungen **unterschätzt**.
+
+### 4. Mathematischer Zusammenhang zwischen Würfelsumme und -differenz
+
+Die starke Assoziation (Cramér's V = 0.308) ist **mathematisch zwingend**:
+- **Hohe Summen** (9-12) → nur kleine Differenzen möglich
+- **Mittlere Summen** (7-8) → alle Differenzen möglich
+- Dies erklärt die extremen Residuen in bestimmten Zellen
+
+### 5. Effektstärken im Vergleich
+
+**Verschiedene Perspektiven auf dieselben Daten:**
+- **3×3 Kontingenztabelle**: Cramér's V = 0.308 (starker Effekt)
+- **2×2 Vereinfachung**: Phi = 0.092 (schwacher Effekt)
+- **Cohen's w**: 0.274 (mittlerer Effekt)
+
+
+### 6. Power-Analyse liefert praktische Hinweise
+
+**Anpassungstest**: 
+- Aktuelle Power: 62.4% (bei n=120)
+- Für Power = 80%: n=172 benötigt
+
+**Bedeutung**: Der "unfaire" Würfel zeigt grenzwertige Abweichungen - eine größere Stichprobe würde klarere Ergebnisse liefern.
 
 
 
