@@ -1461,7 +1461,6 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   `geom_point()`, `geom_histogram()`, `geom_boxplot()`
 -   Ästhetiken: Farbe, Form, Gruppierung
 
-
 # Sitzung 5: Wahrscheinlichkeiten & Verteilungen
 
 ## Organisatorisches
@@ -1473,11 +1472,11 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 ## Ihre Aufgabe heute
 
-1.   Notebook ist erstellt (mit der Vorlage)
-2.   Ihre Daten sind importiert
-3.   Forschungsfragen sind ausformuliert im Notebook
-4.   **Erst dann** besprechen wir im 1:1 Ihr weiteres Vorgehen, über dass Sie sich **vorher** Gedanken gemacht haben
-5.   Nur wenn Sie gar nicht weiterkommen (und wirklich alle Materialien gesichtet haben), kommen Sie ohne diese Schritte zum 1:1
+1.  Notebook ist erstellt (mit der Vorlage)
+2.  Ihre Daten sind importiert
+3.  Forschungsfragen sind ausformuliert im Notebook
+4.  **Erst dann** besprechen wir im 1:1 Ihr weiteres Vorgehen, über dass Sie sich **vorher** Gedanken gemacht haben
+5.  Nur wenn Sie gar nicht weiterkommen (und wirklich alle Materialien gesichtet haben), kommen Sie ohne diese Schritte zum 1:1
 
 ## Von der Beschreibung zur Vorhersage
 
@@ -1488,23 +1487,22 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 ## Warum Wahrscheinlichkeiten für die angewandte Forschung?
 
-- **Stichprobenlogik**  
-  → Wie kann auf eine Grundgesamtheit geschlossen werden, obwohl nur ein Teil beobachtet wurde?
+-   **Stichprobenlogik**\
+    → Wie kann auf eine Grundgesamtheit geschlossen werden, obwohl nur ein Teil beobachtet wurde?
 
-- **Unsicherheit quantifizieren**  
-  → Wie kann die Unsicherheit in empirischen Aussagen formal greifbar gemacht werden?
+-   **Unsicherheit quantifizieren**\
+    → Wie kann die Unsicherheit in empirischen Aussagen formal greifbar gemacht werden?
 
-- **Zufallsvariabilität verstehen**  
-  → Wie unterscheiden sich echte Effekte von zufälligen Schwankungen?
-
+-   **Zufallsvariabilität verstehen**\
+    → Wie unterscheiden sich echte Effekte von zufälligen Schwankungen?
 
 ## Warum Wahrscheinlichkeiten für die angewandte Forschung? Teil 2
 
-- **Grundlage für Inferenz**  
-  → Wahrscheinlichkeiten bilden das Fundament für Hypothesentests und Konfidenzintervalle.
+-   **Grundlage für Inferenz**\
+    → Wahrscheinlichkeiten bilden das Fundament für Hypothesentests und Konfidenzintervalle.
 
-- **Bewertung von Evidenz**  
-  → Wie plausibel ist eine Theorie angesichts der beobachteten Daten?
+-   **Bewertung von Evidenz**\
+    → Wie plausibel ist eine Theorie angesichts der beobachteten Daten?
 
 ## Praktische Anwendungsbeispiele
 
@@ -1516,19 +1514,15 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 ## Einführung in Wahrscheinlichkeiten
 
-
 ### Was ist Zufall?
 
 ## Einführung in Wahrscheinlichkeiten
 
-
 ### Was ist Zufall?
 
-*   In der Statistik beschreibt „Zufall“ das Eintreten von Ereignissen, deren Ergebnis nicht mit Sicherheit vorhersehbar ist, obwohl alle möglichen Ergebnisse bekannt sind. 
+-   In der Statistik beschreibt „Zufall“ das Eintreten von Ereignissen, deren Ergebnis nicht mit Sicherheit vorhersehbar ist, obwohl alle möglichen Ergebnisse bekannt sind.
 
-*   Der Zufall steht nicht für Chaos, sondern für Unsicherheit bei einzelnen Beobachtungen. Bei vielen Wiederholungen entstehen jedoch erkennbare Muster (z. B. 50 % Kopf bei Münzwürfen über viele Versuche).
-
-
+-   Der Zufall steht nicht für Chaos, sondern für Unsicherheit bei einzelnen Beobachtungen. Bei vielen Wiederholungen entstehen jedoch erkennbare Muster (z. B. 50 % Kopf bei Münzwürfen über viele Versuche).
 
 ## Laplace-Wahrscheinlichkeit
 
@@ -1546,11 +1540,7 @@ $$
 P(Ereignis) \approx \frac{\text{Anzahl des Eintretens}}{\text{Anzahl der Wiederholungen}}
 $$
 
-
-
 **Beispiel in R:**
-
-
 
 ```{r echo=TRUE}
 set.seed(1234)
@@ -1575,7 +1565,7 @@ $$ P(X=2) = \binom{10}{2} \cdot 0{,}3^2 \cdot 0{,}7^8 \approx 0{,}2668 $$
 
 ## Bedingte Wahrscheinlichkeit
 
-Die bedingte Wahrscheinlichkeit \( P(A|B) \) beschreibt die Wahrscheinlichkeit für A unter der Bedingung, dass B bereits eingetreten ist.
+Die bedingte Wahrscheinlichkeit ( P(A\|B) ) beschreibt die Wahrscheinlichkeit für A unter der Bedingung, dass B bereits eingetreten ist.
 
 $$
 P(A|B) = \frac{P(A \cap B)}{P(B)}
@@ -1587,35 +1577,34 @@ $$
 P(A|B) = 0.8
 $$
 
-
 ## Beispiele von Wahrscheinlichkeiten
 
-| Art                         | Grundlage                                        | Beispiel                                       |
-|----------------------------|--------------------------------------------------|------------------------------------------------|
-| **Klassische (Laplace)**   | Symmetrische Ausgangslage                        | P(4) bei Würfel = 1/6                          |
-| **Empirische**             | Beobachtete relative Häufigkeit                 | 234 von 1000 Mails geöffnet → P = 0,234        |
-| **Theoretische**           | Abgeleitet aus Verteilungsmodell                | P(X = 2) aus Binomial(n=10, p=0.3)             |
-| **Bedingte**               | P(A\|B): A unter der Bedingung B                 | P(Fieber \| krank)                              |
+| Art | Grundlage | Beispiel |
+|------------------|----------------------------|---------------------------|
+| **Klassische (Laplace)** | Symmetrische Ausgangslage | P(4) bei Würfel = 1/6 |
+| **Empirische** | Beobachtete relative Häufigkeit | 234 von 1000 Mails geöffnet → P = 0,234 |
+| **Theoretische** | Abgeleitet aus Verteilungsmodell | P(X = 2) aus Binomial(n=10, p=0.3) |
+| **Bedingte** | P(A\|B): A unter der Bedingung B | P(Fieber \| krank) |
 
 ## Von einzelnen Wahrscheinlichkeiten zu Verteilungen
 
-- Eine **Wahrscheinlichkeitsverteilung** beschreibt alle möglichen Ausgänge eines Zufallsexperiments und ihre Wahrscheinlichkeiten.
+-   Eine **Wahrscheinlichkeitsverteilung** beschreibt alle möglichen Ausgänge eines Zufallsexperiments und ihre Wahrscheinlichkeiten.
 
----
+------------------------------------------------------------------------
 
 ## Zwei Typen:
 
 ### Diskret (z. B. Würfelwurf)
-- Endlich viele mögliche Ergebnisse
-- Jedem Ergebnis wird eine konkrete Wahrscheinlichkeit zugewiesen
-- Beispiel: P(Würfel = 4) = 1/6  
-  → Die **Verteilung** zeigt: Wie wahrscheinlich ist jede Zahl von 1 bis 6?
+
+-   Endlich viele mögliche Ergebnisse
+-   Jedem Ergebnis wird eine konkrete Wahrscheinlichkeit zugewiesen
+-   Beispiel: P(Würfel = 4) = 1/6\
+    → Die **Verteilung** zeigt: Wie wahrscheinlich ist jede Zahl von 1 bis 6?
 
 ```{r echo=TRUE}
 barplot(rep(1/6, 6), names.arg = 1:6, col = "skyblue",
         main ="Diskrete Verteilung: Würfelergebnis", ylab = "Wahrscheinlichkeit")
 ```
-
 
 ### Stetig (z.B. Körpergröße)
 
@@ -1630,9 +1619,6 @@ y <- dnorm(x, mean = 175, sd = 7)
 plot(x, y, type = "l", col = "darkgreen", lwd = 2,
      main = "Stetige Verteilung: Körpergröße", ylab = "Dichte", xlab = "Größe in cm")
 ```
-
-
-
 
 ## Zufallsvariablen und Verteilungen
 
@@ -1666,21 +1652,21 @@ plot(x, y, type = "l", col = "darkgreen", lwd = 2,
 
 ## Was ist Inferenzstatistik?
 
-- Von der Stichprobe auf die Grundgesamtheit schließen
-- Berücksichtigt Zufallsfehler und Unsicherheit
-- Zentral: **Wahrscheinlichkeit**, **Stichprobenverteilung**, **Testen von Hypothesen**
+-   Von der Stichprobe auf die Grundgesamtheit schließen
+-   Berücksichtigt Zufallsfehler und Unsicherheit
+-   Zentral: **Wahrscheinlichkeit**, **Stichprobenverteilung**, **Testen von Hypothesen**
 
 ## Würfeln und der Zufall: Zentraler Grenzwertsatz
 
-- Jeder Studierende würfelt 10x → 1 Mittelwert
-- Wiederholung über viele → Verteilung der Mittelwerte
-- Was ist der Erwartungswert?
+-   Jeder Studierende würfelt 10x → 1 Mittelwert
+-   Wiederholung über viele → Verteilung der Mittelwerte
+-   Was ist der Erwartungswert?
 
 ## Würfeln und der Zufall: Zentraler Grenzwertsatz
 
-- Jeder Studierende würfelt 10x → 1 Mittelwert
-- Wiederholung über viele → Verteilung der Mittelwerte
-- Erwartungswert (fairer Würfel): 3.5
+-   Jeder Studierende würfelt 10x → 1 Mittelwert
+-   Wiederholung über viele → Verteilung der Mittelwerte
+-   Erwartungswert (fairer Würfel): 3.5
 
 ## Würfeln und der Zufall: Zentraler Grenzwertsatz
 
@@ -1702,48 +1688,44 @@ curve(dnorm(x, mean=mean(sample_means), sd=sd(sample_means)),
       add=TRUE, col="red", lwd=2)
 ```
 
-
-
 ## Warum ist das wichtig?
 
-- Diese Verteilung erlaubt uns Aussagen über:
-  - Vertrauensbereiche (Konfidenzintervalle)
-  - Signifikanztests (z. B. t-Test)
-- **Beispiel**: Ist ein Würfel gezinkt?
-- Stichprobe: z. B. Mittelwert = 3.8
-- **Ist dieser Unterschied Zufall oder nicht?**
+-   Diese Verteilung erlaubt uns Aussagen über:
+    -   Vertrauensbereiche (Konfidenzintervalle)
+    -   Signifikanztests (z. B. t-Test)
+-   **Beispiel**: Ist ein Würfel gezinkt?
+-   Stichprobe: z. B. Mittelwert = 3.8
+-   **Ist dieser Unterschied Zufall oder nicht?**
 
 ## Hypothesentesten: Grundlagen
 
-- **Nullhypothese (H₀)**: Annahme keines Effekts/Unterschieds
-- **Alternativhypothese (H₁)**: Annahme eines Effekts/Unterschieds
-- **Arten von Hypothesen**:
-  - Ungerichtete Hypothesen (zweiseitig): µ₁ ≠ µ₂
-  - Gerichtete Hypothesen (einseitig): µ₁ > µ₂ oder µ₁ < µ₂
+-   **Nullhypothese (H₀)**: Annahme keines Effekts/Unterschieds
+-   **Alternativhypothese (H₁)**: Annahme eines Effekts/Unterschieds
+-   **Arten von Hypothesen**:
+    -   Ungerichtete Hypothesen (zweiseitig): µ₁ ≠ µ₂
+    -   Gerichtete Hypothesen (einseitig): µ₁ \> µ₂ oder µ₁ \< µ₂
 
 ## Die Logik des Hypothesentestens
 
-- **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
-- **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
-- **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
-
-
+-   **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
+-   **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
+-   **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
 
 ## Signifikanzniveau und p-Wert
 
-- **Signifikanzniveau α**: Vorab festgelegte Irrtumswahrscheinlichkeit (typisch: 0.05)
-- **p-Wert**: Wahrscheinlichkeit, die beobachteten (oder extremeren) Daten unter H₀ zu erhalten
-- **Entscheidungsregel**: Verwerfe H₀, wenn p < α
-- **Kritische Werte**: Alternative Darstellung der Entscheidungsregel
+-   **Signifikanzniveau α**: Vorab festgelegte Irrtumswahrscheinlichkeit (typisch: 0.05)
+-   **p-Wert**: Wahrscheinlichkeit, die beobachteten (oder extremeren) Daten unter H₀ zu erhalten
+-   **Entscheidungsregel**: Verwerfe H₀, wenn p \< α
+-   **Kritische Werte**: Alternative Darstellung der Entscheidungsregel
 
 ## Von der Stichprobenverteilung zum t-Test
 
-- Die **Stichprobenverteilung der Mittelwerte** zeigt: Wie stark Mittelwerte **zufällig schwanken**, selbst wenn H₀ stimmt
-- Diese Schwankung hat eine Streuung: den **Standardfehler (SE)**
+-   Die **Stichprobenverteilung der Mittelwerte** zeigt: Wie stark Mittelwerte **zufällig schwanken**, selbst wenn H₀ stimmt
+-   Diese Schwankung hat eine Streuung: den **Standardfehler (SE)**
 
 $$ SE = \frac{s}{\sqrt{n}} $$
 
-- Der t-Test prüft, ob der beobachtete Mittelwert **außerhalb** dieser erwarteten Schwankung liegt
+-   Der t-Test prüft, ob der beobachtete Mittelwert **außerhalb** dieser erwarteten Schwankung liegt
 
 ## Der Standardfehler
 
@@ -1761,10 +1743,9 @@ se
 mean(würfe)
 ```
 
-
 ## t-Test in R (Einzelstichprobe)
 
-::: {.small}
+::: small
 ```{r}
 mean(würfe)
 t.test(würfe, mu = 3.5)
@@ -1773,18 +1754,14 @@ t.test(würfe, mu = 3.5)
 
 ## Interpretation des t-Tests
 
-- **p < 0.05** → Ablehnung der Nullhypothese (Würfel evtl. gezinkt)
-- **p ≥ 0.05** → Kein ausreichender Hinweis auf Manipulation
-
+-   **p \< 0.05** → Ablehnung der Nullhypothese (Würfel evtl. gezinkt)
+-   **p ≥ 0.05** → Kein ausreichender Hinweis auf Manipulation
 
 ## Was ist denn nun „signifikant“?
 
-- Ein signifikantes Ergebnis heißt nicht, dass es „wichtig“ ist
-- Es heißt nur: Unterschied ist **nicht gut durch Zufall erklärbar**
-- Immer im Kontext interpretieren (Effektgröße, Relevanz)
-
-
-
+-   Ein signifikantes Ergebnis heißt nicht, dass es „wichtig“ ist
+-   Es heißt nur: Unterschied ist **nicht gut durch Zufall erklärbar**
+-   Immer im Kontext interpretieren (Effektgröße, Relevanz)
 
 ## Konfidenzintervalle
 
@@ -1793,7 +1770,6 @@ t.test(würfe, mu = 3.5)
 -   **Interpretation**: Was bedeutet ein 95%-Konfidenzintervall?
 
 -   **Zusammenhang mit Hypothesentests**: Enthält ein 95%-KI den Wert der Nullhypothese?
-
 
 ## Experimentelles Design
 
@@ -1804,38 +1780,32 @@ t.test(würfe, mu = 3.5)
     -   Observer Bias
     -   Selection Bias
 
-
 ## Ursprung der t-Verteilung: William S. Gosset
 
-- **William S. Gosset** war Chemiker und Statistiker bei der Guinness-Brauerei (Anfang 1900er).
-- Aufgabe: Qualitätskontrolle (z. B. Stärkegehalt von Gerste messen).
-- Problem: Nur **kleine Stichproben** pro Tag (z. B. n = 4 oder 5).
-- Damalige Statistik: Basierte auf **großen Stichproben** und der **Normalverteilung**.
+-   **William S. Gosset** war Chemiker und Statistiker bei der Guinness-Brauerei (Anfang 1900er).
+-   Aufgabe: Qualitätskontrolle (z. B. Stärkegehalt von Gerste messen).
+-   Problem: Nur **kleine Stichproben** pro Tag (z. B. n = 4 oder 5).
+-   Damalige Statistik: Basierte auf **großen Stichproben** und der **Normalverteilung**.
 
 ## Das statistische Problem
 
-- Ziel: Testen, ob der Mittelwert von Proben vom Sollwert abweicht.
-- Normalformel:
-  \[
-  \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
-  \]
-  → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
-- Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: 
-$$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
-- Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
+-   Ziel: Testen, ob der Mittelwert von Proben vom Sollwert abweicht.
+-   Normalformel: \[ \frac{\bar{x} - \mu}{\sigma / \sqrt{n}} \] → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
+-   Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
+-   Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
 
 ## Die Lösung
 
-- Gosset zeigte: Die neue Verteilung hängt von der Anzahl an Beobachtungen ab → **Freiheitsgrade (n−1)**.
-- Daraus entstand eine neue Verteilung: die **t-Verteilung mit df**.
-- Diese berücksichtigt die **größere Unsicherheit bei kleinen n** durch dickere „Schwänze“ (heavy tails).
+-   Gosset zeigte: Die neue Verteilung hängt von der Anzahl an Beobachtungen ab → **Freiheitsgrade (n−1)**.
+-   Daraus entstand eine neue Verteilung: die **t-Verteilung mit df**.
+-   Diese berücksichtigt die **größere Unsicherheit bei kleinen n** durch dickere „Schwänze“ (heavy tails).
 
 ## Warum „Student“?
 
-- Guinness verbot es Mitarbeitern, unter eigenem Namen zu publizieren.
-- Gosset veröffentlichte 1908 unter dem Pseudonym **„Student“**:
-  - *„The Probable Error of a Mean“* (in *Biometrika*)
-- Der t-Test wurde dadurch bekannt als **„Student’s t-Test“**.
+-   Guinness verbot es Mitarbeitern, unter eigenem Namen zu publizieren.
+-   Gosset veröffentlichte 1908 unter dem Pseudonym **„Student“**:
+    -   *„The Probable Error of a Mean“* (in *Biometrika*)
+-   Der t-Test wurde dadurch bekannt als **„Student’s t-Test“**.
 
 ## Visualisierung unterschiedlicher t-Verteilungen
 
@@ -1860,35 +1830,30 @@ $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
 
 ## Freiheitsgrade (Degrees of Freedom, df)
 
-- Anzahl der **unabhängigen Informationen**, die zur Schätzung einer Größe verfügbar sind.
-- Bei der Berechnung der **Stichprobenvarianz** geht 1 Freiheitsgrad verloren:
-  \[
-  df = n - 1
-  \]
-  (weil der Mittelwert bereits aus den Daten berechnet wurde)
-- Freiheitsgrade bestimmen die **Form der t-Verteilung**:
-  - Wenige df → **dickere Randbereiche**
-  - Viele df → t-Verteilung nähert sich der **Normalverteilung**
-  
+-   Anzahl der **unabhängigen Informationen**, die zur Schätzung einer Größe verfügbar sind.
+-   Bei der Berechnung der **Stichprobenvarianz** geht 1 Freiheitsgrad verloren: \[ df = n - 1 \] (weil der Mittelwert bereits aus den Daten berechnet wurde)
+-   Freiheitsgrade bestimmen die **Form der t-Verteilung**:
+    -   Wenige df → **dickere Randbereiche**
+    -   Viele df → t-Verteilung nähert sich der **Normalverteilung**
+
 ## Freiheitsgrade (Degrees of Freedom, df)
 
-- Freiheitsgrade sind wichtig für:
-  - Auswahl des richtigen **kritischen t-Werts**
-  - **Vertrauensintervalle** und **p-Werte**
-
+-   Freiheitsgrade sind wichtig für:
+    -   Auswahl des richtigen **kritischen t-Werts**
+    -   **Vertrauensintervalle** und **p-Werte**
 
 ## Arten von t-Tests
 
 -   **Einstichproben-t-Test**: Vergleich mit bekanntem oder hypothetischem Wert
     -   Anwendungsbeispiel: Entspricht der mittlere Blutzuckerwert einer Patientengruppe dem Normalwert?
     -   Formel: $t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$
-    
+
 ## Arten von t-Tests
 
 -   **Zweistichproben-t-Test (unabhängig)**: Vergleich zweier unabhängiger Gruppen
     -   Anwendungsbeispiel: Unterscheiden sich die Testergebnisse zweier unterschiedlicher Lernmethoden?
     -   Formel bei gleichen Varianzen: $t = \frac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$
-    
+
 ## Arten von t-Tests
 
 -   **Gepaarter t-Test (abhängig)**: Vergleich verbundener Messungen
@@ -1908,7 +1873,6 @@ $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
 -   **Unabhängigkeit der Beobachtungen**: Kritisch für die Gültigkeit
 -   **Zentraler Grenzwertsatz als Rettungsanker**: Wann können wir uns darauf verlassen?
 
-
 ## Interpretation und Berichterstattung
 
 -   **Angabe des Konfidenzintervalls**: Zusätzliche Information zur Präzision
@@ -1917,52 +1881,70 @@ $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
 
 ## Fehler beim Hypothesentesten
 
-- **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
-- **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
-- **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
-- **Balanceakt**: Abwägung zwischen α und β
+-   **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
+-   **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
+-   **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
+-   **Balanceakt**: Abwägung zwischen α und β
 
 # Sitzung 7: Chi-Quadrat-Test für Häufigkeiten
 
+## Nachtrag
+
+::::: columns
+::: {.column width="50%"}
+![](images/schulden1.png)
+:::
+
+::: {.column width="50%"}
+![](images/schulden2.png)
+:::
+:::::
+
+------------------------------------------------------------------------
+
 ## Rückblick: Von t-Tests zu kategorialen Daten
 
-- **Letzte Woche**: t-Tests für kontinuierliche Daten (Mittelwerte)
-- **Heute**: Tests für kategoriale Daten (Häufigkeiten)
-- **Verbindung**: Beide testen Hypothesen, aber mit verschiedenen Datentypen
-- **Beispiel**: Statt "Ist der mittlere Würfelwert 3.5?" → "Sind alle Würfelseiten gleich häufig?"
+-   **Letzte Woche**: t-Tests für kontinuierliche Daten (Mittelwerte)
+-   **Heute**: Tests für kategoriale Daten (Häufigkeiten)
+-   **Verbindung**: Beide testen Hypothesen, aber mit verschiedenen Datentypen
+-   **Beispiel**: Statt "Ist der mittlere Würfelwert 3.5?" → "Sind alle Würfelseiten gleich häufig?"
+
+------------------------------------------------------------------------
 
 ## Würfel-Motivation: Ein praktisches Problem
 
-:::: {.columns}
-::: {.column width="50%"}
 **Situation**: Ein Freund behauptet, sein Würfel sei fair
 
 **Daten sammeln**: 60 Würfe
-- 1er: 8 mal
-- 2er: 12 mal  
-- 3er: 9 mal
-- 4er: 11 mal
-- 5er: 10 mal
-- 6er: 10 mal
-:::
 
-::: {.column width="50%"}
+-   1er: 8 mal
+-   2er: 12 mal
+-   3er: 9 mal
+-   4er: 11 mal
+-   5er: 10 mal
+-   6er: 10 mal
+
+## Würfel-Motivation: Ein praktisches Problem
+
 **Fragen**:
-- Ist dieser Würfel fair?
-- Wie können wir das statistisch testen?
-- Was erwarten wir bei einem fairen Würfel?
+
+-   Ist dieser Würfel fair?
+
+-   Wie können wir das statistisch testen?
+
+-   Was erwarten wir bei einem fairen Würfel?
 
 **Bei fairem Würfel**: Jede Zahl sollte etwa 10 mal fallen (60 ÷ 6 = 10)
-:::
-::::
+
+------------------------------------------------------------------------
 
 ## Einführung in kategoriale Datenanalyse
 
-- **Charakteristika kategorialer Daten**: 
-  - Nominal (Geschlecht, Farben, Würfelzahlen)
-  - Ordinal (Schulnoten, Zufriedenheitsskalen)
-- **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
-- **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
+-   **Charakteristika kategorialer Daten**:
+    -   Nominal (Geschlecht, Farben, Würfelzahlen)
+    -   Ordinal (Schulnoten, Zufriedenheitsskalen)
+-   **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
+-   **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
 
 ```{r}
 # Beispiel: Würfeldaten einlesen
@@ -1973,15 +1955,19 @@ würfel_daten <- c(rep(1, 8), rep(2, 12), rep(3, 9),
 table(würfel_daten)
 ```
 
+------------------------------------------------------------------------
+
 ## Der Chi-Quadrat-Test: Grundprinzip
 
-- **Kernidee**: Vergleich beobachteter und erwarteter Häufigkeiten
-- **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
-  - O: beobachtete Häufigkeit (observed)
-  - E: erwartete Häufigkeit (expected)
-- **Logik**: Große Abweichungen → große χ²-Werte → Hinweis auf Unterschied
+-   **Kernidee**: Vergleich beobachteter und erwarteter Häufigkeiten
+-   **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
+    -   O: beobachtete Häufigkeit (observed)
+    -   E: erwartete Häufigkeit (expected)
+-   **Logik**: Große Abweichungen → große χ²-Werte → Hinweis auf Unterschied
 
-## Würfelbeispiel: Schritt für Schritt
+------------------------------------------------------------------------
+
+
 
 ```{r}
 # Beobachtete Häufigkeiten
@@ -1993,8 +1979,9 @@ erwartet <- rep(60/6, 6)  # 10 für jede Seite
 
 # Chi-Quadrat-Wert manuell berechnen
 chi_quadrat <- sum((beobachtet - erwartet)^2 / erwartet)
-chi_quadrat
 ```
+
+------------------------------------------------------------------------
 
 ## Visualisierung: Beobachtet vs Erwartet
 
@@ -2009,60 +1996,64 @@ barplot(rbind(beobachtet, erwartet),
         xlab = "Würfelzahl", ylab = "Häufigkeit")
 ```
 
+------------------------------------------------------------------------
+
 ## Chi-Quadrat-Test in R durchführen
 
-```{r}
+```{r echo=TRUE}
 # Automatischer Chi-Quadrat-Test
 chi_test <- chisq.test(beobachtet)
-chi_test
 
-# Was bedeuten die Ergebnisse?
-# X-squared: Chi-Quadrat-Wert
-# df: Freiheitsgrade (6-1 = 5)
-# p-value: Wahrscheinlichkeit unter H₀
+# Kompakte Ausgabe
+cat("χ² =", chi_test$statistic, 
+    "| df =", chi_test$parameter, 
+    "| p =", round(chi_test$p.value, 4))
 ```
+
+------------------------------------------------------------------------
 
 ## Freiheitsgrade verstehen
 
-- **Formel für Anpassungstest**: df = Kategorien - 1 = 6 - 1 = 5
-- **Warum -1?**: Wenn 5 Häufigkeiten festgelegt sind, ist die 6. automatisch bestimmt
-- **Einfluss auf kritische Werte**: Mehr Freiheitsgrade → höhere kritische Werte
+-   **Formel für Anpassungstest**: df = Kategorien - 1 = 6 - 1 = 5
+-   **Warum -1?**: Wenn 5 Häufigkeiten festgelegt sind, ist die 6. automatisch bestimmt
+-   **Einfluss auf kritische Werte**: Mehr Freiheitsgrade → höhere kritische Werte
 
-```{r}
+------------------------------------------------------------------------
+
+## Freiheitsgrade verstehen
+
+```{r echo=TRUE}
 # Kritische Werte anzeigen
 qchisq(0.95, df = 5)  # 95%-Quantil
 qchisq(0.99, df = 5)  # 99%-Quantil
 ```
 
-## Praktische Gruppenübung 🎲
-
-**Aufgabe**: Jede Gruppe würfelt 60 mal und sammelt die Daten
-
-1. **Daten sammeln**: Jeder würfelt 10 mal, Gruppe sammelt
-2. **Eingeben**: `meine_daten <- c(...)`
-3. **Testen**: `chisq.test(table(meine_daten))`
-4. **Interpretieren**: Ist euer Würfel fair?
-
-**Diskussion**: Warum unterscheiden sich die Ergebnisse zwischen den Gruppen?
+------------------------------------------------------------------------
 
 ## Arten von Chi-Quadrat-Tests
 
 ### 1. Anpassungstest (Goodness-of-Fit)
-- **Zweck**: Vergleich mit theoretischer Verteilung
-- **Beispiel**: Ist unser Würfel fair?
-- **H₀**: Alle Würfelseiten sind gleich wahrscheinlich
-- **H₁**: Mindestens eine Seite weicht ab
+
+-   **Zweck**: Vergleich mit theoretischer Verteilung
+-   **Beispiel**: Ist unser Würfel fair?
+-   **H₀**: Alle Würfelseiten sind gleich wahrscheinlich
+-   **H₁**: Mindestens eine Seite weicht ab
+
+## Unser Würfeltest
 
 ```{r echo=TRUE}
-# Unser Würfeltest
+
 chisq.test(beobachtet, p = rep(1/6, 6))
 ```
+
+------------------------------------------------------------------------
 
 ## Arten von Chi-Quadrat-Tests
 
 ### 2. Unabhängigkeitstest
-- **Zweck**: Zusammenhang zwischen zwei kategorialen Variablen
-- **Beispiel**: Hängt die Würfelzahl vom Werfer ab?
+
+-   **Zweck**: Zusammenhang zwischen zwei kategorialen Variablen
+-   **Beispiel**: Hängt die Würfelzahl vom Werfer ab?
 
 ```{r}
 # Simulierte Daten: Zwei Personen würfeln
@@ -2072,78 +2063,33 @@ person_b <- sample(1:6, 30, replace = TRUE,
                    prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
 
 # Kontingenztabelle erstellen
-kontingenztab_beispiel <- table(
+kontingenztab <- table(
   Person = rep(c("A", "B"), each = 30),
   Würfelzahl = c(person_a, person_b)
 )
-
-print("Kontingenztabelle:")
-print(kontingenztab_beispiel)
+print(kontingenztab)
 ```
+
+------------------------------------------------------------------------
 
 ## Unabhängigkeitstest durchführen
 
 ```{r}
-# Daten für Unabhängigkeitstest erstellen
-set.seed(123)
-person_a <- sample(1:6, 30, replace = TRUE)
-person_b <- sample(1:6, 30, replace = TRUE, 
-                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
-
-# Kontingenztabelle für Unabhängigkeitstest
-kontingenztab_unabh <- table(
-  Person = rep(c("A", "B"), each = 30),
-  Würfelzahl = c(person_a, person_b)
-)
-
-print("Kontingenztabelle:")
-print(kontingenztab_unabh)
-
 # Chi-Quadrat-Test für Unabhängigkeit
-chi_unabhängigkeit <- chisq.test(kontingenztab_unabh)
+chi_unabhängigkeit <- chisq.test(kontingenztab)
 print(chi_unabhängigkeit)
-
-# Interpretation: 
-# H₀: Würfelergebnis unabhängig von Person
-# H₁: Würfelergebnis hängt von Person ab
 ```
 
-## Residuen analysieren: Wo sind die Unterschiede?
-
-```{r}
-# Daten für Residuenanalyse erstellen
-set.seed(123)
-person_a <- sample(1:6, 30, replace = TRUE)
-person_b <- sample(1:6, 30, replace = TRUE, 
-                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
-
-# Kontingenztabelle und Test für Residuen
-kontingenztab_residuen <- table(
-  Person = rep(c("A", "B"), each = 30),
-  Würfelzahl = c(person_a, person_b)
-)
-
-chi_test_residuen <- chisq.test(kontingenztab_residuen)
-
-# Standardisierte Residuen anzeigen
-print("Kontingenztabelle:")
-print(kontingenztab_residuen)
-
-print("Standardisierte Residuen:")
-print(chi_test_residuen$stdres)
-
-# Große Residuen (|r| > 2) zeigen Zellen mit starken Abweichungen
-# Positive Werte: Häufiger als erwartet
-# Negative Werte: Seltener als erwartet
-```
+------------------------------------------------------------------------
 
 ## Arten von Chi-Quadrat-Tests
 
 ### 3. Homogenitätstest
-- **Zweck**: Vergleich von Verteilungen in verschiedenen Gruppen
-- **Beispiel**: Haben drei verschiedene Würfel die gleiche Verteilung?
 
-```{r echo=TRUE}
+-   **Zweck**: Vergleich von Verteilungen in verschiedenen Gruppen
+-   **Beispiel**: Haben drei verschiedene Würfel die gleiche Verteilung?
+
+```{r}
 # Drei Würfel vergleichen
 würfel_1 <- sample(1:6, 60, replace = TRUE)
 würfel_2 <- sample(1:6, 60, replace = TRUE)
@@ -2159,15 +2105,21 @@ tab_homogenität <- table(alle_würfel$würfel_typ, alle_würfel$ergebnis)
 chisq.test(tab_homogenität)
 ```
 
+------------------------------------------------------------------------
+
 ## Voraussetzungen des Chi-Quadrat-Tests
 
-### Wichtige Bedingungen:
-1. **Unabhängigkeit der Beobachtungen**
-   - Jeder Würfelwurf unabhängig
-   - Keine wiederholten Messungen derselben Person
-2. **Erwartete Häufigkeiten ≥ 5**
-   - In jeder Zelle der Tabelle
-   - Bei Verletzung: Kategorien zusammenfassen oder andere Tests
+1.  **Unabhängigkeit der Beobachtungen**
+    -   Jeder Würfelwurf unabhängig
+    -   Keine wiederholten Messungen derselben Person
+    
+## Voraussetzungen des Chi-Quadrat-Tests
+
+2.  **Erwartete Häufigkeiten ≥ 5**
+    -   In jeder Zelle der Tabelle
+    -   Bei Verletzung: Kategorien zusammenfassen oder andere Tests
+    
+## Voraussetzungen des Chi-Quadrat-Tests
 
 ```{r echo=TRUE}
 # Erwartete Häufigkeiten prüfen
@@ -2177,190 +2129,239 @@ chi_test$expected
 all(chi_test$expected >= 5)
 ```
 
-## Alternativen bei kleinen Stichproben
+------------------------------------------------------------------------
 
-### Fisher's Exakter Test
-- **Wann**: Erwartete Häufigkeiten < 5 in 2×2-Tabellen
-- **Vorteil**: Exakte p-Werte, keine Approximation
+## Alternativen bei kleinen Stichproben: Fisher's Exakter Test
 
-```{r echo=TRUE}
-# Beispiel mit kleiner 2x2-Tabelle
-kleine_tabelle <- matrix(c(2, 3, 1, 4), nrow = 2)
-fisher.test(kleine_tabelle)
-```
+-   **Wann**: Erwartete Häufigkeiten \< 5 in 2×2-Tabellen
+-   **Vorteil**: Exakte p-Werte, keine Approximation
 
-### Yates-Korrektur
-- **Wann**: 2×2-Tabellen mit kleinen Häufigkeiten
-- **Funktion**: Konservativere Schätzung
 
-```{r echo=TRUE}
-chisq.test(kleine_tabelle, correct = TRUE)
-```
-
-## Effektstärken für Chi-Quadrat-Tests
-
-### Phi-Koeffizient (φ) für 2×2-Tabellen
-```{r}
-# Beispiel-Kontingenztabelle für Phi
-beispiel_2x2 <- matrix(c(10, 15, 8, 17), nrow = 2)
-chi_beispiel <- chisq.test(beispiel_2x2)
-
-# Phi-Koeffizient berechnen
-phi <- sqrt(chi_beispiel$statistic / sum(beispiel_2x2))
-phi
-
-# Interpretation:
-# 0.1 = kleiner Effekt
-# 0.3 = mittlerer Effekt  
-# 0.5 = großer Effekt
-```
-
-### Cramér's V für größere Tabellen
-```{r echo=TRUE}
-# Cramér's V installieren falls nötig: install.packages("vcd")
-library(vcd)
-
-# Daten für Cramér's V erstellen
-set.seed(123)
-person_a <- sample(1:6, 30, replace = TRUE)
-person_b <- sample(1:6, 30, replace = TRUE, 
-                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
-
-# Kontingenztabelle für Cramér's V
-kontingenztab_cramers <- table(
-  Person = rep(c("A", "B"), each = 30),
-  Würfelzahl = c(person_a, person_b)
-)
-
-print(kontingenztab_cramers)
-assocstats(kontingenztab_cramers)
-```
+------------------------------------------------------------------------
 
 ## Visualisierung kategorialer Daten
 
-### Balkendiagramme
 ```{r}
-# Daten für Balkendiagramm erstellen
-set.seed(123)
-person_a <- sample(1:6, 30, replace = TRUE)
-person_b <- sample(1:6, 30, replace = TRUE, 
-                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
-
-# Kontingenztabelle für Balkendiagramm
-kontingenztab_balken <- table(
-  Person = rep(c("A", "B"), each = 30),
-  Würfelzahl = c(person_a, person_b)
-)
-
 # Gruppierte Balkendiagramme
-barplot(kontingenztab_balken, beside = TRUE, 
+barplot(kontingenztab, beside = TRUE, 
         legend.text = TRUE, 
         col = c("lightblue", "salmon"),
         main = "Würfelergebnisse nach Person",
         xlab = "Würfelzahl", ylab = "Häufigkeit")
 ```
 
-### Mosaikplots
-```{r echo=TRUE}
-# Alle notwendigen Daten für Mosaikplot erstellen
-library(vcd)
-set.seed(123)
+------------------------------------------------------------------------
 
-# Simulierte Daten: Zwei Personen würfeln
-person_a <- sample(1:6, 30, replace = TRUE)
-person_b <- sample(1:6, 30, replace = TRUE, 
-                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
+## Mosaikplots
 
-# Kontingenztabelle für Mosaikplot
-kontingenztab_mosaic <- table(
-  Person = rep(c("A", "B"), each = 30),
-  Würfelzahl = c(person_a, person_b)
-)
-
-print(kontingenztab_mosaic)
-
+```{r}
 # Mosaikplot erstellen
-mosaic(kontingenztab_mosaic, shade = TRUE, 
+library(vcd)
+mosaic(kontingenztab, shade = TRUE, 
        legend = TRUE, 
        main = "Zusammenhang: Person und Würfelergebnis")
 ```
 
-## Erweiterte Würfel-Simulation
-
-```{r echo=TRUE}
-# Simulation verschiedener Würfeltypen
-set.seed(123)
-
-# Fairer Würfel
-fair <- sample(1:6, 120, replace = TRUE)
-
-# Leicht gezinkter Würfel (6 bevorzugt)
-gezinkt <- sample(1:6, 120, replace = TRUE, 
-                  prob = c(0.15, 0.15, 0.15, 0.15, 0.15, 0.25))
-
-# Stark gezinkter Würfel
-stark_gezinkt <- sample(1:6, 120, replace = TRUE,
-                        prob = c(0.1, 0.1, 0.1, 0.1, 0.1, 0.5))
-
-# Alle testen
-chisq.test(table(fair))
-chisq.test(table(gezinkt))
-chisq.test(table(stark_gezinkt))
-```
+------------------------------------------------------------------------
 
 ## Praktische Anwendungsbeispiele
 
 ### Marktforschung
-- **Frage**: Bevorzugen verschiedene Altersgruppen unterschiedliche Produktfarben?
-- **Test**: Unabhängigkeitstest (Alter × Farbpräferenz)
+
+-   **Frage**: Bevorzugen verschiedene Altersgruppen unterschiedliche Produktfarben?
+-   **Test**: Unabhängigkeitstest (Alter × Farbpräferenz)
 
 ### Medizin
-- **Frage**: Ist ein neues Medikament wirksam?
-- **Test**: Unabhängigkeitstest (Behandlung × Heilung)
+
+-   **Frage**: Ist ein neues Medikament wirksam?
+-   **Test**: Unabhängigkeitstest (Behandlung × Heilung)
+
+------------------------------------------------------------------------
+
+## Praktische Anwendungsbeispiele
 
 ### Qualitätskontrolle
-- **Frage**: Produziert eine Maschine gleichmäßig?
-- **Test**: Anpassungstest (beobachtete vs erwartete Produktverteilung)
 
-## Weiterführende Tests für kategoriale Daten
+-   **Frage**: Produziert eine Maschine gleichmäßig?
+-   **Test**: Anpassungstest (beobachtete vs erwartete Produktverteilung)
 
-### McNemar-Test
-- **Zweck**: Für abhängige Stichproben (vor-nach-Vergleich)
-- **Beispiel**: Meinungsänderung vor/nach Information
+------------------------------------------------------------------------
+
+## TEIL 2: Vertiefung - Residuenanalyse und Effektstärken
+
+**Problem der bisherigen Analyse:** 
+
+-   Chi-Quadrat-Test sagt nur "es gibt einen Unterschied"
+-   **Aber nicht:** Wo? Wie stark? Praktisch relevant?
+
+**Lösung:** 
+
+-   **Residuenanalyse**: Wo sind die Unterschiede? 
+-   **Effektstärken**: Wie stark sind sie?
+
+------------------------------------------------------------------------
+
+## Residuenanalyse: Die Grundlagen
+
+**Das Problem:** Chi-Quadrat-Test sagt nur "es gibt einen Unterschied"
+
+**Die Lösung:** Residuen zeigen **wo** die Unterschiede liegen
+
+**Was sind Residuen?** 
+
+-   **Rohresiduen**: $r = O - E$ (Beobachtet - Erwartet) 
+-   **Problem der Rohresiduen**: Schwer zu interpretieren (ist +3 viel oder wenig?)
+-   **Lösung**: Standardisierte Residuen - vergleichbar zwischen verschiedenen Zellen
+
+------------------------------------------------------------------------
+
+## Von Rohresiduen zu standardisierten Residuen
+
+::::: columns
+::: {.column width="50%"}
+**Rohresiduen-Problem:** - Zelle A: +3 (von erwartet 10) - Zelle B: +3 (von erwartet 100) - Gleiche Abweichung, aber sehr unterschiedliche Bedeutung!
+:::
+
+::: {.column width="50%"}
+**Standardisierte Residuen:** $sr = \frac{O - E}{\sqrt{E}}$ - Berücksichtigen die "natürliche" Schwankung - Werden vergleichbar zwischen Zellen - Größere erwartete Werte → größere natürliche Schwankung
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Standardisierte Residuen verstehen
+
+**Intuitive Interpretation:** 
+
+-   **sr = 0**: Genau wie erwartet 
+-   **sr = +1**: Ein bisschen mehr als erwartet\
+-   **sr = +2**: Deutlich mehr als erwartet
+-   **sr = +3**: Sehr viel mehr als erwartet
+
+**Interpretationsrichtlinien:** 
+-   $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung 
+-   $|sr| > 2$: Ungewöhnlich - vermutlich nicht nur Zufall 
+-   $|sr| > 3$: Sehr ungewöhnlich - fast sicher nicht nur Zufall
+
+**Vorzeichen:** - **Positiv (+)**: Mehr als erwartet - **Negativ (-)**: Weniger als erwartet
+
+
+------------------------------------------------------------------------
+
+## Das Problem mit p-Werten
+
+::::: columns
+::: {.column width="50%"}
+**p-Wert beantwortet nur:** - "Gibt es einen Effekt?" (Ja/Nein) - Wird bei großen Stichproben fast immer signifikant
+
+**p-Wert sagt NICHT:** - Wie stark ist der Effekt? - Ist der Effekt praktisch relevant?
+:::
+
+::: {.column width="50%"}
+**Beispiel Problem:** - 10.000 Personen - Winziger, praktisch irrelevanter Unterschied - Trotzdem p \< 0.001 - **Ohne Effektstärke:** Fehlinterpretation!
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Effektstärken: Die Lösung
+
+**Cramér's V** - Die wichtigste Effektstärke für Chi-Quadrat-Tests
+
+**Formel:** $$V = \sqrt{\frac{\chi^2}{n \times (\min(r,c) - 1)}}$$
+
+Wo: 
+
+-   n = Gesamtstichprobengröße\
+-   r = Anzahl Zeilen 
+-   c = Anzahl Spalten
+
+------------------------------------------------------------------------
+
+## Cramér's V interpretieren
+
+::::: columns
+::: {.column width="50%"}
+**Interpretationsrichtlinien:** - **0.00 - 0.10**: Vernachlässigbarer Effekt - **0.10 - 0.30**: Kleiner Effekt\
+- **0.30 - 0.50**: Mittlerer Effekt - **0.50+**: Großer Effekt
+:::
+
+::: {.column width="50%"}
+**Wichtig:** - Unabhängig von Stichprobengröße - Vergleichbar zwischen Studien - Standardisiert zwischen 0 und 1
+:::
+:::::
+
+
+------------------------------------------------------------------------
+
+## Weitere Effektstärken für 2×2-Tabellen
+
+### Phi-Koeffizient (φ)
+
+**Nur für 2×2-Tabellen:** φ = √(χ² / n)
+
+### Odds Ratio (OR)
+
+**Interpretation:** Um wie viel mal wahrscheinlicher ist ein Ereignis in Gruppe A vs. B?
 
 ```{r echo=TRUE}
-# Beispiel: Meinung vor und nach Präsentation
-# Matrix: (vorher_ja/nachher_ja, vorher_ja/nachher_nein,
-#          vorher_nein/nachher_ja, vorher_nein/nachher_nein)
-vorher_nachher <- matrix(c(25, 5, 10, 20), nrow = 2)
-mcnemar.test(vorher_nachher)
+# Beispiel 2x2-Tabelle
+behandlung <- matrix(c(40, 10, 20, 30), nrow = 2,
+                    dimnames = list(
+                      Behandlung = c("Neu", "Standard"),
+                      Heilung = c("Geheilt", "Nicht_geheilt")
+                    ))
+print(behandlung)
 ```
 
-### Loglineare Modelle
-- **Zweck**: Komplexe Zusammenhänge in mehrdimensionalen Tabellen
-- **Vorteil**: Kontrolle für mehrere Variablen gleichzeitig
+------------------------------------------------------------------------
 
-## Interpretation und Berichterstattung
+## Odds Ratio berechnen
 
-### APA-Style Beispiel:
-*"Ein Chi-Quadrat-Anpassungstest zeigte keinen signifikanten Unterschied zwischen den beobachteten und erwarteten Häufigkeiten beim Würfeltest, χ²(5) = 2.40, p = .79. Der Würfel kann als fair betrachtet werden."*
+```{r echo=TRUE}
+# Odds Ratio manuell
+a <- behandlung[1,1]  # Neue Behandlung, geheilt
+b <- behandlung[1,2]  # Neue Behandlung, nicht geheilt  
+c <- behandlung[2,1]  # Standard, geheilt
+d <- behandlung[2,2]  # Standard, nicht geheilt
 
-## Wichtige Elemente:
-- Art des Tests
-- Chi-Quadrat-Wert
-- Freiheitsgrade
-- p-Wert
-- Interpretation im Kontext
+odds_ratio <- (a * d) / (b * c)
+print(paste("Odds Ratio =", round(odds_ratio, 2)))
+```
+
+```{r echo=TRUE}
+# Mit Konfidenzintervall
+fisher.test(behandlung)$estimate
+```
+
+**Interpretation:** OR = 6 → Neue Behandlung ist 6× erfolgreicher
+
+------------------------------------------------------------------------
+
+## APA-konformes Berichten
+
+**Vollständiger Bericht:**
+
+*"Ein Chi-Quadrat-Unabhängigkeitstest zeigte einen signifikanten Zusammenhang zwischen Geschlecht und Studienfachwahl, χ²(2) = 8.24, p = .016, Cramér's V = .23. Die Residuenanalyse ergab, dass Männer in den Sozialwissenschaften überrepräsentiert waren (sr = 2.68), während Frauen in MINT-Fächern häufiger vertreten waren als erwartet (sr = 1.58)."*
+
+
+------------------------------------------------------------------------
 
 ## Häufige Fehler vermeiden
 
-### ❌ Falsch:
-- Kontinuierliche Daten kategorisieren nur für Chi-Quadrat-Test
-- Chi-Quadrat für Korrelationen verwenden
-- Erwartete Häufigkeiten < 5 ignorieren
+### ❌ Falsche Annahmen:
 
-### ✅ Richtig:
-- Angemessene Teststärke durch ausreichende Stichproben
-- Voraussetzungen prüfen
-- Effektstärken zusätzlich berichten
-- Residuen für detaillierte Analyse nutzen
+-   Kontinuierliche Daten kategorisieren nur für Chi-Quadrat-Test
+-   "Großes χ² bedeutet automatisch wichtigen Effekt"
+-   "Signifikanz = praktische Bedeutsamkeit"
+-   Erwartete Häufigkeiten \< 5 ignorieren
+
+## Häufige Fehler vermeiden
+
+### ✅ Richtige Interpretation:
+
+-   **Signifikanz UND Effektstärke** zusammen betrachten
+-   Angemessene Teststärke durch ausreichende Stichproben
+-   Voraussetzungen prüfen
+-   **Residuen für detaillierte Analyse nutzen**
+
