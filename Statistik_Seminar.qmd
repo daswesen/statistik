@@ -2322,3 +2322,8 @@ Wo:
 -   Voraussetzungen prüfen
 -   **Residuen für detaillierte Analyse nutzen**
 
+## Nicht immer ist es ein Chi Square-Test
+
+"The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections [...]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval [CI], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P<0.001)."
+
+

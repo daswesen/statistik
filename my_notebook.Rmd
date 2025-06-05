@@ -707,5 +707,3 @@ Die starke Assoziation (Cramér's V = 0.308) ist **mathematisch zwingend**:
 
 
 
-
-
