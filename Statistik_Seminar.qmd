@@ -2215,12 +2215,16 @@ mosaic(kontingenztab, shade = TRUE,
 
 ## Standardisierte Residuen verstehen
 
-**Interpretationsrichtlinien:** 
+**Interpretationsrichtlinien:**
+
 -   $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung 
 -   $|sr| > 2$: Ungewöhnlich - vermutlich nicht nur Zufall 
 -   $|sr| > 3$: Sehr ungewöhnlich - fast sicher nicht nur Zufall
 
-**Vorzeichen:** - **Positiv (+)**: Mehr als erwartet - **Negativ (-)**: Weniger als erwartet
+**Vorzeichen:**
+
+-   **Positiv (+)**: Mehr als erwartet
+-   **Negativ (-)**: Weniger als erwartet
 
 
 ------------------------------------------------------------------------
@@ -2270,12 +2274,20 @@ Wo:
 
 ::::: columns
 ::: {.column width="50%"}
-**Interpretationsrichtlinien:** - **0.00 - 0.10**: Vernachlässigbarer Effekt - **0.10 - 0.30**: Kleiner Effekt\
-- **0.30 - 0.50**: Mittlerer Effekt - **0.50+**: Großer Effekt
+**Interpretationsrichtlinien:** 
+
+-   **0.00 - 0.10**: Vernachlässigbarer Effekt
+-   **0.10 - 0.30**: Kleiner Effekt
+-   **0.30 - 0.50**: Mittlerer Effekt 
+-   **0.50+**: Großer Effekt
 :::
 
 ::: {.column width="50%"}
-**Wichtig:** - Unabhängig von Stichprobengröße - Vergleichbar zwischen Studien - Standardisiert zwischen 0 und 1
+**Wichtig:** 
+
+-   Unabhängig von Stichprobengröße 
+-   Vergleichbar zwischen Studien
+-   Standardisiert zwischen 0 und 1
 :::
 :::::
 
