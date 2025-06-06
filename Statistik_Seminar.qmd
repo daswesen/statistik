@@ -2327,3 +2327,34 @@ Wo:
 "The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections [...]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval [CI], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P<0.001)."
 
 
+## Effektgröße beim t-Test: Cohen's d
+
+
+**Das Problem:**
+
+t = 3.45, p = 0.001
+→ "Signifikant!" 
+
+**Aber wie groß ist der Unterschied wirklich?**
+
+**Cohen's d Formel:**
+$$d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}}$$
+
+## Interpretation nach Cohen
+
+
+| Cohen's d | Effektgröße | Beispiel |
+|-----------|-------------|----------|
+| **0.2** | Klein | Männer vs. Frauen: Körpergröße |
+| **0.5** | Mittel | Therapie vs. Kontrollgruppe |
+| **0.8** | Groß | Experten vs. Anfänger |
+
+
+## Vier kritische Szenarien
+
+| p-Wert | Cohen's d | Interpretation |
+|--------|-----------|----------------|
+| p > 0.05 | d < 0.2 | ✅ Kein Effekt |
+| p > 0.05 | d > 0.5 | ⚠️ Zu kleine Stichprobe |
+| p < 0.05 | d > 0.5 | ✅ Signifikant & bedeutsam |
+| p < 0.05 | d < 0.2 | ❌ **"Signifikant trivial"** |
