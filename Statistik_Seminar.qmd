@@ -218,6 +218,17 @@ author: "Dr. Tom Alby"
 ## Wie könnte man die Einkommensverteilung beschreiben?
 
 ![](images/einkommensschichtung.png)
+## Im Durchschnitt haben Sie...
+
+::::: columns
+::: {.column width="50%"}
+![](images/schulden1.png)
+:::
+
+::: {.column width="50%"}
+![](images/schulden2.png)
+:::
+:::::
 
 ## Histogramm
 
@@ -1886,19 +1897,41 @@ t.test(würfe, mu = 3.5)
 -   **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
 -   **Balanceakt**: Abwägung zwischen α und β
 
+## Effektgröße beim t-Test: Cohen's d
+
+
+**Das Problem:**
+
+t = 3.45, p = 0.001
+→ "Signifikant!" 
+
+**Aber wie groß ist der Unterschied wirklich?**
+
+**Cohen's d Formel:**
+$$d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}}$$
+
+## Interpretation nach Cohen
+
+
+| Cohen's d | Effektgröße | Beispiel |
+|-----------|-------------|----------|
+| **0.2** | Klein | Männer vs. Frauen: Körpergröße |
+| **0.5** | Mittel | Therapie vs. Kontrollgruppe |
+| **0.8** | Groß | Experten vs. Anfänger |
+
+
+## Vier kritische Szenarien
+
+| p-Wert | Cohen's d | Interpretation |
+|--------|-----------|----------------|
+| p > 0.05 | d < 0.2 | ✅ Kein Effekt |
+| p > 0.05 | d > 0.5 | ⚠️ Zu kleine Stichprobe |
+| p < 0.05 | d > 0.5 | ✅ Signifikant & bedeutsam |
+| p < 0.05 | d < 0.2 | ❌ **"Signifikant trivial"** |
+
 # Sitzung 7: Chi-Quadrat-Test für Häufigkeiten
 
-## Nachtrag
 
-::::: columns
-::: {.column width="50%"}
-![](images/schulden1.png)
-:::
-
-::: {.column width="50%"}
-![](images/schulden2.png)
-:::
-:::::
 
 ------------------------------------------------------------------------
 
@@ -2184,21 +2217,29 @@ mosaic(kontingenztab, shade = TRUE,
 
 **Was sind Residuen?** 
 
--   **Rohresiduen**: $r = O - E$ (Beobachtet - Erwartet) 
--   **Problem der Rohresiduen**: Schwer zu interpretieren (ist +3 viel oder wenig?)
+-   **Residuen**: $r = O - E$ (Beobachtet - Erwartet) 
+-   **Problem der Residuen**: Schwer zu interpretieren (ist +3 viel oder wenig?)
 -   **Lösung**: Standardisierte Residuen - vergleichbar zwischen verschiedenen Zellen
 
 ------------------------------------------------------------------------
 
-## Von Rohresiduen zu standardisierten Residuen
+## Von Residuen zu standardisierten Residuen
 
 ::::: columns
 ::: {.column width="50%"}
-**Rohresiduen-Problem:** - Zelle A: +3 (von erwartet 10) - Zelle B: +3 (von erwartet 100) - Gleiche Abweichung, aber sehr unterschiedliche Bedeutung!
+**Rohresiduen-Problem:** 
+
+-   Zelle A: +3 (von erwartet 10)
+-   Zelle B: +3 (von erwartet 100) 
+-   Gleiche Abweichung, aber sehr unterschiedliche Bedeutung!
 :::
 
 ::: {.column width="50%"}
-**Standardisierte Residuen:** $sr = \frac{O - E}{\sqrt{E}}$ - Berücksichtigen die "natürliche" Schwankung - Werden vergleichbar zwischen Zellen - Größere erwartete Werte → größere natürliche Schwankung
+**Standardisierte Residuen:** $sr = \frac{O - E}{\sqrt{E}}$
+
+-   Berücksichtigen die "natürliche" Schwankung 
+-   Werden vergleichbar zwischen Zellen 
+-   Größere erwartete Werte → größere natürliche Schwankung
 :::
 :::::
 
@@ -2338,35 +2379,112 @@ Wo:
 
 "The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections [...]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval [CI], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P<0.001)."
 
+# Sitzung 8: Korrelationsanalyse
 
-## Effektgröße beim t-Test: Cohen's d
+## Was ist eine Korrelation?
+
+![](images/1840_bachelors-degrees-awarded-in-library-science_correlates-with_google-searches-for-how-to-hide-a-body.png)
+
+## Was war zuerst da?
+
+![](images/murder.png)
+
+## Grundkonzepte der Korrelation
+
+-   **Definition**: Stärke eines Zusammenhangs zwischen Variablen
+-   **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkungs-Beziehung
+-   **Gemeinsame Varianz**: Was der Korrelationskoeffizient wirklich misst
+
+## Von der Kovarianz zur Korrelation
+
+-   **Kovarianz**: Unstandarisiertes Maß für gemeinsame Variation
+    -   Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
+-   **Pearson-Korrelation**: Standardisierte Kovarianz
+    -   Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
+    -   Wertebereich: -1 bis +1
+
+## Pearson-Korrelation
+
+-   **Voraussetzungen**:
+
+    -   Lineare Beziehung
+    -   Normalverteilung der Variablen (für Hypothesentests)
+    -   Keine Ausreißer (starker Einfluss auf r)
+-   **Interpretation der Stärke**:
+
+    -   Schwach: \|r\| ≈ 0.1-0.3
+    -   Mittel: \|r\| ≈ 0.3-0.5
+    -   Stark: \|r\| \> 0.5
+    
+-   R-Code: `cor.test(daten$x, daten$y)`
+
+## Durchführung in R
+
+![](images/pearson.png)
 
 
-**Das Problem:**
+## Alternative Korrelationsmaße
 
-t = 3.45, p = 0.001
-→ "Signifikant!" 
+-   **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
+    -   Formel: Pearson-Korrelation der rangtransformierten Daten
+    -   Robuster gegenüber Ausreißern
+    -   R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
+    
+## Alternative Korrelationsmaße
 
-**Aber wie groß ist der Unterschied wirklich?**
+-   **Kendall's Tau**: Alternative rangbasierte Korrelation
+    -   Basiert auf konkordanten vs. diskordanten Paaren
+    -   Robuster bei kleinen Stichproben
+    -   R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
 
-**Cohen's d Formel:**
-$$d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}}$$
+## Visualisierung: Streudiagramm
 
-## Interpretation nach Cohen
-
-
-| Cohen's d | Effektgröße | Beispiel |
-|-----------|-------------|----------|
-| **0.2** | Klein | Männer vs. Frauen: Körpergröße |
-| **0.5** | Mittel | Therapie vs. Kontrollgruppe |
-| **0.8** | Groß | Experten vs. Anfänger |
+```{r}
+plot(cars)
+```
 
 
-## Vier kritische Szenarien
 
-| p-Wert | Cohen's d | Interpretation |
-|--------|-----------|----------------|
-| p > 0.05 | d < 0.2 | ✅ Kein Effekt |
-| p > 0.05 | d > 0.5 | ⚠️ Zu kleine Stichprobe |
-| p < 0.05 | d > 0.5 | ✅ Signifikant & bedeutsam |
-| p < 0.05 | d < 0.2 | ❌ **"Signifikant trivial"** |
+## Visualisierung: Korrelationsmatrix
+
+```{r}
+# Daten laden
+data(mtcars)
+
+# Korrelation berechnen
+cor_matrix <- cor(mtcars)
+
+# corrplot laden (ggf. vorher installieren)
+library(corrplot)
+
+# Korrelationen visualisieren
+corrplot(cor_matrix, method = "circle")
+```
+
+
+## Fallstricke und Fehlinterpretationen
+
+-   **Scheinkorrelationen**: Effekt von Drittvariablen
+-   **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
+-   **Aggregationsprobleme**: Simpson's Paradoxon
+-   **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
+
+## Inter-Rater Reliability
+
+-   **Definition**: Konsistenz zwischen verschiedenen Beurteilern
+
+-   **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
+
+-   **Maße für kategoriale Daten**:
+
+    -   Cohen's Kappa (zwei Rater)
+    -   Fleiss' Kappa (mehr als zwei Rater)
+
+-   **Maße für kontinuierliche Daten**:
+
+    -   Intraclass Correlation Coefficient (ICC)
+
+## Wann nutze ich eigentlich was?
+
+![](images/entscheidungsbaum.png)
+
