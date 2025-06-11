@@ -2392,12 +2392,12 @@ Wo:
 ## Grundkonzepte der Korrelation
 
 -   **Definition**: Stärke eines Zusammenhangs zwischen Variablen
--   **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkungs-Beziehung
--   **Gemeinsame Varianz**: Was der Korrelationskoeffizient wirklich misst
+-   **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkung-Beziehung
+
 
 ## Von der Kovarianz zur Korrelation
 
--   **Kovarianz**: Unstandarisiertes Maß für gemeinsame Variation
+-   **Kovarianz**: Unstandartisiertes Maß für gemeinsame Variation
     -   Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
 -   **Pearson-Korrelation**: Standardisierte Kovarianz
     -   Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
@@ -2410,6 +2410,7 @@ Wo:
     -   Lineare Beziehung
     -   Normalverteilung der Variablen (für Hypothesentests)
     -   Keine Ausreißer (starker Einfluss auf r)
+    
 -   **Interpretation der Stärke**:
 
     -   Schwach: \|r\| ≈ 0.1-0.3
@@ -2468,6 +2469,18 @@ corrplot(cor_matrix, method = "circle")
 -   **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
 -   **Aggregationsprobleme**: Simpson's Paradoxon
 -   **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
+
+## Fallbeispiel: Kriminalität in NYC
+
+![](images/Giuliani_crime_rate.png)
+
+## Wurden die Verbrecher erst gar nicht geboren?
+
+![](images/baby_pill.png)
+
+## War es das Blei im Benzin?
+
+![](images/blog_lead_crime_main_chart.png)
 
 ## Inter-Rater Reliability
 
