@@ -2419,6 +2419,13 @@ Wo:
     
 -   R-Code: `cor.test(daten$x, daten$y)`
 
+
+## Visualisierung: Streudiagramm
+
+```{r}
+plot(cars)
+```
+
 ## Durchführung in R
 
 ![](images/pearson.png)
@@ -2438,11 +2445,6 @@ Wo:
     -   Robuster bei kleinen Stichproben
     -   R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
 
-## Visualisierung: Streudiagramm
-
-```{r}
-plot(cars)
-```
 
 
 
@@ -2470,6 +2472,30 @@ corrplot(cor_matrix, method = "circle")
 -   **Aggregationsprobleme**: Simpson's Paradoxon
 -   **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
 
+## Simpson’s Paradoxon: Studienplatzvergabe
+
+
+
+| Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
+|------------|-------------|------------|--------------|
+| Männer     | 1000        | 600        | 60%         |
+| Frauen     | 1000        | 500        | 50%         |
+
+
+
+## Simpson’s Paradoxon: Studienplatzvergabe
+
+
+| Fach              | Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
+|-------------------|------------|-------------|------------|--------------|
+| **Fach A (leicht)**     | Männer     | 800         | 560        | 70%         |
+|                       | Frauen     | 200         | 180        | 90%         |
+| **Fach B (schwierig)** | Männer     | 200         | 40         | 20%         |
+|                       | Frauen     | 800         | 320        | 40%         |
+
+
+
+
 ## Fallbeispiel: Kriminalität in NYC
 
 ![](images/Giuliani_crime_rate.png)
@@ -2481,6 +2507,10 @@ corrplot(cor_matrix, method = "circle")
 ## War es das Blei im Benzin?
 
 ![](images/blog_lead_crime_main_chart.png)
+
+## Was war es denn nun?
+
+![](images/change_my_mind.png)
 
 ## Inter-Rater Reliability
 
@@ -2496,6 +2526,10 @@ corrplot(cor_matrix, method = "circle")
 -   **Maße für kontinuierliche Daten**:
 
     -   Intraclass Correlation Coefficient (ICC)
+    
+## Visualisierung: Violinen-Diagramm
+
+![](images/spinaliom-vergleich-therapie.png)
 
 ## Wann nutze ich eigentlich was?
 
