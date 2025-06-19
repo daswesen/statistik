@@ -2549,7 +2549,7 @@ corrplot(cor_matrix, method = "circle")
 
 ## Einstieg: Wie viel Miete ist zu viel?
 
-> Du willst nach Berlin ziehen und findest 100 Wohnungsanzeigen. Dort stehen jeweils Wohnfläche (qm) und Miete (Euro).
+Sie wollen nach Berlin ziehen und finden 100 Wohnungsanzeigen. Dort stehen jeweils Wohnfläche (qm) und Miete (Euro).
 >
 > **Frage:** Kann man aus der Wohnfläche den Mietpreis vorhersagen?
 
@@ -2575,22 +2575,21 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
 
 ## Das Modell dahinter: Lineare Regression
 
-\[ \hat{Y} = \beta_0 + \beta_1 \cdot X + \varepsilon \]
+$$\hat{Y} = \beta_0 + \beta_1 \cdot X + \varepsilon$$
 
-- \( \beta_0 \): Startwert (Y bei X = 0)
-- \( \beta_1 \): Steigung (Zunahme von Y bei 1 Einheit mehr X)
-- \( \varepsilon \): "Fehler" – das, was das Modell nicht erklärt
+- $\beta_0$: Startwert (Y bei X = 0)
+- $\beta_1$: Steigung (Zunahme von Y bei 1 Einheit mehr X)
+- $\varepsilon$: "Fehler" – das, was das Modell nicht erklärt
 
 ---
 
 ## R-Code zur Modellschätzung
 
-```{r}
-modell <- lm(miete ~ flaeche, data = wohnungen)
-summary(modell)
-```
+![](images/regression-ausgabe.png)
 
-> Beispielausgabe: Für jede zusätzliche m² steigt die Miete im Schnitt um 12,50 €.
+```{r echo=FALSE}
+modell <- lm(miete ~ flaeche, data = wohnungen)
+```
 
 ---
 
@@ -2602,7 +2601,7 @@ summary(modell)
 
 ---
 
-## Residuenplot
+## Residuenplot - Erwartung: Punkte gleichmäßig um die Nulllinie verteilt
 
 ```{r}
 ggplot(data.frame(fitted = fitted(modell), residuals = residuals(modell)),
@@ -2612,52 +2611,169 @@ ggplot(data.frame(fitted = fitted(modell), residuals = residuals(modell)),
   theme_minimal()
 ```
 
-> Erwartung: Punkte gleichmäßig um die Nulllinie verteilt
-
-
-
 ---
 
-## Jetzt wird's binär: Logistische Regression
+## Visualisierung der Daten
 
-> Frage: Öffnet jemand eine E-Mail oder nicht? (Y = 1 oder 0)
+```{r echo=FALSE, message=FALSE}
+Wohnungen_mit_Energieeffizienz <- read_csv("data/Wohnungen_mit_Energieeffizienz.csv")
+```
 
-- X: Betrefflänge in Zeichen
-- Y: geöffnet (1) oder nicht (0)
-- → **Ziel:** Wahrscheinlichkeit modellieren, nicht Mittelwert!
-
----
-
-## Visualisierung: S-Kurve
 
 ```{r}
-library(ggplot2)
-library(ggpmisc)
-
-# Beispiel-Datensatz für Mail-Öffnungen
-set.seed(42)
-mails <- data.frame(
-  betrefflaenge = sample(10:80, 100, replace = TRUE),
-  geoeffnet = rbinom(100, 1, prob = plogis((sample(10:80, 100, replace = TRUE) - 40)/10))
-)
-
-modell_logit <- glm(geoeffnet ~ betrefflaenge, data = mails, family = binomial)
-
-mails$pred <- predict(modell_logit, type = "response")
-
-ggplot(mails, aes(x = betrefflaenge, y = geoeffnet)) +
-  geom_jitter(height = 0.05, width = 0) +
-  geom_line(aes(y = pred), color = "blue") +
+ggplot(Wohnungen_mit_Energieeffizienz, aes(x = flaeche, y = miete, color = factor(saniert))) +
+  geom_point(alpha = 0.7) +
+  labs(color = "Saniert", x = "Fläche (m²)", y = "Miete (€)") +
   theme_minimal()
 ```
 
 ---
 
-## Interpretation logistischer Modelle
+## Welchen Einfluss hat die Energieeffizienzklasse?
 
-- **Steigung positiv:** längere Betreffzeile → höhere Öffnungswahrscheinlichkeit
-- **Steigung negativ:** längere Betreffzeile → niedrigere Öffnungswahrscheinlichkeit
-- Mit `exp(coef(modell_logit))` erhält man **Odds Ratios**
+```{r}
+ggplot(Wohnungen_mit_Energieeffizienz, aes(x = energieeffizienz, y = miete)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(x = "Energieeffizienzklasse", y = "Miete (€)") +
+  theme_minimal()
+```
+
+## Einfluss von Fläche und Energieeffizienz auf Miete
+
+```{r}
+ggplot(Wohnungen_mit_Energieeffizienz, aes(x = flaeche, y = miete)) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~ energieeffizienz) +
+  theme_minimal()
+```
+
+## Der Output
+
+```{r}
+
+model <- lm(miete ~ flaeche + saniert + energieeffizienz, data = Wohnungen_mit_Energieeffizienz)
+# summary(model)
+```
+
+![](images/logit.png)
+---
+
+## Jetzt wird's binär: Logistische Regression
+
+Frage: Stirbt ein Titanic-Passagier oder nicht? Und welche Faktoren führen dazu?
+
+## Was sind Log-Odds?
+
+In der logistischen Regression wird **nicht direkt die Wahrscheinlichkeit** geschätzt, sondern:
+
+$$\log\left(\frac{p}{1 - p}\right)$$
+
+Das ist der sogenannte **Logit** – also der **logarithmierte Quotient der Wahrscheinlichkeit und ihrer Gegenwahrscheinlichkeit**.
+
+---
+
+## Warum Log-Odds?
+
+- Wahrscheinlichkeiten liegen **zwischen 0 und 1**
+- Log-Odds hingegen können **alle Werte zwischen –∞ und +∞** annehmen
+- So kann ein **lineares Modell** verwendet werden:
+  
+  $$\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k $$
+
+---
+
+## Beispiel:
+
+| Wahrscheinlichkeit \\(p\\) | Odds \\(p / (1 - p)\\) | Log-Odds \\( \log(p / (1 - p)) \\) |
+|----------------------------|-------------------------|------------------------------------|
+| 0.10                       | 0.111                   | –2.20                              |
+| 0.50                       | 1.000                   |  0.00                              |
+| 0.90                       | 9.000                   |  2.20                              |
+
+---
+
+## Merksatz:
+
+**Log-Odds** sind eine **Umformung der Wahrscheinlichkeit** und erlauben **lineare Modellierung** auf einer unbeschränkten Skala.
+
+---
+
+```{r echo=FALSE}
+# Installieren falls nötig
+#install.packages("titanic")
+library(titanic)
+data("titanic_train")
+```
+
+## Zunächst müssen wir die Daten vorbereiten
+
+```{r echo=TRUE}
+titanic <- titanic_train %>%
+  select(Survived, Pclass, Sex, Age) %>%
+  filter(!is.na(Age)) %>%
+  mutate(
+    Survived = factor(Survived, labels = c("Gestorben", "Überlebt")),
+    Sex = factor(Sex),
+    Pclass = factor(Pclass)
+  )
+```
+
+## Der Output
+
+![](images/titanic-logit.png)
+```{r}
+model <- glm(Survived ~ Age + Sex + Pclass, data = titanic, family = binomial)
+# summary(model)
+```
+
+
+## Ausgabe der LogOdds
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#exp(coef(model))
+```
+
+![](images/logodds.png)
+
+---
+
+## S-Kurve
+
+```{r}
+library(titanic)
+library(ggplot2)
+library(dplyr)
+
+data("titanic_train")
+
+# Daten vorbereiten
+titanic <- titanic_train %>%
+  select(Survived, Age) %>%
+  filter(!is.na(Age)) %>%
+  mutate(Survived = factor(Survived, labels = c("Gestorben", "Überlebt")))
+
+ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"))) +
+  geom_point(alpha = 0.2, position = position_jitter(height = 0.05)) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  labs(x = "Alter", y = "Wahrscheinlichkeit zu überleben",
+       title = "S-Kurve: Überlebenswahrscheinlichkeit nach Alter") +
+  theme_minimal()
+```
+
+## S-Kurve II
+
+```{r}
+titanic <- titanic_train %>%
+  select(Survived, Age, Sex) %>%
+  filter(!is.na(Age)) %>%
+  mutate(Survived = factor(Survived, labels = c("Gestorben", "Überlebt")))
+
+ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Sex)) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  labs(title = "S-Kurve: Überleben nach Alter und Geschlecht", y = "Wahrscheinlichkeit zu überleben") +
+  theme_minimal()
+```
+
 
 ---
 
@@ -2665,25 +2781,9 @@ ggplot(mails, aes(x = betrefflaenge, y = geoeffnet)) +
 
 | Aspekt             | Lineare Regression        | Logistische Regression            |
 |--------------------|---------------------------|-----------------------------------|
-| Zielvariable Y     | metrisch (z. B. Preis)    | binär (z. B. geöffnet ja/nein)    |
+| Zielvariable Y     | metrisch (z.B. Preis)    | binär (z.B. gestorben ja/nein)    |
 | Ergebnis           | Gerade                    | S-Kurve                           |
 | Vorhersage         | Reeller Zahlenwert        | Wahrscheinlichkeit (0–1)          |
 | Residuen           | Differenz                 | Abweichung in Log-Odds            |
 | Interpretation     | Effekt pro X              | Odds Ratio                        |
 
----
-
-## Übung: Logistische Regression
-
-1. Datensatz: `kunden` mit `anzahl_mails` und `gekauft` (0/1)
-2. Modell mit `glm(gekauft ~ anzahl_mails, family = binomial)`
-3. Visualisieren & interpretieren
-4. Odds Ratio berechnen
-
----
-
-## Fazit
-
-- Beide Modelle zeigen Zusammenhänge – aber in unterschiedlichem Kontext
-- Die Wahl hängt von der **Zielvariablen** ab
-- In Hausarbeiten: Fragestellung → Modellwahl → Ergebnis → Interpretation
