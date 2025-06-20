@@ -1,9 +1,8 @@
 ---
 title: "Statistik für die Angewandte Forschung"
 format: pptx
-date:  today 
+date: now
 author: "Dr. Tom Alby"
-
 ---
 
 ```{r}
@@ -2555,7 +2554,7 @@ Sie wollen nach Berlin ziehen und finden 100 Wohnungsanzeigen. Dort stehen jewei
 
 ---
 
-## Erste Visualisierung: Streudiagramm mit Regressionslinie
+## Erste Visualisierung: Streudiagramm
 
 ```{r}
 
@@ -2567,7 +2566,7 @@ wohnungen <- data.frame(
 
 ggplot(wohnungen, aes(x = flaeche, y = miete)) +
   geom_point() +
-  geom_smooth(method = "lm", se = TRUE) +
+  #geom_smooth(method = "lm", se = FALSE) +
   theme_minimal()
 ```
 
@@ -2580,6 +2579,50 @@ $$\hat{Y} = \beta_0 + \beta_1 \cdot X + \varepsilon$$
 - $\beta_0$: Startwert (Y bei X = 0)
 - $\beta_1$: Steigung (Zunahme von Y bei 1 Einheit mehr X)
 - $\varepsilon$: "Fehler" – das, was das Modell nicht erklärt
+
+---
+
+```{r message=FALSE}
+# Modell berechnen
+modell <- lm(miete ~ flaeche, data = wohnungen)
+
+# Vorhergesagte Werte ergänzen
+wohnungen$vorhergesagt <- predict(modell)
+
+# Plot mit Residuenlinien
+ggplot(wohnungen, aes(x = flaeche, y = miete)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  geom_segment(aes(x = flaeche, xend = flaeche,
+                   y = miete, yend = vorhergesagt),
+               color = "red") +
+  theme_minimal()
+```
+
+
+---
+
+## Wie es genau funktioniert
+
+![](images/linear_regression.gif)
+
+---
+
+## Zweite Visualisierung: Streudiagramm mit Regressionslinie
+
+```{r warning=FALSE, message=FALSE}
+
+# Beispiel-Datensatz für Wohnungen erzeugen
+wohnungen <- data.frame(
+  flaeche = c(30, 45, 60, 70, 80, 90, 100, 110, 120),
+  miete = c(450, 600, 720, 850, 1000, 1150, 1250, 1400, 1550)
+)
+
+ggplot(wohnungen, aes(x = flaeche, y = miete)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal()
+```
 
 ---
 
@@ -2596,7 +2639,7 @@ modell <- lm(miete ~ flaeche, data = wohnungen)
 ## Modellgüte: Wie gut passt die Gerade?
 
 - R² = Anteil der erklärten Varianz
-- Beispiel: R² = 0.72 → 72 % der Mietunterschiede durch Fläche erklärbar
+- Beispiel: R² = 0.99 → 99% der Mietunterschiede durch Fläche erklärbar
 - Residuenplot prüfen: Gibt es systematische Fehler?
 
 ---
@@ -2610,6 +2653,10 @@ ggplot(data.frame(fitted = fitted(modell), residuals = residuals(modell)),
   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
   theme_minimal()
 ```
+
+---
+
+## Aber ist die Fläche wirklich die einzige unabhängige Variable?
 
 ---
 
@@ -2658,6 +2705,46 @@ model <- lm(miete ~ flaeche + saniert + energieeffizienz, data = Wohnungen_mit_E
 ![](images/logit.png)
 ---
 
+## Wie funktioniert das mit der Linie mit mehr als zwei Variablen?
+
+```{r warning=FALSE}
+#install.packages("scatterplot3d")
+library(scatterplot3d)
+set.seed(42)
+
+wohnungen <- data.frame(
+  flaeche = runif(100, 30, 120),
+  saniert = sample(0:1, 100, replace = TRUE)
+)
+
+# Miete simulieren
+wohnungen$miete <- 200 + 10 * wohnungen$flaeche + 150 * wohnungen$saniert + rnorm(100, 0, 100)
+
+# Modell wie gehabt
+modell <- lm(miete ~ flaeche + saniert, data = wohnungen)
+
+# 3D-Scatterplot
+s3d <- scatterplot3d(wohnungen$flaeche, wohnungen$saniert, wohnungen$miete,
+                     xlab = "Fläche (qm)",
+                     ylab = "Saniert (0 = nein, 1 = ja)",
+                     zlab = "Miete (€)",
+                     pch = 16,
+                     color = "blue",
+                     angle = 55,
+                     main = "Lineare Regression mit drei Variablen")
+
+# Regressionsfläche berechnen
+gitter <- expand.grid(
+  flaeche = seq(min(wohnungen$flaeche), max(wohnungen$flaeche), length.out = 2),
+  saniert = c(0, 1)
+)
+gitter$miete <- predict(modell, newdata = gitter)
+
+# Regressionsfläche als Linien zeichnen
+s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5, 0.1, 0.3)))
+```
+
+
 ## Jetzt wird's binär: Logistische Regression
 
 Frage: Stirbt ein Titanic-Passagier oder nicht? Und welche Faktoren führen dazu?
@@ -2669,6 +2756,24 @@ In der logistischen Regression wird **nicht direkt die Wahrscheinlichkeit** gesc
 $$\log\left(\frac{p}{1 - p}\right)$$
 
 Das ist der sogenannte **Logit** – also der **logarithmierte Quotient der Wahrscheinlichkeit und ihrer Gegenwahrscheinlichkeit**.
+
+--
+
+## Was ist ein Logarithmus?
+
+- Der **Logarithmus** ist die Umkehrung der Potenzierung:
+
+$$
+  \log_{10}(1000) = 3 \quad \text{denn } 10^3 = 1000
+$$
+
+
+
+---
+
+### Merksatz:
+
+> Der Logarithmus transformiert Werte in ein **lineares Maß**, das für Regressionsmodelle besser handhabbar ist – auch wenn die ursprünglichen Wahrscheinlichkeiten zwischen 0 und 1 liegen.
 
 ---
 
@@ -2684,11 +2789,11 @@ Das ist der sogenannte **Logit** – also der **logarithmierte Quotient der Wahr
 
 ## Beispiel:
 
-| Wahrscheinlichkeit \\(p\\) | Odds \\(p / (1 - p)\\) | Log-Odds \\( \log(p / (1 - p)) \\) |
-|----------------------------|-------------------------|------------------------------------|
-| 0.10                       | 0.111                   | –2.20                              |
-| 0.50                       | 1.000                   |  0.00                              |
-| 0.90                       | 9.000                   |  2.20                              |
+| Wahrscheinlichkeit \(p\) | Gegenwahrscheinlichkeit \(1 - p\) | Verhältnis (Odds) \(p : (1 - p)\) | Odds (als Zahl) \(\frac{p}{1 - p}\) | Log-Odds \(\log\left(\frac{p}{1 - p}\right)\) |
+|---------------------------|------------------------------------|------------------------------------|------------------------------|----------------------------------|
+| 0.10                      | 0.90                               | 1 : 9                              | 0.111                        | –2.20                            |
+| 0.50                      | 0.50                               | 1 : 1                              | 1.000                        |  0.00                            |
+| 0.90                      | 0.10                               | 9 : 1                              | 9.000                        |  2.20                            |           |
 
 ---
 
@@ -2787,3 +2892,16 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
 | Residuen           | Differenz                 | Abweichung in Log-Odds            |
 | Interpretation     | Effekt pro X              | Odds Ratio                        |
 
+---
+
+## Unterschied Korrelation zu Regression
+
+- **Korrelation** beschreibt **Stärke und Richtung** eines **linearen Zusammenhangs** zwischen zwei numerischen Variablen, ohne Einflussrichtung oder Kausalität anzunehmen.
+
+- **Lineare Regression** modelliert eine **gerichtete lineare Beziehung** zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen mit der **Stärke des Einflusses**.
+
+---
+
+## Unterschied Korrelation zu Regression
+
+- **Logistische Regression** schätzt die **Wahrscheinlichkeit** für das Eintreten eines **binären Ereignisses** auf Basis einer oder mehrerer Einflussvariablen und liefert eine **gerichtete Interpretation**.
