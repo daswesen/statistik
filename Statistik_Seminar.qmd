@@ -2699,7 +2699,7 @@ ggplot(Wohnungen_mit_Energieeffizienz, aes(x = flaeche, y = miete)) +
 ```{r}
 
 model <- lm(miete ~ flaeche + saniert + energieeffizienz, data = Wohnungen_mit_Energieeffizienz)
-# summary(model)
+#summary(model)
 ```
 
 ![](images/logit.png)

@@ -704,6 +704,32 @@ Die starke Assoziation (Cramér's V = 0.308) ist **mathematisch zwingend**:
 **Bedeutung**: Der "unfaire" Würfel zeigt grenzwertige Abweichungen - eine größere Stichprobe würde klarere Ergebnisse liefern.
 
 
+# Sitzung 9
+
+```{r}
+plot(cars)
+```
+```{r}
+fit <- lm(cars$dist~cars$speed)
+summary(fit)
+```
+```{r}
+plot(cars)
+abline(fit)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
