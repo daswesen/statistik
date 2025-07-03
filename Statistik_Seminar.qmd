@@ -2908,7 +2908,7 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
 
 ---
 
-# Sitzung 9: ANOVA
+# Sitzung 10: ANOVA
 
 ## Was ist ANOVA?
 
