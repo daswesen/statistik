@@ -2905,3 +2905,155 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
 ## Unterschied Korrelation zu Regression
 
 - **Logistische Regression** schätzt die **Wahrscheinlichkeit** für das Eintreten eines **binären Ereignisses** auf Basis einer oder mehrerer Einflussvariablen und liefert eine **gerichtete Interpretation**.
+
+---
+
+# Sitzung 9: ANOVA
+
+## Was ist ANOVA?
+
+- ANOVA = Analysis of Variance = Varianzanalyse
+- Prüft, ob sich Gruppenmittelwerte signifikant unterscheiden
+- Erweiterung des t-Tests auf mehr als zwei Gruppen
+- Beispiel: Unterschiedet sich die durchschnittliche Miete in verschiedenen Stadtteilen?
+
+---
+
+## Wann nutzt man ANOVA?
+
+- Abhängige Variable metrisch (z.B. Einkommen, Preis, Größe)
+- Unabhängige Variable kategorial (z.B. Stadtteil, Behandlungsmethode)
+- Mehr als zwei Gruppen zu vergleichen
+- Ziel: Test auf Mittelwertsunterschiede
+
+---
+
+## Grundidee der ANOVA
+
+- Zerlegung der Gesamtvarianz:
+  - **Zwischen-Gruppen-Varianz**: Unterschiede zwischen den Gruppenmitteln
+  - **Innerhalb-Gruppen-Varianz**: Streuung innerhalb der Gruppen
+- Wenn die Zwischen-Gruppen-Varianz groß im Vergleich zur Innerhalb-Gruppen-Varianz ist → Hinweis auf echte Unterschiede
+
+---
+
+## Beispiel: Schmerzmittel-Wirkung
+
+- Fragestellung: Unterscheidet sich die durchschnittliche Schmerzreduktion bei drei Medikamenten?
+- Gruppen:
+  - Medikament A
+  - Medikament B
+  - Placebo
+- Abhängige Variable: Schmerzscore nach 30 Minuten (Skala 0-10)
+- ANOVA prüft, ob es signifikante Unterschiede gibt
+
+---
+
+## Beispiel: Werbewirkung testen
+
+- Fragestellung: Führt die Art der Werbeanzeige zu unterschiedlichen Kaufabsichten?
+- Gruppen:
+  - Emotionaler Spot
+  - Sachlicher Spot
+  - Keine Werbung (Kontrollgruppe)
+- Abhängige Variable: Kaufwahrscheinlichkeit (Skala 0-100%)
+- ANOVA zeigt, ob mindestens eine Gruppe signifikant abweicht
+
+---
+
+## Beispiel: Einfluss von Dünger
+
+- Fragestellung: Hat die Düngersorte Einfluss auf das Pflanzenwachstum?
+- Gruppen:
+  - Dünger X
+  - Dünger Y
+  - Kein Dünger
+- Abhängige Variable: Pflanzenhöhe nach 6 Wochen (in cm)
+- ANOVA prüft auf Unterschiede der mittleren Pflanzenhöhe
+
+---
+
+## Hypothesen der ANOVA
+
+- **Nullhypothese (H₀)**: Alle Gruppenmittelwerte sind gleich
+- **Alternativhypothese (H₁)**: Mindestens zwei Gruppen unterscheiden sich im Mittelwert
+
+---
+
+## Beispiel in R
+
+```{r echo=FALSE}
+# Beispiel-Datensatz
+set.seed(123)
+data <- data.frame(
+  gruppe = rep(c("A", "B", "C"), each = 20),
+  wert = c(rnorm(20, mean = 5), rnorm(20, mean = 7), rnorm(20, mean = 6))
+)
+```
+
+
+```{r}
+# ANOVA durchführen
+anova_mod <- aov(wert ~ gruppe, data = data)
+summary(anova_mod)
+```
+
+
+
+---
+
+## Interpretation der Ausgabe
+
+- **F-Wert**: Teststatistik, je größer desto mehr Hinweis auf Unterschied
+- **p-Wert**: Ist p < 0.05 → Ablehnung der Nullhypothese
+- Achtung: ANOVA zeigt nur, _dass_ ein Unterschied vorliegt, nicht _wo_ genau
+
+---
+
+## Post-hoc-Tests
+
+- Notwendig, wenn ANOVA signifikant ist
+- Beispiele:
+  - Tukey HSD-Test (bei Varianzhomogenität)
+  - Games-Howell-Test (bei ungleichen Varianzen)
+- Zeigt, zwischen welchen Gruppen die Unterschiede liegen
+
+---
+
+## Der Levene-Test
+
+```{r warning=FALSE}
+car::leveneTest(wert ~ gruppe, data = data)
+```
+
+
+## Tukey HSD-Test
+
+```{r echo=FALSE}
+# TukeyHSD(anova_mod)
+```
+![](images/anova.png)
+
+## Ergebnisse visualisieren
+
+```{r}
+plot(TukeyHSD(anova_mod))
+```
+
+
+## Voraussetzungen der ANOVA
+
+- Unabhängigkeit der Beobachtungen
+- Normalverteilung innerhalb der Gruppen
+- Varianzhomogenität (Levene-Test prüfen)
+- Robustheit bei kleinen Abweichungen gegeben
+
+---
+
+## Visualisierung von Gruppenunterschieden
+
+- Boxplots
+- Violinplots
+- Balkendiagramme mit Fehlerbalken
+- Plot der Mittelwerte pro Gruppe
+
