@@ -3057,3 +3057,14 @@ plot(TukeyHSD(anova_mod))
 - Balkendiagramme mit Fehlerbalken
 - Plot der Mittelwerte pro Gruppe
 
+## Überblick: Welcher Test wofür?
+
+| Test                 | Abhängige Variable | Unabhängige Variable | Zweck                                        |
+|---------------------|--------------------|----------------------|---------------------------------------------|
+| **t-Test**          | Metrisch           | Kategorial (2 Gruppen) | Mittelwertsunterschied zwischen 2 Gruppen   |
+| **Chi-Quadrat-Test**| Kategorial         | Kategorial            | Zusammenhang oder Verteilung bei Kategorien |
+| **Korrelation**     | Metrisch           | Metrisch              | Zusammenhang/Stärke zwischen zwei Variablen |
+| **ANOVA**           | Metrisch           | Kategorial (>2 Gruppen)| Mittelwertsunterschiede zwischen Gruppen    |
+| **Lineare Regression** | Metrisch         | Metrisch oder kategorial | Einfluss mehrerer Variablen auf metrisches Ergebnis |
+| **Logistische Regression** | Binär (0/1)  | Metrisch oder kategorial | Einfluss auf Wahrscheinlichkeit (z.B. Krankheit ja/nein) |
+
