@@ -721,12 +721,120 @@ abline(fit)
 
 
 
+# Modus berechnen
+
+```{r}
+modus_alle <- function(x) {
+  freq <- table(x)
+  max_freq <- max(freq)
+  as.numeric(names(freq)[freq == max_freq])
+}
+
+modus_alle(cars$speed)
+```
 
 
 
+# Sitzung 11
+
+
+## Klassifikation von Mails in Ham und Spam
+
+Wer es noch nicht wusste, der Grund dafür, dass wir unerwünschte Werbe-Emails als Spam bezeichnen, ist ein alter Monty Python-Sketch. Das folgende Beispiel ist inspiriert von [Harshit Kumar](https://kharshit.github.io/blog/2017/08/25/email-spam-filtering-text-analysis-in-r).
+
+```{r}
+emails = read.csv('data/emails.csv', stringsAsFactors = FALSE)
+table(emails$spam)
+```
+
+Wir nutzen zwei Libraries, tm, das für Text Mining verwendet wird, und SnowballC, ein Stemmer. Damit bilden wir einen Corpus:
+
+```{r}
+library(tm)
+library(SnowballC)
+corpus = VCorpus(VectorSource(emails$text))
+corpus = tm_map(corpus, content_transformer(tolower))
+corpus = tm_map(corpus, PlainTextDocument)
+corpus = tm_map(corpus, removePunctuation)
+corpus = tm_map(corpus, removeWords, stopwords("en"))
+corpus = tm_map(corpus, stemDocument)
+```
+
+Als nächstes wird eine Document Term Matrix gebildet:
+
+```{r}
+dtm = DocumentTermMatrix(corpus)
+dtm
+```
+
+Daraus werden nur die häufigsten Terme verwendet:
+
+```{r}
+spdtm = removeSparseTerms(dtm, 0.95)
+spdtm
+```
+
+Daraus wird ein Data Frame erstellt:
+
+```{r}
+emailsSparse = as.data.frame(as.matrix(spdtm))
+colnames(emailsSparse) = make.names(colnames(emailsSparse))
+emailsSparse$spam = emails$spam
+emailsSparse$spam = as.factor(emailsSparse$spam)
+```
+
+Nun wird wie gehabt der Corpus geteilt in Training und Test:
+```{r}
+library(caret)
+library(e1071)
+set.seed(983)
+trainIndex=createDataPartition(emailsSparse$spam, p=0.8)$Resample1
+train.data=emailsSparse[trainIndex, ]
+test.data=emailsSparse[-trainIndex, ]
+```
+
+Es wird ein Naive Bayes-Modell gebildet:
+
+```{r}
+Naive_Bayes_Model=naiveBayes(spam ~., data=train.data, type = "raw")
+```
+
+```{r}
+Spam.class <- predict(Naive_Bayes_Model, test.data)
+table(Spam.class, test.data$spam)
+```
 
 
 
+```{r}
+model.results <- cbind(test.data,Spam.class)
+```
+
+```{r}
+Spam.class <- predict(Naive_Bayes_Model, test.data, type = "raw")
+real_spam <- as.numeric(as.character(model.results$spam))
+```
+
+
+
+```{r warning=FALSE, message=FALSE}
+library(pROC)
+
+pROC_obj <- roc(real_spam, Spam.class[,2],
+            smoothed = TRUE,
+            ci=TRUE, ci.alpha=0.9, stratified=FALSE,
+            plot=TRUE, auc.polygon=TRUE, max.auc.polygon=TRUE, grid=TRUE,
+            print.auc=TRUE, show.thres=TRUE)
+
+sens.ci <- ci.se(pROC_obj)
+plot(sens.ci, type="shape", col="lightblue")
+plot(sens.ci, type="bars")
+```
+
+
+```{r}
+Naive_Bayes_Model
+```
 
 
 

@@ -3068,3 +3068,302 @@ plot(TukeyHSD(anova_mod))
 | **Lineare Regression** | Metrisch         | Metrisch oder kategorial | Einfluss mehrerer Variablen auf metrisches Ergebnis |
 | **Logistische Regression** | Binär (0/1)  | Metrisch oder kategorial | Einfluss auf Wahrscheinlichkeit (z.B. Krankheit ja/nein) |
 
+---
+
+# Sitzung 11: Text Mining
+
+---
+
+## Spam oder Ham?
+
+- Unerwünschte Werbe-E-Mails = Spam
+- Begriff stammt aus...?
+- Ziel: Automatische Erkennung von Spam-Mails
+- Klassisches Beispiel für Textklassifikation in der Datenanalyse
+
+---
+
+
+## Bayes'sches Theorem: Grundkonzept
+
+-   **Definition:** $P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}$
+-   **Bedeutung der Komponenten:**
+    -   P(A\|B): Wahrscheinlichkeit von A, gegeben B (posteriori)
+    -   P(B\|A): Wahrscheinlichkeit von B, gegeben A (Likelihood)
+    -   P(A): Wahrscheinlichkeit von A ohne weitere Information (a priori)
+    -   P(B): Wahrscheinlichkeit von B, Normalisierungsfaktor
+-   **Einfach ausgedrückt:** Aktualisierung von Wahrscheinlichkeiten basierend auf neuen Informationen
+
+
+------------------------------------------------------------------------
+
+## Zwei Denkansätze am Beispiel einer Handysuche
+
+-   **Ausgangssituation:**
+    -   Handy ist verloren
+    -   Könnte irgendwo im Haus sein
+    -   Begrenzte Zeit zum Suchen
+    -   Wie gehen wir vor?
+
+------------------------------------------------------------------------
+
+## Der frequentistische Ansatz
+
+-   **Gleichverteilte Aufmerksamkeit** für alle Orte
+-   **Systematische, methodische Suche** des gesamten Hauses
+-   **Ignoriert persönliche Erfahrungen** und Gewohnheiten
+-   **Unveränderter Suchplan**, unabhängig von Zwischenergebnissen
+-   **Fragestellung:** "Wie wahrscheinlich ist es, das Handy zu finden, wenn ich hier suche?"
+
+
+------------------------------------------------------------------------
+
+## Der bayesianische Ansatz
+
+-   Beginnt mit **Vorwissen als Prior** ("Wo verliere ich normalerweise Dinge?")
+-   **Priorisiert wahrscheinliche Orte** (Sofa, Schreibtisch, Jacke)
+-   **Aktualisiert kontinuierlich** die Suchstrategie basierend auf neuen Hinweisen
+-   **Integriert subjektive Wahrscheinlichkeiten**
+-   **Fragestellung:** "Wo ist das Handy am wahrscheinlichsten, gegeben was ich bereits weiß?"
+
+------------------------------------------------------------------------
+
+## Vergleich der Ansätze
+
+| Frequentistisch                         | Bayesianisch                |
+|-----------------------------------------|-----------------------------|
+| Objektiv                                | Subjektiv                   |
+| Statisch                                | Adaptiv                     |
+| Gleichverteilte Aufmerksamkeit          | Priorisierte Aufmerksamkeit |
+| Berücksichtigt keine Erfahrung          | Nutzt Vorwissen             |
+| Methodisch                              | Opportunistisch             |
+| Keine Wahrscheinlichkeitsaktualisierung | Kontinuierliches Lernen     |
+
+
+
+------------------------------------------------------------------------
+
+## Bayes'sches Theorem angewandt auf Spam
+
+-   **Wir wollen wissen: P(Spam\|Wörter)**
+    -   Die Wahrscheinlichkeit, dass eine E-Mail Spam ist, gegeben die enthaltenen Wörter
+-   **Nach Bayes:**
+    -   P(Spam\|Wörter) = (P(Wörter\|Spam) × P(Spam)) / P(Wörter)
+    -   **P(Spam)**: A-priori-Wahrscheinlichkeit für Spam (z.B. 40% aller E-Mails)
+    -   **P(Wörter\|Spam)**: Wahrscheinlichkeit dieser Wörter in Spam-Mails
+    -   **P(Wörter)**: Wahrscheinlichkeit dieser Wörter in allen E-Mails
+
+------------------------------------------------------------------------
+
+## Die "Naive" Annahme
+
+-   **Bei Naive Bayes nehmen wir an, dass alle Wörter unabhängig voneinander auftreten:**
+    -   P(Wörter\|Spam) = P(Wort₁\|Spam) × P(Wort₂\|Spam) × ... × P(Wortₙ\|Spam)
+-   **Beispiel**: "Viagra" und "Rabatt" in einer E-Mail
+    -   In Realität: Diese Wörter treten häufig gemeinsam auf
+    -   Naive Annahme: Behandlung als unabhängige Ereignisse
+    -   Trotz dieser Vereinfachung: Überraschend gute Ergebnisse!
+
+------------------------------------------------------------------------
+
+## Wie funktioniert Naive Bayes bei Spam?
+
+-   **1. Training:**
+    -   Sammeln von bekannten Spam- und Ham-E-Mails (Trainingskorpus)
+    -   Zählen der Worthäufigkeiten in beiden Kategorien
+    -   Berechnen von P(Wort\|Spam) und P(Wort\|Ham) für alle Wörter
+    -   Ermitteln von P(Spam) und P(Ham) aus dem Trainingskorpus
+-   **2. Klassifikation:**
+    -   Berechnen von P(Spam\|E-Mail) und P(Ham\|E-Mail) für neue E-Mail
+    -   Klassifizieren basierend auf der höheren Wahrscheinlichkeit
+
+---
+
+## Datengrundlage
+
+- E-Mail-Datensatz `emails.csv`
+- Enthält Text der E-Mails und Spam-Kennzeichnung
+- Häufigkeit von Spam und Ham
+- Class Imbalance beachten
+
+---
+
+## Textaufbereitung (Text Mining)
+
+- Nutzung der Pakete `tm` und `SnowballC`
+- Schritte:
+  - Umwandlung in Kleinschreibung
+  - Entfernen von Satzzeichen
+  - Entfernen von Stoppwörtern ("the", "and" ...)
+  - Wortstamm-Reduktion (Stemming)
+
+Ziel: Standardisierung und Reduktion der Textvielfalt
+
+---
+
+## Document-Term-Matrix (DTM)
+
+- Erstellung einer DTM zur quantitativen Darstellung der Texte
+- Zeilen = E-Mails, Spalten = Wörter
+- Zellinhalt: Häufigkeit des Wortes pro E-Mail
+
+---
+
+## Reduktion auf häufige Begriffe
+
+- Entfernen seltener Wörter mit `removeSparseTerms`
+- Fokus auf die aussagekräftigsten Begriffe
+
+
+---
+
+## Vorbereitung für das Modell
+
+- Umwandlung der DTM in Data Frame
+- Umbenennung der Spaltennamen
+- Zielvariable `spam` als Faktor kodiert
+
+
+---
+
+## Trainings- und Testdaten
+
+- Aufteilung in Trainings- (80%) und Testdaten (20%)
+- Nutzung von `caret`-Paket
+
+---
+
+## Vorhersage und Bewertung
+
+- Klassifikation der Testdaten
+- Vergleich mit tatsächlichen Spam-Labels
+
+
+## Die Confusion Matrix
+
+|                          | Tatsächlich Positiv  | Tatsächlich Negativ  |
+|--------------------------|----------------------|----------------------|
+| **Vorhergesagt Positiv** | True Positives (TP)  | False Positives (FP) |
+| **Vorhergesagt Negativ** | False Negatives (FN) | True Negatives (TN)  |
+
+------------------------------------------------------------------------
+
+## Die Confusion Matrix: Beispiel Spam-Filter
+
+-   **TP**: Korrekt als Spam erkannte E-Mails
+-   **FP**: Fälschlicherweise als Spam markierte normale E-Mails
+-   **FN**: Nicht erkannter Spam (als normal klassifiziert)
+-   **TN**: Korrekt als normal erkannte E-Mails
+
+------------------------------------------------------------------------
+
+## Fehler 1. und 2. Art
+
+-   **Fehler 1. Art (Alpha-Fehler):**
+    -   Zurückweisung einer wahren Nullhypothese
+    -   "Falscher Alarm" / False Positive
+-   **Fehler 2. Art (Beta-Fehler):**
+    -   Nichtablehnung einer falschen Nullhypothese
+    -   "Verpasster Treffer" / False Negative
+-   **Zusammenhang:**
+    -   Meist gegensätzliche Beziehung (Trade-off)
+    -   Verringerung des einen Fehlers erhöht oft den anderen
+
+------------------------------------------------------------------------
+
+## Grundlegende Metriken aus der Confusion Matrix
+
+-   **Accuracy (Genauigkeit):**
+    -   (TP + TN) / (TP + TN + FP + FN)
+    -   Anteil korrekt klassifizierter Instanzen
+    -   Problem: Irreführend bei unausgewogenen Klassen
+-   **Error Rate (Fehlerrate):**
+    -   (FP + FN) / (TP + TN + FP + FN)
+    -   Anteil falsch klassifizierter Instanzen
+
+------------------------------------------------------------------------
+
+## Precision und Recall
+
+-   **Precision (Präzision, Genauigkeit):**
+    -   TP / (TP + FP)
+    -   "Von allen als positiv vorhergesagten, wie viele sind tatsächlich positiv?"
+    -   Fokus auf falsche Positive (Fehler 1. Art)
+    -   Beispiel: Von allen als Spam markierten E-Mails, wie viele sind wirklich Spam?
+
+    
+------------------------------------------------------------------------
+
+## Precision und Recall
+
+-   **Recall (Sensitivität, Trefferquote):**
+    -   TP / (TP + FN)
+    -   "Von allen tatsächlich positiven, wie viele wurden korrekt erkannt?"
+    -   Fokus auf falsche Negative (Fehler 2. Art)
+    -   Beispiel: Von allen Spam-E-Mails, wie viele werden erkannt?
+
+
+
+---
+
+## ROC-Kurve und AUC
+
+- Bewertung der Modellgüte über die ROC-Kurve
+- AUC (Area Under Curve) als Maß für die Trennschärfe
+- Zusätzliche Visualisierung von Konfidenzintervallen möglich
+
+
+## ROC-Kurve und AUC
+
+::::: columns
+::: {.column width="70%"}
+-   ROC-Kurve (Receiver Operating Characteristic)
+    -   Trade-off: True Positive Rate vs. False Positive Rate
+    -   Interpretation: näher an linker oberer Ecke = besser
+-   Area Under the Curve
+    -   Fläche unter ROC-Kurve (0.5 bis 1.0)
+:::
+
+::: {.column width="30%"}
+![](images/Roccurves.png)
+:::
+:::::
+
+
+
+------------------------------------------------------------------------
+
+## Precision-Recall Kurve
+-   **Alternative zur ROC-Kurve:**
+    -   Precision gegen Recall für verschiedene Schwellenwerte
+-   **Wann verwenden:**
+    -   Bei unausgewogenen Datensätzen
+    -   Fokus auf positive Klasse
+-   **Interpretation:**
+    -   Besser: näher an oberer rechter Ecke
+
+
+
+------------------------------------------------------------------------
+
+
+## Overfitting vs. Underfitting
+-   **Overfitting:**
+    -   Zu genaues Lernen (inkl. Rauschen)
+    -   Gut im Training, schlecht im Test
+-   **Underfitting:**
+    -   Zu einfaches Modell
+    -   Schlecht in Training und Test
+-   **Balance durch:**
+    -   Regularisierung
+    -   Angemessene Modellkomplexität
+
+
+---
+
+## Nächste Schritte
+
+- Weitere Klassifikatoren testen (z.B. Entscheidungsbäume, SVM)
+- Optimierung der Textaufbereitung
+- Einsatz von Word Embeddings für fortgeschrittene Modelle
+
