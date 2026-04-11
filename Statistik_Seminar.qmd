@@ -42,25 +42,22 @@ library(tidyverse)
 
 -   **Fragen:** Bitte unterbrechen Sie mich für Fragen
 -   **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
+-   **Sprechstunde:** <https://alby.link/talk2me>
 -   **Moodle:** Einschreibeschlüssel: iLoveStats!
 -   **Materialien:** <https://alby.link/statistik>
--   **Teilnahme:** Präsenzpflicht, in Ausnahmefällen auch online via Zoom (HU), Aufzeichnungen verfügbar
+-   **Teilnahme:** Keine Anwesenheitspflicht, keine Präsenzpflicht, Online-Teilnahme via Zoom (HU) möglich
 
-## Prüfungsleistung
+## Prüfungsleistung früher
 
 -   **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
 -   **Keine Gruppenarbeit:** Im Kurs ja, für die Hausarbeit nein
 -   **ChatGPT & Co:** Erlaubt, aber...
 -   Bitte kein **bedeutungsloser Wohlklang**
 
-## Wie sieht die Hausarbeit aus?
+## Prüfungsleistung heute
 
--   **Sie** suchen sich einen Datensatz aus und **holen** sich das **Ok**
--   **Sie** definieren Hypothesen zu diesem Datensatz und sprechen diese mit mir ab
--   Hausarbeit in einem speziellen **Dateiformat**, das im Kurs vermittelt wird
--   Hausarbeit wird **während des Semesters** vorbereitet
--   Möglichkeit der **Probeabgabe**
--   **Bewertungskriterien** sind online
+Keine Ahnung :)
+
 
 ## Letzte Fragen?
 
@@ -135,11 +132,7 @@ library(tidyverse)
 | **Vorausschau – Was wird passieren?** | **Prognostische (inferenzielle) Modelle** | Lineare/Logistische Regression, Random Forest, Zeitreihen‑Forecasts, Konfidenz­intervalle für Prognosen |
 | **Vorausschau – Was muss passieren, damit es eintritt?** | **Präskriptive (inferenzielle) Verfahren** | Simulation (Monte‑Carlo), Lineare/Ganzzahl‑Optimierung, Entscheidungsbäume mit Unsicherheits‑Berücksichtigung |
 
-## Wo finde ich Daten?
 
--   Kaggle
--   Statistisches Bundesamt
--   ...
 
 ## Warum nutzen wir R?
 
