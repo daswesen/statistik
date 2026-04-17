@@ -19,14 +19,38 @@ library(tidyverse)
 
 ## Was Sie erwartet
 
+-   Grundlegende Konzepte der Statistik
 -   Einführung in R und RStudio
 -   Datenimport und -aufbereitung
 -   Explorative Datenanalyse
 -   Datenvisualisierung
--   Wahrscheinlichkeitsrechnung
 -   Lineare Regression
 -   Hypothesentests
 -   Korrelationen
+
+## Übersicht der Sitzungen (1/2)
+
+| Sitzung | Thema |
+|---------|-------|
+| 1 | Einführung & Organisatorisches |
+| 2 | Einführung in R |
+| 3 | Deskriptive Statistik I – Lage- & Streuungsmaße |
+| 4 | Deskriptive Statistik II & Datenmanipulation |
+| 5 | Datenvisualisierung |
+| 6 | Wahrscheinlichkeiten & Verteilungen |
+| 7 | Inferenzstatistik & t-Test |
+
+## Übersicht der Sitzungen (2/2)
+
+| Sitzung | Thema |
+|---------|-------|
+| 8 | Chi-Quadrat-Test |
+| 9 | Korrelationsanalyse |
+| 10 | Regression I – Lineare Regression |
+| 11 | ANOVA |
+| 12 | Text Mining & Klassifikation |
+| 13 | Regression II – Logistische Regression |
+| 14 | Abschluss |
 
 ## Erwartungen und Interaktion
 
@@ -34,9 +58,7 @@ library(tidyverse)
     -   16 Uhr: #68430031
     -   18 Uhr: #68430032
 
-## Welche Note kann ich erwarten?
 
-![](images/grade-distribution.png)
 
 ## Rules of Working
 
@@ -44,20 +66,21 @@ library(tidyverse)
 -   **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
 -   **Sprechstunde:** <https://alby.link/talk2me>
 -   **Moodle:** Einschreibeschlüssel: iLoveStats!
--   **Materialien:** <https://alby.link/statistik>
 -   **Teilnahme:** Keine Anwesenheitspflicht, keine Präsenzpflicht, Online-Teilnahme via Zoom (HU) möglich
 
-## Prüfungsleistung früher
+## Prüfungsleistung
 
--   **Prüfungsleistung:** Hausarbeit mit einer Bearbeitungszeit von sechs Wochen
--   **Keine Gruppenarbeit:** Im Kurs ja, für die Hausarbeit nein
--   **ChatGPT & Co:** Erlaubt, aber...
--   Bitte kein **bedeutungsloser Wohlklang**
+-   Referat (mit Befragung)
 
-## Prüfungsleistung heute
+## Software
 
-Keine Ahnung :)
+-   R <https://r-project.org>
+-   RStudio <https://posit.co/download/rstudio-desktop>
+-  Alternative: posit.cloud
 
+## Warum nutzen wir R?
+
+![](images/r-vs-python.png)
 
 ## Letzte Fragen?
 
@@ -73,9 +96,31 @@ Keine Ahnung :)
 
 ![](images/marketoonist-big-data.png)
 
-## Was sind Daten?
+## Der Forschungsprozess
 
-## Was sind Daten?
+| Schritt | Frage | Beispiel |
+|---------|-------|---------|
+| **1. Fragestellung** | Was will ich wissen? | Beeinflusst Schlafmangel die Prüfungsleistung? |
+| **2. Theorie & Hypothese** | Was erwarte ich? | Weniger Schlaf → schlechtere Noten |
+| **3. Datenerhebung** | Wie messe ich es? | Befragung von 80 Studierenden |
+| **4. Datenaufbereitung** | Sind die Daten sauber? | Fehlende Werte, Ausreißer prüfen |
+| **5. Analyse** | Was zeigen die Daten? | Korrelation, Regression |
+| **6. Interpretation** | Was bedeutet das? | Effektgröße, Einschränkungen |
+| **7. Kommunikation** | Wie berichte ich es? | Bachelorarbeit, Referat |
+
+## Wo hilft Ihnen dieser Kurs?
+
+| Schritt | Inhalt des Kurses |
+|---------|-------------------|
+| Datenaufbereitung | Sitzung 4 – Datenmanipulation mit R |
+| Analyse: beschreiben | Sitzungen 3–5 – Deskriptive Statistik & Visualisierung |
+| Analyse: testen | Sitzungen 7–13 – Inferenzstatistik, Tests, Regression |
+| Interpretation | Durchgehend: Effektgrößen, Voraussetzungen, Fehler |
+| Kommunikation | Sitzung 14 – Ergebnisse korrekt berichten |
+
+## Was sind Daten und Informationen?
+
+## Was sind Daten und Informationen?
 
 -   *Daten*
     -   Roh, ungeordnet, noch nicht interpretiert
@@ -132,11 +177,25 @@ Keine Ahnung :)
 | **Vorausschau – Was wird passieren?** | **Prognostische (inferenzielle) Modelle** | Lineare/Logistische Regression, Random Forest, Zeitreihen‑Forecasts, Konfidenz­intervalle für Prognosen |
 | **Vorausschau – Was muss passieren, damit es eintritt?** | **Präskriptive (inferenzielle) Verfahren** | Simulation (Monte‑Carlo), Lineare/Ganzzahl‑Optimierung, Entscheidungsbäume mit Unsicherheits‑Berücksichtigung |
 
+## Aufgabe zur nächsten Sitzung
+
+- R/RStudio installieren oder
+- bei Posit Cloud anmelden
+
+# Sitzung 2: Einführung in R
+
+## Lernziele dieser Sitzung
+
+-   R und RStudio installieren und bedienen
+-   Grundlegende Datentypen und -strukturen in R kennen
+-   Erste eigene Berechnungen und Funktionen ausführen
+-   Einen Datensatz in R laden und erkunden
+
+## R, Python, SPSS, ...
 
 
-## Warum nutzen wir R?
 
-![](images/r-vs-python.png)
+
 
 ## R, Python, SPSS, ...
 
@@ -208,7 +267,14 @@ Keine Ahnung :)
 -   Struktur: Zeilen für Observationen, Spalten für Attribute
 -   Zugriff auf Spalten über Dollarzeichen (`$`)
 
-# Sitzung 2: Deskriptive Statistik I
+# Sitzung 3: Deskriptive Statistik I
+
+## Lernziele dieser Sitzung
+
+-   Lage- und Streuungsmaße berechnen und interpretieren
+-   Den Unterschied zwischen Mittelwert und Median erklären
+-   Verteilungen anhand von Histogramm und Boxplot beurteilen
+-   Kennzahlen in R berechnen
 
 ## Let's talk about money
 
@@ -399,7 +465,7 @@ Keine Ahnung :)
 -   Punkte außerhalb der Whiskers: potenzielle Ausreißer
 -   In R: `boxplot(data)`
 
-\#![](images/boxplot-explained.png)
+![](images/Elements_of_a_boxplot.svg.png)
 
 ## Wie macht man das in R?
 
@@ -428,7 +494,14 @@ Keine Ahnung :)
 | Standardabweichung | `sd(data)`          | Ø‑Abweichung vom Mittelwert    |
 | Varianz            | `var(data)`         | Quadrat der Standardabweichung |
 
-# Sitzung 3: Deskriptive Statistik II & Datenmanipulation
+# Sitzung 4: Deskriptive Statistik II & Datenmanipulation
+
+## Lernziele dieser Sitzung
+
+-   Daten mit tidyverse-Funktionen transformieren und aggregieren
+-   Datensätze importieren und verbinden (Joins)
+-   Typische Datenfehler erkennen und beheben
+-   Einen eigenen Datensatz für die Bachelorarbeit aufbereiten
 
 ## Typischer Ablauf
 
@@ -511,7 +584,14 @@ Gummibärchentüte %>%
 -   library ignorieren (haben wir schon mit dem Tidyverse importiert)
 -   View(gadata) ignorieren (nervt nur)
 
-# Sitzung 4: Datenvisualisierung
+# Sitzung 5: Datenvisualisierung
+
+## Lernziele dieser Sitzung
+
+-   Das richtige Diagramm für eine Fragestellung auswählen
+-   Grundprinzipien guter Visualisierung anwenden (Clutter, Highlighting, Storytelling)
+-   Diagramme mit ggplot2 erstellen
+-   Häufige Fehler bei der Datenvisualisierung vermeiden
 
 ## Warum Datenvisualisierung?
 
@@ -994,38 +1074,6 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
 | Scan direction | Left to right | Bottom to top |
 | Visual space | Efficient for many categories | Better for fewer, high-impact bars |
 
-## Circular Bar Plot
-
-::::: columns
-::: {.column width="60%"}
--   Kreisförmige Darstellung von Werten mit Kategorien
--   Farbcodierung zeigt Gruppenzugehörigkeit
--   Kompakte Darstellung von Mustern und Beziehungen
--   Ideal für visuelles Storytelling
--   Beschriftungen sparsam und deutlich halten
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-library(dplyr)
-data <- data.frame(
-  category = rep(LETTERS[1:4], each = 5),
-  subcategory = rep(1:5, 4),
-  value = sample(20:100, 20)
-)
-ggplot(data, aes(x = subcategory, y = value, fill = category)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  coord_polar() +
-  scale_fill_brewer(palette = "Set2") +
-  theme_minimal()
-```
-:::
-:::::
-
 ## Diverging Bars
 
 ::::: columns
@@ -1392,38 +1440,6 @@ ggplot(heatmap_data, aes(x = x, y = y, fill = value)) +
 :::
 :::::
 
-## Square Area Chart
-
-::::: columns
-::: {.column width="60%"}
--   Zeigt Anteile mit gleichgroßen Quadraten
--   Typisch: 1 Quadrat = 1% (10×10-Raster)
--   Ideal für einfache Proportionsdarstellung
--   Leicht lesbar und ansprechend
--   Am besten mit wenigen Kategorien
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-square_data <- data.frame(
-  x = rep(1:10, 10),
-  y = rep(1:10, each = 10),
-  category = c(rep("A", 40), rep("B", 25), rep("C", 20), rep("D", 15))
-)
-ggplot(square_data, aes(x = x, y = y, fill = category)) +
-  geom_tile(color = "white") +
-  scale_fill_brewer(palette = "Set2") +
-  coord_equal() +
-  theme_void() +
-  labs(fill = "Kategorie")
-```
-:::
-:::::
-
 ## Treemap
 
 ::::: columns
@@ -1471,7 +1487,14 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 -   `geom_point()`, `geom_histogram()`, `geom_boxplot()`
 -   Ästhetiken: Farbe, Form, Gruppierung
 
-# Sitzung 5: Wahrscheinlichkeiten & Verteilungen
+# Sitzung 6: Wahrscheinlichkeiten & Verteilungen
+
+## Lernziele dieser Sitzung
+
+-   Grundbegriffe der Wahrscheinlichkeitstheorie erklären
+-   Diskrete und stetige Verteilungen unterscheiden
+-   Die Normalverteilung und ihre Eigenschaften kennen
+-   Den Zusammenhang zwischen Verteilungen und Inferenz verstehen
 
 ## Organisatorisches
 
@@ -1658,7 +1681,15 @@ plot(x, y, type = "l", col = "darkgreen", lwd = 2,
 -   Welche Verteilungen erwarten Sie in Ihren Forschungsfragen?
 -   Welche Wahrscheinlichkeiten erwarten Sie?
 
-# Sitzung 6: Einführung in die Inferenzstatistik
+# Sitzung 7: Einführung in die Inferenzstatistik
+
+## Lernziele dieser Sitzung
+
+-   Den Zentralen Grenzwertsatz erklären und demonstrieren
+-   Nullhypothese und Alternativhypothese formulieren
+-   Einen t-Test in R durchführen und interpretieren
+-   p-Wert und Konfidenzintervall korrekt kommunizieren
+-   Fehler 1. und 2. Art sowie Effektgrößen einordnen
 
 ## Was ist Inferenzstatistik?
 
@@ -1928,9 +1959,14 @@ $$d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}}$$
 | p < 0.05 | d > 0.5 | ✅ Signifikant & bedeutsam |
 | p < 0.05 | d < 0.2 | ❌ **"Signifikant trivial"** |
 
-# Sitzung 7: Chi-Quadrat-Test für Häufigkeiten
+# Sitzung 8: Chi-Quadrat-Test für Häufigkeiten
 
+## Lernziele dieser Sitzung
 
+-   Den Chi-Quadrat-Test für kategoriale Daten anwenden
+-   Anpassungstest und Unabhängigkeitstest unterscheiden
+-   Residuen und Effektstärken (Cramér's V) berechnen und interpretieren
+-   Voraussetzungen prüfen und Alternativen kennen (Fisher's Exakter Test)
 
 ------------------------------------------------------------------------
 
@@ -2378,7 +2414,14 @@ Wo:
 
 "The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections [...]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval [CI], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P<0.001)."
 
-# Sitzung 8: Korrelationsanalyse
+# Sitzung 9: Korrelationsanalyse
+
+## Lernziele dieser Sitzung
+
+-   Korrelation von Kausalität unterscheiden
+-   Pearson-, Spearman- und Kendall-Korrelation situationsgerecht einsetzen
+-   Korrelationsmatrizen erstellen und interpretieren
+-   Typische Fallstricke (Scheinkorrelation, Simpson's Paradoxon) erkennen
 
 ## Was ist eine Korrelation?
 
@@ -2535,7 +2578,14 @@ corrplot(cor_matrix, method = "circle")
 ![](images/entscheidungsbaum.png)
 
 
-# Sitzung 9: Regression
+# Sitzung 10: Regression I – Lineare Regression
+
+## Lernziele dieser Sitzung
+
+-   Ein lineares Regressionsmodell in R schätzen und interpretieren
+-   R² und Residuenplots zur Modellbeurteilung nutzen
+-   Multiple Regression mit kategorialen Prädiktoren anwenden
+-   Den Unterschied zwischen Korrelation und Regression erklären
 
 ---
 
@@ -2738,6 +2788,20 @@ s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5,
 ```
 
 
+---
+
+# Sitzung 13: Regression II – Logistische Regression
+
+## Lernziele dieser Sitzung
+
+-   Das Konzept der Log-Odds und der Logit-Transformation erklären
+-   Eine logistische Regression in R schätzen und interpretieren
+-   Odds Ratios berechnen und kommunizieren
+-   Die S-Kurve und ihre Bedeutung verstehen
+-   Lineare und logistische Regression gegenüberstellen
+
+---
+
 ## Jetzt wird's binär: Logistische Regression
 
 Frage: Stirbt ein Titanic-Passagier oder nicht? Und welche Faktoren führen dazu?
@@ -2901,7 +2965,15 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
 
 ---
 
-# Sitzung 10: ANOVA
+# Sitzung 11: ANOVA
+
+## Lernziele dieser Sitzung
+
+-   ANOVA als Erweiterung des t-Tests auf mehr als zwei Gruppen einordnen
+-   Varianzzerlegung und F-Statistik verstehen
+-   Eine einfaktorielle ANOVA in R durchführen
+-   Post-hoc-Tests (Tukey HSD) korrekt einsetzen
+-   Den passenden Test für den eigenen Datensatz wählen
 
 ## Was ist ANOVA?
 
@@ -3043,6 +3115,23 @@ plot(TukeyHSD(anova_mod))
 
 ---
 
+## Was tun, wenn Voraussetzungen verletzt sind? Nicht-parametrische Tests
+
+| Parametrisch | Nicht-parametrische Alternative | Wann? |
+|---|---|---|
+| t-Test (unabh.) | Mann-Whitney-U-Test | Keine Normalverteilung, kleine n |
+| t-Test (gepaart) | Wilcoxon-Vorzeichen-Rang-Test | Verbundene Stichproben, ordinal |
+| ANOVA | Kruskal-Wallis-Test | Mehr als 2 Gruppen, keine Normalverteilung |
+
+```r
+# Beispiele
+wilcox.test(x, y)                          # Mann-Whitney-U
+wilcox.test(before, after, paired = TRUE)  # Wilcoxon gepaart
+kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
+```
+
+---
+
 ## Visualisierung von Gruppenunterschieden
 
 - Boxplots
@@ -3063,7 +3152,14 @@ plot(TukeyHSD(anova_mod))
 
 ---
 
-# Sitzung 11: Text Mining
+# Sitzung 12: Text Mining
+
+## Lernziele dieser Sitzung
+
+-   Textdaten für eine statistische Analyse aufbereiten
+-   Das Bayes'sche Theorem erklären und anwenden
+-   Einen Naive-Bayes-Klassifikator in R trainieren und evaluieren
+-   Modellgüte mit Confusion Matrix, Precision, Recall und AUC beurteilen
 
 ---
 
@@ -3359,4 +3455,78 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 - Weitere Klassifikatoren testen (z.B. Entscheidungsbäume, SVM)
 - Optimierung der Textaufbereitung
 - Einsatz von Word Embeddings für fortgeschrittene Modelle
+
+# Sitzung 14: Abschluss
+
+## Lernziele dieser Sitzung
+
+-   Den gesamten Kurs strukturiert rekapitulieren
+-   Den richtigen Test für eine gegebene Forschungsfrage auswählen
+-   Ergebnisse korrekt berichten (APA-Style)
+
+## Der rote Faden: Von der Frage zur Methode
+
+![](images/entscheidungsbaum.png)
+
+## Alle Tests auf einen Blick
+
+| Test | Abhängige Variable | Unabhängige Variable | Zweck |
+|---|---|---|---|
+| **t-Test** | Metrisch | Kategorial (2 Gruppen) | Mittelwertsvergleich |
+| **Chi-Quadrat** | Kategorial | Kategorial | Häufigkeiten / Zusammenhang |
+| **Korrelation** | Metrisch | Metrisch | Stärke des Zusammenhangs |
+| **ANOVA** | Metrisch | Kategorial (>2 Gruppen) | Mittelwertsvergleich |
+| **Lin. Regression** | Metrisch | Metrisch / kategorial | Einfluss & Vorhersage |
+| **Log. Regression** | Binär (0/1) | Metrisch / kategorial | Wahrscheinlichkeit |
+| **Mann-Whitney-U** | Ordinal / metrisch | Kategorial (2 Gruppen) | Wie t-Test, nicht-parametrisch |
+| **Kruskal-Wallis** | Ordinal / metrisch | Kategorial (>2 Gruppen) | Wie ANOVA, nicht-parametrisch |
+
+## Ergebnisse korrekt berichten
+
+-   **Immer angeben**: Teststatistik, Freiheitsgrade, p-Wert, Effektgröße
+-   **t-Test**: *t*(28) = 2.45, *p* = .02, *d* = 0.89
+-   **Chi-Quadrat**: χ²(2) = 8.24, *p* = .016, Cramér's V = .23
+-   **Korrelation**: *r*(98) = .54, *p* < .001
+-   **ANOVA**: *F*(2, 57) = 4.32, *p* = .018, η² = .13
+
+## Häufige Fehler in Bachelorarbeiten
+
+-   p-Wert ohne Effektgröße berichten
+-   Korrelation als Kausalität interpretieren
+-   Voraussetzungen nicht geprüft (Normalverteilung, Varianzhomogenität)
+-   Signifikanz mit Relevanz gleichsetzen
+-   Fehlende Werte ignorieren statt transparent machen
+-   Daten nach dem Schauen anpassen (p-Hacking)
+
+## Ein Wort zur Replikationskrise
+
+-   Viele publizierte Studien lassen sich nicht replizieren
+-   Ursachen: p-Hacking, kleine Stichproben, Publication Bias
+-   **Konsequenz für Ihre Arbeit**: Transparenz über Methoden, Voraussetzungsprüfung, Effektgrößen angeben
+-   Vorregistrierung als Gold-Standard (für BA-Arbeiten optional, aber bekannt sein)
+
+## Stichprobengröße: Wie viele brauche ich?
+
+-   Zu kleine Stichproben → zu wenig Power → echte Effekte werden übersehen
+-   Faustregel für Abschlussarbeiten: n ≥ 30 pro Gruppe (besser: Poweranalyse)
+-   Power-Analyse in R:
+
+```r
+library(pwr)
+# Beispiel: t-Test, mittlerer Effekt (d=0.5), Power=0.80, α=0.05
+pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.80, type = "two.sample")
+```
+
+## Fehlende Werte – kein Tabuthema
+
+-   Immer dokumentieren: Wie viele NAs? In welchen Variablen?
+-   Strategien:
+    -   Komplette Beobachtungen (`na.omit()`) – einfach, aber Datenverlust
+    -   Mittelwert-/Medianimputation – nur für MAR-Mechanismus
+    -   Multiple Imputation (`mice`-Paket) – Best Practice
+-   **Niemals**: NAs stillschweigend ignorieren
+
+## Viel Erfolg!
+
+![](images/marketoonist-big-data.png)
 
