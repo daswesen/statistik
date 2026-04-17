@@ -1,6 +1,8 @@
 ---
 title: "Statistik für die Angewandte Forschung"
-format: pptx
+format:
+  pptx:
+    incremental: true
 date: now
 author: "Dr. Tom Alby"
 ---
@@ -66,17 +68,29 @@ library(tidyverse)
 -   **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
 -   **Sprechstunde:** <https://alby.link/talk2me>
 -   **Moodle:** Einschreibeschlüssel: iLoveStats!
--   **Teilnahme:** Keine Anwesenheitspflicht, keine Präsenzpflicht, Online-Teilnahme via Zoom (HU) möglich
+-   **Teilnahme:** Keine Anwesenheitspflicht, keine Präsenzpflicht, Online-Teilnahme via Teams möglich
+- Gruppen können online jederzeit gewechselt werden
+- Sessions als KI-Podcast?
 
 ## Prüfungsleistung
 
--   Referat (mit Befragung)
+-   Referat (mit Befragung, nicht online)
+- Keine Gruppenarbeit
+- Bitte Datensatz und Fragestellung selbst aussuchen und kurz absprechen
+- Beispiel: Hängen Bildschirmzeit und Depressionsanfälligkeit zusammen?
+- Präsentation mit Quellenangaben nach Referat in Moodle hochladen
+- Termine für Referate (nach 9. Sitzung) bitte ins Forum posten
 
 ## Software
 
 -   R <https://r-project.org>
 -   RStudio <https://posit.co/download/rstudio-desktop>
 -  Alternative: posit.cloud
+
+## Literatur
+
+- Wollschläger, D. (2020) Grundlagen der Datenanalyse mit R: Eine anwendungsorientierte Einführung. 5. Aufl. Berlin/Heidelberg: Springer Spektrum. doi: 10.1007/978-3-662-61736-6.
+- Ist bereits im Moodle :)
 
 ## Warum nutzen wir R?
 
