@@ -78,8 +78,8 @@ library(tidyverse)
 - Keine Gruppenarbeit
 - Bitte Datensatz und Fragestellung selbst aussuchen und kurz absprechen
 - Beispiel: Hängen Bildschirmzeit und Depressionsanfälligkeit zusammen?
-- Präsentation mit Quellenangaben nach Referat in Moodle hochladen
-- Termine für Referate (nach 9. Sitzung) bitte ins Forum posten
+- Präsentation mit Quellenangaben sowie Code nach Referat in Moodle hochladen
+- Termine für Referate (nach 8. Sitzung) bitte ins Forum posten
 
 ## Software
 
@@ -164,8 +164,8 @@ library(tidyverse)
 | n1 | Postleitzahl | 22703 | Numerisch / nominalskaliert | Keine Abstände |
 | n1 | Schulabschluss | Abitur | Kategorial / ordinalskaliert | willkürliche Abstände |
 | Sport-Team A | Tabellenplatz | 7 | Numerisch / ordinalskaliert | willkürliche Abstände |
-| n1 | Körpertemperatur | 36,5°C. | Numerisch / intervallskaliert | kein Nullpunkt |
-| n1 | Alter | 22 | Numerisch / verhältnisskal. | keine Negativwerte |
+| n1 | Körpertemperatur | 36,5°C. | Numerisch / intervallskaliert / kardinalskaliert | kein Nullpunkt |
+| n1 | Alter | 22 | Numerisch / verhältnisskal. / kardinalskaliert | keine Negativwerte |
 
 ## Skalenniveau am Beispiel
 
@@ -200,16 +200,13 @@ library(tidyverse)
 
 ## Lernziele dieser Sitzung
 
--   R und RStudio installieren und bedienen
+-   R und RStudio bedienen
 -   Grundlegende Datentypen und -strukturen in R kennen
--   Erste eigene Berechnungen und Funktionen ausführen
--   Einen Datensatz in R laden und erkunden
+-   Ein R Notebook anlegen und ausführen
+-   Das Tidyverse laden und die Pipe-Syntax verstehen
+-   Einen ersten Datensatz explorieren
 
-## R, Python, SPSS, ...
-
-
-
-
+## Welche Programmiersprachen kennen Sie bereits?
 
 ## R, Python, SPSS, ...
 
@@ -236,12 +233,32 @@ library(tidyverse)
 -   Entwickelt von RStudio PBC, heute Posit PBC
 -   Kostenlos für den Heimgebrauch
 
-## Die Arbeitsumgebung
+## Walkthrough: Die Arbeitsumgebung
 
--   Sozusagen der “Arbeitsspeicher”
+-   Sozusagen der „Arbeitsspeicher“
 -   Enthält nicht nur Objekte, sondern auch Packages
 -   Häufige Fehlerursache: -- Man geht davon aus, dass etwas geladen ist, ist es aber nicht. -- Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
 -   R lädt alles (!) in den Arbeitsspeicher.
+
+## R Notebooks
+
+-   Kombiniert Text, Code und Ergebnisse in einem Dokument
+-   Basieren auf R Markdown; Dateiendung: `.Rmd`
+-   Ausgabe als HTML direkt in RStudio – kein separater Render-Schritt nötig
+-   **Vorteil**: Code, Output und Text in einem Dokument – ideal für Analysen in der Bachelorarbeit
+
+## Aufbau eines R Notebooks
+
+-   **YAML-Header**: Metadaten (Titel, Format, Autor)
+-   **Text**: Markdown-Formatierung
+-   **Code-Chunks**: R-Code, der ausgeführt und angezeigt wird
+
+## R Notebook in der Praxis
+
+-   Neues Notebook: File → New File → R Notebook
+-   Code-Chunk einfügen: Strg+Alt+I (Mac: Cmd+Option+I)
+-   Ausführen: Chunk per Play-Button oder Strg+Shift+Enter; Gesamtes Notebook: „Preview“
+-   **Empfehlung**: Schreiben Sie Ihre Analysen immer im Notebook – nie nur in der Konsole
 
 ## Die ersten Schritte mit R
 
@@ -280,6 +297,110 @@ library(tidyverse)
 -   Zentrales Konzept in R
 -   Struktur: Zeilen für Observationen, Spalten für Attribute
 -   Zugriff auf Spalten über Dollarzeichen (`$`)
+
+## Das Tidyverse
+
+-   Sammlung von Packages für konsistente Datenanalyse
+-   Entwickelt von Hadley Wickham (heute bei Posit)
+-   Kernidee: „Code the way you think"
+-   Wichtigste Packages: `dplyr`, `ggplot2`, `readr`, `tidyr`, `stringr`
+
+```r
+install.packages("tidyverse")  # einmalig installieren
+library(tidyverse)              # jede Sitzung laden
+```
+
+## Packages installieren und laden
+
+-   Packages als Erweiterungen zu base R
+-   Installation einmalig: Tools → Install Packages oder `install.packages("name")`
+-   Laden in jeder Sitzung: `library(name)`
+-   Wichtig: Installation ≠ Laden – beides ist notwendig
+
+
+
+
+## Rohdaten transformieren und zusammenfassen
+
+Beschreiben Sie die Schritte, um eine Tüte Gummibärchen nach Farben zu sortieren
+
+## Rohdaten transformieren und zusammenfassen
+
+![](images/gummibaerchen.png)
+
+-   Öffne die Gummibärchentüte
+-   Gruppiere die Gummibärchen nach Farbe
+-   Zähle die Gummibärchen pro Farbe durch
+-   Zugabe: Sortiere absteigend nach Häufigkeit
+
+## Rohdaten transformieren und zusammenfassen
+
+``` r
+Gummibärchentüte %>%
+  group_by(farbe) %>%
+  summarize(Anzahl = n()) %>%
+  arrange(desc(Anzahl))
+```
+
+
+## Typische Funktionen im Tidyverse
+
+-   `group_by()`: Gruppieren nach Variablen
+-   `select()`: Spalten auswählen
+-   `filter()`: Zeilen nach Werten filtern
+-   `mutate()`: Variablen erstellen oder modifizieren
+-   `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
+-   `arrange()`: Sortierung ändern
+
+## Die Pipe: `|>` oder `%>%`
+
+-   Verkettet Operationen lesbar von links nach rechts
+-   Lies `|>` als „und dann"
+
+```r
+# Ohne Pipe – schwer lesbar
+arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
+```
+
+## Die Pipe, Teil II
+
+```r
+# Mit Pipe – intuitiv
+flights |>
+  group_by(carrier) |>
+  summarise(n = n()) |>
+  arrange(desc(n))
+```
+
+
+-   `|>` ist die native R-Pipe (seit R 4.1)
+-   `%>%` kommt aus dem `magrittr`-Package – beide funktionieren hier
+
+## Ausprobieren mit iris
+
+-   Klassischer Datensatz: 150 Iris-Blüten, 3 Arten
+-   Bereits in R enthalten – kein Package nötig
+-   Laden: `data(iris)` oder einfach `iris`
+
+## Code
+
+```r
+iris |>
+  group_by(Species) |>
+  summarise(
+    mittlere_laenge = mean(Sepal.Length),
+    n = n()
+  ) |>
+  arrange(desc(mittlere_laenge))
+```
+
+## Demo
+
+## Typische Fehler
+
+-   Package nicht geladen
+-   Pipe-Symbol falsch verwendet
+-   Unvollständige Code-Chunks
 
 # Sitzung 3: Deskriptive Statistik I
 
@@ -512,75 +633,22 @@ library(tidyverse)
 
 ## Lernziele dieser Sitzung
 
--   Daten mit tidyverse-Funktionen transformieren und aggregieren
--   Datensätze importieren und verbinden (Joins)
+-   Datensätze importieren und in R einlesen
+-   Datensätze mit Joins verknüpfen
 -   Typische Datenfehler erkennen und beheben
--   Einen eigenen Datensatz für die Bachelorarbeit aufbereiten
+-   Verschiedene Dateiformate kennen und einordnen
 
 ## Typischer Ablauf
 
 ![](images/CRISP-DM_Process_Diagram.png)
 
-## Tidyverse
-
--   Das Tidyverse-Paket von Hadley Wickham
--   Code the way you think
--   Enthält Packages wie dplyr und readr
-
-## Packages installieren und laden
-
--   Packages als Erweiterungen zu base R
--   Installation über Tools =\> Install Packages
--   Laden über library(NAME)
--   tidyverse und nycflights23
-
-## Rohdaten transformieren und zusammenfassen
-
-Beschreiben Sie die Schritte, um eine Tüte Gummibärchen nach Farben zu sortieren
-
-## Rohdaten transformieren und zusammenfassen
-
-![](images/gummibaerchen.png)
-
--   Öffne die Gummibärchentüte
--   Gruppiere die Gummibärchen nach Farbe
--   Zähle die Gummibärchen pro Farbe durch
--   Zugabe: Sortiere absteigend nach Häufigkeit
-
-## Rohdaten transformieren und zusammenfassen
-
-``` r
-Gummibärchentüte %>%
-  group_by(farbe) %>%
-  summarize(Anzahl = n()) %>%
-  arrange(desc(Anzahl))
-```
-
-## Typische Funktionen in Tidyverse
-
--   `group_by()`: Gruppieren nach Variablen
--   `select()`: Spalten auswählen
--   `filter()`: Zeilen nach Werten filtern
--   `mutate()`: Variablen erstellen oder modifizieren
--   `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
--   `arrange()`: Sortierung ändern
-
 ## Ausprobieren mit nycflights23
 
--   5 Datensätze
-    -   flights
-    -   planes
-    -   airlines
-    -   airports
-    -   weather
+-   5 Datensätze: `flights`, `planes`, `airlines`, `airports`, `weather`
+-   Laden: `install.packages("nycflights23")` → `library(nycflights23)`
+-   Reale Flugdaten – ideal für komplexere Transformationen
 
 ## Demo
-
-## Typische Fehler
-
--   Package nicht geladen
--   Pipe-Symbol falsch verwendet
--   Unvollständige Code-Chunks
 
 ## Datensätze miteinander verbinden
 
