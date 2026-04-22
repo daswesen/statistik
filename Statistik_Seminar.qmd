@@ -246,6 +246,7 @@ library(tidyverse)
 -   Basieren auf R Markdown; Dateiendung: `.Rmd`
 -   Ausgabe als HTML direkt in RStudio – kein separater Render-Schritt nötig
 -   **Vorteil**: Code, Output und Text in einem Dokument – ideal für Analysen in der Bachelorarbeit
+- **Referate werden mit einem Notebook gehalten**
 
 ## Aufbau eines R Notebooks
 
