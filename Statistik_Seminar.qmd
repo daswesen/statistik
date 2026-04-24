@@ -203,8 +203,7 @@ library(tidyverse)
 -   R und RStudio bedienen
 -   Grundlegende Datentypen und -strukturen in R kennen
 -   Ein R Notebook anlegen und ausführen
--   Das Tidyverse laden und die Pipe-Syntax verstehen
--   Einen ersten Datensatz explorieren
+
 
 ## Welche Programmiersprachen kennen Sie bereits?
 
@@ -299,6 +298,19 @@ library(tidyverse)
 -   Struktur: Zeilen für Observationen, Spalten für Attribute
 -   Zugriff auf Spalten über Dollarzeichen (`$`)
 
+## Hausaufgabe
+
+- Starten Sie ein Notebook wie oben beschrieben; Sie werden die Aufforderung erhalten, mehrere Packages zu installieren, was Sie bitte tun.
+- Installieren Sie das Tidyverse (siehe nächste Folie)
+- Laden Sie die Daten unter https://alby.link/books herunter auf Ihre Festplatte
+
+## Packages installieren und laden
+
+-   Packages als Erweiterungen zu base R
+-   Installation einmalig: Tools → Install Packages oder `install.packages("name")`
+-   Laden in jeder Sitzung: `library(name)`
+-   Wichtig: Installation ≠ Laden – beides ist notwendig
+
 ## Das Tidyverse
 
 -   Sammlung von Packages für konsistente Datenanalyse
@@ -311,14 +323,21 @@ install.packages("tidyverse")  # einmalig installieren
 library(tidyverse)              # jede Sitzung laden
 ```
 
-## Packages installieren und laden
-
--   Packages als Erweiterungen zu base R
--   Installation einmalig: Tools → Install Packages oder `install.packages("name")`
--   Laden in jeder Sitzung: `library(name)`
--   Wichtig: Installation ≠ Laden – beides ist notwendig
 
 
+
+
+
+# Sitzung 3: Deskriptive Statistik I
+
+## Lernziele dieser Sitzung
+
+-   Das Tidyverse laden und die Pipe-Syntax verstehen
+-   Einen ersten Datensatz explorieren  
+-   Lage- und Streuungsmaße berechnen und interpretieren
+-   Den Unterschied zwischen Mittelwert und Median erklären
+-   Verteilungen anhand von Histogramm und Boxplot beurteilen
+-   Kennzahlen in R berechnen
 
 
 ## Rohdaten transformieren und zusammenfassen
@@ -402,15 +421,6 @@ iris |>
 -   Package nicht geladen
 -   Pipe-Symbol falsch verwendet
 -   Unvollständige Code-Chunks
-
-# Sitzung 3: Deskriptive Statistik I
-
-## Lernziele dieser Sitzung
-
--   Lage- und Streuungsmaße berechnen und interpretieren
--   Den Unterschied zwischen Mittelwert und Median erklären
--   Verteilungen anhand von Histogramm und Boxplot beurteilen
--   Kennzahlen in R berechnen
 
 ## Let's talk about money
 
