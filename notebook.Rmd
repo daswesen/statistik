@@ -1,0 +1,133 @@
+---
+title: "Notebook Statistik-Kurs Sommersemester 2026 HAW"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+# Einleitung
+
+Ihr Referat basiert auf einem Notebook.
+
+## Session 2
+
+```{r}
+mtcars
+```
+
+Dies ist mein schöner Datensatz :)
+
+
+
+```{r}
+summary(mtcars)
+```
+
+```{r}
+cars
+```
+
+```{r}
+plot(cars)
+```
+
+
+```{r}
+x <- 7
+y <- x*2
+```
+
+```{r}
+x <- c(1,2,3)
+x*2
+```
+
+
+```{r}
+mtcars$carb
+```
+
+```{r}
+mtcars
+```
+
+```{r}
+plot(mtcars$cyl,mtcars$mpg)
+```
+
+```{r}
+plot(mtcars)
+```
+
+```{r}
+?mtcars
+```
+
+
+## Session 3
+
+```{r}
+library(readr)
+BX_Books <- read_delim("data/Archiv/BX-Books.csv", 
+    delim = ";", escape_double = FALSE, col_types = cols(`Year-Of-Publication` = col_integer(), 
+        `Image-URL-S` = col_skip(), `Image-URL-M` = col_skip(), 
+        `Image-URL-L` = col_skip()), trim_ws = TRUE)
+
+```
+```{r}
+library(tidyverse)
+```
+
+```{r}
+BX_Books %>%
+  group_by(Publisher) %>%
+  summarise(AnzahlBuecherProPublisher = n()) %>%
+  arrange(desc(AnzahlBuecherProPublisher))
+```
+
+
+```{r}
+BX_Books %>%
+  group_by(`Year-Of-Publication`) %>%
+  summarise(AnzahlBuecherProJahr = n()) %>%
+  arrange(desc(AnzahlBuecherProJahr))
+```
+
+```{r}
+BX_Books %>%
+  group_by(Publisher, `Book-Author`) %>%
+  summarise(BuecherProPublisher = n()) %>%
+  arrange(desc(BuecherProPublisher))
+```
+
+
+
+```{r}
+BX_Books %>%
+  select(Publisher, `Book-Author`, `Year-Of-Publication`) %>%
+  filter(`Year-Of-Publication` >= 1900) %>%
+  arrange(`Year-Of-Publication`)
+```
+
+
+```{r}
+BX_Books %>%
+  group_by(`Book-Author`) %>%
+  mutate(NumberOfBooks = n())
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

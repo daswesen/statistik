@@ -1,0 +1,843 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Einleitung
+
+Dies ist ein toller Code!
+
+```{r}
+plot(cars)
+```
+
+```{r}
+2+2
+```
+
+```{r}
+summary(cars)
+```
+```{r}
+hist(cars$speed)
+```
+
+# Sitzung 3
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+library(nycflights23)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+nummer <- 1:18
+farbe <- c("rot","rot","rot","rot","orange","orange","orange","orange","grün","grün","grün","grün","dunkelrot","dunkelrot","rot","dunkelrot","gelb","gelb")
+Gummibärchentüte <- data.frame(nummer,farbe)
+Gummibärchentüte
+```
+
+# Sitzung 4
+
+```{r}
+library(tidyverse)
+```
+```{r}
+library(nycflights23)
+```
+
+
+```{r}
+Gummibärchentüte %>%
+  group_by(farbe) %>%
+  summarise(Anzahl_pro_farbe = n()) %>%
+  arrange(desc(Anzahl_pro_farbe))
+```
+
+```{r}
+my_flights <- flights
+```
+
+```{r}
+flights %>%
+  group_by(origin) %>%
+  summarise(Anzahl_Fluege_pro_Carrier = n())
+```
+
+```{r}
+data <- flights %>%
+  full_join(airlines) %>%
+  full_join(airports, join_by("dest" == "faa")) %>%
+  rename(airline_name = name.x, dest_name = name.y) 
+```
+
+```{r}
+write_csv(data, "data.csv")
+```
+
+```{r}
+data <- read_csv("data.csv")
+```
+
+
+```{r}
+airports
+```
+
+```{r}
+weather
+```
+
+
+```{r}
+flights %>%
+  group_by(dest) %>%
+  summarise(Anzahl_destinations = n())
+```
+
+
+```{r}
+airlines
+```
+
+# Sitzung 4
+
+```{r}
+flights %>%
+  select(carrier, dep_delay) %>%
+  filter(dep_delay > 0) %>%
+  group_by(carrier) %>%
+  summarise(anzahl = n()) %>%
+  arrange(desc(anzahl))
+```
+
+```{r}
+flights %>% # der ganze Datensatz
+  select(carrier, dep_delay) %>% # Auswahl der relevanten Spalten
+  group_by(carrier) %>% # Airlines in Häufchen legen
+  mutate(anzahl_fluege = n()) %>% # neue Spalte erstellen mit der Anzahl Flüge pro Häufchen (Airline)
+  filter(dep_delay > 0) %>% # Alle Flüge rausfiltern, die pünktlich waren
+  mutate(anzahl_verspaetungen = n()) %>% # neues Zählen der Flüge
+  select(-dep_delay) %>% # Entfernen der Spalte dep_delay
+  unique() %>% # einzigartige Zahlen
+  mutate(ratio = anzahl_verspaetungen / anzahl_fluege) %>% # Verhältnis unpünktlicher Flüge zu allen Flügen
+  arrange(desc(ratio)) # Sortieren absteigend
+```
+
+```{r}
+flights %>% # der ganze Datensatz
+  select(carrier, dep_delay) %>% # Auswahl der relevanten Spalten
+  group_by(carrier) %>% # Airlines in Häufchen legen
+  mutate(anzahl_fluege = n()) %>% # neue Spalte erstellen mit der Anzahl Flüge pro Häufchen (Airline)
+  filter(dep_delay > 0) %>% # Alle Flüge rausfiltern, die pünktlich waren
+  mutate(anzahl_verspaetungen = n()) %>% # neues Zählen der Flüge
+  mutate(avg_delay = mean(dep_delay)) %>%
+  mutate(median_delay = median(dep_delay)) %>%
+  select(-dep_delay) %>%
+  unique() %>%
+  mutate(ratio = anzahl_verspaetungen / anzahl_fluege) %>% # Verhältnis unpünktlicher Flüge zu allen Flügen
+  arrange(desc(ratio)) # Sortieren absteigend
+
+```
+
+
+
+
+
+
+
+
+```{r}
+flights %>%
+  group_by(carrier) %>%
+  summarise(anzahl_fluege = n())
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+flights %>%
+  select(carrier, dep_delay) %>%
+  group_by(carrier) %>%
+  mutate(anzahl_fluege = n()) %>%
+  filter(dep_delay > 0) %>%
+  mutate(anzahl_verspaetungen = n()) %>%
+  mutate(ratio = anzahl_verspaetungen / anzahl_fluege *100) %>%
+  select(carrier, ratio) %>%
+  unique() %>%
+  ggplot(., aes(x = carrier, y = ratio)) +
+  geom_col() + 
+  theme_minimal()
+```
+
+
+```{r}
+flights %>%
+  select(carrier, dep_delay) %>%
+  group_by(carrier) %>%
+  mutate(median_delay = median(dep_delay, na.rm = TRUE), mean_delay = mean(dep_delay, na.rm = TRUE), max_delay = max(dep_delay, na.rm = TRUE)) %>%
+  select(-dep_delay) %>%
+  unique()
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+flights %>%
+  group_by(carrier) %>%
+  mutate(number_of_flights = n()) %>%
+  filter(arr_delay > 0) %>%
+  mutate(number_of_delays = n()) %>%
+  mutate(delay_ration = number_of_delays / number_of_flights) %>%
+  select(carrier, number_of_delays, number_of_flights, delay_ration) %>%
+  distinct() %>%
+  arrange(desc(delay_ration)) %>%
+  left_join(airlines) %>%
+  rename(airline=name) %>%
+  ggplot(. , aes(x = carrier, y = delay_ration)) +
+  geom_col()
+
+```
+
+```{r}
+# Benötigte Pakete laden
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
+
+# Mittlere Ankunftsverspätung pro Fluggesellschaft berechnen
+airline_delays <- flights %>%
+  group_by(carrier) %>%
+  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  #filter(mean_delay > 0) %>%
+  # Fluggesellschaftsnamen hinzufügen
+  left_join(airlines, by = "carrier") %>%
+  # Nach Verspätung sortieren
+  arrange(mean_delay)
+
+# Einen Vektor für Farben erstellen (alle grau außer ExpressJet, das hervorgehoben wird)
+# ExpressJet hat im Datensatz den Code "EV"
+farben <- ifelse(airline_delays$carrier == "G4", "#B22222", "#AAAAAA")
+
+# Horizontalen Balkenplot erstellen
+ggplot(airline_delays, aes(x = reorder(name, mean_delay), y = mean_delay)) +
+  geom_col(fill = farben) +
+  coord_flip() +  # Für horizontale Balken
+  labs(
+    title = "",
+    x = "",
+    y = "mean arrival delay (min.)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
+
+
+```{r}
+# Benötigte Pakete laden
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
+
+# Daten filtern (nur positive Verspätungen) und vorbereiten
+delay_data <- flights %>%
+  left_join(airlines, by = "carrier")  # Fluggesellschaftsnamen hinzufügen
+
+# Reihenfolge der Fluggesellschaften nach Median-Verspätung festlegen
+carrier_order <- delay_data %>%
+  group_by(carrier, name) %>%
+  summarise(median_delay = median(arr_delay, na.rm = TRUE), .groups = "drop") %>%
+  arrange(median_delay)
+
+# Farben definieren (ExpressJet hervorgehoben, Rest grau)
+# (Angenommen, Sie möchten ExpressJet hervorheben, das Code "EV" hat)
+delay_data$color <- ifelse(delay_data$carrier == "G4", "#B22222", "#AAAAAA")
+
+# Boxplot erstellen
+ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name), y = arr_delay)) +
+  geom_boxplot(aes(fill = color), outlier.shape = NA, varwidth = TRUE) +  # outlier.shape = NA entfernt Ausreißer für bessere Lesbarkeit
+  coord_flip() +  # Horizontale Boxplots
+  scale_fill_identity() +  # Verwende die definierten Farben direkt
+  scale_y_continuous(limits = c(-50, 150)) +  # Limitiere y-Achse für bessere Lesbarkeit
+  labs(
+    title = "Verteilung der Ankunftsverspätungen nach Fluggesellschaft",
+    x = "",
+    y = "arrival delay (min.)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
+
+# Sitzung 5
+
+```{r}
+flights %>%
+  filter(dep_delay > 5) %>%
+  ggplot(., aes(x = dep_delay)) +
+  geom_histogram(bins = 50)
+```
+
+```{r}
+data <- read_delim("data.csv", delim = ";", 
+    escape_double = FALSE, locale = locale(decimal_mark = ",", 
+        grouping_mark = "."), trim_ws = TRUE, col_names = FALSE)
+```
+
+
+
+```{r}
+mean(data$X1)
+```
+
+# Session 7: Chi-Quadrat-Tests mit Würfelbeispielen
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(vcd)        # für Cramér's V
+library(DescTools)  # für weitere Effektstärken
+library(corrplot)   # für Visualisierungen
+```
+
+
+## 1. Anpassungstest (Goodness of Fit)
+
+### Prüfung auf faire Würfel
+```{r}
+# Beobachtete Häufigkeiten (simuliert einen unfairen Würfel)
+set.seed(123)
+# Unfairer Würfel: 6 kommt häufiger vor
+wuerfe <- sample(1:6, 120, replace = TRUE, prob = c(1,1,1,1,1,2))
+beobachtet <- table(wuerfe)
+print("Beobachtete Häufigkeiten:")
+print(beobachtet)
+
+# Erwartete Häufigkeiten bei fairem Würfel
+erwartet <- rep(120/6, 6)
+names(erwartet) <- 1:6
+
+# Chi-Quadrat-Anpassungstest
+chi_test <- chisq.test(beobachtet, p = rep(1/6, 6))
+print(chi_test)
+
+# Teststatistik manuell berechnen
+chi_quadrat <- sum((beobachtet - erwartet)^2 / erwartet)
+cat("Manuell berechnetes Chi²:", chi_quadrat)
+```
+
+## 2. Residuenanalyse
+
+### Standardisierte Residuen
+```{r}
+# Rohe Residuen
+rohe_residuen <- beobachtet - erwartet
+print("Rohe Residuen:")
+print(rohe_residuen)
+
+# Pearson-Residuen
+pearson_residuen <- (beobachtet - erwartet) / sqrt(erwartet)
+print("Pearson-Residuen:")
+print(round(pearson_residuen, 2))
+
+# Standardisierte Residuen (bei Anpassungstest)
+# Formel: (beobachtet - erwartet) / sqrt(erwartet * (1 - 1/k))
+# wobei k = Anzahl Kategorien
+n_kategorien <- 6
+standardisierte_residuen <- (beobachtet - erwartet) / sqrt(erwartet * (1 - 1/n_kategorien))
+print("Standardisierte Residuen:")
+print(round(standardisierte_residuen, 2))
+
+# Visualisierung der standardisierten Residuen
+barplot(standardisierte_residuen, 
+        main = "Standardisierte Residuen",
+        xlab = "Augenzahl", 
+        ylab = "Standardisierte Residuen",
+        col = ifelse(abs(standardisierte_residuen) > 2, "red", "lightblue"))
+abline(h = c(-2, 2), col = "red", lty = 2)
+
+# Erklärung der Residuen-Arten für Anpassungstest
+cat("\nErkl\u00e4rung der Residuen beim Anpassungstest:\n")
+cat("- Pearson-Residuen: (O-E)/sqrt(E)\n")
+cat("- Standardisierte Residuen: (O-E)/sqrt(E*(1-1/k))\n")
+cat("- k = Anzahl Kategorien (hier: 6)\n")
+cat("- |Residuum| > 2: Hinweis auf systematische Abweichung\n")
+```
+
+## 3. Effektstärken für Anpassungstests
+
+### Cohen's w
+```{r}
+# Cohen's w für Anpassungstest
+# Formel: w = sqrt(sum((p_beobachtet - p_erwartet)^2 / p_erwartet))
+p_beobachtet <- beobachtet / sum(beobachtet)
+p_erwartet <- rep(1/6, 6)
+
+cohens_w <- sqrt(sum((p_beobachtet - p_erwartet)^2 / p_erwartet))
+cat("Cohen's w:", round(cohens_w, 3), "\n")
+
+# Interpretation nach Cohen (1988)
+cat("Interpretation:\n")
+if(cohens_w < 0.1) {
+  cat("Kleiner Effekt (w < 0.1)\n")
+} else if(cohens_w < 0.3) {
+  cat("Mittlerer Effekt (0.1 ≤ w < 0.3)\n")
+} else {
+  cat("Großer Effekt (w ≥ 0.3)\n")
+}
+```
+
+## 4. Kontingenztabellen (Unabhängigkeitstest)
+
+### Beispiel: Zwei Würfel - Summe vs. Differenz
+```{r}
+# Simulation von zwei Würfeln
+n_wuerfe <- 1000
+wurf1 <- sample(1:6, n_wuerfe, replace = TRUE)
+wurf2 <- sample(1:6, n_wuerfe, replace = TRUE)
+
+# Kategorisierung
+summe_kat <- cut(wurf1 + wurf2, breaks = c(1, 6, 8, 13), 
+                 labels = c("niedrig (2-6)", "mittel (7-8)", "hoch (9-12)"))
+differenz_kat <- cut(abs(wurf1 - wurf2), breaks = c(-1, 1, 3, 6), 
+                     labels = c("klein (0-1)", "mittel (2-3)", "groß (4-5)"))
+
+# Kontingenztabelle
+kontingenz <- table(summe_kat, differenz_kat)
+print("Kontingenztabelle:")
+print(kontingenz)
+
+# Chi-Quadrat-Unabhängigkeitstest
+chi_unabh <- chisq.test(kontingenz)
+print(chi_unabh)
+```
+
+## 5. Residuenanalyse für Kontingenztabellen
+
+### Verschiedene Arten von Residuen
+```{r}
+# Erwartete Häufigkeiten
+erwartet_matrix <- chi_unabh$expected
+print("Erwartete Häufigkeiten:")
+print(round(erwartet_matrix, 1))
+
+# Rohe Residuen
+rohe_res_matrix <- kontingenz - erwartet_matrix
+print("Rohe Residuen:")
+print(round(rohe_res_matrix, 1))
+
+# Pearson-Residuen
+pearson_res_matrix <- (kontingenz - erwartet_matrix) / sqrt(erwartet_matrix)
+print("Pearson-Residuen:")
+print(round(pearson_res_matrix, 2))
+
+# Standardisierte Residuen (berücksichtigen Randverteilungen)
+# Berechnung der Randwahrscheinlichkeiten
+n_total <- sum(kontingenz)
+rand_zeilen <- rowSums(kontingenz) / n_total
+rand_spalten <- colSums(kontingenz) / n_total
+
+# Standardisierte Residuen
+std_res_matrix <- matrix(0, nrow = nrow(kontingenz), ncol = ncol(kontingenz))
+for(i in 1:nrow(kontingenz)) {
+  for(j in 1:ncol(kontingenz)) {
+    variance <- erwartet_matrix[i,j] * (1 - rand_zeilen[i]) * (1 - rand_spalten[j])
+    std_res_matrix[i,j] <- (kontingenz[i,j] - erwartet_matrix[i,j]) / sqrt(variance)
+  }
+}
+rownames(std_res_matrix) <- rownames(kontingenz)
+colnames(std_res_matrix) <- colnames(kontingenz)
+print("Standardisierte Residuen:")
+print(round(std_res_matrix, 2))
+
+# Adjustierte standardisierte Residuen (echte Berechnung)
+# Diese berücksichtigen die Korrelation zwischen Zellen
+# Formel: (O-E) / sqrt(E * (1-p_i) * (1-p_j) * (1-chi²/n))
+chi_stat <- chi_unabh$statistic
+n_total <- sum(kontingenz)
+adjustment_factor <- sqrt(1 - chi_stat/n_total)
+
+adj_std_res_matrix <- matrix(0, nrow = nrow(kontingenz), ncol = ncol(kontingenz))
+for(i in 1:nrow(kontingenz)) {
+  for(j in 1:ncol(kontingenz)) {
+    variance <- erwartet_matrix[i,j] * (1 - rand_zeilen[i]) * (1 - rand_spalten[j])
+    adj_std_res_matrix[i,j] <- (kontingenz[i,j] - erwartet_matrix[i,j]) / 
+                              (sqrt(variance) * adjustment_factor)
+  }
+}
+rownames(adj_std_res_matrix) <- rownames(kontingenz)
+colnames(adj_std_res_matrix) <- colnames(kontingenz)
+print("Adjustierte standardisierte Residuen:")
+print(round(adj_std_res_matrix, 2))
+
+# Zum Vergleich: Was R als 'residuals' ausgibt (das sind nur Pearson-Residuen)
+print("R's chi$residuals (= Pearson-Residuen):")
+print(round(chi_unabh$residuals, 2))
+
+# Vergleich: Welche Zellen sind auffällig?
+cat("\nAuff\u00e4llige Zellen (|Residuum| > 2):\n")
+auffaellige_zellen <- which(abs(adj_std_res_matrix) > 2, arr.ind = TRUE)
+for(i in 1:nrow(auffaellige_zellen)) {
+  zeile <- auffaellige_zellen[i, 1]
+  spalte <- auffaellige_zellen[i, 2]
+  residuum <- adj_std_res_matrix[zeile, spalte]
+  cat(sprintf("%s + %s: Residuum = %.2f\n", 
+              rownames(adj_std_res_matrix)[zeile],
+              colnames(adj_std_res_matrix)[spalte],
+              residuum))
+}
+
+# Visualisierung der adjustierten Residuen
+library(corrplot)
+corrplot(adj_std_res_matrix, is.corr = FALSE, method = "color",
+         title = "Adjustierte standardisierte Residuen",
+         mar = c(1,1,2,1))
+
+# Erklärung der verschiedenen Residuen-Arten
+cat("\nErkl\u00e4rung der Residuen-Arten:\n")
+cat("1. Rohe Residuen: Einfache Differenz (Beobachtet - Erwartet)\n")
+cat("2. Pearson-Residuen: Normalisiert durch sqrt(Erwartet)\n")
+cat("3. Standardisierte Residuen: Ber\u00fccksichtigen Randverteilungen\n")
+cat("4. Adjustierte Residuen: Zus\u00e4tzliche Varianzkorrektur\n")
+cat("\nInterpretation: |Residuum| > 2 deutet auf systematische Abweichung hin\n")
+```
+
+## 6. Effektstärken für Kontingenztabellen
+
+### Cramér's V
+```{r}
+# Cramér's V
+n <- sum(kontingenz)
+min_dim <- min(nrow(kontingenz), ncol(kontingenz))
+cramers_v <- sqrt(chi_unabh$statistic / (n * (min_dim - 1)))
+cat("Cramér's V:", round(cramers_v, 3), "\n")
+
+# Alternative Berechnung mit vcd-Paket
+library(vcd)
+cramers_v_vcd <- assocstats(kontingenz)$cramer
+cat("Cramér's V (vcd):", round(cramers_v_vcd, 3), "\n")
+
+# Interpretation
+cat("Interpretation:\n")
+if(cramers_v < 0.1) {
+  cat("Schwacher Zusammenhang (V < 0.1)\n")
+} else if(cramers_v < 0.3) {
+  cat("Mittlerer Zusammenhang (0.1 ≤ V < 0.3)\n")
+} else {
+  cat("Starker Zusammenhang (V ≥ 0.3)\n")
+}
+```
+
+### Phi-Koeffizient (nur für 2x2-Tabellen)
+```{r}
+# Für Phi erstellen wir eine 2x2-Tabelle
+summe_2kat <- ifelse(wurf1 + wurf2 <= 7, "niedrig", "hoch")
+differenz_2kat <- ifelse(abs(wurf1 - wurf2) <= 2, "klein", "groß")
+
+kontingenz_2x2 <- table(summe_2kat, differenz_2kat)
+print("2x2 Kontingenztabelle:")
+print(kontingenz_2x2)
+
+# Chi-Quadrat-Test
+chi_2x2 <- chisq.test(kontingenz_2x2)
+
+# Phi-Koeffizient
+phi <- sqrt(chi_2x2$statistic / sum(kontingenz_2x2))
+cat("Phi-Koeffizient:", round(phi, 3), "\n")
+
+# Alternative mit DescTools
+library(DescTools)
+phi_desc <- Phi(kontingenz_2x2)
+cat("Phi (DescTools):", round(phi_desc, 3), "\n")
+```
+
+## 7. Odds Ratio (für 2x2-Tabellen)
+```{r}
+# Odds Ratio berechnen
+or <- OddsRatio(kontingenz_2x2, conf.level = 0.95)
+print("Odds Ratio mit 95% Konfidenzintervall:")
+print(or)
+
+# Interpretation
+cat("Interpretation:\n")
+if(or[1] > 1) {
+  cat("Positive Assoziation (OR > 1)\n")
+} else if(or[1] < 1) {
+  cat("Negative Assoziation (OR < 1)\n")
+} else {
+  cat("Keine Assoziation (OR ≈ 1)\n")
+}
+```
+
+## 8. Zusammenfassung der Effektstärken
+
+```{r}
+cat("Übersicht der Effektstärken:\n\n")
+cat("Anpassungstest:\n")
+cat("- Cohen's w:", round(cohens_w, 3), "\n\n")
+
+cat("Kontingenztabelle (", nrow(kontingenz), "x", ncol(kontingenz), "):\n")
+cat("- Cramér's V:", round(cramers_v, 3), "\n\n")
+
+cat("2x2-Tabelle:\n")
+cat("- Phi-Koeffizient:", round(phi, 3), "\n")
+cat("- Odds Ratio:", round(or[1], 3), "\n\n")
+
+cat("Interpretation der Effektstärken:\n")
+cat("- Klein: w/V/|φ| < 0.1, OR: 1.2-1.5\n")
+cat("- Mittel: w/V/|φ| = 0.1-0.3, OR: 1.5-3.0\n")
+cat("- Groß: w/V/|φ| > 0.3, OR: > 3.0\n")
+```
+
+## 9. Power-Analyse für Chi-Quadrat-Tests
+
+```{r}
+# Power-Analyse mit pwr-Paket
+library(pwr)
+
+# Power für gegebene Effektstärke
+power_anpassung <- pwr.chisq.test(w = cohens_w, N = 120, df = 5)
+cat("Power für Anpassungstest:", round(power_anpassung$power, 3), "\n")
+
+# Benötigte Stichprobengröße für Power = 0.8
+n_needed <- pwr.chisq.test(w = cohens_w, power = 0.8, df = 5)
+cat("Benötigte Stichprobengröße für Power = 0.8:", ceiling(n_needed$N), "\n")
+```
+
+# Zusammenfassung: Residuen-Arten und ihre praktische Bedeutung
+
+## Wichtige Erkenntnisse aus den Analysen
+
+### 1. Verschiedene Residuen-Arten zeigen dramatische Unterschiede
+
+**Kontingenztabelle - Beispiel "mittel + groß":**
+- **Pearson-Residuen**: 9.38
+- **Standardisierte Residuen**: 12.22 (30% größer)
+- **Adjustierte Residuen**: 13.58 (45% größer)
+
+Die Residuen werden mit jeder Korrektur extremer, was zu **stärkerer Evidenz** für systematische Abweichungen führt.
+
+### 2. R's `chisq.test()$residuals` ist irreführend
+
+**Problem**: R's Standardfunktion gibt fälschlicherweise nur **Pearson-Residuen** aus, obwohl diese oft als "standardisierte Residuen" interpretiert werden.
+
+**Lösung**: Echte standardisierte und adjustierte Residuen müssen manuell berechnet werden (wie in diesem Notebook gezeigt).
+
+### 3. Praktische Auswirkungen für die Interpretation
+
+**Schwellenwert |Residuum| > 2:**
+- **Pearson-Residuen**: 4 auffällige Zellen
+- **Echte adjustierte Residuen**: 6 auffällige Zellen
+
+**Konsequenz**: Bei ausschließlicher Verwendung von Pearson-Residuen werden systematische Abweichungen **unterschätzt**.
+
+### 4. Mathematischer Zusammenhang zwischen Würfelsumme und -differenz
+
+Die starke Assoziation (Cramér's V = 0.308) ist **mathematisch zwingend**:
+- **Hohe Summen** (9-12) → nur kleine Differenzen möglich
+- **Mittlere Summen** (7-8) → alle Differenzen möglich
+- Dies erklärt die extremen Residuen in bestimmten Zellen
+
+### 5. Effektstärken im Vergleich
+
+**Verschiedene Perspektiven auf dieselben Daten:**
+- **3×3 Kontingenztabelle**: Cramér's V = 0.308 (starker Effekt)
+- **2×2 Vereinfachung**: Phi = 0.092 (schwacher Effekt)
+- **Cohen's w**: 0.274 (mittlerer Effekt)
+
+
+### 6. Power-Analyse liefert praktische Hinweise
+
+**Anpassungstest**: 
+- Aktuelle Power: 62.4% (bei n=120)
+- Für Power = 80%: n=172 benötigt
+
+**Bedeutung**: Der "unfaire" Würfel zeigt grenzwertige Abweichungen - eine größere Stichprobe würde klarere Ergebnisse liefern.
+
+
+# Sitzung 9
+
+```{r}
+plot(cars)
+```
+```{r}
+fit <- lm(cars$dist~cars$speed)
+summary(fit)
+```
+```{r}
+plot(cars)
+abline(fit)
+```
+
+
+
+
+# Modus berechnen
+
+```{r}
+modus_alle <- function(x) {
+  freq <- table(x)
+  max_freq <- max(freq)
+  as.numeric(names(freq)[freq == max_freq])
+}
+
+modus_alle(cars$speed)
+```
+
+
+
+# Sitzung 11
+
+
+## Klassifikation von Mails in Ham und Spam
+
+Wer es noch nicht wusste, der Grund dafür, dass wir unerwünschte Werbe-Emails als Spam bezeichnen, ist ein alter Monty Python-Sketch. Das folgende Beispiel ist inspiriert von [Harshit Kumar](https://kharshit.github.io/blog/2017/08/25/email-spam-filtering-text-analysis-in-r).
+
+```{r}
+emails = read.csv('data/emails.csv', stringsAsFactors = FALSE)
+table(emails$spam)
+```
+
+Wir nutzen zwei Libraries, tm, das für Text Mining verwendet wird, und SnowballC, ein Stemmer. Damit bilden wir einen Corpus:
+
+```{r}
+library(tm)
+library(SnowballC)
+corpus = VCorpus(VectorSource(emails$text))
+corpus = tm_map(corpus, content_transformer(tolower))
+corpus = tm_map(corpus, PlainTextDocument)
+corpus = tm_map(corpus, removePunctuation)
+corpus = tm_map(corpus, removeWords, stopwords("en"))
+corpus = tm_map(corpus, stemDocument)
+```
+
+Als nächstes wird eine Document Term Matrix gebildet:
+
+```{r}
+dtm = DocumentTermMatrix(corpus)
+dtm
+```
+
+Daraus werden nur die häufigsten Terme verwendet:
+
+```{r}
+spdtm = removeSparseTerms(dtm, 0.95)
+spdtm
+```
+
+Daraus wird ein Data Frame erstellt:
+
+```{r}
+emailsSparse = as.data.frame(as.matrix(spdtm))
+colnames(emailsSparse) = make.names(colnames(emailsSparse))
+emailsSparse$spam = emails$spam
+emailsSparse$spam = as.factor(emailsSparse$spam)
+```
+
+Nun wird wie gehabt der Corpus geteilt in Training und Test:
+```{r}
+library(caret)
+library(e1071)
+set.seed(983)
+trainIndex=createDataPartition(emailsSparse$spam, p=0.8)$Resample1
+train.data=emailsSparse[trainIndex, ]
+test.data=emailsSparse[-trainIndex, ]
+```
+
+Es wird ein Naive Bayes-Modell gebildet:
+
+```{r}
+Naive_Bayes_Model=naiveBayes(spam ~., data=train.data, type = "raw")
+```
+
+```{r}
+Spam.class <- predict(Naive_Bayes_Model, test.data)
+table(Spam.class, test.data$spam)
+```
+
+
+
+```{r}
+model.results <- cbind(test.data,Spam.class)
+```
+
+```{r}
+Spam.class <- predict(Naive_Bayes_Model, test.data, type = "raw")
+real_spam <- as.numeric(as.character(model.results$spam))
+```
+
+
+
+```{r warning=FALSE, message=FALSE}
+library(pROC)
+
+pROC_obj <- roc(real_spam, Spam.class[,2],
+            smoothed = TRUE,
+            ci=TRUE, ci.alpha=0.9, stratified=FALSE,
+            plot=TRUE, auc.polygon=TRUE, max.auc.polygon=TRUE, grid=TRUE,
+            print.auc=TRUE, show.thres=TRUE)
+
+sens.ci <- ci.se(pROC_obj)
+plot(sens.ci, type="shape", col="lightblue")
+plot(sens.ci, type="bars")
+```
+
+
+```{r}
+Naive_Bayes_Model
+```
+
+
+
+
+
+

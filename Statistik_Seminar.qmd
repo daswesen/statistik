@@ -11,7 +11,6 @@ author: "Dr. Tom Alby"
 library(tidyverse)
 ```
 
-
 # Sitzung 1: Einführung & Organisatorisches
 
 ## Ziele dieser Veranstaltung
@@ -32,35 +31,33 @@ library(tidyverse)
 
 ## Übersicht der Sitzungen (1/2)
 
-| Sitzung | Thema |
-|---------|-------|
-| 1 | Einführung & Organisatorisches |
-| 2 | Einführung in R |
-| 3 | Deskriptive Statistik I – Lage- & Streuungsmaße |
-| 4 | Deskriptive Statistik II & Datenmanipulation |
-| 5 | Datenvisualisierung |
-| 6 | Wahrscheinlichkeiten & Verteilungen |
-| 7 | Inferenzstatistik & t-Test |
+| Sitzung | Thema                                           |
+|---------|-------------------------------------------------|
+| 1       | Einführung & Organisatorisches                  |
+| 2       | Einführung in R                                 |
+| 3       | Deskriptive Statistik I – Lage- & Streuungsmaße |
+| 4       | Deskriptive Statistik II & Datenmanipulation    |
+| 5       | Datenvisualisierung                             |
+| 6       | Wahrscheinlichkeiten & Verteilungen             |
+| 7       | Inferenzstatistik & t-Test                      |
 
 ## Übersicht der Sitzungen (2/2)
 
-| Sitzung | Thema |
-|---------|-------|
-| 8 | Chi-Quadrat-Test |
-| 9 | Korrelationsanalyse |
-| 10 | Regression I – Lineare Regression |
-| 11 | ANOVA |
-| 12 | Text Mining & Klassifikation |
-| 13 | Regression II – Logistische Regression |
-| 14 | Abschluss |
+| Sitzung | Thema                                  |
+|---------|----------------------------------------|
+| 8       | Chi-Quadrat-Test                       |
+| 9       | Korrelationsanalyse                    |
+| 10      | Regression I – Lineare Regression      |
+| 11      | ANOVA                                  |
+| 12      | Text Mining & Klassifikation           |
+| 13      | Regression II – Logistische Regression |
+| 14      | Abschluss                              |
 
 ## Erwartungen und Interaktion
 
 -   **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
     -   16 Uhr: #68430031
     -   18 Uhr: #68430032
-
-
 
 ## Rules of Working
 
@@ -69,28 +66,28 @@ library(tidyverse)
 -   **Sprechstunde:** <https://alby.link/talk2me>
 -   **Moodle:** Einschreibeschlüssel: iLoveStats!
 -   **Teilnahme:** Keine Anwesenheitspflicht, keine Präsenzpflicht, Online-Teilnahme via Teams möglich
-- Gruppen können online jederzeit gewechselt werden
-- Sessions als KI-Podcast?
+-   Gruppen können online jederzeit gewechselt werden
+-   Sessions als KI-Podcast?
 
 ## Prüfungsleistung
 
 -   Referat (mit Befragung, nicht online)
-- Keine Gruppenarbeit
-- Bitte Datensatz und Fragestellung selbst aussuchen und kurz absprechen
-- Beispiel: Hängen Bildschirmzeit und Depressionsanfälligkeit zusammen?
-- Präsentation mit Quellenangaben sowie Code nach Referat in Moodle hochladen
-- Termine für Referate (nach 8. Sitzung) bitte ins Forum posten
+-   Keine Gruppenarbeit
+-   Bitte Datensatz und Fragestellung selbst aussuchen und kurz absprechen
+-   Beispiel: Hängen Bildschirmzeit und Depressionsanfälligkeit zusammen?
+-   Präsentation mit Quellenangaben sowie Code nach Referat in Moodle hochladen
+-   Termine für Referate (nach 8. Sitzung) bitte ins Forum posten
 
 ## Software
 
 -   R <https://r-project.org>
 -   RStudio <https://posit.co/download/rstudio-desktop>
--  Alternative: posit.cloud
+-   Alternative: posit.cloud
 
 ## Literatur
 
-- Wollschläger, D. (2020) Grundlagen der Datenanalyse mit R: Eine anwendungsorientierte Einführung. 5. Aufl. Berlin/Heidelberg: Springer Spektrum. doi: 10.1007/978-3-662-61736-6.
-- Ist bereits im Moodle :)
+-   Wollschläger, D. (2020) Grundlagen der Datenanalyse mit R: Eine anwendungsorientierte Einführung. 5. Aufl. Berlin/Heidelberg: Springer Spektrum. doi: 10.1007/978-3-662-61736-6.
+-   Ist bereits im Moodle :)
 
 ## Warum nutzen wir R?
 
@@ -113,7 +110,7 @@ library(tidyverse)
 ## Der Forschungsprozess
 
 | Schritt | Frage | Beispiel |
-|---------|-------|---------|
+|--------------------------|---------------------|--------------------------|
 | **1. Fragestellung** | Was will ich wissen? | Beeinflusst Schlafmangel die Prüfungsleistung? |
 | **2. Theorie & Hypothese** | Was erwarte ich? | Weniger Schlaf → schlechtere Noten |
 | **3. Datenerhebung** | Wie messe ich es? | Befragung von 80 Studierenden |
@@ -125,7 +122,7 @@ library(tidyverse)
 ## Wo hilft Ihnen dieser Kurs?
 
 | Schritt | Inhalt des Kurses |
-|---------|-------------------|
+|------------------------|------------------------------------------------|
 | Datenaufbereitung | Sitzung 4 – Datenmanipulation mit R |
 | Analyse: beschreiben | Sitzungen 3–5 – Deskriptive Statistik & Visualisierung |
 | Analyse: testen | Sitzungen 7–13 – Inferenzstatistik, Tests, Regression |
@@ -193,8 +190,8 @@ library(tidyverse)
 
 ## Aufgabe zur nächsten Sitzung
 
-- R/RStudio installieren oder
-- bei Posit Cloud anmelden
+-   R/RStudio installieren oder
+-   bei Posit Cloud anmelden
 
 # Sitzung 2: Einführung in R
 
@@ -203,7 +200,6 @@ library(tidyverse)
 -   R und RStudio bedienen
 -   Grundlegende Datentypen und -strukturen in R kennen
 -   Ein R Notebook anlegen und ausführen
-
 
 ## Welche Programmiersprachen kennen Sie bereits?
 
@@ -245,7 +241,7 @@ library(tidyverse)
 -   Basieren auf R Markdown; Dateiendung: `.Rmd`
 -   Ausgabe als HTML direkt in RStudio – kein separater Render-Schritt nötig
 -   **Vorteil**: Code, Output und Text in einem Dokument – ideal für Analysen in der Bachelorarbeit
-- **Referate werden mit einem Notebook gehalten**
+-   **Referate werden mit einem Notebook gehalten**
 
 ## Aufbau eines R Notebooks
 
@@ -300,9 +296,9 @@ library(tidyverse)
 
 ## Hausaufgabe
 
-- Starten Sie ein Notebook wie oben beschrieben; Sie werden die Aufforderung erhalten, mehrere Packages zu installieren, was Sie bitte tun.
-- Installieren Sie das Tidyverse (siehe nächste Folie)
-- Laden Sie die Daten unter https://alby.link/books herunter auf Ihre Festplatte
+-   Starten Sie ein Notebook wie oben beschrieben; Sie werden die Aufforderung erhalten, mehrere Packages zu installieren, was Sie bitte tun.
+-   Installieren Sie das Tidyverse (siehe nächste Folie)
+-   Laden Sie die Daten unter https://alby.link/books herunter auf Ihre Festplatte
 
 ## Packages installieren und laden
 
@@ -318,27 +314,36 @@ library(tidyverse)
 -   Kernidee: „Code the way you think"
 -   Wichtigste Packages: `dplyr`, `ggplot2`, `readr`, `tidyr`, `stringr`
 
-```r
+``` r
 install.packages("tidyverse")  # einmalig installieren
 library(tidyverse)              # jede Sitzung laden
 ```
 
-
-
-
-
-
 # Sitzung 3: Deskriptive Statistik I
+
+## Logistik
+
+-   Wer ist nächste Woche überhaupt hier?
+-   Referatstermine
+-   Datensatz
 
 ## Lernziele dieser Sitzung
 
+-   Datensätze importieren und in R einlesen
 -   Das Tidyverse laden und die Pipe-Syntax verstehen
--   Einen ersten Datensatz explorieren  
--   Lage- und Streuungsmaße berechnen und interpretieren
--   Den Unterschied zwischen Mittelwert und Median erklären
--   Verteilungen anhand von Histogramm und Boxplot beurteilen
--   Kennzahlen in R berechnen
+-   Einen ersten Datensatz explorieren
 
+## Daten lesen und schreiben
+
+-   Dateiformate: CSV, JSON, ARFF, Excel, Parquet, u.a.
+-   Was sind die Vor- und Nachteile der Formate?
+-   Import-Beispiele
+
+## Pro-Tipp
+
+-   Importzeile aus Code Preview kopieren und ins Notebook kopieren
+-   library ignorieren (haben wir schon mit dem Tidyverse importiert)
+-   View(gadata) ignorieren (nervt nur)
 
 ## Rohdaten transformieren und zusammenfassen
 
@@ -362,7 +367,6 @@ Gummibärchentüte %>%
   arrange(desc(Anzahl))
 ```
 
-
 ## Typische Funktionen im Tidyverse
 
 -   `group_by()`: Gruppieren nach Variablen
@@ -374,47 +378,25 @@ Gummibärchentüte %>%
 
 ## Die Pipe: `|>` oder `%>%`
 
--   Verkettet Operationen lesbar von links nach rechts
--   Lies `|>` als „und dann"
-
-```r
+``` r
 # Ohne Pipe – schwer lesbar
 arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ```
 
-## Die Pipe, Teil II
+-   Verkettet Operationen lesbar von links nach rechts
+-   Lies `|>` als „und dann"
 
-```r
-# Mit Pipe – intuitiv
-flights |>
-  group_by(carrier) |>
-  summarise(n = n()) |>
-  arrange(desc(n))
-```
+## Wichtig
 
+-   Wenn Sie einen Datensatz manipuliert haben in einem Code-Chunk, dann ist er nicht global modifiziert, erst recht nicht in der CSV-Datei.
+-   Arbeiten Sie mit der Tabulatortaste, um Befehle und Variablen auszuwählen.
+-   Variablennamen mit einem Bindestrich führen zu Fehlern: Der Bindestrich wird als Minus interpretiert.
 
--   `|>` ist die native R-Pipe (seit R 4.1)
--   `%>%` kommt aus dem `magrittr`-Package – beide funktionieren hier
+## Wo ist die Tabulatortaste?
 
-## Ausprobieren mit iris
+![](images/tabulatortaste.png)
 
--   Klassischer Datensatz: 150 Iris-Blüten, 3 Arten
--   Bereits in R enthalten – kein Package nötig
--   Laden: `data(iris)` oder einfach `iris`
-
-## Code
-
-```r
-iris |>
-  group_by(Species) |>
-  summarise(
-    mittlere_laenge = mean(Sepal.Length),
-    n = n()
-  ) |>
-  arrange(desc(mittlere_laenge))
-```
-
-## Demo
+# Sitzung 4: Deskriptive Statistik II & Datenmanipulation
 
 ## Typische Fehler
 
@@ -422,14 +404,20 @@ iris |>
 -   Pipe-Symbol falsch verwendet
 -   Unvollständige Code-Chunks
 
+## 
+
+-   Lage- und Streuungsmaße berechnen und interpretieren
+-   Den Unterschied zwischen Mittelwert und Median erklären
+-   Verteilungen anhand von Histogramm und Boxplot beurteilen
+-   Kennzahlen in R berechnen
+
 ## Let's talk about money
 
 ![](images/einkommen.jpeg)
 
 ## Wie könnte man die Einkommensverteilung beschreiben?
 
-![](images/einkommensschichtung.png)
-## Im Durchschnitt haben Sie...
+![](images/einkommensschichtung.png) \## Im Durchschnitt haben Sie...
 
 ::::: columns
 ::: {.column width="50%"}
@@ -640,16 +628,13 @@ iris |>
 | Standardabweichung | `sd(data)`          | Ø‑Abweichung vom Mittelwert    |
 | Varianz            | `var(data)`         | Quadrat der Standardabweichung |
 
-# Sitzung 4: Deskriptive Statistik II & Datenmanipulation
-
 ## Lernziele dieser Sitzung
 
--   Datensätze importieren und in R einlesen
 -   Datensätze mit Joins verknüpfen
 -   Typische Datenfehler erkennen und beheben
 -   Verschiedene Dateiformate kennen und einordnen
 
-## Typischer Ablauf
+## Typischer Ablauf einer Analyse
 
 ![](images/CRISP-DM_Process_Diagram.png)
 
@@ -664,18 +649,6 @@ iris |>
 ## Datensätze miteinander verbinden
 
 ![](images/joins.png)
-
-## Daten lesen und schreiben
-
--   Dateiformate: CSV, JSON, ARFF, Excel, Parquet, u.a.
--   Was sind die Vor- und Nachteile der Formate?
--   Import-Beispiele
-
-## Pro-Tipp
-
--   Importzeile aus Code Preview kopieren und ins Notebook kopieren
--   library ignorieren (haben wir schon mit dem Tidyverse importiert)
--   View(gadata) ignorieren (nervt nur)
 
 # Sitzung 5: Datenvisualisierung
 
@@ -1706,7 +1679,7 @@ $$
 ## Beispiele von Wahrscheinlichkeiten
 
 | Art | Grundlage | Beispiel |
-|------------------|----------------------------|---------------------------|
+|------------------|---------------------------|---------------------------|
 | **Klassische (Laplace)** | Symmetrische Ausgangslage | P(4) bei Würfel = 1/6 |
 | **Empirische** | Beobachtete relative Häufigkeit | 234 von 1000 Mails geöffnet → P = 0,234 |
 | **Theoretische** | Abgeleitet aus Verteilungsmodell | P(X = 2) aus Binomial(n=10, p=0.3) |
@@ -2022,35 +1995,30 @@ t.test(würfe, mu = 3.5)
 
 ## Effektgröße beim t-Test: Cohen's d
 
-
 **Das Problem:**
 
-t = 3.45, p = 0.001
-→ "Signifikant!" 
+t = 3.45, p = 0.001 → "Signifikant!"
 
 **Aber wie groß ist der Unterschied wirklich?**
 
-**Cohen's d Formel:**
-$$d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}}$$
+**Cohen's d Formel:** $$d = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled}}$$
 
 ## Interpretation nach Cohen
 
-
-| Cohen's d | Effektgröße | Beispiel |
-|-----------|-------------|----------|
-| **0.2** | Klein | Männer vs. Frauen: Körpergröße |
-| **0.5** | Mittel | Therapie vs. Kontrollgruppe |
-| **0.8** | Groß | Experten vs. Anfänger |
-
+| Cohen's d | Effektgröße | Beispiel                       |
+|-----------|-------------|--------------------------------|
+| **0.2**   | Klein       | Männer vs. Frauen: Körpergröße |
+| **0.5**   | Mittel      | Therapie vs. Kontrollgruppe    |
+| **0.8**   | Groß        | Experten vs. Anfänger          |
 
 ## Vier kritische Szenarien
 
-| p-Wert | Cohen's d | Interpretation |
-|--------|-----------|----------------|
-| p > 0.05 | d < 0.2 | ✅ Kein Effekt |
-| p > 0.05 | d > 0.5 | ⚠️ Zu kleine Stichprobe |
-| p < 0.05 | d > 0.5 | ✅ Signifikant & bedeutsam |
-| p < 0.05 | d < 0.2 | ❌ **"Signifikant trivial"** |
+| p-Wert    | Cohen's d | Interpretation               |
+|-----------|-----------|------------------------------|
+| p \> 0.05 | d \< 0.2  | ✅ Kein Effekt               |
+| p \> 0.05 | d \> 0.5  | ⚠️ Zu kleine Stichprobe      |
+| p \< 0.05 | d \> 0.5  | ✅ Signifikant & bedeutsam   |
+| p \< 0.05 | d \< 0.2  | ❌ **"Signifikant trivial"** |
 
 # Sitzung 8: Chi-Quadrat-Test für Häufigkeiten
 
@@ -2127,8 +2095,6 @@ table(würfel_daten)
 -   **Logik**: Große Abweichungen → große χ²-Werte → Hinweis auf Unterschied
 
 ------------------------------------------------------------------------
-
-
 
 ```{r}
 # Beobachtete Häufigkeiten
@@ -2257,13 +2223,12 @@ print(chi_unabhängigkeit)
 1.  **Unabhängigkeit der Beobachtungen**
     -   Jeder Würfelwurf unabhängig
     -   Keine wiederholten Messungen derselben Person
-    
+
 ## Voraussetzungen des Chi-Quadrat-Tests
 
 2.  **Erwartete Häufigkeiten ≥ 5**
     -   In jeder Zelle der Tabelle
     -   Bei Verletzung: Kategorien zusammenfassen oder andere Tests
-   
 
 ------------------------------------------------------------------------
 
@@ -2271,7 +2236,6 @@ print(chi_unabhängigkeit)
 
 -   **Wann**: Erwartete Häufigkeiten \< 5 in 2×2-Tabellen
 -   **Vorteil**: Exakte p-Werte, keine Approximation
-
 
 ------------------------------------------------------------------------
 
@@ -2325,14 +2289,14 @@ mosaic(kontingenztab, shade = TRUE,
 
 ## TEIL 2: Vertiefung - Residuenanalyse und Effektstärken
 
-**Problem der bisherigen Analyse:** 
+**Problem der bisherigen Analyse:**
 
 -   Chi-Quadrat-Test sagt nur "es gibt einen Unterschied"
 -   **Aber nicht:** Wo? Wie stark? Praktisch relevant?
 
-**Lösung:** 
+**Lösung:**
 
--   **Residuenanalyse**: Wo sind die Unterschiede? 
+-   **Residuenanalyse**: Wo sind die Unterschiede?
 -   **Effektstärken**: Wie stark sind sie?
 
 ------------------------------------------------------------------------
@@ -2343,9 +2307,9 @@ mosaic(kontingenztab, shade = TRUE,
 
 **Die Lösung:** Residuen zeigen **wo** die Unterschiede liegen
 
-**Was sind Residuen?** 
+**Was sind Residuen?**
 
--   **Residuen**: $r = O - E$ (Beobachtet - Erwartet) 
+-   **Residuen**: $r = O - E$ (Beobachtet - Erwartet)
 -   **Problem der Residuen**: Schwer zu interpretieren (ist +3 viel oder wenig?)
 -   **Lösung**: Standardisierte Residuen - vergleichbar zwischen verschiedenen Zellen
 
@@ -2355,18 +2319,18 @@ mosaic(kontingenztab, shade = TRUE,
 
 ::::: columns
 ::: {.column width="50%"}
-**Rohresiduen-Problem:** 
+**Rohresiduen-Problem:**
 
 -   Zelle A: +3 (von erwartet 10)
--   Zelle B: +3 (von erwartet 100) 
+-   Zelle B: +3 (von erwartet 100)
 -   Gleiche Abweichung, aber sehr unterschiedliche Bedeutung!
 :::
 
 ::: {.column width="50%"}
 **Standardisierte Residuen:** $sr = \frac{O - E}{\sqrt{E}}$
 
--   Berücksichtigen die "natürliche" Schwankung 
--   Werden vergleichbar zwischen Zellen 
+-   Berücksichtigen die "natürliche" Schwankung
+-   Werden vergleichbar zwischen Zellen
 -   Größere erwartete Werte → größere natürliche Schwankung
 :::
 :::::
@@ -2375,9 +2339,9 @@ mosaic(kontingenztab, shade = TRUE,
 
 ## Standardisierte Residuen verstehen
 
-**Intuitive Interpretation:** 
+**Intuitive Interpretation:**
 
--   **sr = 0**: Genau wie erwartet 
+-   **sr = 0**: Genau wie erwartet
 -   **sr = +1**: Ein bisschen mehr als erwartet
 -   **sr = +2**: Deutlich mehr als erwartet
 -   **sr = +3**: Sehr viel mehr als erwartet
@@ -2386,15 +2350,14 @@ mosaic(kontingenztab, shade = TRUE,
 
 **Interpretationsrichtlinien:**
 
--   $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung 
--   $|sr| > 2$: Ungewöhnlich - vermutlich nicht nur Zufall 
+-   $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung
+-   $|sr| > 2$: Ungewöhnlich - vermutlich nicht nur Zufall
 -   $|sr| > 3$: Sehr ungewöhnlich - fast sicher nicht nur Zufall
 
 **Vorzeichen:**
 
 -   **Positiv (+)**: Mehr als erwartet
 -   **Negativ (-)**: Weniger als erwartet
-
 
 ------------------------------------------------------------------------
 
@@ -2431,10 +2394,10 @@ mosaic(kontingenztab, shade = TRUE,
 
 **Formel:** $$V = \sqrt{\frac{\chi^2}{n \times (\min(r,c) - 1)}}$$
 
-Wo: 
+Wo:
 
 -   n = Gesamtstichprobengröße
--   r = Anzahl Zeilen 
+-   r = Anzahl Zeilen
 -   c = Anzahl Spalten
 
 ------------------------------------------------------------------------
@@ -2443,23 +2406,22 @@ Wo:
 
 ::::: columns
 ::: {.column width="50%"}
-**Interpretationsrichtlinien:** 
+**Interpretationsrichtlinien:**
 
 -   **0.00 - 0.10**: Vernachlässigbarer Effekt
 -   **0.10 - 0.30**: Kleiner Effekt
--   **0.30 - 0.50**: Mittlerer Effekt 
+-   **0.30 - 0.50**: Mittlerer Effekt
 -   **0.50+**: Großer Effekt
 :::
 
 ::: {.column width="50%"}
-**Wichtig:** 
+**Wichtig:**
 
--   Unabhängig von Stichprobengröße 
+-   Unabhängig von Stichprobengröße
 -   Vergleichbar zwischen Studien
 -   Standardisiert zwischen 0 und 1
 :::
 :::::
-
 
 ------------------------------------------------------------------------
 
@@ -2473,7 +2435,6 @@ Wo:
 
 **Interpretation:** Um wie viel mal wahrscheinlicher ist ein Ereignis in Gruppe A vs. B?
 
-
 ------------------------------------------------------------------------
 
 ## APA-konformes Berichten
@@ -2481,7 +2442,6 @@ Wo:
 **Vollständiger Bericht:**
 
 *"Ein Chi-Quadrat-Unabhängigkeitstest zeigte einen signifikanten Zusammenhang zwischen Geschlecht und Studienfachwahl, χ²(2) = 8.24, p = .016, Cramér's V = .23. Die Residuenanalyse ergab, dass Männer in den Sozialwissenschaften überrepräsentiert waren (sr = 2.68), während Frauen in MINT-Fächern häufiger vertreten waren als erwartet (sr = 1.58)."*
-
 
 ------------------------------------------------------------------------
 
@@ -2505,7 +2465,7 @@ Wo:
 
 ## Nicht immer ist es ein Chi Square-Test
 
-"The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections [...]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval [CI], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P<0.001)."
+"The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections \[...\]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval \[CI\], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P\<0.001)."
 
 # Sitzung 9: Korrelationsanalyse
 
@@ -2529,7 +2489,6 @@ Wo:
 -   **Definition**: Stärke eines Zusammenhangs zwischen Variablen
 -   **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkung-Beziehung
 
-
 ## Von der Kovarianz zur Korrelation
 
 -   **Kovarianz**: Unstandartisiertes Maß für gemeinsame Variation
@@ -2545,15 +2504,14 @@ Wo:
     -   Lineare Beziehung
     -   Normalverteilung der Variablen (für Hypothesentests)
     -   Keine Ausreißer (starker Einfluss auf r)
-    
+
 -   **Interpretation der Stärke**:
 
     -   Schwach: \|r\| ≈ 0.1-0.3
     -   Mittel: \|r\| ≈ 0.3-0.5
     -   Stark: \|r\| \> 0.5
-    
--   R-Code: `cor.test(daten$x, daten$y)`
 
+-   R-Code: `cor.test(daten$x, daten$y)`
 
 ## Visualisierung: Streudiagramm
 
@@ -2565,23 +2523,19 @@ plot(cars)
 
 ![](images/pearson.png)
 
-
 ## Alternative Korrelationsmaße
 
 -   **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
     -   Formel: Pearson-Korrelation der rangtransformierten Daten
     -   Robuster gegenüber Ausreißern
     -   R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
-    
+
 ## Alternative Korrelationsmaße
 
 -   **Kendall's Tau**: Alternative rangbasierte Korrelation
     -   Basiert auf konkordanten vs. diskordanten Paaren
     -   Robuster bei kleinen Stichproben
     -   R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
-
-
-
 
 ## Visualisierung: Korrelationsmatrix
 
@@ -2599,7 +2553,6 @@ library(corrplot)
 corrplot(cor_matrix, method = "circle")
 ```
 
-
 ## Fallstricke und Fehlinterpretationen
 
 -   **Scheinkorrelationen**: Effekt von Drittvariablen
@@ -2609,27 +2562,19 @@ corrplot(cor_matrix, method = "circle")
 
 ## Simpson’s Paradoxon: Studienplatzvergabe
 
-
-
 | Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
 |------------|-------------|------------|--------------|
-| Männer     | 1000        | 600        | 60%         |
-| Frauen     | 1000        | 500        | 50%         |
-
-
+| Männer     | 1000        | 600        | 60%          |
+| Frauen     | 1000        | 500        | 50%          |
 
 ## Simpson’s Paradoxon: Studienplatzvergabe
 
-
-| Fach              | Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
-|-------------------|------------|-------------|------------|--------------|
-| **Fach A (leicht)**     | Männer     | 800         | 560        | 70%         |
-|                       | Frauen     | 200         | 180        | 90%         |
-| **Fach B (schwierig)** | Männer     | 200         | 40         | 20%         |
-|                       | Frauen     | 800         | 320        | 40%         |
-
-
-
+| Fach                   | Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
+|------------------------|------------|-------------|------------|--------------|
+| **Fach A (leicht)**    | Männer     | 800         | 560        | 70%          |
+|                        | Frauen     | 200         | 180        | 90%          |
+| **Fach B (schwierig)** | Männer     | 200         | 40         | 20%          |
+|                        | Frauen     | 800         | 320        | 40%          |
 
 ## Fallbeispiel: Kriminalität in NYC
 
@@ -2661,7 +2606,7 @@ corrplot(cor_matrix, method = "circle")
 -   **Maße für kontinuierliche Daten**:
 
     -   Intraclass Correlation Coefficient (ICC)
-    
+
 ## Visualisierung: Violinen-Diagramm
 
 ![](images/spinaliom-vergleich-therapie.png)
@@ -2669,7 +2614,6 @@ corrplot(cor_matrix, method = "circle")
 ## Wann nutze ich eigentlich was?
 
 ![](images/entscheidungsbaum.png)
-
 
 # Sitzung 10: Regression I – Lineare Regression
 
@@ -2680,15 +2624,13 @@ corrplot(cor_matrix, method = "circle")
 -   Multiple Regression mit kategorialen Prädiktoren anwenden
 -   Den Unterschied zwischen Korrelation und Regression erklären
 
----
+------------------------------------------------------------------------
 
 ## Einstieg: Wie viel Miete ist zu viel?
 
-Sie wollen nach Berlin ziehen und finden 100 Wohnungsanzeigen. Dort stehen jeweils Wohnfläche (qm) und Miete (Euro).
->
-> **Frage:** Kann man aus der Wohnfläche den Mietpreis vorhersagen?
+Sie wollen nach Berlin ziehen und finden 100 Wohnungsanzeigen. Dort stehen jeweils Wohnfläche (qm) und Miete (Euro). \> \> **Frage:** Kann man aus der Wohnfläche den Mietpreis vorhersagen?
 
----
+------------------------------------------------------------------------
 
 ## Erste Visualisierung: Streudiagramm
 
@@ -2706,17 +2648,17 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
   theme_minimal()
 ```
 
----
+------------------------------------------------------------------------
 
 ## Das Modell dahinter: Lineare Regression
 
 $$\hat{Y} = \beta_0 + \beta_1 \cdot X + \varepsilon$$
 
-- $\beta_0$: Startwert (Y bei X = 0)
-- $\beta_1$: Steigung (Zunahme von Y bei 1 Einheit mehr X)
-- $\varepsilon$: "Fehler" – das, was das Modell nicht erklärt
+-   $\beta_0$: Startwert (Y bei X = 0)
+-   $\beta_1$: Steigung (Zunahme von Y bei 1 Einheit mehr X)
+-   $\varepsilon$: "Fehler" – das, was das Modell nicht erklärt
 
----
+------------------------------------------------------------------------
 
 ```{r message=FALSE}
 # Modell berechnen
@@ -2735,14 +2677,13 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
   theme_minimal()
 ```
 
-
----
+------------------------------------------------------------------------
 
 ## Wie es genau funktioniert
 
 ![](images/linear_regression.gif)
 
----
+------------------------------------------------------------------------
 
 ## Zweite Visualisierung: Streudiagramm mit Regressionslinie
 
@@ -2760,7 +2701,7 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
   theme_minimal()
 ```
 
----
+------------------------------------------------------------------------
 
 ## R-Code zur Modellschätzung
 
@@ -2770,15 +2711,15 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
 modell <- lm(miete ~ flaeche, data = wohnungen)
 ```
 
----
+------------------------------------------------------------------------
 
 ## Modellgüte: Wie gut passt die Gerade?
 
-- R² = Anteil der erklärten Varianz
-- Beispiel: R² = 0.99 → 99% der Mietunterschiede durch Fläche erklärbar
-- Residuenplot prüfen: Gibt es systematische Fehler?
+-   R² = Anteil der erklärten Varianz
+-   Beispiel: R² = 0.99 → 99% der Mietunterschiede durch Fläche erklärbar
+-   Residuenplot prüfen: Gibt es systematische Fehler?
 
----
+------------------------------------------------------------------------
 
 ## Residuenplot - Erwartung: Punkte gleichmäßig um die Nulllinie verteilt
 
@@ -2790,18 +2731,17 @@ ggplot(data.frame(fitted = fitted(modell), residuals = residuals(modell)),
   theme_minimal()
 ```
 
----
+------------------------------------------------------------------------
 
 ## Aber ist die Fläche wirklich die einzige unabhängige Variable?
 
----
+------------------------------------------------------------------------
 
 ## Visualisierung der Daten
 
 ```{r echo=FALSE, message=FALSE}
 Wohnungen_mit_Energieeffizienz <- read_csv("data/Wohnungen_mit_Energieeffizienz.csv")
 ```
-
 
 ```{r}
 ggplot(Wohnungen_mit_Energieeffizienz, aes(x = flaeche, y = miete, color = factor(saniert))) +
@@ -2810,7 +2750,7 @@ ggplot(Wohnungen_mit_Energieeffizienz, aes(x = flaeche, y = miete, color = facto
   theme_minimal()
 ```
 
----
+------------------------------------------------------------------------
 
 ## Welchen Einfluss hat die Energieeffizienzklasse?
 
@@ -2838,8 +2778,7 @@ model <- lm(miete ~ flaeche + saniert + energieeffizienz, data = Wohnungen_mit_E
 #summary(model)
 ```
 
-![](images/logit.png)
----
+## ![](images/logit.png)
 
 ## Wie funktioniert das mit der Linie mit mehr als zwei Variablen?
 
@@ -2880,8 +2819,7 @@ gitter$miete <- predict(modell, newdata = gitter)
 s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5, 0.1, 0.3)))
 ```
 
-
----
+------------------------------------------------------------------------
 
 # Sitzung 13: Regression II – Logistische Regression
 
@@ -2893,7 +2831,7 @@ s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5,
 -   Die S-Kurve und ihre Bedeutung verstehen
 -   Lineare und logistische Regression gegenüberstellen
 
----
+------------------------------------------------------------------------
 
 ## Jetzt wird's binär: Logistische Regression
 
@@ -2911,47 +2849,47 @@ Das ist der sogenannte **Logit** – also der **logarithmierte Quotient der Wahr
 
 ## Was ist ein Logarithmus?
 
-- Der **Logarithmus** ist die Umkehrung der Potenzierung:
+-   Der **Logarithmus** ist die Umkehrung der Potenzierung:
 
 $$
   \log_{10}(1000) = 3 \quad \text{denn } 10^3 = 1000
 $$
 
-
-
----
+------------------------------------------------------------------------
 
 ### Merksatz:
 
 > Der Logarithmus transformiert Werte in ein **lineares Maß**, das für Regressionsmodelle besser handhabbar ist – auch wenn die ursprünglichen Wahrscheinlichkeiten zwischen 0 und 1 liegen.
 
----
+------------------------------------------------------------------------
 
 ## Warum Log-Odds?
 
-- Wahrscheinlichkeiten liegen **zwischen 0 und 1**
-- Log-Odds hingegen können **alle Werte zwischen –∞ und +∞** annehmen
-- So kann ein **lineares Modell** verwendet werden:
-  
-  $$\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k $$
+-   Wahrscheinlichkeiten liegen **zwischen 0 und 1**
 
----
+-   Log-Odds hingegen können **alle Werte zwischen –∞ und +∞** annehmen
+
+-   So kann ein **lineares Modell** verwendet werden:
+
+    $$\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k $$
+
+------------------------------------------------------------------------
 
 ## Beispiel:
 
-| Wahrscheinlichkeit \(p\) | Gegenwahrscheinlichkeit \(1 - p\) | Verhältnis (Odds) \(p : (1 - p)\) | Odds (als Zahl) \(\frac{p}{1 - p}\) | Log-Odds \(\log\left(\frac{p}{1 - p}\right)\) |
-|---------------------------|------------------------------------|------------------------------------|------------------------------|----------------------------------|
-| 0.10                      | 0.90                               | 1 : 9                              | 0.111                        | –2.20                            |
-| 0.50                      | 0.50                               | 1 : 1                              | 1.000                        |  0.00                            |
-| 0.90                      | 0.10                               | 9 : 1                              | 9.000                        |  2.20                            |           |
+| Wahrscheinlichkeit (p) | Gegenwahrscheinlichkeit (1 - p) | Verhältnis (Odds) (p : (1 - p)) | Odds (als Zahl) (\frac{p}{1 - p}) | Log-Odds (\log\left(\frac{p}{1 - p}\right)) |
+|---------------|---------------|---------------|---------------|---------------|
+| 0.10 | 0.90 | 1 : 9 | 0.111 | –2.20 |
+| 0.50 | 0.50 | 1 : 1 | 1.000 | 0.00 |
+| 0.90 | 0.10 | 9 : 1 | 9.000 | 2.20 |
 
----
+------------------------------------------------------------------------
 
 ## Merksatz:
 
 **Log-Odds** sind eine **Umformung der Wahrscheinlichkeit** und erlauben **lineare Modellierung** auf einer unbeschränkten Skala.
 
----
+------------------------------------------------------------------------
 
 ```{r echo=FALSE}
 # Installieren falls nötig
@@ -2976,11 +2914,11 @@ titanic <- titanic_train %>%
 ## Der Output
 
 ![](images/titanic-logit.png)
+
 ```{r}
 model <- glm(Survived ~ Age + Sex + Pclass, data = titanic, family = binomial)
 # summary(model)
 ```
-
 
 ## Ausgabe der LogOdds
 
@@ -2990,7 +2928,7 @@ model <- glm(Survived ~ Age + Sex + Pclass, data = titanic, family = binomial)
 
 ![](images/logodds.png)
 
----
+------------------------------------------------------------------------
 
 ## S-Kurve
 
@@ -3029,34 +2967,33 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
   theme_minimal()
 ```
 
-
----
+------------------------------------------------------------------------
 
 ## Vergleich: Lineare vs. Logistische Regression
 
-| Aspekt             | Lineare Regression        | Logistische Regression            |
-|--------------------|---------------------------|-----------------------------------|
-| Zielvariable Y     | metrisch (z.B. Preis)    | binär (z.B. gestorben ja/nein)    |
-| Ergebnis           | Gerade                    | S-Kurve                           |
-| Vorhersage         | Reeller Zahlenwert        | Wahrscheinlichkeit (0–1)          |
-| Residuen           | Differenz                 | Abweichung in Log-Odds            |
-| Interpretation     | Effekt pro X              | Odds Ratio                        |
+| Aspekt         | Lineare Regression    | Logistische Regression         |
+|----------------|-----------------------|--------------------------------|
+| Zielvariable Y | metrisch (z.B. Preis) | binär (z.B. gestorben ja/nein) |
+| Ergebnis       | Gerade                | S-Kurve                        |
+| Vorhersage     | Reeller Zahlenwert    | Wahrscheinlichkeit (0–1)       |
+| Residuen       | Differenz             | Abweichung in Log-Odds         |
+| Interpretation | Effekt pro X          | Odds Ratio                     |
 
----
-
-## Unterschied Korrelation zu Regression
-
-- **Korrelation** beschreibt **Stärke und Richtung** eines **linearen Zusammenhangs** zwischen zwei numerischen Variablen, ohne Einflussrichtung oder Kausalität anzunehmen.
-
-- **Lineare Regression** modelliert eine **gerichtete lineare Beziehung** zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen mit der **Stärke des Einflusses**.
-
----
+------------------------------------------------------------------------
 
 ## Unterschied Korrelation zu Regression
 
-- **Logistische Regression** schätzt die **Wahrscheinlichkeit** für das Eintreten eines **binären Ereignisses** auf Basis einer oder mehrerer Einflussvariablen und liefert eine **gerichtete Interpretation**.
+-   **Korrelation** beschreibt **Stärke und Richtung** eines **linearen Zusammenhangs** zwischen zwei numerischen Variablen, ohne Einflussrichtung oder Kausalität anzunehmen.
 
----
+-   **Lineare Regression** modelliert eine **gerichtete lineare Beziehung** zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen mit der **Stärke des Einflusses**.
+
+------------------------------------------------------------------------
+
+## Unterschied Korrelation zu Regression
+
+-   **Logistische Regression** schätzt die **Wahrscheinlichkeit** für das Eintreten eines **binären Ereignisses** auf Basis einer oder mehrerer Einflussvariablen und liefert eine **gerichtete Interpretation**.
+
+------------------------------------------------------------------------
 
 # Sitzung 11: ANOVA
 
@@ -3070,73 +3007,73 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
 
 ## Was ist ANOVA?
 
-- ANOVA = Analysis of Variance = Varianzanalyse
-- Prüft, ob sich Gruppenmittelwerte signifikant unterscheiden
-- Erweiterung des t-Tests auf mehr als zwei Gruppen
-- Beispiel: Unterschiedet sich die durchschnittliche Miete in verschiedenen Stadtteilen?
+-   ANOVA = Analysis of Variance = Varianzanalyse
+-   Prüft, ob sich Gruppenmittelwerte signifikant unterscheiden
+-   Erweiterung des t-Tests auf mehr als zwei Gruppen
+-   Beispiel: Unterschiedet sich die durchschnittliche Miete in verschiedenen Stadtteilen?
 
----
+------------------------------------------------------------------------
 
 ## Wann nutzt man ANOVA?
 
-- Abhängige Variable metrisch (z.B. Einkommen, Preis, Größe)
-- Unabhängige Variable kategorial (z.B. Stadtteil, Behandlungsmethode)
-- Mehr als zwei Gruppen zu vergleichen
-- Ziel: Test auf Mittelwertsunterschiede
+-   Abhängige Variable metrisch (z.B. Einkommen, Preis, Größe)
+-   Unabhängige Variable kategorial (z.B. Stadtteil, Behandlungsmethode)
+-   Mehr als zwei Gruppen zu vergleichen
+-   Ziel: Test auf Mittelwertsunterschiede
 
----
+------------------------------------------------------------------------
 
 ## Grundidee der ANOVA
 
-- Zerlegung der Gesamtvarianz:
-  - **Zwischen-Gruppen-Varianz**: Unterschiede zwischen den Gruppenmitteln
-  - **Innerhalb-Gruppen-Varianz**: Streuung innerhalb der Gruppen
-- Wenn die Zwischen-Gruppen-Varianz groß im Vergleich zur Innerhalb-Gruppen-Varianz ist → Hinweis auf echte Unterschiede
+-   Zerlegung der Gesamtvarianz:
+    -   **Zwischen-Gruppen-Varianz**: Unterschiede zwischen den Gruppenmitteln
+    -   **Innerhalb-Gruppen-Varianz**: Streuung innerhalb der Gruppen
+-   Wenn die Zwischen-Gruppen-Varianz groß im Vergleich zur Innerhalb-Gruppen-Varianz ist → Hinweis auf echte Unterschiede
 
----
+------------------------------------------------------------------------
 
 ## Beispiel: Schmerzmittel-Wirkung
 
-- Fragestellung: Unterscheidet sich die durchschnittliche Schmerzreduktion bei drei Medikamenten?
-- Gruppen:
-  - Medikament A
-  - Medikament B
-  - Placebo
-- Abhängige Variable: Schmerzscore nach 30 Minuten (Skala 0-10)
-- ANOVA prüft, ob es signifikante Unterschiede gibt
+-   Fragestellung: Unterscheidet sich die durchschnittliche Schmerzreduktion bei drei Medikamenten?
+-   Gruppen:
+    -   Medikament A
+    -   Medikament B
+    -   Placebo
+-   Abhängige Variable: Schmerzscore nach 30 Minuten (Skala 0-10)
+-   ANOVA prüft, ob es signifikante Unterschiede gibt
 
----
+------------------------------------------------------------------------
 
 ## Beispiel: Werbewirkung testen
 
-- Fragestellung: Führt die Art der Werbeanzeige zu unterschiedlichen Kaufabsichten?
-- Gruppen:
-  - Emotionaler Spot
-  - Sachlicher Spot
-  - Keine Werbung (Kontrollgruppe)
-- Abhängige Variable: Kaufwahrscheinlichkeit (Skala 0-100%)
-- ANOVA zeigt, ob mindestens eine Gruppe signifikant abweicht
+-   Fragestellung: Führt die Art der Werbeanzeige zu unterschiedlichen Kaufabsichten?
+-   Gruppen:
+    -   Emotionaler Spot
+    -   Sachlicher Spot
+    -   Keine Werbung (Kontrollgruppe)
+-   Abhängige Variable: Kaufwahrscheinlichkeit (Skala 0-100%)
+-   ANOVA zeigt, ob mindestens eine Gruppe signifikant abweicht
 
----
+------------------------------------------------------------------------
 
 ## Beispiel: Einfluss von Dünger
 
-- Fragestellung: Hat die Düngersorte Einfluss auf das Pflanzenwachstum?
-- Gruppen:
-  - Dünger X
-  - Dünger Y
-  - Kein Dünger
-- Abhängige Variable: Pflanzenhöhe nach 6 Wochen (in cm)
-- ANOVA prüft auf Unterschiede der mittleren Pflanzenhöhe
+-   Fragestellung: Hat die Düngersorte Einfluss auf das Pflanzenwachstum?
+-   Gruppen:
+    -   Dünger X
+    -   Dünger Y
+    -   Kein Dünger
+-   Abhängige Variable: Pflanzenhöhe nach 6 Wochen (in cm)
+-   ANOVA prüft auf Unterschiede der mittleren Pflanzenhöhe
 
----
+------------------------------------------------------------------------
 
 ## Hypothesen der ANOVA
 
-- **Nullhypothese (H₀)**: Alle Gruppenmittelwerte sind gleich
-- **Alternativhypothese (H₁)**: Mindestens zwei Gruppen unterscheiden sich im Mittelwert
+-   **Nullhypothese (H₀)**: Alle Gruppenmittelwerte sind gleich
+-   **Alternativhypothese (H₁)**: Mindestens zwei Gruppen unterscheiden sich im Mittelwert
 
----
+------------------------------------------------------------------------
 
 ## Beispiel in R
 
@@ -3149,34 +3086,31 @@ data <- data.frame(
 )
 ```
 
-
 ```{r}
 # ANOVA durchführen
 anova_mod <- aov(wert ~ gruppe, data = data)
 summary(anova_mod)
 ```
 
-
-
----
+------------------------------------------------------------------------
 
 ## Interpretation der Ausgabe
 
-- **F-Wert**: Teststatistik, je größer desto mehr Hinweis auf Unterschied
-- **p-Wert**: Ist p < 0.05 → Ablehnung der Nullhypothese
-- Achtung: ANOVA zeigt nur, _dass_ ein Unterschied vorliegt, nicht _wo_ genau
+-   **F-Wert**: Teststatistik, je größer desto mehr Hinweis auf Unterschied
+-   **p-Wert**: Ist p \< 0.05 → Ablehnung der Nullhypothese
+-   Achtung: ANOVA zeigt nur, *dass* ein Unterschied vorliegt, nicht *wo* genau
 
----
+------------------------------------------------------------------------
 
 ## Post-hoc-Tests
 
-- Notwendig, wenn ANOVA signifikant ist
-- Beispiele:
-  - Tukey HSD-Test (bei Varianzhomogenität)
-  - Games-Howell-Test (bei ungleichen Varianzen)
-- Zeigt, zwischen welchen Gruppen die Unterschiede liegen
+-   Notwendig, wenn ANOVA signifikant ist
+-   Beispiele:
+    -   Tukey HSD-Test (bei Varianzhomogenität)
+    -   Games-Howell-Test (bei ungleichen Varianzen)
+-   Zeigt, zwischen welchen Gruppen die Unterschiede liegen
 
----
+------------------------------------------------------------------------
 
 ## Der Levene-Test
 
@@ -3184,12 +3118,12 @@ summary(anova_mod)
 car::leveneTest(wert ~ gruppe, data = data)
 ```
 
-
 ## Tukey HSD-Test
 
 ```{r echo=FALSE}
 # TukeyHSD(anova_mod)
 ```
+
 ![](images/anova.png)
 
 ## Ergebnisse visualisieren
@@ -3198,52 +3132,51 @@ car::leveneTest(wert ~ gruppe, data = data)
 plot(TukeyHSD(anova_mod))
 ```
 
-
 ## Voraussetzungen der ANOVA
 
-- Unabhängigkeit der Beobachtungen
-- Normalverteilung innerhalb der Gruppen
-- Varianzhomogenität (Levene-Test prüfen)
-- Robustheit bei kleinen Abweichungen gegeben
+-   Unabhängigkeit der Beobachtungen
+-   Normalverteilung innerhalb der Gruppen
+-   Varianzhomogenität (Levene-Test prüfen)
+-   Robustheit bei kleinen Abweichungen gegeben
 
----
+------------------------------------------------------------------------
 
 ## Was tun, wenn Voraussetzungen verletzt sind? Nicht-parametrische Tests
 
 | Parametrisch | Nicht-parametrische Alternative | Wann? |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | t-Test (unabh.) | Mann-Whitney-U-Test | Keine Normalverteilung, kleine n |
 | t-Test (gepaart) | Wilcoxon-Vorzeichen-Rang-Test | Verbundene Stichproben, ordinal |
 | ANOVA | Kruskal-Wallis-Test | Mehr als 2 Gruppen, keine Normalverteilung |
 
-```r
+``` r
 # Beispiele
 wilcox.test(x, y)                          # Mann-Whitney-U
 wilcox.test(before, after, paired = TRUE)  # Wilcoxon gepaart
 kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
 ```
 
----
+------------------------------------------------------------------------
 
 ## Visualisierung von Gruppenunterschieden
 
-- Boxplots
-- Violinplots
-- Balkendiagramme mit Fehlerbalken
-- Plot der Mittelwerte pro Gruppe
+-   Boxplots
+-   Violinplots
+-   Balkendiagramme mit Fehlerbalken
+-   Plot der Mittelwerte pro Gruppe
 
 ## Überblick: Welcher Test wofür?
 
-| Test                 | Abhängige Variable | Unabhängige Variable | Zweck                                        |
-|---------------------|--------------------|----------------------|---------------------------------------------|
-| **t-Test**          | Metrisch           | Kategorial (2 Gruppen) | Mittelwertsunterschied zwischen 2 Gruppen   |
-| **Chi-Quadrat-Test**| Kategorial         | Kategorial            | Zusammenhang oder Verteilung bei Kategorien |
-| **Korrelation**     | Metrisch           | Metrisch              | Zusammenhang/Stärke zwischen zwei Variablen |
-| **ANOVA**           | Metrisch           | Kategorial (>2 Gruppen)| Mittelwertsunterschiede zwischen Gruppen    |
-| **Lineare Regression** | Metrisch         | Metrisch oder kategorial | Einfluss mehrerer Variablen auf metrisches Ergebnis |
-| **Logistische Regression** | Binär (0/1)  | Metrisch oder kategorial | Einfluss auf Wahrscheinlichkeit (z.B. Krankheit ja/nein) |
+| Test | Abhängige Variable | Unabhängige Variable | Zweck |
+|---------------|---------------|---------------|---------------------------|
+| **t-Test** | Metrisch | Kategorial (2 Gruppen) | Mittelwertsunterschied zwischen 2 Gruppen |
+| **Chi-Quadrat-Test** | Kategorial | Kategorial | Zusammenhang oder Verteilung bei Kategorien |
+| **Korrelation** | Metrisch | Metrisch | Zusammenhang/Stärke zwischen zwei Variablen |
+| **ANOVA** | Metrisch | Kategorial (\>2 Gruppen) | Mittelwertsunterschiede zwischen Gruppen |
+| **Lineare Regression** | Metrisch | Metrisch oder kategorial | Einfluss mehrerer Variablen auf metrisches Ergebnis |
+| **Logistische Regression** | Binär (0/1) | Metrisch oder kategorial | Einfluss auf Wahrscheinlichkeit (z.B. Krankheit ja/nein) |
 
----
+------------------------------------------------------------------------
 
 # Sitzung 12: Text Mining
 
@@ -3254,17 +3187,16 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
 -   Einen Naive-Bayes-Klassifikator in R trainieren und evaluieren
 -   Modellgüte mit Confusion Matrix, Precision, Recall und AUC beurteilen
 
----
+------------------------------------------------------------------------
 
 ## Spam oder Ham?
 
-- Unerwünschte Werbe-E-Mails = Spam
-- Begriff stammt aus...?
-- Ziel: Automatische Erkennung von Spam-Mails
-- Klassisches Beispiel für Textklassifikation in der Datenanalyse
+-   Unerwünschte Werbe-E-Mails = Spam
+-   Begriff stammt aus...?
+-   Ziel: Automatische Erkennung von Spam-Mails
+-   Klassisches Beispiel für Textklassifikation in der Datenanalyse
 
----
-
+------------------------------------------------------------------------
 
 ## Bayes'sches Theorem: Grundkonzept
 
@@ -3275,7 +3207,6 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
     -   P(A): Wahrscheinlichkeit von A ohne weitere Information (a priori)
     -   P(B): Wahrscheinlichkeit von B, Normalisierungsfaktor
 -   **Einfach ausgedrückt:** Aktualisierung von Wahrscheinlichkeiten basierend auf neuen Informationen
-
 
 ------------------------------------------------------------------------
 
@@ -3296,7 +3227,6 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
 -   **Ignoriert persönliche Erfahrungen** und Gewohnheiten
 -   **Unveränderter Suchplan**, unabhängig von Zwischenergebnissen
 -   **Fragestellung:** "Wie wahrscheinlich ist es, das Handy zu finden, wenn ich hier suche?"
-
 
 ------------------------------------------------------------------------
 
@@ -3320,8 +3250,6 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
 | Berücksichtigt keine Erfahrung          | Nutzt Vorwissen             |
 | Methodisch                              | Opportunistisch             |
 | Keine Wahrscheinlichkeitsaktualisierung | Kontinuierliches Lernen     |
-
-
 
 ------------------------------------------------------------------------
 
@@ -3359,67 +3287,64 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
     -   Berechnen von P(Spam\|E-Mail) und P(Ham\|E-Mail) für neue E-Mail
     -   Klassifizieren basierend auf der höheren Wahrscheinlichkeit
 
----
+------------------------------------------------------------------------
 
 ## Datengrundlage
 
-- E-Mail-Datensatz `emails.csv`
-- Enthält Text der E-Mails und Spam-Kennzeichnung
-- Häufigkeit von Spam und Ham
-- Class Imbalance beachten
+-   E-Mail-Datensatz `emails.csv`
+-   Enthält Text der E-Mails und Spam-Kennzeichnung
+-   Häufigkeit von Spam und Ham
+-   Class Imbalance beachten
 
----
+------------------------------------------------------------------------
 
 ## Textaufbereitung (Text Mining)
 
-- Nutzung der Pakete `tm` und `SnowballC`
-- Schritte:
-  - Umwandlung in Kleinschreibung
-  - Entfernen von Satzzeichen
-  - Entfernen von Stoppwörtern ("the", "and" ...)
-  - Wortstamm-Reduktion (Stemming)
+-   Nutzung der Pakete `tm` und `SnowballC`
+-   Schritte:
+    -   Umwandlung in Kleinschreibung
+    -   Entfernen von Satzzeichen
+    -   Entfernen von Stoppwörtern ("the", "and" ...)
+    -   Wortstamm-Reduktion (Stemming)
 
 Ziel: Standardisierung und Reduktion der Textvielfalt
 
----
+------------------------------------------------------------------------
 
 ## Document-Term-Matrix (DTM)
 
-- Erstellung einer DTM zur quantitativen Darstellung der Texte
-- Zeilen = E-Mails, Spalten = Wörter
-- Zellinhalt: Häufigkeit des Wortes pro E-Mail
+-   Erstellung einer DTM zur quantitativen Darstellung der Texte
+-   Zeilen = E-Mails, Spalten = Wörter
+-   Zellinhalt: Häufigkeit des Wortes pro E-Mail
 
----
+------------------------------------------------------------------------
 
 ## Reduktion auf häufige Begriffe
 
-- Entfernen seltener Wörter mit `removeSparseTerms`
-- Fokus auf die aussagekräftigsten Begriffe
+-   Entfernen seltener Wörter mit `removeSparseTerms`
+-   Fokus auf die aussagekräftigsten Begriffe
 
-
----
+------------------------------------------------------------------------
 
 ## Vorbereitung für das Modell
 
-- Umwandlung der DTM in Data Frame
-- Umbenennung der Spaltennamen
-- Zielvariable `spam` als Faktor kodiert
+-   Umwandlung der DTM in Data Frame
+-   Umbenennung der Spaltennamen
+-   Zielvariable `spam` als Faktor kodiert
 
-
----
+------------------------------------------------------------------------
 
 ## Trainings- und Testdaten
 
-- Aufteilung in Trainings- (80%) und Testdaten (20%)
-- Nutzung von `caret`-Paket
+-   Aufteilung in Trainings- (80%) und Testdaten (20%)
+-   Nutzung von `caret`-Paket
 
----
+------------------------------------------------------------------------
 
 ## Vorhersage und Bewertung
 
-- Klassifikation der Testdaten
-- Vergleich mit tatsächlichen Spam-Labels
-
+-   Klassifikation der Testdaten
+-   Vergleich mit tatsächlichen Spam-Labels
 
 ## Die Confusion Matrix
 
@@ -3473,7 +3398,6 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
     -   Fokus auf falsche Positive (Fehler 1. Art)
     -   Beispiel: Von allen als Spam markierten E-Mails, wie viele sind wirklich Spam?
 
-    
 ------------------------------------------------------------------------
 
 ## Precision und Recall
@@ -3484,16 +3408,13 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
     -   Fokus auf falsche Negative (Fehler 2. Art)
     -   Beispiel: Von allen Spam-E-Mails, wie viele werden erkannt?
 
-
-
----
+------------------------------------------------------------------------
 
 ## ROC-Kurve und AUC
 
-- Bewertung der Modellgüte über die ROC-Kurve
-- AUC (Area Under Curve) als Maß für die Trennschärfe
-- Zusätzliche Visualisierung von Konfidenzintervallen möglich
-
+-   Bewertung der Modellgüte über die ROC-Kurve
+-   AUC (Area Under Curve) als Maß für die Trennschärfe
+-   Zusätzliche Visualisierung von Konfidenzintervallen möglich
 
 ## ROC-Kurve und AUC
 
@@ -3511,11 +3432,10 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 :::
 :::::
 
-
-
 ------------------------------------------------------------------------
 
 ## Precision-Recall Kurve
+
 -   **Alternative zur ROC-Kurve:**
     -   Precision gegen Recall für verschiedene Schwellenwerte
 -   **Wann verwenden:**
@@ -3524,12 +3444,10 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 -   **Interpretation:**
     -   Besser: näher an oberer rechter Ecke
 
-
-
 ------------------------------------------------------------------------
 
-
 ## Overfitting vs. Underfitting
+
 -   **Overfitting:**
     -   Zu genaues Lernen (inkl. Rauschen)
     -   Gut im Training, schlecht im Test
@@ -3540,14 +3458,13 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
     -   Regularisierung
     -   Angemessene Modellkomplexität
 
-
----
+------------------------------------------------------------------------
 
 ## Nächste Schritte
 
-- Weitere Klassifikatoren testen (z.B. Entscheidungsbäume, SVM)
-- Optimierung der Textaufbereitung
-- Einsatz von Word Embeddings für fortgeschrittene Modelle
+-   Weitere Klassifikatoren testen (z.B. Entscheidungsbäume, SVM)
+-   Optimierung der Textaufbereitung
+-   Einsatz von Word Embeddings für fortgeschrittene Modelle
 
 # Sitzung 14: Abschluss
 
@@ -3564,22 +3481,22 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 ## Alle Tests auf einen Blick
 
 | Test | Abhängige Variable | Unabhängige Variable | Zweck |
-|---|---|---|---|
+|------------------|------------------|------------------|------------------|
 | **t-Test** | Metrisch | Kategorial (2 Gruppen) | Mittelwertsvergleich |
 | **Chi-Quadrat** | Kategorial | Kategorial | Häufigkeiten / Zusammenhang |
 | **Korrelation** | Metrisch | Metrisch | Stärke des Zusammenhangs |
-| **ANOVA** | Metrisch | Kategorial (>2 Gruppen) | Mittelwertsvergleich |
+| **ANOVA** | Metrisch | Kategorial (\>2 Gruppen) | Mittelwertsvergleich |
 | **Lin. Regression** | Metrisch | Metrisch / kategorial | Einfluss & Vorhersage |
 | **Log. Regression** | Binär (0/1) | Metrisch / kategorial | Wahrscheinlichkeit |
 | **Mann-Whitney-U** | Ordinal / metrisch | Kategorial (2 Gruppen) | Wie t-Test, nicht-parametrisch |
-| **Kruskal-Wallis** | Ordinal / metrisch | Kategorial (>2 Gruppen) | Wie ANOVA, nicht-parametrisch |
+| **Kruskal-Wallis** | Ordinal / metrisch | Kategorial (\>2 Gruppen) | Wie ANOVA, nicht-parametrisch |
 
 ## Ergebnisse korrekt berichten
 
 -   **Immer angeben**: Teststatistik, Freiheitsgrade, p-Wert, Effektgröße
 -   **t-Test**: *t*(28) = 2.45, *p* = .02, *d* = 0.89
 -   **Chi-Quadrat**: χ²(2) = 8.24, *p* = .016, Cramér's V = .23
--   **Korrelation**: *r*(98) = .54, *p* < .001
+-   **Korrelation**: *r*(98) = .54, *p* \< .001
 -   **ANOVA**: *F*(2, 57) = 4.32, *p* = .018, η² = .13
 
 ## Häufige Fehler in Bachelorarbeiten
@@ -3604,7 +3521,7 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 -   Faustregel für Abschlussarbeiten: n ≥ 30 pro Gruppe (besser: Poweranalyse)
 -   Power-Analyse in R:
 
-```r
+``` r
 library(pwr)
 # Beispiel: t-Test, mittlerer Effekt (d=0.5), Power=0.80, α=0.05
 pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.80, type = "two.sample")
@@ -3623,3 +3540,324 @@ pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.80, type = "two.sample")
 
 ![](images/marketoonist-big-data.png)
 
+# Sitzung 9: Einfache Lineare Regression
+
+## Von der Korrelation zur Regression
+
+-   **Unterschied**: Korrelation beschreibt Zusammenhang, Regression ermöglicht Vorhersagen
+-   **Abhängige vs. unabhängige Variable**: Y als Funktion von X
+-   **Lineare Beziehung**: Modellierung durch eine Gerade
+
+## Das lineare Regressionsmodell
+
+-   **Grundgleichung**: $Y = \beta_0 + \beta_1 X + \varepsilon$
+-   **Parameter**:
+    -   Achsenabschnitt (Intercept) $\beta_0$: Wert von Y, wenn X = 0
+    -   Steigung (Slope) $\beta_1$: Änderung in Y bei Erhöhung von X um eine Einheit
+    -   Fehlerterm $\varepsilon$: Zufällige Abweichung (normalverteilt mit Mittelwert 0)
+-   **Kleinstquadrateschätzung**: Minimierung der quadrierten Residuen
+
+## Durchführung in R
+
+-   **Einfache lineare Regression**:
+
+    # Modell erstellen
+
+    model \<- lm(y \~ x, data = daten)
+
+    # Zusammenfassung anzeigen
+
+    summary(model)
+
+    # Diagnostische Plots
+
+    par(mfrow = c(2, 2)) plot(model)
+
+## Interpretation der Ergebnisse
+
+-   **Regressionskoeffizienten**: Bedeutung von Intercept und Slope
+-   **Standardfehler der Koeffizienten**: Präzision der Schätzung
+-   **t-Werte und p-Werte**: Signifikanz der Koeffizienten
+-   **R²**: Erklärte Varianz bzw. Bestimmtheitsmaß
+    -   Interpretation: Anteil der Varianz in Y, der durch X erklärt wird
+    -   Adjustiertes R²: Korrektur für die Anzahl der Prädiktoren
+
+## Voraussetzungen und Diagnostik
+
+-   **Linearität**: Beziehung sollte linear sein
+-   **Normalverteilung der Residuen**: QQ-Plot zur Überprüfung
+-   **Homoskedastizität**: Konstante Varianz der Residuen
+-   **Unabhängigkeit der Beobachtungen**: Keine Autokorrelation
+-   **Ausreißer und einflussreiche Beobachtungen**: Cook's Distance, Leverage
+
+## Visualisierung von Regressionsmodellen
+
+-   **Streudiagramm mit Regressionslinie**:
+
+    library(ggplot2) ggplot(daten, aes(x = x, y = y)) + geom_point() + geom_smooth(method = "lm", se = TRUE) + theme_minimal() + labs(title = "Lineare Regression", subtitle = paste("R² =", round(summary(model)\$r.squared, 3)))
+
+-   **Residuenplots**:
+
+    # Residuen gegen vorhergesagte Werte
+
+    ggplot(data.frame(fitted = fitted(model), residuals = residuals(model)), aes(x = fitted, y = residuals)) + geom_point() + geom_hline(yintercept = 0, linetype = "dashed", color = "red") + theme_minimal() + labs(title = "Residuen vs. vorhergesagte Werte")
+
+## Praktische Anwendungsbeispiele
+
+-   **Fairer Preis für gebrauchte Artikel**: Preisvorhersage basierend auf Alter, Zustand, etc.
+-   **Verkaufsprognosen**: Vorhersage des Umsatzes basierend auf Werbeausgaben
+-   **Biometrische Zusammenhänge**: z.B. Zusammenhang zwischen Größe und Gewicht
+
+## Transformation nicht-linearer Beziehungen
+
+-   **Logarithmische Transformation**: Für exponentielle Beziehungen
+
+-   **Quadratische Transformation**: Für U-förmige Beziehungen
+
+-   **Box-Cox-Transformation**: Systematische Suche nach optimaler Transformation
+
+-   **Beispiel in R**:
+
+    \`\`\` r \# Log-Transformation model_log \<- lm(log(y) \~ x, data = daten)
+
+    # Quadratische Transformation
+
+    model_quad \<- lm(y \~ x + I(x\^2), data = daten)
+
+    # Vergleich der Modelle mittels AIC
+
+    AIC(model, model_log, model_quad)
+
+# Sitzung 10: Logistische Regression
+
+-   **Unterschied zur linearen Regression**: Binäre abhängige Variable
+-   **Logit-Funktion**: Transformation von Wahrscheinlichkeiten in Log-Odds
+-   **Grundgleichung**: $\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X$
+-   **Interpretation**: Odds Ratios statt direkter Effekte
+
+## Durchführung der logistischen Regression in R
+
+-   **Modellschätzung**:
+
+    ``` r
+    # Logistische Regression
+    logit_model <- glm(erfolg ~ x, data = daten, family = binomial)
+    summary(logit_model)
+
+    # Odds Ratios berechnen
+    exp(coef(logit_model))
+    ```
+
+-   **Vorhersagen und Evaluation**:
+
+    ``` r
+    # Wahrscheinlichkeiten vorhersagen
+    pred_probs <- predict(logit_model, type = "response")
+
+    # ROC-Kurve und AUC
+    library(pROC)
+    roc_curve <- roc(daten$erfolg, pred_probs)
+    plot(roc_curve)
+    auc(roc_curve)
+    ```
+
+## Anwendungsbeispiele für logistische Regression
+
+-   **Medizin**: Vorhersage von Krankheitsrisiken
+-   **Marketing**: Conversion-Wahrscheinlichkeit von Kunden
+-   **Kreditwesen**: Ausfallwahrscheinlichkeit bei Krediten
+
+# Sitzung 11: ANOVA und Umfragedesign
+
+## ANOVA-Grundlagen
+
+-   **Vom t-Test zur ANOVA**: Natürliche Erweiterung für mehr als zwei Gruppen
+-   **Varianzzerlegung**: Zwischen- vs. Innerhalb-Gruppenvarianz
+-   **F-Verteilung und F-Statistik**: Verhältnis der Varianzen
+-   **Grundformel**: $F = \frac{\text{Varianz zwischen Gruppen}}{\text{Varianz innerhalb Gruppen}}$
+
+## Einfaktorielle ANOVA
+
+-   **Voraussetzungen**:
+
+    -   Normalverteilung der Residuen
+    -   Homoskedastizität (Varianzhomogenität)
+    -   Unabhängigkeit der Beobachtungen
+
+-   **Durchführung in R**:
+
+    ``` r
+    # Einfaktorielle ANOVA
+    anova_result <- aov(werte ~ gruppe, data = daten)
+    summary(anova_result)
+    ```
+
+## Post-hoc Tests
+
+-   **Warum Post-hoc Tests?**: ANOVA sagt nur, dass Unterschiede existieren
+
+-   **Tukey's HSD**: Häufig verwendeter Test für alle paarweisen Vergleiche
+
+-   **Bonferroni-Korrektur**: Kontrolle des Alpha-Fehlers bei multiplen Vergleichen
+
+-   **Durchführung in R**:
+
+    ``` r
+    # Tukey's HSD
+    TukeyHSD(anova_result)
+
+    # Alternativ mit dem Paket 'multcomp'
+    library(multcomp)
+    post_hoc <- glht(anova_result, linfct = mcp(gruppe = "Tukey"))
+    summary(post_hoc)
+    ```
+
+## Visualisierung von ANOVA-Ergebnissen
+
+-   **Boxplots mit Post-hoc-Informationen**:
+
+    ``` r
+    library(ggplot2)
+    ggplot(daten, aes(x = gruppe, y = werte, fill = gruppe)) +
+      geom_boxplot() +
+      theme_minimal() +
+      labs(title = "Vergleich der Gruppen (ANOVA)",
+           subtitle = "F(2, 57) = 14.3, p < 0.001")
+    ```
+
+-   **Interaktionsplots (für mehrfaktorielle ANOVA)**:
+
+    ``` r
+    # Für mehrfaktorielle ANOVA
+    interaction.plot(daten$faktor1, daten$faktor2, daten$werte,
+                    mean, xlab = "Faktor 1", ylab = "Mittelwert",
+                    trace.label = "Faktor 2")
+    ```
+
+## Umfragen und Datenerhebung
+
+### Grundsätzliche Aspekte der Datenerhebung
+
+-   **Primärdaten vs. Sekundärdaten**: Vor- und Nachteile
+-   **Quantitative vs. qualitative Forschung**: Unterschiedliche Ansätze und Zielsetzungen
+-   **Mixed Methods**: Kombination verschiedener Ansätze
+
+### Umfragedesign
+
+-   **Fragentypen**:
+    -   Offene vs. geschlossene Fragen
+    -   Single-Choice vs. Multiple-Choice
+    -   Likert-Skalen: Abstufungen und Best Practices
+-   **Skalendesign**:
+    -   Balance: Gleiche Anzahl positiver und negativer Optionen
+    -   Neutraloption: Ja oder nein?
+    -   Skalenlänge: 5-, 7- oder 10-Punkt-Skalen
+
+### Typische Fehlerquellen und Verzerrungen
+
+-   **Stichprobenverzerrung (Sampling Bias)**:
+    -   Convenience Sampling
+    -   Self-Selection Bias
+    -   Non-Response Bias
+-   **Antwortverzerrungen**:
+    -   Social Desirability Bias
+    -   Acquiescence Bias (Ja-Sage-Tendenz)
+    -   Extremity Bias (Tendenz zu Extremantworten)
+    -   Central Tendency Bias (Tendenz zur Mitte)
+
+### Fallbeispiele von Verzerrungen
+
+-   **Survivorship Bias**: Beobachtungen der "Überlebenden"
+-   **Verzerrung durch fehlende Daten**: Systematische vs. zufällige fehlende Werte
+-   **Kulturelle Unterschiede in der Beantwortung**: Internationale Studien
+
+### Praktische Tipps für bessere Umfragen
+
+-   **Frageformulierung**: Klar, präzise, neutral
+-   **Umfragelänge**: Ermüdung und Abbruchquoten
+-   **Pretests durchführen**: Frühe Probleme erkennen
+-   **Datenqualitätsprüfung**: Validierung während und nach der Erhebung
+
+### Online-Tools und Software
+
+-   **Umfragetools**: SurveyMonkey, Google Forms, LimeSurvey, Qualtrics
+-   **Integration mit R**: Datenimport und -analyse
+
+# Sitzung 12: Abschluss und Ausblick
+
+## Zusammenfassung der wichtigsten Konzepte
+
+-   **Deskriptive Statistik**: Kennzahlen, Verteilungen, Visualisierung
+-   **Inferenzstatistik**: Stichproben, Hypothesentests, Konfidenzintervalle
+-   **Korrelation und Regression**: Zusammenhänge und Vorhersagen
+-   **Kategoriale Datenanalyse**: Chi-Quadrat-Tests und Kontingenztabellen
+
+## Integration der Methoden an praktischen Beispielen
+
+-   **Fallstudie**: Durchführung einer vollständigen Datenanalyse
+    1.  Datenimport und -bereinigung
+    2.  Explorative Datenanalyse
+    3.  Hypothesenbildung
+    4.  Statistische Tests
+    5.  Modellierung (Regression)
+    6.  Interpretation und Berichterstattung
+
+## Bewertungskriterien für die Hausarbeit
+
+-   **Datenauswahl und -aufbereitung**: Sinnvolle Auswahl, korrekte Aufbereitung
+-   **Methodik**: Angemessene Auswahl und korrekte Anwendung statistischer Verfahren
+-   **Visualisierung**: Informative, korrekte und ästhetisch ansprechende Grafiken
+-   **Interpretation**: Korrekte Deutung der Ergebnisse, Verständnis der Grenzen
+-   **Dokumentation**: Klare, nachvollziehbare Darstellung der Analyse mit R Markdown
+
+## Weiterführende statistische Methoden
+
+-   **Mehrfaktorielle ANOVA**: Analyse mehrerer Einflussfaktoren und ihrer Interaktionen
+-   **Multiple Regression**: Mehrere unabhängige Variablen
+-   **Nicht-parametrische Verfahren**: Alternativen bei Verletzung der Normalverteilungsannahme
+-   **Zeitreihenanalyse**: Analyse von Daten mit zeitlicher Struktur
+-   **Faktorenanalyse**: Reduktion von Variablen auf latente Faktoren
+-   **Clusteranalyse**: Identifikation von Gruppen in Daten
+-   **Machine Learning**: Vorhersagemodelle und Klassifikation
+
+## Praktische Hinweise für statistisches Arbeiten
+
+-   **Reproduzierbarkeit**: Verwendung von R Markdown für nachvollziehbare Analysen
+-   **Visualisierung vor Berechnung**: Daten immer zuerst visualisieren
+-   **Datenvalidierung**: Überprüfung auf Ausreißer, fehlende Werte, unmögliche Werte
+-   **Kritisches Denken**: Hinterfragen von Ergebnissen und Methoden
+-   **Effektgrößen beachten**: Nicht nur auf p-Werte fixieren
+
+## Ressourcen für das Selbststudium
+
+-   **Bücher**:
+    -   "R for Data Science" von Hadley Wickham und Garrett Grolemund
+    -   "Discovering Statistics Using R" von Andy Field
+    -   "An Introduction to Statistical Learning" von James, Witten, Hastie und Tibshirani
+-   **Online-Ressourcen**:
+    -   RStudio Cheatsheets: <https://www.rstudio.com/resources/cheatsheets/>
+    -   R-bloggers: <https://www.r-bloggers.com/>
+    -   Datacamp-Kurse: <https://www.datacamp.com/courses/tech:r>
+    -   Stackoverflow für R-spezifische Fragen
+
+## Datenkritisches Denken und ethische Aspekte
+
+-   **Datenqualität und -herkunft**: Kritische Bewertung von Datenquellen
+-   **Fallstricke der Statistik**: Häufige Fehlinterpretationen und wie man sie vermeidet
+-   **Ethik in der Datenanalyse**: Datenschutz, Fairness, Transparenz
+-   **Kommunikation statistischer Ergebnisse**: Verantwortungsvoller Umgang mit Daten in der Öffentlichkeit
+
+## Abschlussdiskussion und Feedback
+
+-   **Offene Fragen**: Klärung verbleibender Unklarheiten
+-   **Rückblick**: Was waren die wichtigsten Erkenntnisse?
+-   **Ausblick**: Wie können die Studierenden die erlernten Methoden in ihren Abschlussarbeiten anwenden?
+-   **Kursevaluation**: Feedback zum Seminar und Verbesserungsvorschläge
+
+## Tipp des Tages: Statistische Fallstricke vermeiden
+
+-   **Data Dredging (p-Hacking)**: Nicht so lange testen, bis ein signifikantes Ergebnis erscheint
+-   **HARKing (Hypothesizing After Results are Known)**: Hypothesen vor der Analyse festlegen
+-   **Cherry Picking**: Alle relevanten Ergebnisse berichten, nicht nur die "schönen"
+-   **Überinterpretation von p-Werten**: p \< 0.05 bedeutet nicht "wahr" oder "wichtig"
+-   **Ignorieren von Effektgrößen**: Praktische Bedeutsamkeit ist oft wichtiger als statistische Signifikanz
