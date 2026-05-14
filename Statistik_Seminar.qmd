@@ -1,8 +1,8 @@
 ---
 title: "Statistik für die Angewandte Forschung"
-format:
-  pptx:
-    incremental: true
+format: beamer
+#  pptx:
+#    incremental: true
 date: now
 author: "Dr. Tom Alby"
 ---
@@ -15,19 +15,19 @@ library(tidyverse)
 
 ## Ziele dieser Veranstaltung
 
--   Werkzeuge für Datenanalyse in der Bachelor-Arbeit
--   Grundkenntnisse Statistik, nicht nur für die Uni
+- Werkzeuge für Datenanalyse in der Bachelor-Arbeit
+- Grundkenntnisse Statistik, nicht nur für die Uni
 
 ## Was Sie erwartet
 
--   Grundlegende Konzepte der Statistik
--   Einführung in R und RStudio
--   Datenimport und -aufbereitung
--   Explorative Datenanalyse
--   Datenvisualisierung
--   Lineare Regression
--   Hypothesentests
--   Korrelationen
+- Grundlegende Konzepte der Statistik
+- Einführung in R und RStudio
+- Datenimport und -aufbereitung
+- Explorative Datenanalyse
+- Datenvisualisierung
+- Lineare Regression
+- Hypothesentests
+- Korrelationen
 
 ## Übersicht der Sitzungen (1/2)
 
@@ -55,39 +55,39 @@ library(tidyverse)
 
 ## Erwartungen und Interaktion
 
--   **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
-    -   16 Uhr: #68430031
-    -   18 Uhr: #68430032
+- **Slido:** Interaktive Beteiligung über [Slido](https://app.sli.do)
+  - 16 Uhr: #68430031
+  - 18 Uhr: #68430032
 
 ## Rules of Working
 
--   **Fragen:** Bitte unterbrechen Sie mich für Fragen
--   **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
--   **Sprechstunde:** <https://alby.link/talk2me>
--   **Moodle:** Einschreibeschlüssel: iLoveStats!
--   **Teilnahme:** Keine Anwesenheitspflicht, keine Präsenzpflicht, Online-Teilnahme via Teams möglich
--   Gruppen können online jederzeit gewechselt werden
--   Sessions als KI-Podcast?
+- **Fragen:** Bitte unterbrechen Sie mich für Fragen
+- **Kontakt:** [tom\@alby.de](mailto:tom@alby.de)
+- **Sprechstunde:** <https://alby.link/talk2me>
+- **Moodle:** Einschreibeschlüssel: iLoveStats!
+- **Teilnahme:** Keine Anwesenheitspflicht, keine Präsenzpflicht, Online-Teilnahme via Teams möglich
+- Gruppen können online jederzeit gewechselt werden
+- Sessions als KI-Podcast?
 
 ## Prüfungsleistung
 
--   Referat (mit Befragung, nicht online)
--   Keine Gruppenarbeit
--   Bitte Datensatz und Fragestellung selbst aussuchen und kurz absprechen
--   Beispiel: Hängen Bildschirmzeit und Depressionsanfälligkeit zusammen?
--   Präsentation mit Quellenangaben sowie Code nach Referat in Moodle hochladen
--   Termine für Referate (nach 8. Sitzung) bitte ins Forum posten
+- Referat (mit Befragung, nicht online)
+- Keine Gruppenarbeit
+- Bitte Datensatz und Fragestellung selbst aussuchen und kurz absprechen
+- Beispiel: Hängen Bildschirmzeit und Depressionsanfälligkeit zusammen?
+- Präsentation mit Quellenangaben sowie Code nach Referat in Moodle hochladen
+- Termine für Referate (nach 8. Sitzung) bitte ins Forum posten
 
 ## Software
 
--   R <https://r-project.org>
--   RStudio <https://posit.co/download/rstudio-desktop>
--   Alternative: posit.cloud
+- R <https://r-project.org>
+- RStudio <https://posit.co/download/rstudio-desktop>
+- Alternative: posit.cloud
 
 ## Literatur
 
--   Wollschläger, D. (2020) Grundlagen der Datenanalyse mit R: Eine anwendungsorientierte Einführung. 5. Aufl. Berlin/Heidelberg: Springer Spektrum. doi: 10.1007/978-3-662-61736-6.
--   Ist bereits im Moodle :)
+- Wollschläger, D. (2020) Grundlagen der Datenanalyse mit R: Eine anwendungsorientierte Einführung. 5. Aufl. Berlin/Heidelberg: Springer Spektrum. doi: 10.1007/978-3-662-61736-6.
+- Ist bereits im Moodle :)
 
 ## Warum nutzen wir R?
 
@@ -97,11 +97,11 @@ library(tidyverse)
 
 ## Unterstützung für Studierende
 
--   Studentische Seelsorge, rund um die Uhr: 040 41170411
--   [Studierendenberatung\@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
--   [krisenteam\@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
--   Psychologische Sprechzeit ohne Anmeldung (Dienstags 14-15 Uhr): +49 152 247 44 063
--   Weitere Infos: [HAW Beratung](https://www.haw-hamburg.de/beratung/)
+- Studentische Seelsorge, rund um die Uhr: 040 41170411
+- [Studierendenberatung\@haw-hamburg.de](mailto:Studierendenberatung@haw-hamburg.de)
+- [krisenteam\@haw-hamburg.de](mailto:krisenteam@haw-hamburg.de)
+- Psychologische Sprechzeit ohne Anmeldung (Dienstags 14-15 Uhr): +49 152 247 44 063
+- Weitere Infos: [HAW Beratung](https://www.haw-hamburg.de/beratung/)
 
 ## Let's start!
 
@@ -110,7 +110,7 @@ library(tidyverse)
 ## Der Forschungsprozess
 
 | Schritt | Frage | Beispiel |
-|--------------------------|---------------------|--------------------------|
+|------------------------|------------------------|------------------------|
 | **1. Fragestellung** | Was will ich wissen? | Beeinflusst Schlafmangel die Prüfungsleistung? |
 | **2. Theorie & Hypothese** | Was erwarte ich? | Weniger Schlaf → schlechtere Noten |
 | **3. Datenerhebung** | Wie messe ich es? | Befragung von 80 Studierenden |
@@ -122,7 +122,7 @@ library(tidyverse)
 ## Wo hilft Ihnen dieser Kurs?
 
 | Schritt | Inhalt des Kurses |
-|------------------------|------------------------------------------------|
+|------------------------------------|------------------------------------|
 | Datenaufbereitung | Sitzung 4 – Datenmanipulation mit R |
 | Analyse: beschreiben | Sitzungen 3–5 – Deskriptive Statistik & Visualisierung |
 | Analyse: testen | Sitzungen 7–13 – Inferenzstatistik, Tests, Regression |
@@ -133,13 +133,13 @@ library(tidyverse)
 
 ## Was sind Daten und Informationen?
 
--   *Daten*
-    -   Roh, ungeordnet, noch nicht interpretiert
-    -   Bestehen aus Zahlen, Zeichen, Fakten ohne Kontext
--   *Informationen*
-    -   Verarbeitete, kontextualisierte Daten
-    -   Haben Bedeutung und Relevanz für eine Fragestellung
-    -   **Daten + Kontext = Information**
+- *Daten*
+  - Roh, ungeordnet, noch nicht interpretiert
+  - Bestehen aus Zahlen, Zeichen, Fakten ohne Kontext
+- *Informationen*
+  - Verarbeitete, kontextualisierte Daten
+  - Haben Bedeutung und Relevanz für eine Fragestellung
+  - **Daten + Kontext = Information**
 
 ## DIKW-Pyramide
 
@@ -190,91 +190,91 @@ library(tidyverse)
 
 ## Aufgabe zur nächsten Sitzung
 
--   R/RStudio installieren oder
--   bei Posit Cloud anmelden
+- R/RStudio installieren oder
+- bei Posit Cloud anmelden
 
 # Sitzung 2: Einführung in R
 
 ## Lernziele dieser Sitzung
 
--   R und RStudio bedienen
--   Grundlegende Datentypen und -strukturen in R kennen
--   Ein R Notebook anlegen und ausführen
+- R und RStudio bedienen
+- Grundlegende Datentypen und -strukturen in R kennen
+- Ein R Notebook anlegen und ausführen
 
 ## Welche Programmiersprachen kennen Sie bereits?
 
 ## R, Python, SPSS, ...
 
--   SPSS
--   SAS
--   Python
--   Scala
--   Julia
--   PSPP
--   R
+- SPSS
+- SAS
+- Python
+- Scala
+- Julia
+- PSPP
+- R
 
 ## Die Programmiersprache R
 
--   R: Statistische Programmiersprache und Umgebung
--   Nachfolger von S (Unnützes Wissen, Teil 1)
--   Großer Vorteil: R ist von Statistikern für Statistiker
--   Großer Nachteil: R ist von Statistikern für Statistiker
--   Open Source
--   Packages (Libraries) erweitern den Umfang
+- R: Statistische Programmiersprache und Umgebung
+- Nachfolger von S (Unnützes Wissen, Teil 1)
+- Großer Vorteil: R ist von Statistikern für Statistiker
+- Großer Nachteil: R ist von Statistikern für Statistiker
+- Open Source
+- Packages (Libraries) erweitern den Umfang
 
 ## Die IDE RStudio
 
--   "Wenn R ein Pferd ist, dann ist RStudio der Sattel."
--   Entwickelt von RStudio PBC, heute Posit PBC
--   Kostenlos für den Heimgebrauch
+- "Wenn R ein Pferd ist, dann ist RStudio der Sattel."
+- Entwickelt von RStudio PBC, heute Posit PBC
+- Kostenlos für den Heimgebrauch
 
 ## Walkthrough: Die Arbeitsumgebung
 
--   Sozusagen der „Arbeitsspeicher“
--   Enthält nicht nur Objekte, sondern auch Packages
--   Häufige Fehlerursache: -- Man geht davon aus, dass etwas geladen ist, ist es aber nicht. -- Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
--   R lädt alles (!) in den Arbeitsspeicher.
+- Sozusagen der „Arbeitsspeicher“
+- Enthält nicht nur Objekte, sondern auch Packages
+- Häufige Fehlerursache: -- Man geht davon aus, dass etwas geladen ist, ist es aber nicht. -- Man geht davon aus, dass etwas nicht geladen ist, ist es aber.
+- R lädt alles (!) in den Arbeitsspeicher.
 
 ## R Notebooks
 
--   Kombiniert Text, Code und Ergebnisse in einem Dokument
--   Basieren auf R Markdown; Dateiendung: `.Rmd`
--   Ausgabe als HTML direkt in RStudio – kein separater Render-Schritt nötig
--   **Vorteil**: Code, Output und Text in einem Dokument – ideal für Analysen in der Bachelorarbeit
--   **Referate werden mit einem Notebook gehalten**
+- Kombiniert Text, Code und Ergebnisse in einem Dokument
+- Basieren auf R Markdown; Dateiendung: `.Rmd`
+- Ausgabe als HTML direkt in RStudio – kein separater Render-Schritt nötig
+- **Vorteil**: Code, Output und Text in einem Dokument – ideal für Analysen in der Bachelorarbeit
+- **Referate werden mit einem Notebook gehalten**
 
 ## Aufbau eines R Notebooks
 
--   **YAML-Header**: Metadaten (Titel, Format, Autor)
--   **Text**: Markdown-Formatierung
--   **Code-Chunks**: R-Code, der ausgeführt und angezeigt wird
+- **YAML-Header**: Metadaten (Titel, Format, Autor)
+- **Text**: Markdown-Formatierung
+- **Code-Chunks**: R-Code, der ausgeführt und angezeigt wird
 
 ## R Notebook in der Praxis
 
--   Neues Notebook: File → New File → R Notebook
--   Code-Chunk einfügen: Strg+Alt+I (Mac: Cmd+Option+I)
--   Ausführen: Chunk per Play-Button oder Strg+Shift+Enter; Gesamtes Notebook: „Preview“
--   **Empfehlung**: Schreiben Sie Ihre Analysen immer im Notebook – nie nur in der Konsole
+- Neues Notebook: File → New File → R Notebook
+- Code-Chunk einfügen: Strg+Alt+I (Mac: Cmd+Option+I)
+- Ausführen: Chunk per Play-Button oder Strg+Shift+Enter; Gesamtes Notebook: „Preview“
+- **Empfehlung**: Schreiben Sie Ihre Analysen immer im Notebook – nie nur in der Konsole
 
 ## Die ersten Schritte mit R
 
--   R als Taschenrechner
--   Objekt- und Funktionsstruktur in R
--   Zuordnung über `<-`
--   Hilfe über `?FUNKTIONSNAME`
+- R als Taschenrechner
+- Objekt- und Funktionsstruktur in R
+- Zuordnung über `<-`
+- Hilfe über `?FUNKTIONSNAME`
 
 ## Funktionen
 
--   Funktionsstruktur: `funktionsname(Parameter)`
--   Beispiele: `plot()`, `summary()`, `str()`
+- Funktionsstruktur: `funktionsname(Parameter)`
+- Beispiele: `plot()`, `summary()`, `str()`
 
 ## Datentypen in R
 
--   Character
--   Numerisch: integer und double
--   Factor
--   Datum
--   Dynamic typing und Bedeutung korrekter Datentypen
+- Character
+- Numerisch: integer und double
+- Factor
+- Datum
+- Dynamic typing und Bedeutung korrekter Datentypen
 
 ## Datenstrukturen in R
 
@@ -282,68 +282,68 @@ library(tidyverse)
 
 ## Datenstrukturen in R
 
--   Vektor: Liste mit gleichen Datentypen
--   Dataframe: Tabelle mit Vektoren als Spalten
--   Liste: verschiedene Datentypen
--   Matrix: Tabelle nur mit gleichen Datentypen
--   Array: Dreidimensionale Matrix
+- Vektor: Liste mit gleichen Datentypen
+- Dataframe: Tabelle mit Vektoren als Spalten
+- Liste: verschiedene Datentypen
+- Matrix: Tabelle nur mit gleichen Datentypen
+- Array: Dreidimensionale Matrix
 
 ## Dataframes
 
--   Zentrales Konzept in R
--   Struktur: Zeilen für Observationen, Spalten für Attribute
--   Zugriff auf Spalten über Dollarzeichen (`$`)
+- Zentrales Konzept in R
+- Struktur: Zeilen für Observationen, Spalten für Attribute
+- Zugriff auf Spalten über Dollarzeichen (`$`)
 
 ## Hausaufgabe
 
--   Starten Sie ein Notebook wie oben beschrieben; Sie werden die Aufforderung erhalten, mehrere Packages zu installieren, was Sie bitte tun.
--   Installieren Sie das Tidyverse (siehe nächste Folie)
--   Laden Sie die Daten unter https://alby.link/books herunter auf Ihre Festplatte
+- Starten Sie ein Notebook wie oben beschrieben; Sie werden die Aufforderung erhalten, mehrere Packages zu installieren, was Sie bitte tun.
+- Installieren Sie das Tidyverse (siehe nächste Folie)
+- Laden Sie die Daten unter https://alby.link/books herunter auf Ihre Festplatte
 
 ## Packages installieren und laden
 
--   Packages als Erweiterungen zu base R
--   Installation einmalig: Tools → Install Packages oder `install.packages("name")`
--   Laden in jeder Sitzung: `library(name)`
--   Wichtig: Installation ≠ Laden – beides ist notwendig
+- Packages als Erweiterungen zu base R
+- Installation einmalig: Tools → Install Packages oder `install.packages("name")`
+- Laden in jeder Sitzung: `library(name)`
+- Wichtig: Installation ≠ Laden – beides ist notwendig
 
 ## Das Tidyverse
 
--   Sammlung von Packages für konsistente Datenanalyse
--   Entwickelt von Hadley Wickham (heute bei Posit)
--   Kernidee: „Code the way you think"
--   Wichtigste Packages: `dplyr`, `ggplot2`, `readr`, `tidyr`, `stringr`
+- Sammlung von Packages für konsistente Datenanalyse
+- Entwickelt von Hadley Wickham (heute bei Posit)
+- Kernidee: „Code the way you think"
+- Wichtigste Packages: `dplyr`, `ggplot2`, `readr`, `tidyr`, `stringr`
 
 ``` r
 install.packages("tidyverse")  # einmalig installieren
 library(tidyverse)              # jede Sitzung laden
 ```
 
-# Sitzung 3: Deskriptive Statistik I
+# Sitzung 3: Datentransformation I
 
 ## Logistik
 
--   Wer ist nächste Woche überhaupt hier?
--   Referatstermine
--   Datensatz
+- Wer ist nächste Woche überhaupt hier?
+- Referatstermine
+- Datensatz
 
 ## Lernziele dieser Sitzung
 
--   Datensätze importieren und in R einlesen
--   Das Tidyverse laden und die Pipe-Syntax verstehen
--   Einen ersten Datensatz explorieren
+- Datensätze importieren und in R einlesen
+- Das Tidyverse laden und die Pipe-Syntax verstehen
+- Einen ersten Datensatz explorieren
 
 ## Daten lesen und schreiben
 
--   Dateiformate: CSV, JSON, ARFF, Excel, Parquet, u.a.
--   Was sind die Vor- und Nachteile der Formate?
--   Import-Beispiele
+- Dateiformate: CSV, JSON, ARFF, Excel, Parquet, u.a.
+- Was sind die Vor- und Nachteile der Formate?
+- Import-Beispiele
 
 ## Pro-Tipp
 
--   Importzeile aus Code Preview kopieren und ins Notebook kopieren
--   library ignorieren (haben wir schon mit dem Tidyverse importiert)
--   View(gadata) ignorieren (nervt nur)
+- Importzeile aus Code Preview kopieren und ins Notebook kopieren
+- library ignorieren (haben wir schon mit dem Tidyverse importiert)
+- View(gadata) ignorieren (nervt nur)
 
 ## Rohdaten transformieren und zusammenfassen
 
@@ -353,10 +353,10 @@ Beschreiben Sie die Schritte, um eine Tüte Gummibärchen nach Farben zu sortier
 
 ![](images/gummibaerchen.png)
 
--   Öffne die Gummibärchentüte
--   Gruppiere die Gummibärchen nach Farbe
--   Zähle die Gummibärchen pro Farbe durch
--   Zugabe: Sortiere absteigend nach Häufigkeit
+- Öffne die Gummibärchentüte
+- Gruppiere die Gummibärchen nach Farbe
+- Zähle die Gummibärchen pro Farbe durch
+- Zugabe: Sortiere absteigend nach Häufigkeit
 
 ## Rohdaten transformieren und zusammenfassen
 
@@ -369,12 +369,12 @@ Gummibärchentüte %>%
 
 ## Typische Funktionen im Tidyverse
 
--   `group_by()`: Gruppieren nach Variablen
--   `select()`: Spalten auswählen
--   `filter()`: Zeilen nach Werten filtern
--   `mutate()`: Variablen erstellen oder modifizieren
--   `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
--   `arrange()`: Sortierung ändern
+- `group_by()`: Gruppieren nach Variablen
+- `select()`: Spalten auswählen
+- `filter()`: Zeilen nach Werten filtern
+- `mutate()`: Variablen erstellen oder modifizieren
+- `summarise()`: Mehrere Werte zu einem Ergebnis reduzieren
+- `arrange()`: Sortierung ändern
 
 ## Die Pipe: `|>` oder `%>%`
 
@@ -383,33 +383,67 @@ Gummibärchentüte %>%
 arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ```
 
--   Verkettet Operationen lesbar von links nach rechts
--   Lies `|>` als „und dann"
+- Verkettet Operationen lesbar von links nach rechts
+- Lies `|>` als „und dann"
 
 ## Wichtig
 
--   Wenn Sie einen Datensatz manipuliert haben in einem Code-Chunk, dann ist er nicht global modifiziert, erst recht nicht in der CSV-Datei.
--   Arbeiten Sie mit der Tabulatortaste, um Befehle und Variablen auszuwählen.
--   Variablennamen mit einem Bindestrich führen zu Fehlern: Der Bindestrich wird als Minus interpretiert.
+- Wenn Sie einen Datensatz manipuliert haben in einem Code-Chunk, dann ist er nicht global modifiziert, erst recht nicht in der CSV-Datei.
+- Arbeiten Sie mit der Tabulatortaste, um Befehle und Variablen auszuwählen.
+- Variablennamen mit einem Bindestrich führen zu Fehlern: Der Bindestrich wird als Minus interpretiert.
 
 ## Wo ist die Tabulatortaste?
 
 ![](images/tabulatortaste.png)
 
-# Sitzung 4: Deskriptive Statistik II & Datenmanipulation
+# Sitzung 4: Deskriptive Statistik & Datentransformation II
+
+## Logistik
+
+- Nächste Woche nur 1. Session
+
+## Lernziele dieser Sitzung
+
+- Datensätze mit Joins verknüpfen
+- Typische Datenfehler erkennen und beheben
+- Lagemaße berechnen und interpretieren
+- Den Unterschied zwischen Mittelwert und Median erklären
+- Verteilungen anhand von Histogramm und Streudiagramm beurteilen
+
+## Typischer Ablauf einer Analyse
+
+![](images/CRISP-DM_Process_Diagram.png)
 
 ## Typische Fehler
 
--   Package nicht geladen
--   Pipe-Symbol falsch verwendet
--   Unvollständige Code-Chunks
+- Package nicht geladen
+- Pipe-Symbol falsch verwendet
+- Unvollständige Code-Chunks
 
-## 
+## Wir starten mit einer Übung
 
--   Lage- und Streuungsmaße berechnen und interpretieren
--   Den Unterschied zwischen Mittelwert und Median erklären
--   Verteilungen anhand von Histogramm und Boxplot beurteilen
--   Kennzahlen in R berechnen
+- Importieren Sie die beiden anderen Bücher-Datensätze
+- Achten Sie auf die richtigen Datentypen beim Import
+- Fällt Ihnen was auf bei den Altersangaben der Nutzer?
+- Überlegen Sie, was die verbindenden Spalten sind, mit denen die Datensätze miteiner verbunden werden könnten
+
+## Irgendwas stimmt mit dem Alter nicht
+
+- Vieles wird schneller klar, wenn die Daten visualisiert werden
+- Tatsächlich visualisieren wir Daten immer gleich zu Beginn
+- Welche Visualisierung kennen Sie bereits?
+
+## Demo
+
+- Histogram mit ggplot
+
+## Histogramm
+
+- Was: Grafische Darstellung der Häufigkeitsverteilung in Klassen
+- Bestandteile: X-Achse (Werte), Y-Achse (Häufigkeit), Balken (Klassenhäufigkeit)
+- Wozu: Schneller Überblick über Datenverteilung und -muster
+- Interpretation: Form (symmetrisch/schief), Modalität (uni-/multimodal), Ausreißer
+- Wichtig: Klassenanzahl beeinflusst sichtbare Form
 
 ## Let's talk about money
 
@@ -429,29 +463,13 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 :::
 :::::
 
-## Histogramm
-
--   Was: Grafische Darstellung der Häufigkeitsverteilung in Klassen
--   Bestandteile: X-Achse (Werte), Y-Achse (Häufigkeit), Balken (Klassenhäufigkeit)
--   Wozu: Schneller Überblick über Datenverteilung und -muster
--   Interpretation: Form (symmetrisch/schief), Modalität (uni-/multimodal), Ausreißer
--   Wichtig: Klassenanzahl beeinflusst sichtbare Form
--   In R: `hist(data, breaks = 10)`
-
 ## Warum sind statistische Kennzahlen wichtig?
 
-## Daten zusammenfassen und vereinfachen
+- **Reduktion von Komplexität**: Große Datenmengen werden durch wenige Werte beschreibbar
+- **Kommunikation**: Leichtere Vermittlung von Erkenntnissen an Nicht-Statistiker
+- **Vergleichbarkeit**: Unterschiedliche Datensätze werden vergleichbar
 
--   **Reduktion von Komplexität**: Große Datenmengen werden durch wenige Werte beschreibbar
--   **Kommunikation**: Leichtere Vermittlung von Erkenntnissen an Nicht-Statistiker
--   **Vergleichbarkeit**: Unterschiedliche Datensätze werden vergleichbar
 
-## Entscheidungsgrundlage in vielen Anwendungsbereichen
-
--   **Wirtschaft**: Grundlage für Investitionsentscheidungen und Marktanalysen
--   **Medizin**: Interpretation von Studienergebnissen und diagnostischen Tests
--   **Politik**: Faktenbasis für gesellschaftliche und wirtschaftliche Maßnahmen
--   **Wissenschaft**: Prüfung von Hypothesen und Interpretation von Experimenten
 
 ## Typische Anwendungsfälle
 
@@ -465,19 +483,15 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Von der Beschreibung zur Inferenz
 
--   Deskriptive Statistik als Grundlage für **statistische Tests**
--   Möglichkeit der **Stichprobenerhebung** statt Vollerhebung
--   Basis für **statistische Modellierung** und **Vorhersagen**
+- Deskriptive Statistik als Grundlage für **statistische Tests**
+- Möglichkeit der **Stichprobenerhebung** statt Vollerhebung
+- Basis für **statistische Modellierung** und **Vorhersagen**
 
 ## Erkennung von Mustern und Besonderheiten
 
--   **Ausreißer**: Potentielle Fehler oder besondere Fälle
--   **Trends**: Entwicklungen über Zeit
--   **Gruppenunterschiede**: Systematische Variation zwischen Teilgruppen
-
-## Typisch / ungewöhnlich / unmöglich
-
-![](images/hadlum.png)
+- **Ausreißer**: Potentielle Fehler oder besondere Fälle
+- **Trends**: Entwicklungen über Zeit
+- **Gruppenunterschiede**: Systematische Variation zwischen Teilgruppen
 
 ## Weitere Beispiele
 
@@ -495,11 +509,11 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Lagemaße
 
--   Mean bezeichnet das arithmetische Mittel, häufig als „Durchschnitt" bezeichnet: mean()
--   Neben dem arithmetischen Mittel existieren weitere Mittelwerte, zum Beispiel das geometrische Mittel
--   Der Median ist weniger anfällig für Ausreißer: median()
--   Der Modalwert kann auch mit kategorialen Variablen umgehen
--   In R existiert kein Befehl für den Modalwert ☹
+- Mean bezeichnet das arithmetische Mittel, häufig als „Durchschnitt" bezeichnet: mean()
+- Neben dem arithmetischen Mittel existieren weitere Mittelwerte, zum Beispiel das geometrische Mittel
+- Der Median ist weniger anfällig für Ausreißer: median()
+- Der Modalwert kann auch mit kategorialen Variablen umgehen
+- In R existiert kein Befehl für den Modalwert ☹
 
 ## Merke
 
@@ -513,46 +527,13 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ![](images/Bildschirmfoto%202025-05-09%20um%2011.34.35.png)
 
-## Streuungsmaße
+## Typisch / ungewöhnlich / unmöglich
 
-## Spannweite (Range)
+![](images/hadlum.png)
 
--   Die Spannweite ist der einfachste Streuungsparameter
--   Berechnung: Maximum - Minimum
--   Sehr anfällig für Ausreißer
--   In R: `diff(range(data))` oder `max(data) - min(data)`
+## Warum Visualisierung auch wichtig ist
 
-## Interquartilsabstand (IQR)
-
--   Robusteres Streuungsmaß, das Ausreißer besser berücksichtigt
--   Berechnung: 75%-Quartil minus 25%-Quartil (Q3 - Q1)
--   Enthält die mittleren 50% der Daten
--   In R: `IQR(data)` oder `quantile(data, 0.75) - quantile(data, 0.25)`
-
-## Varianz
-
--   Durchschnittliche quadratische Abweichung vom Mittelwert
--   Berechnung für Grundgesamtheit: $$\sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2$$
--   Berechnung für Stichprobe (korrigierte Varianz): $$s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2$$
--   Einheit: Quadrat der Einheit der Ursprungsdaten
--   In R: `var(data)`
-
-## Standardabweichung
-
-![](images/Standard_deviation_diagram.svg.png)
-
-## Standardabweichung
-
--   Wurzel aus der Varianz: Dieselbe Einheit wie die Ursprungsdaten
--   Berechnung für Grundgesamtheit: $$\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2}$$
--   Berechnung für Stichprobe: $$s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}$$
--   In R: `sd(data)`
-
-## Interpretation der Standardabweichung im Kontext der Normalverteilung
-
--   Bei normalverteilten Daten liegen ca. 68% der Werte innerhalb von μ ± σ (Mittelwert ± 1 Standardabweichung)
--   Ca. 95% der Werte liegen innerhalb von μ ± 2σ
--   Ca. 99,7% der Werte liegen innerhalb von μ ± 3σ ("Drei-Sigma-Regel")
+![](images/Anscombe's_quartet_3.svg.png)
 
 ## Formparameter
 
@@ -560,31 +541,78 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Schiefe (Skewness)
 
--   Misst die Asymmetrie einer Verteilung
--   Positive Schiefe: rechtsschiefe Verteilung (längerer "Schwanz" nach rechts)
--   Negative Schiefe: linksschiefe Verteilung (längerer "Schwanz" nach links)
--   Schiefe von 0: symmetrische Verteilung (z.B. Normalverteilung)
--   In R: `skewness(data)` aus dem Paket **moments** oder **e1071**
+- Misst die Asymmetrie einer Verteilung
+- Positive Schiefe: rechtsschiefe Verteilung (längerer "Schwanz" nach rechts)
+- Negative Schiefe: linksschiefe Verteilung (längerer "Schwanz" nach links)
+- Schiefe von 0: symmetrische Verteilung (z.B. Normalverteilung)
+- In R: `skewness(data)` aus dem Paket **moments** oder **e1071**
 
 ## Wölbung (Kurtosis)
 
--   Misst die "Spitzheit" bzw. "Flachheit" einer Verteilung
--   Normalverteilung hat eine Kurtosis von 3 (manchmal als Exzess-Kurtosis = 0 dargestellt)
--   Hohe Kurtosis (\>3): spitze Verteilung mit "schweren Enden" (mehr Extremwerte)
--   Niedrige Kurtosis (\<3): flache Verteilung mit "leichten Enden" (weniger Extremwerte)
--   In R: `kurtosis(data)` aus dem Paket **moments** oder **e1071**
+- Misst die "Spitzheit" bzw. "Flachheit" einer Verteilung
+- Normalverteilung hat eine Kurtosis von 3 (manchmal als Exzess-Kurtosis = 0 dargestellt)
+- Hohe Kurtosis (\>3): spitze Verteilung mit "schweren Enden" (mehr Extremwerte)
+- Niedrige Kurtosis (\<3): flache Verteilung mit "leichten Enden" (weniger Extremwerte)
+- In R: `kurtosis(data)` aus dem Paket **moments** oder **e1071**
 
-## Positionskennwerte
+## Weitere Positionskennwerte: Quantile und Perzentile
 
-## Quantile und Perzentile
+- Teile die Daten in gleich große Teile
+- Median = 0,5-Quantil (50%-Perzentil)
+- Quartile teilen die Daten in vier gleiche Teile:
+  - Q1 = 0,25-Quantil (25%-Perzentil)
+  - Q2 = 0,5-Quantil (50%-Perzentil) = Median
+  - Q3 = 0,75-Quantil (75%-Perzentil)
+- In R: `quantile(data, probs = c(0.25, 0.5, 0.75))` für Quartile
 
--   Teile die Daten in gleich große Teile
--   Median = 0,5-Quantil (50%-Perzentil)
--   Quartile teilen die Daten in vier gleiche Teile:
-    -   Q1 = 0,25-Quantil (25%-Perzentil)
-    -   Q2 = 0,5-Quantil (50%-Perzentil) = Median
-    -   Q3 = 0,75-Quantil (75%-Perzentil)
--   In R: `quantile(data, probs = c(0.25, 0.5, 0.75))` für Quartile
+## Datensätze miteinander verbinden
+
+![](images/joins.png)
+
+
+# Sitzung 5
+
+## Streuungsmaße
+
+## Spannweite (Range)
+
+- Die Spannweite ist der einfachste Streuungsparameter
+- Berechnung: Maximum - Minimum
+- Sehr anfällig für Ausreißer
+- In R: `diff(range(data))` oder `max(data) - min(data)`
+
+## Interquartilsabstand (IQR)
+
+- Robusteres Streuungsmaß, das Ausreißer besser berücksichtigt
+- Berechnung: 75%-Quartil minus 25%-Quartil (Q3 - Q1)
+- Enthält die mittleren 50% der Daten
+- In R: `IQR(data)` oder `quantile(data, 0.75) - quantile(data, 0.25)`
+
+## Varianz
+
+- Durchschnittliche quadratische Abweichung vom Mittelwert
+- Berechnung für Grundgesamtheit: $$\sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2$$
+- Berechnung für Stichprobe (korrigierte Varianz): $$s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2$$
+- Einheit: Quadrat der Einheit der Ursprungsdaten
+- In R: `var(data)`
+
+## Standardabweichung
+
+![](images/Standard_deviation_diagram.svg.png)
+
+## Standardabweichung
+
+- Wurzel aus der Varianz: Dieselbe Einheit wie die Ursprungsdaten
+- Berechnung für Grundgesamtheit: $$\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2}$$
+- Berechnung für Stichprobe: $$s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}$$
+- In R: `sd(data)`
+
+## Interpretation der Standardabweichung im Kontext der Normalverteilung
+
+- Bei normalverteilten Daten liegen ca. 68% der Werte innerhalb von μ ± σ (Mittelwert ± 1 Standardabweichung)
+- Ca. 95% der Werte liegen innerhalb von μ ± 2σ
+- Ca. 99,7% der Werte liegen innerhalb von μ ± 3σ ("Drei-Sigma-Regel")
+
 
 ## Boxplot
 
@@ -592,12 +620,12 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Boxplot
 
--   Visuelle Darstellung von Quartilen und Ausreißern
--   Box: Interquartilsabstand (IQR) von Q1 bis Q3
--   Mittellinie: Median (Q2)
--   Whiskers: Typischerweise bis max. 1,5 × IQR von der Box
--   Punkte außerhalb der Whiskers: potenzielle Ausreißer
--   In R: `boxplot(data)`
+- Visuelle Darstellung von Quartilen und Ausreißern
+- Box: Interquartilsabstand (IQR) von Q1 bis Q3
+- Mittellinie: Median (Q2)
+- Whiskers: Typischerweise bis max. 1,5 × IQR von der Box
+- Punkte außerhalb der Whiskers: potenzielle Ausreißer
+- In R: `boxplot(data)`
 
 ![](images/Elements_of_a_boxplot.svg.png)
 
@@ -628,36 +656,18 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 | Standardabweichung | `sd(data)`          | Ø‑Abweichung vom Mittelwert    |
 | Varianz            | `var(data)`         | Quadrat der Standardabweichung |
 
-## Lernziele dieser Sitzung
 
--   Datensätze mit Joins verknüpfen
--   Typische Datenfehler erkennen und beheben
--   Verschiedene Dateiformate kennen und einordnen
-
-## Typischer Ablauf einer Analyse
-
-![](images/CRISP-DM_Process_Diagram.png)
-
-## Ausprobieren mit nycflights23
-
--   5 Datensätze: `flights`, `planes`, `airlines`, `airports`, `weather`
--   Laden: `install.packages("nycflights23")` → `library(nycflights23)`
--   Reale Flugdaten – ideal für komplexere Transformationen
 
 ## Demo
-
-## Datensätze miteinander verbinden
-
-![](images/joins.png)
 
 # Sitzung 5: Datenvisualisierung
 
 ## Lernziele dieser Sitzung
 
--   Das richtige Diagramm für eine Fragestellung auswählen
--   Grundprinzipien guter Visualisierung anwenden (Clutter, Highlighting, Storytelling)
--   Diagramme mit ggplot2 erstellen
--   Häufige Fehler bei der Datenvisualisierung vermeiden
+- Das richtige Diagramm für eine Fragestellung auswählen
+- Grundprinzipien guter Visualisierung anwenden (Clutter, Highlighting, Storytelling)
+- Diagramme mit ggplot2 erstellen
+- Häufige Fehler bei der Datenvisualisierung vermeiden
 
 ## Warum Datenvisualisierung?
 
@@ -670,18 +680,18 @@ The greatest value of a picture is when it forces us to notice what we never exp
 ## 5 wichtige Schritte
 
 1.  Was ist der Kontext?
-    -   An wen wird kommuniziert?
-    -   Was soll der Empfänger wissen oder tun?
-    -   Welche Daten sind vorhanden, um den Case zu untermauern?
+    - An wen wird kommuniziert?
+    - Was soll der Empfänger wissen oder tun?
+    - Welche Daten sind vorhanden, um den Case zu untermauern?
 
 ## 5 wichtige Schritte
 
 2.  Welche ist das passendste Visualierung?
-    -   Ein oder zwei Zahlen, die im Fokus stehen? =\> Text!
-    -   Liniendiagramme für continuous data
-    -   Säulendiagramme für kategoriale Daten, müssen bei 0 anfangen
-    -   Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
-    -   Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
+    - Ein oder zwei Zahlen, die im Fokus stehen? =\> Text!
+    - Liniendiagramme für continuous data
+    - Säulendiagramme für kategoriale Daten, müssen bei 0 anfangen
+    - Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
+    - Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
 
 ## 5 wichtige Schritte
 
@@ -692,17 +702,17 @@ The greatest value of a picture is when it forces us to notice what we never exp
 ## 5 wichtige Schritte
 
 4.  Fokussieren Sie die Aufmerksamkeit, wo Sie hin soll
-    -   Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
-    -   Wohin gehen die Augen?
+    - Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
+    - Wohin gehen die Augen?
 
 ## 5 wichtige Schritte
 
 ::::: columns
 ::: {.column width="60%"}
 5.  Nutzen Sie Storytelling
-    -   Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
-    -   Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
-    -   Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
+    - Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
+    - Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
+    - Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
 :::
 
 ::: {.column width="40%"}
@@ -907,11 +917,11 @@ ggplot(airline_delays, aes(x = reorder(name, mean_delay), y = mean_delay)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Beziehung zwischen zwei kontinuierlichen Variablen
--   Jeder Punkt = eine Beobachtung
--   Erkennt Muster, Cluster, Ausreißer und Korrelationen
--   Benötigt numerische X/Y-Achsen
--   Dritte Dimension durch Punktgröße/Farbe möglich
+- Zeigt Beziehung zwischen zwei kontinuierlichen Variablen
+- Jeder Punkt = eine Beobachtung
+- Erkennt Muster, Cluster, Ausreißer und Korrelationen
+- Benötigt numerische X/Y-Achsen
+- Dritte Dimension durch Punktgröße/Farbe möglich
 :::
 
 ::: {.column width="40%"}
@@ -941,11 +951,11 @@ ggplot(scatter_data, aes(x = x, y = y, color = gruppe)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Korrelationsstärke zwischen Variablen
--   Farbe/Größe visualisiert Richtung und Stärke
--   Unterscheidet klar positive/negative Korrelationen
--   Identifiziert Muster und redundante Variablen
--   Essentiell für explorative Datenanalyse
+- Zeigt Korrelationsstärke zwischen Variablen
+- Farbe/Größe visualisiert Richtung und Stärke
+- Unterscheidet klar positive/negative Korrelationen
+- Identifiziert Muster und redundante Variablen
+- Essentiell für explorative Datenanalyse
 :::
 
 ::: {.column width="40%"}
@@ -995,11 +1005,11 @@ ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt gemeinsame und einzigartige Elemente
--   Überschneidungen visualisieren Gemeinsamkeiten
--   Ideal für Vergleich von Kategorien/Merkmalen
--   Funktioniert am besten mit 2-3 Gruppen
--   Wird mit mehr als 5 Gruppen unübersichtlich
+- Zeigt gemeinsame und einzigartige Elemente
+- Überschneidungen visualisieren Gemeinsamkeiten
+- Ideal für Vergleich von Kategorien/Merkmalen
+- Funktioniert am besten mit 2-3 Gruppen
+- Wird mit mehr als 5 Gruppen unübersichtlich
 :::
 
 ::: {.column width="40%"}
@@ -1011,11 +1021,11 @@ ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Alternative für komplexe Überschneidungen
--   Skalierbarer als klassische Venn-Diagramme
--   Balken visualisieren Überschneidungsgrößen
--   Punkte zeigen beteiligte Mengen
--   Ideal für 4+ Gruppen/komplexe Beziehungen
+- Alternative für komplexe Überschneidungen
+- Skalierbarer als klassische Venn-Diagramme
+- Balken visualisieren Überschneidungsgrößen
+- Punkte zeigen beteiligte Mengen
+- Ideal für 4+ Gruppen/komplexe Beziehungen
 :::
 
 ::: {.column width="40%"}
@@ -1027,11 +1037,11 @@ ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Visualisiert Flüsse zwischen Kategorien
--   Pfeilbreite zeigt Volumen/Wert
--   Ideal für Verteilungen und Prozesse
--   Zeigt Herkunft und Ziel von Ressourcen
--   Verdeutlicht Proportionen über mehrere Stufen
+- Visualisiert Flüsse zwischen Kategorien
+- Pfeilbreite zeigt Volumen/Wert
+- Ideal für Verteilungen und Prozesse
+- Zeigt Herkunft und Ziel von Ressourcen
+- Verdeutlicht Proportionen über mehrere Stufen
 :::
 
 ::: {.column width="40%"}
@@ -1065,11 +1075,11 @@ ggplot(sankey_data, aes(axis1 = Quelle, axis2 = Ziel, y = Wert)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Vergleicht Werte über Kategorien hinweg
--   Horizontale Anordnung für bessere Lesbarkeit
--   Ideal für lange Namen oder viele Kategorien
--   Perfekt für Rankings und Wertvergleiche
--   Einfach und übersichtlich
+- Vergleicht Werte über Kategorien hinweg
+- Horizontale Anordnung für bessere Lesbarkeit
+- Ideal für lange Namen oder viele Kategorien
+- Perfekt für Rankings und Wertvergleiche
+- Einfach und übersichtlich
 :::
 
 ::: {.column width="40%"}
@@ -1101,11 +1111,11 @@ ggplot(hbar_data, aes(x = reorder(kategorie, wert), y = wert)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Vergleicht Werte mit vertikalen Balken
--   Ideal für Ranking und Leistungsvergleiche
--   Funktioniert gut mit wenigen, klaren Kategorien
--   Kurze, lesbare Beschriftungen bevorzugen
--   Konsistente Nullbasislinie für faire Vergleiche
+- Vergleicht Werte mit vertikalen Balken
+- Ideal für Ranking und Leistungsvergleiche
+- Funktioniert gut mit wenigen, klaren Kategorien
+- Kurze, lesbare Beschriftungen bevorzugen
+- Konsistente Nullbasislinie für faire Vergleiche
 :::
 
 ::: {.column width="40%"}
@@ -1144,11 +1154,11 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Abweichungen in zwei Richtungen
--   Links/rechts von zentraler Basislinie
--   Ideal für Kontraste (positiv/negativ)
--   Zeigt Gleichgewicht vs. Ungleichgewicht
--   Gut für normalisierte Werte oder Z-Scores
+- Zeigt Abweichungen in zwei Richtungen
+- Links/rechts von zentraler Basislinie
+- Ideal für Kontraste (positiv/negativ)
+- Zeigt Gleichgewicht vs. Ungleichgewicht
+- Gut für normalisierte Werte oder Z-Scores
 :::
 
 ::: {.column width="40%"}
@@ -1175,11 +1185,11 @@ ggplot(diverging_data, aes(x = category, y = value, fill = value > 0)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Elegantere Alternative zu Diverging Bars
--   Nutzt Punkte statt Balken (weniger Tinte)
--   Zeigt Richtung und Magnitude effektiv
--   Ideal wenn genaue Werte sekundär sind
--   Besonders gut für Präsentationen
+- Elegantere Alternative zu Diverging Bars
+- Nutzt Punkte statt Balken (weniger Tinte)
+- Zeigt Richtung und Magnitude effektiv
+- Ideal wenn genaue Werte sekundär sind
+- Besonders gut für Präsentationen
 :::
 
 ::: {.column width="40%"}
@@ -1207,11 +1217,11 @@ ggplot(lollipop_data, aes(x = category, y = value, color = value > 0)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Verteilung numerischer Daten in Bins
--   Balken zeigen Häufigkeiten in Wertebereichen
--   Erkennt Schiefe, Streuung und Ausreißer
--   Zeigt Modi und Clustering in Daten
--   Berührende Balken betonen Kontinuität
+- Zeigt Verteilung numerischer Daten in Bins
+- Balken zeigen Häufigkeiten in Wertebereichen
+- Erkennt Schiefe, Streuung und Ausreißer
+- Zeigt Modi und Clustering in Daten
+- Berührende Balken betonen Kontinuität
 :::
 
 ::: {.column width="40%"}
@@ -1236,11 +1246,11 @@ ggplot(hist_data, aes(x = value)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Minimum, Quartile und Median
--   Kompakte Darstellung von Verteilungen
--   Hebt Streuung und Ausreißer hervor
--   Ideal zum Kategorienvergleich
--   Kann für Laien schwer verständlich sein
+- Zeigt Minimum, Quartile und Median
+- Kompakte Darstellung von Verteilungen
+- Hebt Streuung und Ausreißer hervor
+- Ideal zum Kategorienvergleich
+- Kann für Laien schwer verständlich sein
 :::
 
 ::: {.column width="40%"}
@@ -1311,11 +1321,11 @@ ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name), y = arr_de
 
 ::::: columns
 ::: {.column width="60%"}
--   Kombiniert Boxplot mit Dichteverteilung
--   Zeigt Form, Streuung und zentrale Tendenz
--   Ideal für Gruppenvergleiche
--   Verdeutlicht Schiefe und Multimodalität
--   Informationsreichere Alternative zum Boxplot
+- Kombiniert Boxplot mit Dichteverteilung
+- Zeigt Form, Streuung und zentrale Tendenz
+- Ideal für Gruppenvergleiche
+- Verdeutlicht Schiefe und Multimodalität
+- Informationsreichere Alternative zum Boxplot
 :::
 
 ::: {.column width="40%"}
@@ -1346,11 +1356,11 @@ ggplot(violin_data, aes(x = category, y = value, fill = category)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Färbt Regionen basierend auf Datenwerten
--   Zeigt räumliche Muster und Unterschiede
--   Gut für Verhältnisse und Prozentsätze
--   Nutze normalisierte Daten (pro Kopf, %)
--   Vorsicht bei großen Flächenunterschieden
+- Färbt Regionen basierend auf Datenwerten
+- Zeigt räumliche Muster und Unterschiede
+- Gut für Verhältnisse und Prozentsätze
+- Nutze normalisierte Daten (pro Kopf, %)
+- Vorsicht bei großen Flächenunterschieden
 :::
 
 ::: {.column width="40%"}
@@ -1362,11 +1372,11 @@ ggplot(violin_data, aes(x = category, y = value, fill = category)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Kategorienbeiträge im Zeitverlauf
--   Gestapelte Schichten zeigen Gesamtsumme
--   Gut für Wachstum und Anteile
--   Funktioniert am besten mit wenigen Kategorien
--   Einzelsegmentvergleich schwierig
+- Zeigt Kategorienbeiträge im Zeitverlauf
+- Gestapelte Schichten zeigen Gesamtsumme
+- Gut für Wachstum und Anteile
+- Funktioniert am besten mit wenigen Kategorien
+- Einzelsegmentvergleich schwierig
 :::
 
 ::: {.column width="40%"}
@@ -1399,11 +1409,11 @@ ggplot(area_data, aes(x = year, y = value, fill = category)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt relative Anteile, nicht absolute Werte
--   Verfolgt Änderungen von Kategorienanteilen
--   Summe immer 100% für leichte Vergleichbarkeit
--   Fokus auf Zusammensetzung, nicht Wachstum
--   Absolute Trends gehen verloren
+- Zeigt relative Anteile, nicht absolute Werte
+- Verfolgt Änderungen von Kategorienanteilen
+- Summe immer 100% für leichte Vergleichbarkeit
+- Fokus auf Zusammensetzung, nicht Wachstum
+- Absolute Trends gehen verloren
 :::
 
 ::: {.column width="40%"}
@@ -1442,11 +1452,11 @@ ggplot(area100_data, aes(x = year, y = value, fill = category)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Beiträge zu einer Gesamtsumme
--   Visualisiert Zu- und Abnahmen über Kategorien
--   Hebt schrittweise Veränderungen hervor
--   Ideal für Gewinn- oder Budgetanalysen
--   Zeigt Faktoren für das Endergebnis
+- Zeigt Beiträge zu einer Gesamtsumme
+- Visualisiert Zu- und Abnahmen über Kategorien
+- Hebt schrittweise Veränderungen hervor
+- Ideal für Gewinn- oder Budgetanalysen
+- Zeigt Faktoren für das Endergebnis
 :::
 
 ::: {.column width="40%"}
@@ -1479,11 +1489,11 @@ ggplot(waterfall_data, aes(x = stage, y = value, fill = type)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Nutzt Farbintensität für Matrixwerte
--   Zeigt Muster, Cluster und Anomalien
--   Gut für Korrelationen und Zeitreihen
--   Einfach zu überblicken, weniger präzise
--   Farbskala entscheidend für Interpretation
+- Nutzt Farbintensität für Matrixwerte
+- Zeigt Muster, Cluster und Anomalien
+- Gut für Korrelationen und Zeitreihen
+- Einfach zu überblicken, weniger präzise
+- Farbskala entscheidend für Interpretation
 :::
 
 ::: {.column width="40%"}
@@ -1510,11 +1520,11 @@ ggplot(heatmap_data, aes(x = x, y = y, fill = value)) +
 
 ::::: columns
 ::: {.column width="60%"}
--   Zeigt Teil-Ganzes-Beziehungen mit Rechtecken
--   Größe entspricht dem Wert (Umsatz, Anzahl)
--   Visualisiert Hierarchien und Gruppierungen
--   Gut für Proportionsvergleiche
--   Vorsicht bei zu vielen kleinen Elementen
+- Zeigt Teil-Ganzes-Beziehungen mit Rechtecken
+- Größe entspricht dem Wert (Umsatz, Anzahl)
+- Visualisiert Hierarchien und Gruppierungen
+- Gut für Proportionsvergleiche
+- Vorsicht bei zu vielen kleinen Elementen
 :::
 
 ::: {.column width="40%"}
@@ -1548,26 +1558,27 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 ## Datenvisualisierung mit ggplot2
 
--   Base Plot vs. ggplot2
--   Grammar of Graphics
--   `geom_point()`, `geom_histogram()`, `geom_boxplot()`
--   Ästhetiken: Farbe, Form, Gruppierung
+- Base Plot vs. ggplot2
+- Grammar of Graphics
+- `geom_point()`, `geom_histogram()`, `geom_boxplot()`
+- Ästhetiken: Farbe, Form, Gruppierung
+
 
 # Sitzung 6: Wahrscheinlichkeiten & Verteilungen
 
 ## Lernziele dieser Sitzung
 
--   Grundbegriffe der Wahrscheinlichkeitstheorie erklären
--   Diskrete und stetige Verteilungen unterscheiden
--   Die Normalverteilung und ihre Eigenschaften kennen
--   Den Zusammenhang zwischen Verteilungen und Inferenz verstehen
+- Grundbegriffe der Wahrscheinlichkeitstheorie erklären
+- Diskrete und stetige Verteilungen unterscheiden
+- Die Normalverteilung und ihre Eigenschaften kennen
+- Den Zusammenhang zwischen Verteilungen und Inferenz verstehen
 
 ## Organisatorisches
 
--   Die Veranstaltung findet nächste Woche statt!
--   Zu viel los zum Semesterende? Sie können früher abgeben!
--   Bitte bitte bitte beachten Sie die zur Verfügung gestellten Materialien!
--   Nachtrag Stacked Area Charts
+- Die Veranstaltung findet nächste Woche statt!
+- Zu viel los zum Semesterende? Sie können früher abgeben!
+- Bitte bitte bitte beachten Sie die zur Verfügung gestellten Materialien!
+- Nachtrag Stacked Area Charts
 
 ## Ihre Aufgabe heute
 
@@ -1579,37 +1590,37 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 ## Von der Beschreibung zur Vorhersage
 
--   **Bisherige Sitzungen**: Daten beschreiben, manipulieren, visualisieren
--   **Neuer Schritt**: Von Beschreibung zu Vorhersage und Schlussfolgerung
--   **Schlüsselfrage**: Wie können wir mit Unsicherheit umgehen?
--   **Antwort**: Wahrscheinlichkeitstheorie als mathematisches Fundament
+- **Bisherige Sitzungen**: Daten beschreiben, manipulieren, visualisieren
+- **Neuer Schritt**: Von Beschreibung zu Vorhersage und Schlussfolgerung
+- **Schlüsselfrage**: Wie können wir mit Unsicherheit umgehen?
+- **Antwort**: Wahrscheinlichkeitstheorie als mathematisches Fundament
 
 ## Warum Wahrscheinlichkeiten für die angewandte Forschung?
 
--   **Stichprobenlogik**\
-    → Wie kann auf eine Grundgesamtheit geschlossen werden, obwohl nur ein Teil beobachtet wurde?
+- **Stichprobenlogik**\
+  → Wie kann auf eine Grundgesamtheit geschlossen werden, obwohl nur ein Teil beobachtet wurde?
 
--   **Unsicherheit quantifizieren**\
-    → Wie kann die Unsicherheit in empirischen Aussagen formal greifbar gemacht werden?
+- **Unsicherheit quantifizieren**\
+  → Wie kann die Unsicherheit in empirischen Aussagen formal greifbar gemacht werden?
 
--   **Zufallsvariabilität verstehen**\
-    → Wie unterscheiden sich echte Effekte von zufälligen Schwankungen?
+- **Zufallsvariabilität verstehen**\
+  → Wie unterscheiden sich echte Effekte von zufälligen Schwankungen?
 
 ## Warum Wahrscheinlichkeiten für die angewandte Forschung? Teil 2
 
--   **Grundlage für Inferenz**\
-    → Wahrscheinlichkeiten bilden das Fundament für Hypothesentests und Konfidenzintervalle.
+- **Grundlage für Inferenz**\
+  → Wahrscheinlichkeiten bilden das Fundament für Hypothesentests und Konfidenzintervalle.
 
--   **Bewertung von Evidenz**\
-    → Wie plausibel ist eine Theorie angesichts der beobachteten Daten?
+- **Bewertung von Evidenz**\
+  → Wie plausibel ist eine Theorie angesichts der beobachteten Daten?
 
 ## Praktische Anwendungsbeispiele
 
--   **Medizin**: Ist ein Medikament wirksam oder nur Zufall?
--   **Wirtschaft**: Wie wahrscheinlich ist ein Zahlungsausfall?
--   **Produktentwicklung**: Wie viele Nutzer werden Feature X verwenden?
--   **Marketing**: Welcher von zwei Werbetexten führt zu mehr Conversions?
--   **Qualitätssicherung**: Liegt der Produktionsprozess in kontrollierten Grenzen?
+- **Medizin**: Ist ein Medikament wirksam oder nur Zufall?
+- **Wirtschaft**: Wie wahrscheinlich ist ein Zahlungsausfall?
+- **Produktentwicklung**: Wie viele Nutzer werden Feature X verwenden?
+- **Marketing**: Welcher von zwei Werbetexten führt zu mehr Conversions?
+- **Qualitätssicherung**: Liegt der Produktionsprozess in kontrollierten Grenzen?
 
 ## Einführung in Wahrscheinlichkeiten
 
@@ -1619,9 +1630,9 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 
 ### Was ist Zufall?
 
--   In der Statistik beschreibt „Zufall“ das Eintreten von Ereignissen, deren Ergebnis nicht mit Sicherheit vorhersehbar ist, obwohl alle möglichen Ergebnisse bekannt sind.
+- In der Statistik beschreibt „Zufall“ das Eintreten von Ereignissen, deren Ergebnis nicht mit Sicherheit vorhersehbar ist, obwohl alle möglichen Ergebnisse bekannt sind.
 
--   Der Zufall steht nicht für Chaos, sondern für Unsicherheit bei einzelnen Beobachtungen. Bei vielen Wiederholungen entstehen jedoch erkennbare Muster (z. B. 50 % Kopf bei Münzwürfen über viele Versuche).
+- Der Zufall steht nicht für Chaos, sondern für Unsicherheit bei einzelnen Beobachtungen. Bei vielen Wiederholungen entstehen jedoch erkennbare Muster (z. B. 50 % Kopf bei Münzwürfen über viele Versuche).
 
 ## Laplace-Wahrscheinlichkeit
 
@@ -1635,9 +1646,7 @@ $$P(Ereignis) = \frac{\text{Anzahl günstiger Fälle}}{\text{Anzahl möglicher F
 
 Die empirische oder relative Häufigkeit basiert auf Beobachtungen:
 
-$$
-P(Ereignis) \approx \frac{\text{Anzahl des Eintretens}}{\text{Anzahl der Wiederholungen}}
-$$
+$$P(Ereignis) \approx \frac{\text{Anzahl des Eintretens}}{\text{Anzahl der Wiederholungen}}$$
 
 **Beispiel in R:**
 
@@ -1649,16 +1658,16 @@ mean(würfe == 4)  # Schätzung der Wahrscheinlichkeit für eine 4
 
 ## Theoretische Wahrscheinlichkeit
 
--   Basierend auf einem **mathematischen Modell**, z. B. einer Verteilung
--   Wird **nicht beobachtet**, sondern **aus Annahmen berechnet**
+- Basierend auf einem **mathematischen Modell**, z. B. einer Verteilung
+- Wird **nicht beobachtet**, sondern **aus Annahmen berechnet**
 
 ## Theoretische Wahrscheinlichkeit
 
--   Beispiel: Wenn $$X \sim \text{Binomial}(n=10, p=0.3)$$, dann ist:
+- Beispiel: Wenn $$X \sim \text{Binomial}(n=10, p=0.3)$$, dann ist:
 
 $$ P(X=2) = \binom{10}{2} \cdot 0{,}3^2 \cdot 0{,}7^8 \approx 0{,}2668 $$
 
--   Die theoretische Wahrscheinlichkeit gibt an, **wie wahrscheinlich ein Ergebnis laut Modell ist**
+- Die theoretische Wahrscheinlichkeit gibt an, **wie wahrscheinlich ein Ergebnis laut Modell ist**
 
 → Sie ist zentral in der Inferenz: **Beobachtungen werden mit der Theorie verglichen**
 
@@ -1666,20 +1675,16 @@ $$ P(X=2) = \binom{10}{2} \cdot 0{,}3^2 \cdot 0{,}7^8 \approx 0{,}2668 $$
 
 Die bedingte Wahrscheinlichkeit ( P(A\|B) ) beschreibt die Wahrscheinlichkeit für A unter der Bedingung, dass B bereits eingetreten ist.
 
-$$
-P(A|B) = \frac{P(A \cap B)}{P(B)}
-$$
+$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
 
 **Beispiel:** In einer medizinischen Studie haben 20 % der Patienten eine Krankheit (B), und 80 % von diesen zeigen ein Symptom (A). Dann ist:
 
-$$
-P(A|B) = 0.8
-$$
+$$P(A|B) = 0.8$$
 
 ## Beispiele von Wahrscheinlichkeiten
 
 | Art | Grundlage | Beispiel |
-|------------------|---------------------------|---------------------------|
+|------------------------|------------------------|------------------------|
 | **Klassische (Laplace)** | Symmetrische Ausgangslage | P(4) bei Würfel = 1/6 |
 | **Empirische** | Beobachtete relative Häufigkeit | 234 von 1000 Mails geöffnet → P = 0,234 |
 | **Theoretische** | Abgeleitet aus Verteilungsmodell | P(X = 2) aus Binomial(n=10, p=0.3) |
@@ -1687,7 +1692,7 @@ $$
 
 ## Von einzelnen Wahrscheinlichkeiten zu Verteilungen
 
--   Eine **Wahrscheinlichkeitsverteilung** beschreibt alle möglichen Ausgänge eines Zufallsexperiments und ihre Wahrscheinlichkeiten.
+- Eine **Wahrscheinlichkeitsverteilung** beschreibt alle möglichen Ausgänge eines Zufallsexperiments und ihre Wahrscheinlichkeiten.
 
 ------------------------------------------------------------------------
 
@@ -1695,10 +1700,10 @@ $$
 
 ### Diskret (z. B. Würfelwurf)
 
--   Endlich viele mögliche Ergebnisse
--   Jedem Ergebnis wird eine konkrete Wahrscheinlichkeit zugewiesen
--   Beispiel: P(Würfel = 4) = 1/6\
-    → Die **Verteilung** zeigt: Wie wahrscheinlich ist jede Zahl von 1 bis 6?
+- Endlich viele mögliche Ergebnisse
+- Jedem Ergebnis wird eine konkrete Wahrscheinlichkeit zugewiesen
+- Beispiel: P(Würfel = 4) = 1/6\
+  → Die **Verteilung** zeigt: Wie wahrscheinlich ist jede Zahl von 1 bis 6?
 
 ```{r echo=TRUE}
 barplot(rep(1/6, 6), names.arg = 1:6, col = "skyblue",
@@ -1707,10 +1712,10 @@ barplot(rep(1/6, 6), names.arg = 1:6, col = "skyblue",
 
 ### Stetig (z.B. Körpergröße)
 
--   Unendlich viele mögliche Werte (z. B. 172,1 cm, 172,11 cm, …)
--   Einzelwerte haben Wahrscheinlichkeit = 0
--   Stattdessen: Dichtefunktion über Intervalle
--   Beispiel: Wie wahrscheinlich liegt eine Körpergröße zwischen 170 und 175 cm?
+- Unendlich viele mögliche Werte (z. B. 172,1 cm, 172,11 cm, …)
+- Einzelwerte haben Wahrscheinlichkeit = 0
+- Stattdessen: Dichtefunktion über Intervalle
+- Beispiel: Wie wahrscheinlich liegt eine Körpergröße zwischen 170 und 175 cm?
 
 ```{r}
 x <- seq(150, 200, by = 0.1)
@@ -1721,59 +1726,60 @@ plot(x, y, type = "l", col = "darkgreen", lwd = 2,
 
 ## Zufallsvariablen und Verteilungen
 
--   **Wichtige diskrete Verteilungen**:
-    -   Binomialverteilung (Anzahl Erfolge bei n Versuchen)
-    -   Poisson-Verteilung (Anzahl Ereignisse in Zeitintervall)
--   **Wichtige stetige Verteilungen**:
-    -   Gleichverteilung (konstante Wahrscheinlichkeitsdichte)
-    -   Normalverteilung (Gaußsche Glockenkurve)
+- **Wichtige diskrete Verteilungen**:
+  - Binomialverteilung (Anzahl Erfolge bei n Versuchen)
+  - Poisson-Verteilung (Anzahl Ereignisse in Zeitintervall)
+- **Wichtige stetige Verteilungen**:
+  - Gleichverteilung (konstante Wahrscheinlichkeitsdichte)
+  - Normalverteilung (Gaußsche Glockenkurve)
 
 ## Die Normalverteilung im Detail
 
--   **Eigenschaften**: Symmetrie, Mittelwert = Median = Modus
--   **Standardnormalverteilung**: Z-Transformation
--   **68-95-99,7 Regel** (Ein-, Zwei-, Dreisigma-Regel)
--   **Praktische Bedeutung**: Warum so viele Phänomene normalverteilt sind
+- **Eigenschaften**: Symmetrie, Mittelwert = Median = Modus
+- **Standardnormalverteilung**: Z-Transformation
+- **68-95-99,7 Regel** (Ein-, Zwei-, Dreisigma-Regel)
+- **Praktische Bedeutung**: Warum so viele Phänomene normalverteilt sind
 
 ## Normalverteilung in der Praxis
 
--   **Qualitätskontrolle**: Sind Abweichungen noch innerhalb der Spezifikation?
--   **Medizinische Grenzwerte**: Was ist "normal" bei Laborwerten?
--   **Notenverteilung**: Bewusster Umgang mit der Gauß'schen Glockenkurve
--   **Messfehler**: Warum kleine Abweichungen wahrscheinlicher sind als große
+- **Qualitätskontrolle**: Sind Abweichungen noch innerhalb der Spezifikation?
+- **Medizinische Grenzwerte**: Was ist "normal" bei Laborwerten?
+- **Notenverteilung**: Bewusster Umgang mit der Gauß'schen Glockenkurve
+- **Messfehler**: Warum kleine Abweichungen wahrscheinlicher sind als große
 
 ## Aufgabe
 
--   Welche Verteilungen erwarten Sie in Ihren Forschungsfragen?
--   Welche Wahrscheinlichkeiten erwarten Sie?
+- Welche Verteilungen erwarten Sie in Ihren Forschungsfragen?
+- Welche Wahrscheinlichkeiten erwarten Sie?
+
 
 # Sitzung 7: Einführung in die Inferenzstatistik
 
 ## Lernziele dieser Sitzung
 
--   Den Zentralen Grenzwertsatz erklären und demonstrieren
--   Nullhypothese und Alternativhypothese formulieren
--   Einen t-Test in R durchführen und interpretieren
--   p-Wert und Konfidenzintervall korrekt kommunizieren
--   Fehler 1. und 2. Art sowie Effektgrößen einordnen
+- Den Zentralen Grenzwertsatz erklären und demonstrieren
+- Nullhypothese und Alternativhypothese formulieren
+- Einen t-Test in R durchführen und interpretieren
+- p-Wert und Konfidenzintervall korrekt kommunizieren
+- Fehler 1. und 2. Art sowie Effektgrößen einordnen
 
 ## Was ist Inferenzstatistik?
 
--   Von der Stichprobe auf die Grundgesamtheit schließen
--   Berücksichtigt Zufallsfehler und Unsicherheit
--   Zentral: **Wahrscheinlichkeit**, **Stichprobenverteilung**, **Testen von Hypothesen**
+- Von der Stichprobe auf die Grundgesamtheit schließen
+- Berücksichtigt Zufallsfehler und Unsicherheit
+- Zentral: **Wahrscheinlichkeit**, **Stichprobenverteilung**, **Testen von Hypothesen**
 
 ## Würfeln und der Zufall: Zentraler Grenzwertsatz
 
--   Jeder Studierende würfelt 10x → 1 Mittelwert
--   Wiederholung über viele → Verteilung der Mittelwerte
--   Was ist der Erwartungswert?
+- Jeder Studierende würfelt 10x → 1 Mittelwert
+- Wiederholung über viele → Verteilung der Mittelwerte
+- Was ist der Erwartungswert?
 
 ## Würfeln und der Zufall: Zentraler Grenzwertsatz
 
--   Jeder Studierende würfelt 10x → 1 Mittelwert
--   Wiederholung über viele → Verteilung der Mittelwerte
--   Erwartungswert (fairer Würfel): 3.5
+- Jeder Studierende würfelt 10x → 1 Mittelwert
+- Wiederholung über viele → Verteilung der Mittelwerte
+- Erwartungswert (fairer Würfel): 3.5
 
 ## Würfeln und der Zufall: Zentraler Grenzwertsatz
 
@@ -1797,47 +1803,47 @@ curve(dnorm(x, mean=mean(sample_means), sd=sd(sample_means)),
 
 ## Warum ist das wichtig?
 
--   Diese Verteilung erlaubt uns Aussagen über:
-    -   Vertrauensbereiche (Konfidenzintervalle)
-    -   Signifikanztests (z. B. t-Test)
--   **Beispiel**: Ist ein Würfel gezinkt?
--   Stichprobe: z. B. Mittelwert = 3.8
--   **Ist dieser Unterschied Zufall oder nicht?**
+- Diese Verteilung erlaubt uns Aussagen über:
+  - Vertrauensbereiche (Konfidenzintervalle)
+  - Signifikanztests (z. B. t-Test)
+- **Beispiel**: Ist ein Würfel gezinkt?
+- Stichprobe: z. B. Mittelwert = 3.8
+- **Ist dieser Unterschied Zufall oder nicht?**
 
 ## Hypothesentesten: Grundlagen
 
--   **Nullhypothese (H₀)**: Annahme keines Effekts/Unterschieds
--   **Alternativhypothese (H₁)**: Annahme eines Effekts/Unterschieds
--   **Arten von Hypothesen**:
-    -   Ungerichtete Hypothesen (zweiseitig): µ₁ ≠ µ₂
-    -   Gerichtete Hypothesen (einseitig): µ₁ \> µ₂ oder µ₁ \< µ₂
+- **Nullhypothese (H₀)**: Annahme keines Effekts/Unterschieds
+- **Alternativhypothese (H₁)**: Annahme eines Effekts/Unterschieds
+- **Arten von Hypothesen**:
+  - Ungerichtete Hypothesen (zweiseitig): µ₁ ≠ µ₂
+  - Gerichtete Hypothesen (einseitig): µ₁ \> µ₂ oder µ₁ \< µ₂
 
 ## Die Logik des Hypothesentestens
 
--   **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
--   **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
--   **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
+- **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
+- **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
+- **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
 
 ## Signifikanzniveau und p-Wert
 
--   **Signifikanzniveau α**: Vorab festgelegte Irrtumswahrscheinlichkeit (typisch: 0.05)
--   **p-Wert**: Wahrscheinlichkeit, die beobachteten (oder extremeren) Daten unter H₀ zu erhalten
--   **Entscheidungsregel**: Verwerfe H₀, wenn p \< α
--   **Kritische Werte**: Alternative Darstellung der Entscheidungsregel
+- **Signifikanzniveau α**: Vorab festgelegte Irrtumswahrscheinlichkeit (typisch: 0.05)
+- **p-Wert**: Wahrscheinlichkeit, die beobachteten (oder extremeren) Daten unter H₀ zu erhalten
+- **Entscheidungsregel**: Verwerfe H₀, wenn p \< α
+- **Kritische Werte**: Alternative Darstellung der Entscheidungsregel
 
 ## Von der Stichprobenverteilung zum t-Test
 
--   Die **Stichprobenverteilung der Mittelwerte** zeigt: Wie stark Mittelwerte **zufällig schwanken**, selbst wenn H₀ stimmt
--   Diese Schwankung hat eine Streuung: den **Standardfehler (SE)**
+- Die **Stichprobenverteilung der Mittelwerte** zeigt: Wie stark Mittelwerte **zufällig schwanken**, selbst wenn H₀ stimmt
+- Diese Schwankung hat eine Streuung: den **Standardfehler (SE)**
 
 $$ SE = \frac{s}{\sqrt{n}} $$
 
--   Der t-Test prüft, ob der beobachtete Mittelwert **außerhalb** dieser erwarteten Schwankung liegt
+- Der t-Test prüft, ob der beobachtete Mittelwert **außerhalb** dieser erwarteten Schwankung liegt
 
 ## Der Standardfehler
 
--   **Definition**: Standardabweichung der Stichprobenmittelwerte
--   **Praktische Bedeutung**: Je größer die Stichprobe, desto präziser die Schätzung
+- **Definition**: Standardabweichung der Stichprobenmittelwerte
+- **Praktische Bedeutung**: Je größer die Stichprobe, desto präziser die Schätzung
 
 ```{r echo=TRUE}
 set.seed(422)
@@ -1861,58 +1867,58 @@ t.test(würfe, mu = 3.5)
 
 ## Interpretation des t-Tests
 
--   **p \< 0.05** → Ablehnung der Nullhypothese (Würfel evtl. gezinkt)
--   **p ≥ 0.05** → Kein ausreichender Hinweis auf Manipulation
+- **p \< 0.05** → Ablehnung der Nullhypothese (Würfel evtl. gezinkt)
+- **p ≥ 0.05** → Kein ausreichender Hinweis auf Manipulation
 
 ## Was ist denn nun „signifikant“?
 
--   Ein signifikantes Ergebnis heißt nicht, dass es „wichtig“ ist
--   Es heißt nur: Unterschied ist **nicht gut durch Zufall erklärbar**
--   Immer im Kontext interpretieren (Effektgröße, Relevanz)
+- Ein signifikantes Ergebnis heißt nicht, dass es „wichtig“ ist
+- Es heißt nur: Unterschied ist **nicht gut durch Zufall erklärbar**
+- Immer im Kontext interpretieren (Effektgröße, Relevanz)
 
 ## Konfidenzintervalle
 
--   **Definition**: Bereich, der mit einer bestimmten Wahrscheinlichkeit den wahren Parameter enthält
+- **Definition**: Bereich, der mit einer bestimmten Wahrscheinlichkeit den wahren Parameter enthält
 
--   **Interpretation**: Was bedeutet ein 95%-Konfidenzintervall?
+- **Interpretation**: Was bedeutet ein 95%-Konfidenzintervall?
 
--   **Zusammenhang mit Hypothesentests**: Enthält ein 95%-KI den Wert der Nullhypothese?
+- **Zusammenhang mit Hypothesentests**: Enthält ein 95%-KI den Wert der Nullhypothese?
 
 ## Experimentelles Design
 
--   **Wichtige Konzepte**: Randomisierung, Kontrolle, Randomized Control Trial (RCT)
--   **Experimentierfehler vermeiden**:
-    -   Placebo-Effekt
-    -   Hawthorne-Effekt
-    -   Observer Bias
-    -   Selection Bias
+- **Wichtige Konzepte**: Randomisierung, Kontrolle, Randomized Control Trial (RCT)
+- **Experimentierfehler vermeiden**:
+  - Placebo-Effekt
+  - Hawthorne-Effekt
+  - Observer Bias
+  - Selection Bias
 
 ## Ursprung der t-Verteilung: William S. Gosset
 
--   **William S. Gosset** war Chemiker und Statistiker bei der Guinness-Brauerei (Anfang 1900er).
--   Aufgabe: Qualitätskontrolle (z. B. Stärkegehalt von Gerste messen).
--   Problem: Nur **kleine Stichproben** pro Tag (z. B. n = 4 oder 5).
--   Damalige Statistik: Basierte auf **großen Stichproben** und der **Normalverteilung**.
+- **William S. Gosset** war Chemiker und Statistiker bei der Guinness-Brauerei (Anfang 1900er).
+- Aufgabe: Qualitätskontrolle (z. B. Stärkegehalt von Gerste messen).
+- Problem: Nur **kleine Stichproben** pro Tag (z. B. n = 4 oder 5).
+- Damalige Statistik: Basierte auf **großen Stichproben** und der **Normalverteilung**.
 
 ## Das statistische Problem
 
--   Ziel: Testen, ob der Mittelwert von Proben vom Sollwert abweicht.
--   Normalformel: \[ \frac{\bar{x} - \mu}{\sigma / \sqrt{n}} \] → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
--   Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
--   Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
+- Ziel: Testen, ob der Mittelwert von Proben vom Sollwert abweicht.
+- Normalformel: \[ \frac{\bar{x} - \mu}{\sigma / \sqrt{n}} \] → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
+- Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
+- Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
 
 ## Die Lösung
 
--   Gosset zeigte: Die neue Verteilung hängt von der Anzahl an Beobachtungen ab → **Freiheitsgrade (n−1)**.
--   Daraus entstand eine neue Verteilung: die **t-Verteilung mit df**.
--   Diese berücksichtigt die **größere Unsicherheit bei kleinen n** durch dickere „Schwänze“ (heavy tails).
+- Gosset zeigte: Die neue Verteilung hängt von der Anzahl an Beobachtungen ab → **Freiheitsgrade (n−1)**.
+- Daraus entstand eine neue Verteilung: die **t-Verteilung mit df**.
+- Diese berücksichtigt die **größere Unsicherheit bei kleinen n** durch dickere „Schwänze“ (heavy tails).
 
 ## Warum „Student“?
 
--   Guinness verbot es Mitarbeitern, unter eigenem Namen zu publizieren.
--   Gosset veröffentlichte 1908 unter dem Pseudonym **„Student“**:
-    -   *„The Probable Error of a Mean“* (in *Biometrika*)
--   Der t-Test wurde dadurch bekannt als **„Student’s t-Test“**.
+- Guinness verbot es Mitarbeitern, unter eigenem Namen zu publizieren.
+- Gosset veröffentlichte 1908 unter dem Pseudonym **„Student“**:
+  - *„The Probable Error of a Mean“* (in *Biometrika*)
+- Der t-Test wurde dadurch bekannt als **„Student’s t-Test“**.
 
 ## Visualisierung unterschiedlicher t-Verteilungen
 
@@ -1937,61 +1943,61 @@ t.test(würfe, mu = 3.5)
 
 ## Freiheitsgrade (Degrees of Freedom, df)
 
--   Anzahl der **unabhängigen Informationen**, die zur Schätzung einer Größe verfügbar sind.
--   Bei der Berechnung der **Stichprobenvarianz** geht 1 Freiheitsgrad verloren: \[ df = n - 1 \] (weil der Mittelwert bereits aus den Daten berechnet wurde)
--   Freiheitsgrade bestimmen die **Form der t-Verteilung**:
-    -   Wenige df → **dickere Randbereiche**
-    -   Viele df → t-Verteilung nähert sich der **Normalverteilung**
+- Anzahl der **unabhängigen Informationen**, die zur Schätzung einer Größe verfügbar sind.
+- Bei der Berechnung der **Stichprobenvarianz** geht 1 Freiheitsgrad verloren: \[ df = n - 1 \] (weil der Mittelwert bereits aus den Daten berechnet wurde)
+- Freiheitsgrade bestimmen die **Form der t-Verteilung**:
+  - Wenige df → **dickere Randbereiche**
+  - Viele df → t-Verteilung nähert sich der **Normalverteilung**
 
 ## Freiheitsgrade (Degrees of Freedom, df)
 
--   Freiheitsgrade sind wichtig für:
-    -   Auswahl des richtigen **kritischen t-Werts**
-    -   **Vertrauensintervalle** und **p-Werte**
+- Freiheitsgrade sind wichtig für:
+  - Auswahl des richtigen **kritischen t-Werts**
+  - **Vertrauensintervalle** und **p-Werte**
 
 ## Arten von t-Tests
 
--   **Einstichproben-t-Test**: Vergleich mit bekanntem oder hypothetischem Wert
-    -   Anwendungsbeispiel: Entspricht der mittlere Blutzuckerwert einer Patientengruppe dem Normalwert?
-    -   Formel: $t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$
+- **Einstichproben-t-Test**: Vergleich mit bekanntem oder hypothetischem Wert
+  - Anwendungsbeispiel: Entspricht der mittlere Blutzuckerwert einer Patientengruppe dem Normalwert?
+  - Formel: $t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$
 
 ## Arten von t-Tests
 
--   **Zweistichproben-t-Test (unabhängig)**: Vergleich zweier unabhängiger Gruppen
-    -   Anwendungsbeispiel: Unterscheiden sich die Testergebnisse zweier unterschiedlicher Lernmethoden?
-    -   Formel bei gleichen Varianzen: $t = \frac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$
+- **Zweistichproben-t-Test (unabhängig)**: Vergleich zweier unabhängiger Gruppen
+  - Anwendungsbeispiel: Unterscheiden sich die Testergebnisse zweier unterschiedlicher Lernmethoden?
+  - Formel bei gleichen Varianzen: $t = \frac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$
 
 ## Arten von t-Tests
 
--   **Gepaarter t-Test (abhängig)**: Vergleich verbundener Messungen
-    -   Anwendungsbeispiel: Vor-Nach-Vergleich einer Intervention
-    -   Formel: $t = \frac{\bar{d}}{s_d / \sqrt{n}}$
+- **Gepaarter t-Test (abhängig)**: Vergleich verbundener Messungen
+  - Anwendungsbeispiel: Vor-Nach-Vergleich einer Intervention
+  - Formel: $t = \frac{\bar{d}}{s_d / \sqrt{n}}$
 
 ## Arten von t-Tests
 
--   **Welch-Test**: Variante für ungleiche Varianzen
-    -   Anwendungsbeispiel: Wenn die Streuung in beiden Gruppen deutlich unterschiedlich ist
-    -   Angepasste Freiheitsgrade
+- **Welch-Test**: Variante für ungleiche Varianzen
+  - Anwendungsbeispiel: Wenn die Streuung in beiden Gruppen deutlich unterschiedlich ist
+  - Angepasste Freiheitsgrade
 
 ## Voraussetzungen der t-Tests
 
--   **Normalverteilung**: Robustheit bei Verletzungen
--   **Varianzhomogenität**: Bedeutung und Tests (Levene-Test, F-Test)
--   **Unabhängigkeit der Beobachtungen**: Kritisch für die Gültigkeit
--   **Zentraler Grenzwertsatz als Rettungsanker**: Wann können wir uns darauf verlassen?
+- **Normalverteilung**: Robustheit bei Verletzungen
+- **Varianzhomogenität**: Bedeutung und Tests (Levene-Test, F-Test)
+- **Unabhängigkeit der Beobachtungen**: Kritisch für die Gültigkeit
+- **Zentraler Grenzwertsatz als Rettungsanker**: Wann können wir uns darauf verlassen?
 
 ## Interpretation und Berichterstattung
 
--   **Angabe des Konfidenzintervalls**: Zusätzliche Information zur Präzision
--   **Standardisierte Berichtsform**: APA-Style für wissenschaftliche Publikationen
--   **Beispiel**: "Ein unabhängiger t-Test zeigte einen signifikanten Unterschied zwischen den Gruppen (t(28) = 2.45, p = 0.02, d = 0.89). Die Experimentalgruppe (M = 25.3, SD = 4.2) erzielte höhere Werte als die Kontrollgruppe (M = 21.7, SD = 3.8)."
+- **Angabe des Konfidenzintervalls**: Zusätzliche Information zur Präzision
+- **Standardisierte Berichtsform**: APA-Style für wissenschaftliche Publikationen
+- **Beispiel**: "Ein unabhängiger t-Test zeigte einen signifikanten Unterschied zwischen den Gruppen (t(28) = 2.45, p = 0.02, d = 0.89). Die Experimentalgruppe (M = 25.3, SD = 4.2) erzielte höhere Werte als die Kontrollgruppe (M = 21.7, SD = 3.8)."
 
 ## Fehler beim Hypothesentesten
 
--   **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
--   **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
--   **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
--   **Balanceakt**: Abwägung zwischen α und β
+- **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
+- **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
+- **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
+- **Balanceakt**: Abwägung zwischen α und β
 
 ## Effektgröße beim t-Test: Cohen's d
 
@@ -2020,23 +2026,24 @@ t = 3.45, p = 0.001 → "Signifikant!"
 | p \< 0.05 | d \> 0.5  | ✅ Signifikant & bedeutsam   |
 | p \< 0.05 | d \< 0.2  | ❌ **"Signifikant trivial"** |
 
+
 # Sitzung 8: Chi-Quadrat-Test für Häufigkeiten
 
 ## Lernziele dieser Sitzung
 
--   Den Chi-Quadrat-Test für kategoriale Daten anwenden
--   Anpassungstest und Unabhängigkeitstest unterscheiden
--   Residuen und Effektstärken (Cramér's V) berechnen und interpretieren
--   Voraussetzungen prüfen und Alternativen kennen (Fisher's Exakter Test)
+- Den Chi-Quadrat-Test für kategoriale Daten anwenden
+- Anpassungstest und Unabhängigkeitstest unterscheiden
+- Residuen und Effektstärken (Cramér's V) berechnen und interpretieren
+- Voraussetzungen prüfen und Alternativen kennen (Fisher's Exakter Test)
 
 ------------------------------------------------------------------------
 
 ## Rückblick: Von t-Tests zu kategorialen Daten
 
--   **Letzte Woche**: t-Tests für kontinuierliche Daten (Mittelwerte)
--   **Heute**: Tests für kategoriale Daten (Häufigkeiten)
--   **Verbindung**: Beide testen Hypothesen, aber mit verschiedenen Datentypen
--   **Beispiel**: Statt "Ist der mittlere Würfelwert 3.5?" → "Sind alle Würfelseiten gleich häufig?"
+- **Letzte Woche**: t-Tests für kontinuierliche Daten (Mittelwerte)
+- **Heute**: Tests für kategoriale Daten (Häufigkeiten)
+- **Verbindung**: Beide testen Hypothesen, aber mit verschiedenen Datentypen
+- **Beispiel**: Statt "Ist der mittlere Würfelwert 3.5?" → "Sind alle Würfelseiten gleich häufig?"
 
 ------------------------------------------------------------------------
 
@@ -2046,22 +2053,22 @@ t = 3.45, p = 0.001 → "Signifikant!"
 
 **Daten sammeln**: 60 Würfe
 
--   1er: 8 mal
--   2er: 12 mal
--   3er: 9 mal
--   4er: 11 mal
--   5er: 10 mal
--   6er: 10 mal
+- 1er: 8 mal
+- 2er: 12 mal
+- 3er: 9 mal
+- 4er: 11 mal
+- 5er: 10 mal
+- 6er: 10 mal
 
 ## Würfel-Motivation: Ein praktisches Problem
 
 **Fragen**:
 
--   Ist dieser Würfel fair?
+- Ist dieser Würfel fair?
 
--   Wie können wir das statistisch testen?
+- Wie können wir das statistisch testen?
 
--   Was erwarten wir bei einem fairen Würfel?
+- Was erwarten wir bei einem fairen Würfel?
 
 **Bei fairem Würfel**: Jede Zahl sollte etwa 10 mal fallen (60 ÷ 6 = 10)
 
@@ -2069,11 +2076,11 @@ t = 3.45, p = 0.001 → "Signifikant!"
 
 ## Einführung in kategoriale Datenanalyse
 
--   **Charakteristika kategorialer Daten**:
-    -   Nominal (Geschlecht, Farben, Würfelzahlen)
-    -   Ordinal (Schulnoten, Zufriedenheitsskalen)
--   **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
--   **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
+- **Charakteristika kategorialer Daten**:
+  - Nominal (Geschlecht, Farben, Würfelzahlen)
+  - Ordinal (Schulnoten, Zufriedenheitsskalen)
+- **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
+- **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
 
 ```{r}
 # Beispiel: Würfeldaten einlesen
@@ -2088,11 +2095,11 @@ table(würfel_daten)
 
 ## Der Chi-Quadrat-Test: Grundprinzip
 
--   **Kernidee**: Vergleich beobachteter und erwarteter Häufigkeiten
--   **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
-    -   O: beobachtete Häufigkeit (observed)
-    -   E: erwartete Häufigkeit (expected)
--   **Logik**: Große Abweichungen → große χ²-Werte → Hinweis auf Unterschied
+- **Kernidee**: Vergleich beobachteter und erwarteter Häufigkeiten
+- **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
+  - O: beobachtete Häufigkeit (observed)
+  - E: erwartete Häufigkeit (expected)
+- **Logik**: Große Abweichungen → große χ²-Werte → Hinweis auf Unterschied
 
 ------------------------------------------------------------------------
 
@@ -2141,9 +2148,9 @@ cat("χ² =", chi_test$statistic,
 
 ## Freiheitsgrade verstehen
 
--   **Formel für Anpassungstest**: df = Kategorien - 1 = 6 - 1 = 5
--   **Warum -1?**: Wenn 5 Häufigkeiten festgelegt sind, ist die 6. automatisch bestimmt
--   **Einfluss auf kritische Werte**: Mehr Freiheitsgrade → höhere kritische Werte
+- **Formel für Anpassungstest**: df = Kategorien - 1 = 6 - 1 = 5
+- **Warum -1?**: Wenn 5 Häufigkeiten festgelegt sind, ist die 6. automatisch bestimmt
+- **Einfluss auf kritische Werte**: Mehr Freiheitsgrade → höhere kritische Werte
 
 ------------------------------------------------------------------------
 
@@ -2161,10 +2168,10 @@ qchisq(0.99, df = 5)  # 99%-Quantil
 
 ### 1. Anpassungstest (Goodness-of-Fit)
 
--   **Zweck**: Vergleich mit theoretischer Verteilung
--   **Beispiel**: Ist unser Würfel fair?
--   **H₀**: Alle Würfelseiten sind gleich wahrscheinlich
--   **H₁**: Mindestens eine Seite weicht ab
+- **Zweck**: Vergleich mit theoretischer Verteilung
+- **Beispiel**: Ist unser Würfel fair?
+- **H₀**: Alle Würfelseiten sind gleich wahrscheinlich
+- **H₁**: Mindestens eine Seite weicht ab
 
 ## Unser Würfeltest
 
@@ -2179,8 +2186,8 @@ chisq.test(beobachtet, p = rep(1/6, 6))
 
 ### 2. Unabhängigkeitstest
 
--   **Zweck**: Zusammenhang zwischen zwei kategorialen Variablen
--   **Beispiel**: Hängt die Würfelzahl vom Werfer ab?
+- **Zweck**: Zusammenhang zwischen zwei kategorialen Variablen
+- **Beispiel**: Hängt die Würfelzahl vom Werfer ab?
 
 ```{r}
 # Simulierte Daten: Zwei Personen würfeln
@@ -2213,29 +2220,29 @@ print(chi_unabhängigkeit)
 
 ### 3. Homogenitätstest
 
--   **Zweck**: Vergleich von Verteilungen in verschiedenen Gruppen
--   **Beispiel**: Haben drei verschiedene Würfel die gleiche Verteilung?
+- **Zweck**: Vergleich von Verteilungen in verschiedenen Gruppen
+- **Beispiel**: Haben drei verschiedene Würfel die gleiche Verteilung?
 
 ------------------------------------------------------------------------
 
 ## Voraussetzungen des Chi-Quadrat-Tests
 
 1.  **Unabhängigkeit der Beobachtungen**
-    -   Jeder Würfelwurf unabhängig
-    -   Keine wiederholten Messungen derselben Person
+    - Jeder Würfelwurf unabhängig
+    - Keine wiederholten Messungen derselben Person
 
 ## Voraussetzungen des Chi-Quadrat-Tests
 
 2.  **Erwartete Häufigkeiten ≥ 5**
-    -   In jeder Zelle der Tabelle
-    -   Bei Verletzung: Kategorien zusammenfassen oder andere Tests
+    - In jeder Zelle der Tabelle
+    - Bei Verletzung: Kategorien zusammenfassen oder andere Tests
 
 ------------------------------------------------------------------------
 
 ## Alternativen bei kleinen Stichproben: Fisher's Exakter Test
 
--   **Wann**: Erwartete Häufigkeiten \< 5 in 2×2-Tabellen
--   **Vorteil**: Exakte p-Werte, keine Approximation
+- **Wann**: Erwartete Häufigkeiten \< 5 in 2×2-Tabellen
+- **Vorteil**: Exakte p-Werte, keine Approximation
 
 ------------------------------------------------------------------------
 
@@ -2268,13 +2275,13 @@ mosaic(kontingenztab, shade = TRUE,
 
 ### Marktforschung
 
--   **Frage**: Bevorzugen verschiedene Altersgruppen unterschiedliche Produktfarben?
--   **Test**: Unabhängigkeitstest (Alter × Farbpräferenz)
+- **Frage**: Bevorzugen verschiedene Altersgruppen unterschiedliche Produktfarben?
+- **Test**: Unabhängigkeitstest (Alter × Farbpräferenz)
 
 ### Medizin
 
--   **Frage**: Ist ein neues Medikament wirksam?
--   **Test**: Unabhängigkeitstest (Behandlung × Heilung)
+- **Frage**: Ist ein neues Medikament wirksam?
+- **Test**: Unabhängigkeitstest (Behandlung × Heilung)
 
 ------------------------------------------------------------------------
 
@@ -2282,8 +2289,8 @@ mosaic(kontingenztab, shade = TRUE,
 
 ### Qualitätskontrolle
 
--   **Frage**: Produziert eine Maschine gleichmäßig?
--   **Test**: Anpassungstest (beobachtete vs erwartete Produktverteilung)
+- **Frage**: Produziert eine Maschine gleichmäßig?
+- **Test**: Anpassungstest (beobachtete vs erwartete Produktverteilung)
 
 ------------------------------------------------------------------------
 
@@ -2291,13 +2298,13 @@ mosaic(kontingenztab, shade = TRUE,
 
 **Problem der bisherigen Analyse:**
 
--   Chi-Quadrat-Test sagt nur "es gibt einen Unterschied"
--   **Aber nicht:** Wo? Wie stark? Praktisch relevant?
+- Chi-Quadrat-Test sagt nur "es gibt einen Unterschied"
+- **Aber nicht:** Wo? Wie stark? Praktisch relevant?
 
 **Lösung:**
 
--   **Residuenanalyse**: Wo sind die Unterschiede?
--   **Effektstärken**: Wie stark sind sie?
+- **Residuenanalyse**: Wo sind die Unterschiede?
+- **Effektstärken**: Wie stark sind sie?
 
 ------------------------------------------------------------------------
 
@@ -2309,9 +2316,9 @@ mosaic(kontingenztab, shade = TRUE,
 
 **Was sind Residuen?**
 
--   **Residuen**: $r = O - E$ (Beobachtet - Erwartet)
--   **Problem der Residuen**: Schwer zu interpretieren (ist +3 viel oder wenig?)
--   **Lösung**: Standardisierte Residuen - vergleichbar zwischen verschiedenen Zellen
+- **Residuen**: $r = O - E$ (Beobachtet - Erwartet)
+- **Problem der Residuen**: Schwer zu interpretieren (ist +3 viel oder wenig?)
+- **Lösung**: Standardisierte Residuen - vergleichbar zwischen verschiedenen Zellen
 
 ------------------------------------------------------------------------
 
@@ -2321,17 +2328,17 @@ mosaic(kontingenztab, shade = TRUE,
 ::: {.column width="50%"}
 **Rohresiduen-Problem:**
 
--   Zelle A: +3 (von erwartet 10)
--   Zelle B: +3 (von erwartet 100)
--   Gleiche Abweichung, aber sehr unterschiedliche Bedeutung!
+- Zelle A: +3 (von erwartet 10)
+- Zelle B: +3 (von erwartet 100)
+- Gleiche Abweichung, aber sehr unterschiedliche Bedeutung!
 :::
 
 ::: {.column width="50%"}
 **Standardisierte Residuen:** $sr = \frac{O - E}{\sqrt{E}}$
 
--   Berücksichtigen die "natürliche" Schwankung
--   Werden vergleichbar zwischen Zellen
--   Größere erwartete Werte → größere natürliche Schwankung
+- Berücksichtigen die "natürliche" Schwankung
+- Werden vergleichbar zwischen Zellen
+- Größere erwartete Werte → größere natürliche Schwankung
 :::
 :::::
 
@@ -2341,23 +2348,23 @@ mosaic(kontingenztab, shade = TRUE,
 
 **Intuitive Interpretation:**
 
--   **sr = 0**: Genau wie erwartet
--   **sr = +1**: Ein bisschen mehr als erwartet
--   **sr = +2**: Deutlich mehr als erwartet
--   **sr = +3**: Sehr viel mehr als erwartet
+- **sr = 0**: Genau wie erwartet
+- **sr = +1**: Ein bisschen mehr als erwartet
+- **sr = +2**: Deutlich mehr als erwartet
+- **sr = +3**: Sehr viel mehr als erwartet
 
 ## Standardisierte Residuen verstehen
 
 **Interpretationsrichtlinien:**
 
--   $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung
--   $|sr| > 2$: Ungewöhnlich - vermutlich nicht nur Zufall
--   $|sr| > 3$: Sehr ungewöhnlich - fast sicher nicht nur Zufall
+- $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung
+- $|sr| > 2$: Ungewöhnlich - vermutlich nicht nur Zufall
+- $|sr| > 3$: Sehr ungewöhnlich - fast sicher nicht nur Zufall
 
 **Vorzeichen:**
 
--   **Positiv (+)**: Mehr als erwartet
--   **Negativ (-)**: Weniger als erwartet
+- **Positiv (+)**: Mehr als erwartet
+- **Negativ (-)**: Weniger als erwartet
 
 ------------------------------------------------------------------------
 
@@ -2367,22 +2374,22 @@ mosaic(kontingenztab, shade = TRUE,
 ::: {.column width="50%"}
 **p-Wert beantwortet nur:**
 
--   Gibt es einen Effekt?" (Ja/Nein)
--   Wird bei großen Stichproben fast immer signifikant
+- Gibt es einen Effekt?" (Ja/Nein)
+- Wird bei großen Stichproben fast immer signifikant
 
 **p-Wert sagt NICHT:**
 
--   Wie stark ist der Effekt?
--   Ist der Effekt praktisch relevant?
+- Wie stark ist der Effekt?
+- Ist der Effekt praktisch relevant?
 :::
 
 ::: {.column width="50%"}
 **Beispiel Problem:**
 
--   10.000 Personen
--   Winziger, praktisch irrelevanter Unterschied
--   Trotzdem p \< 0.001
--   **Ohne Effektstärke:** Fehlinterpretation!
+- 10.000 Personen
+- Winziger, praktisch irrelevanter Unterschied
+- Trotzdem p \< 0.001
+- **Ohne Effektstärke:** Fehlinterpretation!
 :::
 :::::
 
@@ -2396,9 +2403,9 @@ mosaic(kontingenztab, shade = TRUE,
 
 Wo:
 
--   n = Gesamtstichprobengröße
--   r = Anzahl Zeilen
--   c = Anzahl Spalten
+- n = Gesamtstichprobengröße
+- r = Anzahl Zeilen
+- c = Anzahl Spalten
 
 ------------------------------------------------------------------------
 
@@ -2408,18 +2415,18 @@ Wo:
 ::: {.column width="50%"}
 **Interpretationsrichtlinien:**
 
--   **0.00 - 0.10**: Vernachlässigbarer Effekt
--   **0.10 - 0.30**: Kleiner Effekt
--   **0.30 - 0.50**: Mittlerer Effekt
--   **0.50+**: Großer Effekt
+- **0.00 - 0.10**: Vernachlässigbarer Effekt
+- **0.10 - 0.30**: Kleiner Effekt
+- **0.30 - 0.50**: Mittlerer Effekt
+- **0.50+**: Großer Effekt
 :::
 
 ::: {.column width="50%"}
 **Wichtig:**
 
--   Unabhängig von Stichprobengröße
--   Vergleichbar zwischen Studien
--   Standardisiert zwischen 0 und 1
+- Unabhängig von Stichprobengröße
+- Vergleichbar zwischen Studien
+- Standardisiert zwischen 0 und 1
 :::
 :::::
 
@@ -2449,32 +2456,33 @@ Wo:
 
 ### ❌ Falsche Annahmen:
 
--   Kontinuierliche Daten kategorisieren nur für Chi-Quadrat-Test
--   "Großes χ² bedeutet automatisch wichtigen Effekt"
--   "Signifikanz = praktische Bedeutsamkeit"
--   Erwartete Häufigkeiten \< 5 ignorieren
+- Kontinuierliche Daten kategorisieren nur für Chi-Quadrat-Test
+- "Großes χ² bedeutet automatisch wichtigen Effekt"
+- "Signifikanz = praktische Bedeutsamkeit"
+- Erwartete Häufigkeiten \< 5 ignorieren
 
 ## Häufige Fehler vermeiden
 
 ### ✅ Richtige Interpretation:
 
--   **Signifikanz UND Effektstärke** zusammen betrachten
--   Angemessene Teststärke durch ausreichende Stichproben
--   Voraussetzungen prüfen
--   **Residuen für detaillierte Analyse nutzen**
+- **Signifikanz UND Effektstärke** zusammen betrachten
+- Angemessene Teststärke durch ausreichende Stichproben
+- Voraussetzungen prüfen
+- **Residuen für detaillierte Analyse nutzen**
 
 ## Nicht immer ist es ein Chi Square-Test
 
 "The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections \[...\]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval \[CI\], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P\<0.001)."
 
+
 # Sitzung 9: Korrelationsanalyse
 
 ## Lernziele dieser Sitzung
 
--   Korrelation von Kausalität unterscheiden
--   Pearson-, Spearman- und Kendall-Korrelation situationsgerecht einsetzen
--   Korrelationsmatrizen erstellen und interpretieren
--   Typische Fallstricke (Scheinkorrelation, Simpson's Paradoxon) erkennen
+- Korrelation von Kausalität unterscheiden
+- Pearson-, Spearman- und Kendall-Korrelation situationsgerecht einsetzen
+- Korrelationsmatrizen erstellen und interpretieren
+- Typische Fallstricke (Scheinkorrelation, Simpson's Paradoxon) erkennen
 
 ## Was ist eine Korrelation?
 
@@ -2486,32 +2494,32 @@ Wo:
 
 ## Grundkonzepte der Korrelation
 
--   **Definition**: Stärke eines Zusammenhangs zwischen Variablen
--   **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkung-Beziehung
+- **Definition**: Stärke eines Zusammenhangs zwischen Variablen
+- **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkung-Beziehung
 
 ## Von der Kovarianz zur Korrelation
 
--   **Kovarianz**: Unstandartisiertes Maß für gemeinsame Variation
-    -   Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
--   **Pearson-Korrelation**: Standardisierte Kovarianz
-    -   Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
-    -   Wertebereich: -1 bis +1
+- **Kovarianz**: Unstandartisiertes Maß für gemeinsame Variation
+  - Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
+- **Pearson-Korrelation**: Standardisierte Kovarianz
+  - Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
+  - Wertebereich: -1 bis +1
 
 ## Pearson-Korrelation
 
--   **Voraussetzungen**:
+- **Voraussetzungen**:
 
-    -   Lineare Beziehung
-    -   Normalverteilung der Variablen (für Hypothesentests)
-    -   Keine Ausreißer (starker Einfluss auf r)
+  - Lineare Beziehung
+  - Normalverteilung der Variablen (für Hypothesentests)
+  - Keine Ausreißer (starker Einfluss auf r)
 
--   **Interpretation der Stärke**:
+- **Interpretation der Stärke**:
 
-    -   Schwach: \|r\| ≈ 0.1-0.3
-    -   Mittel: \|r\| ≈ 0.3-0.5
-    -   Stark: \|r\| \> 0.5
+  - Schwach: \|r\| ≈ 0.1-0.3
+  - Mittel: \|r\| ≈ 0.3-0.5
+  - Stark: \|r\| \> 0.5
 
--   R-Code: `cor.test(daten$x, daten$y)`
+- R-Code: `cor.test(daten$x, daten$y)`
 
 ## Visualisierung: Streudiagramm
 
@@ -2525,17 +2533,17 @@ plot(cars)
 
 ## Alternative Korrelationsmaße
 
--   **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
-    -   Formel: Pearson-Korrelation der rangtransformierten Daten
-    -   Robuster gegenüber Ausreißern
-    -   R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
+- **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
+  - Formel: Pearson-Korrelation der rangtransformierten Daten
+  - Robuster gegenüber Ausreißern
+  - R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
 
 ## Alternative Korrelationsmaße
 
--   **Kendall's Tau**: Alternative rangbasierte Korrelation
-    -   Basiert auf konkordanten vs. diskordanten Paaren
-    -   Robuster bei kleinen Stichproben
-    -   R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
+- **Kendall's Tau**: Alternative rangbasierte Korrelation
+  - Basiert auf konkordanten vs. diskordanten Paaren
+  - Robuster bei kleinen Stichproben
+  - R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
 
 ## Visualisierung: Korrelationsmatrix
 
@@ -2555,10 +2563,10 @@ corrplot(cor_matrix, method = "circle")
 
 ## Fallstricke und Fehlinterpretationen
 
--   **Scheinkorrelationen**: Effekt von Drittvariablen
--   **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
--   **Aggregationsprobleme**: Simpson's Paradoxon
--   **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
+- **Scheinkorrelationen**: Effekt von Drittvariablen
+- **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
+- **Aggregationsprobleme**: Simpson's Paradoxon
+- **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
 
 ## Simpson’s Paradoxon: Studienplatzvergabe
 
@@ -2594,18 +2602,18 @@ corrplot(cor_matrix, method = "circle")
 
 ## Inter-Rater Reliability
 
--   **Definition**: Konsistenz zwischen verschiedenen Beurteilern
+- **Definition**: Konsistenz zwischen verschiedenen Beurteilern
 
--   **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
+- **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
 
--   **Maße für kategoriale Daten**:
+- **Maße für kategoriale Daten**:
 
-    -   Cohen's Kappa (zwei Rater)
-    -   Fleiss' Kappa (mehr als zwei Rater)
+  - Cohen's Kappa (zwei Rater)
+  - Fleiss' Kappa (mehr als zwei Rater)
 
--   **Maße für kontinuierliche Daten**:
+- **Maße für kontinuierliche Daten**:
 
-    -   Intraclass Correlation Coefficient (ICC)
+  - Intraclass Correlation Coefficient (ICC)
 
 ## Visualisierung: Violinen-Diagramm
 
@@ -2615,14 +2623,15 @@ corrplot(cor_matrix, method = "circle")
 
 ![](images/entscheidungsbaum.png)
 
+
 # Sitzung 10: Regression I – Lineare Regression
 
 ## Lernziele dieser Sitzung
 
--   Ein lineares Regressionsmodell in R schätzen und interpretieren
--   R² und Residuenplots zur Modellbeurteilung nutzen
--   Multiple Regression mit kategorialen Prädiktoren anwenden
--   Den Unterschied zwischen Korrelation und Regression erklären
+- Ein lineares Regressionsmodell in R schätzen und interpretieren
+- R² und Residuenplots zur Modellbeurteilung nutzen
+- Multiple Regression mit kategorialen Prädiktoren anwenden
+- Den Unterschied zwischen Korrelation und Regression erklären
 
 ------------------------------------------------------------------------
 
@@ -2654,9 +2663,9 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
 
 $$\hat{Y} = \beta_0 + \beta_1 \cdot X + \varepsilon$$
 
--   $\beta_0$: Startwert (Y bei X = 0)
--   $\beta_1$: Steigung (Zunahme von Y bei 1 Einheit mehr X)
--   $\varepsilon$: "Fehler" – das, was das Modell nicht erklärt
+- $\beta_0$: Startwert (Y bei X = 0)
+- $\beta_1$: Steigung (Zunahme von Y bei 1 Einheit mehr X)
+- $\varepsilon$: "Fehler" – das, was das Modell nicht erklärt
 
 ------------------------------------------------------------------------
 
@@ -2715,9 +2724,9 @@ modell <- lm(miete ~ flaeche, data = wohnungen)
 
 ## Modellgüte: Wie gut passt die Gerade?
 
--   R² = Anteil der erklärten Varianz
--   Beispiel: R² = 0.99 → 99% der Mietunterschiede durch Fläche erklärbar
--   Residuenplot prüfen: Gibt es systematische Fehler?
+- R² = Anteil der erklärten Varianz
+- Beispiel: R² = 0.99 → 99% der Mietunterschiede durch Fläche erklärbar
+- Residuenplot prüfen: Gibt es systematische Fehler?
 
 ------------------------------------------------------------------------
 
@@ -2825,11 +2834,11 @@ s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5,
 
 ## Lernziele dieser Sitzung
 
--   Das Konzept der Log-Odds und der Logit-Transformation erklären
--   Eine logistische Regression in R schätzen und interpretieren
--   Odds Ratios berechnen und kommunizieren
--   Die S-Kurve und ihre Bedeutung verstehen
--   Lineare und logistische Regression gegenüberstellen
+- Das Konzept der Log-Odds und der Logit-Transformation erklären
+- Eine logistische Regression in R schätzen und interpretieren
+- Odds Ratios berechnen und kommunizieren
+- Die S-Kurve und ihre Bedeutung verstehen
+- Lineare und logistische Regression gegenüberstellen
 
 ------------------------------------------------------------------------
 
@@ -2849,11 +2858,9 @@ Das ist der sogenannte **Logit** – also der **logarithmierte Quotient der Wahr
 
 ## Was ist ein Logarithmus?
 
--   Der **Logarithmus** ist die Umkehrung der Potenzierung:
+- Der **Logarithmus** ist die Umkehrung der Potenzierung:
 
-$$
-  \log_{10}(1000) = 3 \quad \text{denn } 10^3 = 1000
-$$
+$$  \log_{10}(1000) = 3 \quad \text{denn } 10^3 = 1000$$
 
 ------------------------------------------------------------------------
 
@@ -2865,13 +2872,13 @@ $$
 
 ## Warum Log-Odds?
 
--   Wahrscheinlichkeiten liegen **zwischen 0 und 1**
+- Wahrscheinlichkeiten liegen **zwischen 0 und 1**
 
--   Log-Odds hingegen können **alle Werte zwischen –∞ und +∞** annehmen
+- Log-Odds hingegen können **alle Werte zwischen –∞ und +∞** annehmen
 
--   So kann ein **lineares Modell** verwendet werden:
+- So kann ein **lineares Modell** verwendet werden:
 
-    $$\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k $$
+  $$\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k $$
 
 ------------------------------------------------------------------------
 
@@ -2983,15 +2990,15 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
 
 ## Unterschied Korrelation zu Regression
 
--   **Korrelation** beschreibt **Stärke und Richtung** eines **linearen Zusammenhangs** zwischen zwei numerischen Variablen, ohne Einflussrichtung oder Kausalität anzunehmen.
+- **Korrelation** beschreibt **Stärke und Richtung** eines **linearen Zusammenhangs** zwischen zwei numerischen Variablen, ohne Einflussrichtung oder Kausalität anzunehmen.
 
--   **Lineare Regression** modelliert eine **gerichtete lineare Beziehung** zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen mit der **Stärke des Einflusses**.
+- **Lineare Regression** modelliert eine **gerichtete lineare Beziehung** zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen mit der **Stärke des Einflusses**.
 
 ------------------------------------------------------------------------
 
 ## Unterschied Korrelation zu Regression
 
--   **Logistische Regression** schätzt die **Wahrscheinlichkeit** für das Eintreten eines **binären Ereignisses** auf Basis einer oder mehrerer Einflussvariablen und liefert eine **gerichtete Interpretation**.
+- **Logistische Regression** schätzt die **Wahrscheinlichkeit** für das Eintreten eines **binären Ereignisses** auf Basis einer oder mehrerer Einflussvariablen und liefert eine **gerichtete Interpretation**.
 
 ------------------------------------------------------------------------
 
@@ -2999,79 +3006,79 @@ ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Se
 
 ## Lernziele dieser Sitzung
 
--   ANOVA als Erweiterung des t-Tests auf mehr als zwei Gruppen einordnen
--   Varianzzerlegung und F-Statistik verstehen
--   Eine einfaktorielle ANOVA in R durchführen
--   Post-hoc-Tests (Tukey HSD) korrekt einsetzen
--   Den passenden Test für den eigenen Datensatz wählen
+- ANOVA als Erweiterung des t-Tests auf mehr als zwei Gruppen einordnen
+- Varianzzerlegung und F-Statistik verstehen
+- Eine einfaktorielle ANOVA in R durchführen
+- Post-hoc-Tests (Tukey HSD) korrekt einsetzen
+- Den passenden Test für den eigenen Datensatz wählen
 
 ## Was ist ANOVA?
 
--   ANOVA = Analysis of Variance = Varianzanalyse
--   Prüft, ob sich Gruppenmittelwerte signifikant unterscheiden
--   Erweiterung des t-Tests auf mehr als zwei Gruppen
--   Beispiel: Unterschiedet sich die durchschnittliche Miete in verschiedenen Stadtteilen?
+- ANOVA = Analysis of Variance = Varianzanalyse
+- Prüft, ob sich Gruppenmittelwerte signifikant unterscheiden
+- Erweiterung des t-Tests auf mehr als zwei Gruppen
+- Beispiel: Unterschiedet sich die durchschnittliche Miete in verschiedenen Stadtteilen?
 
 ------------------------------------------------------------------------
 
 ## Wann nutzt man ANOVA?
 
--   Abhängige Variable metrisch (z.B. Einkommen, Preis, Größe)
--   Unabhängige Variable kategorial (z.B. Stadtteil, Behandlungsmethode)
--   Mehr als zwei Gruppen zu vergleichen
--   Ziel: Test auf Mittelwertsunterschiede
+- Abhängige Variable metrisch (z.B. Einkommen, Preis, Größe)
+- Unabhängige Variable kategorial (z.B. Stadtteil, Behandlungsmethode)
+- Mehr als zwei Gruppen zu vergleichen
+- Ziel: Test auf Mittelwertsunterschiede
 
 ------------------------------------------------------------------------
 
 ## Grundidee der ANOVA
 
--   Zerlegung der Gesamtvarianz:
-    -   **Zwischen-Gruppen-Varianz**: Unterschiede zwischen den Gruppenmitteln
-    -   **Innerhalb-Gruppen-Varianz**: Streuung innerhalb der Gruppen
--   Wenn die Zwischen-Gruppen-Varianz groß im Vergleich zur Innerhalb-Gruppen-Varianz ist → Hinweis auf echte Unterschiede
+- Zerlegung der Gesamtvarianz:
+  - **Zwischen-Gruppen-Varianz**: Unterschiede zwischen den Gruppenmitteln
+  - **Innerhalb-Gruppen-Varianz**: Streuung innerhalb der Gruppen
+- Wenn die Zwischen-Gruppen-Varianz groß im Vergleich zur Innerhalb-Gruppen-Varianz ist → Hinweis auf echte Unterschiede
 
 ------------------------------------------------------------------------
 
 ## Beispiel: Schmerzmittel-Wirkung
 
--   Fragestellung: Unterscheidet sich die durchschnittliche Schmerzreduktion bei drei Medikamenten?
--   Gruppen:
-    -   Medikament A
-    -   Medikament B
-    -   Placebo
--   Abhängige Variable: Schmerzscore nach 30 Minuten (Skala 0-10)
--   ANOVA prüft, ob es signifikante Unterschiede gibt
+- Fragestellung: Unterscheidet sich die durchschnittliche Schmerzreduktion bei drei Medikamenten?
+- Gruppen:
+  - Medikament A
+  - Medikament B
+  - Placebo
+- Abhängige Variable: Schmerzscore nach 30 Minuten (Skala 0-10)
+- ANOVA prüft, ob es signifikante Unterschiede gibt
 
 ------------------------------------------------------------------------
 
 ## Beispiel: Werbewirkung testen
 
--   Fragestellung: Führt die Art der Werbeanzeige zu unterschiedlichen Kaufabsichten?
--   Gruppen:
-    -   Emotionaler Spot
-    -   Sachlicher Spot
-    -   Keine Werbung (Kontrollgruppe)
--   Abhängige Variable: Kaufwahrscheinlichkeit (Skala 0-100%)
--   ANOVA zeigt, ob mindestens eine Gruppe signifikant abweicht
+- Fragestellung: Führt die Art der Werbeanzeige zu unterschiedlichen Kaufabsichten?
+- Gruppen:
+  - Emotionaler Spot
+  - Sachlicher Spot
+  - Keine Werbung (Kontrollgruppe)
+- Abhängige Variable: Kaufwahrscheinlichkeit (Skala 0-100%)
+- ANOVA zeigt, ob mindestens eine Gruppe signifikant abweicht
 
 ------------------------------------------------------------------------
 
 ## Beispiel: Einfluss von Dünger
 
--   Fragestellung: Hat die Düngersorte Einfluss auf das Pflanzenwachstum?
--   Gruppen:
-    -   Dünger X
-    -   Dünger Y
-    -   Kein Dünger
--   Abhängige Variable: Pflanzenhöhe nach 6 Wochen (in cm)
--   ANOVA prüft auf Unterschiede der mittleren Pflanzenhöhe
+- Fragestellung: Hat die Düngersorte Einfluss auf das Pflanzenwachstum?
+- Gruppen:
+  - Dünger X
+  - Dünger Y
+  - Kein Dünger
+- Abhängige Variable: Pflanzenhöhe nach 6 Wochen (in cm)
+- ANOVA prüft auf Unterschiede der mittleren Pflanzenhöhe
 
 ------------------------------------------------------------------------
 
 ## Hypothesen der ANOVA
 
--   **Nullhypothese (H₀)**: Alle Gruppenmittelwerte sind gleich
--   **Alternativhypothese (H₁)**: Mindestens zwei Gruppen unterscheiden sich im Mittelwert
+- **Nullhypothese (H₀)**: Alle Gruppenmittelwerte sind gleich
+- **Alternativhypothese (H₁)**: Mindestens zwei Gruppen unterscheiden sich im Mittelwert
 
 ------------------------------------------------------------------------
 
@@ -3096,19 +3103,19 @@ summary(anova_mod)
 
 ## Interpretation der Ausgabe
 
--   **F-Wert**: Teststatistik, je größer desto mehr Hinweis auf Unterschied
--   **p-Wert**: Ist p \< 0.05 → Ablehnung der Nullhypothese
--   Achtung: ANOVA zeigt nur, *dass* ein Unterschied vorliegt, nicht *wo* genau
+- **F-Wert**: Teststatistik, je größer desto mehr Hinweis auf Unterschied
+- **p-Wert**: Ist p \< 0.05 → Ablehnung der Nullhypothese
+- Achtung: ANOVA zeigt nur, *dass* ein Unterschied vorliegt, nicht *wo* genau
 
 ------------------------------------------------------------------------
 
 ## Post-hoc-Tests
 
--   Notwendig, wenn ANOVA signifikant ist
--   Beispiele:
-    -   Tukey HSD-Test (bei Varianzhomogenität)
-    -   Games-Howell-Test (bei ungleichen Varianzen)
--   Zeigt, zwischen welchen Gruppen die Unterschiede liegen
+- Notwendig, wenn ANOVA signifikant ist
+- Beispiele:
+  - Tukey HSD-Test (bei Varianzhomogenität)
+  - Games-Howell-Test (bei ungleichen Varianzen)
+- Zeigt, zwischen welchen Gruppen die Unterschiede liegen
 
 ------------------------------------------------------------------------
 
@@ -3134,10 +3141,10 @@ plot(TukeyHSD(anova_mod))
 
 ## Voraussetzungen der ANOVA
 
--   Unabhängigkeit der Beobachtungen
--   Normalverteilung innerhalb der Gruppen
--   Varianzhomogenität (Levene-Test prüfen)
--   Robustheit bei kleinen Abweichungen gegeben
+- Unabhängigkeit der Beobachtungen
+- Normalverteilung innerhalb der Gruppen
+- Varianzhomogenität (Levene-Test prüfen)
+- Robustheit bei kleinen Abweichungen gegeben
 
 ------------------------------------------------------------------------
 
@@ -3160,15 +3167,15 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
 
 ## Visualisierung von Gruppenunterschieden
 
--   Boxplots
--   Violinplots
--   Balkendiagramme mit Fehlerbalken
--   Plot der Mittelwerte pro Gruppe
+- Boxplots
+- Violinplots
+- Balkendiagramme mit Fehlerbalken
+- Plot der Mittelwerte pro Gruppe
 
 ## Überblick: Welcher Test wofür?
 
 | Test | Abhängige Variable | Unabhängige Variable | Zweck |
-|---------------|---------------|---------------|---------------------------|
+|------------------|------------------|------------------|------------------|
 | **t-Test** | Metrisch | Kategorial (2 Gruppen) | Mittelwertsunterschied zwischen 2 Gruppen |
 | **Chi-Quadrat-Test** | Kategorial | Kategorial | Zusammenhang oder Verteilung bei Kategorien |
 | **Korrelation** | Metrisch | Metrisch | Zusammenhang/Stärke zwischen zwei Variablen |
@@ -3182,61 +3189,61 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
 
 ## Lernziele dieser Sitzung
 
--   Textdaten für eine statistische Analyse aufbereiten
--   Das Bayes'sche Theorem erklären und anwenden
--   Einen Naive-Bayes-Klassifikator in R trainieren und evaluieren
--   Modellgüte mit Confusion Matrix, Precision, Recall und AUC beurteilen
+- Textdaten für eine statistische Analyse aufbereiten
+- Das Bayes'sche Theorem erklären und anwenden
+- Einen Naive-Bayes-Klassifikator in R trainieren und evaluieren
+- Modellgüte mit Confusion Matrix, Precision, Recall und AUC beurteilen
 
 ------------------------------------------------------------------------
 
 ## Spam oder Ham?
 
--   Unerwünschte Werbe-E-Mails = Spam
--   Begriff stammt aus...?
--   Ziel: Automatische Erkennung von Spam-Mails
--   Klassisches Beispiel für Textklassifikation in der Datenanalyse
+- Unerwünschte Werbe-E-Mails = Spam
+- Begriff stammt aus...?
+- Ziel: Automatische Erkennung von Spam-Mails
+- Klassisches Beispiel für Textklassifikation in der Datenanalyse
 
 ------------------------------------------------------------------------
 
 ## Bayes'sches Theorem: Grundkonzept
 
--   **Definition:** $P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}$
--   **Bedeutung der Komponenten:**
-    -   P(A\|B): Wahrscheinlichkeit von A, gegeben B (posteriori)
-    -   P(B\|A): Wahrscheinlichkeit von B, gegeben A (Likelihood)
-    -   P(A): Wahrscheinlichkeit von A ohne weitere Information (a priori)
-    -   P(B): Wahrscheinlichkeit von B, Normalisierungsfaktor
--   **Einfach ausgedrückt:** Aktualisierung von Wahrscheinlichkeiten basierend auf neuen Informationen
+- **Definition:** $P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}$
+- **Bedeutung der Komponenten:**
+  - P(A\|B): Wahrscheinlichkeit von A, gegeben B (posteriori)
+  - P(B\|A): Wahrscheinlichkeit von B, gegeben A (Likelihood)
+  - P(A): Wahrscheinlichkeit von A ohne weitere Information (a priori)
+  - P(B): Wahrscheinlichkeit von B, Normalisierungsfaktor
+- **Einfach ausgedrückt:** Aktualisierung von Wahrscheinlichkeiten basierend auf neuen Informationen
 
 ------------------------------------------------------------------------
 
 ## Zwei Denkansätze am Beispiel einer Handysuche
 
--   **Ausgangssituation:**
-    -   Handy ist verloren
-    -   Könnte irgendwo im Haus sein
-    -   Begrenzte Zeit zum Suchen
-    -   Wie gehen wir vor?
+- **Ausgangssituation:**
+  - Handy ist verloren
+  - Könnte irgendwo im Haus sein
+  - Begrenzte Zeit zum Suchen
+  - Wie gehen wir vor?
 
 ------------------------------------------------------------------------
 
 ## Der frequentistische Ansatz
 
--   **Gleichverteilte Aufmerksamkeit** für alle Orte
--   **Systematische, methodische Suche** des gesamten Hauses
--   **Ignoriert persönliche Erfahrungen** und Gewohnheiten
--   **Unveränderter Suchplan**, unabhängig von Zwischenergebnissen
--   **Fragestellung:** "Wie wahrscheinlich ist es, das Handy zu finden, wenn ich hier suche?"
+- **Gleichverteilte Aufmerksamkeit** für alle Orte
+- **Systematische, methodische Suche** des gesamten Hauses
+- **Ignoriert persönliche Erfahrungen** und Gewohnheiten
+- **Unveränderter Suchplan**, unabhängig von Zwischenergebnissen
+- **Fragestellung:** "Wie wahrscheinlich ist es, das Handy zu finden, wenn ich hier suche?"
 
 ------------------------------------------------------------------------
 
 ## Der bayesianische Ansatz
 
--   Beginnt mit **Vorwissen als Prior** ("Wo verliere ich normalerweise Dinge?")
--   **Priorisiert wahrscheinliche Orte** (Sofa, Schreibtisch, Jacke)
--   **Aktualisiert kontinuierlich** die Suchstrategie basierend auf neuen Hinweisen
--   **Integriert subjektive Wahrscheinlichkeiten**
--   **Fragestellung:** "Wo ist das Handy am wahrscheinlichsten, gegeben was ich bereits weiß?"
+- Beginnt mit **Vorwissen als Prior** ("Wo verliere ich normalerweise Dinge?")
+- **Priorisiert wahrscheinliche Orte** (Sofa, Schreibtisch, Jacke)
+- **Aktualisiert kontinuierlich** die Suchstrategie basierend auf neuen Hinweisen
+- **Integriert subjektive Wahrscheinlichkeiten**
+- **Fragestellung:** "Wo ist das Handy am wahrscheinlichsten, gegeben was ich bereits weiß?"
 
 ------------------------------------------------------------------------
 
@@ -3255,57 +3262,57 @@ kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
 
 ## Bayes'sches Theorem angewandt auf Spam
 
--   **Wir wollen wissen: P(Spam\|Wörter)**
-    -   Die Wahrscheinlichkeit, dass eine E-Mail Spam ist, gegeben die enthaltenen Wörter
--   **Nach Bayes:**
-    -   P(Spam\|Wörter) = (P(Wörter\|Spam) × P(Spam)) / P(Wörter)
-    -   **P(Spam)**: A-priori-Wahrscheinlichkeit für Spam (z.B. 40% aller E-Mails)
-    -   **P(Wörter\|Spam)**: Wahrscheinlichkeit dieser Wörter in Spam-Mails
-    -   **P(Wörter)**: Wahrscheinlichkeit dieser Wörter in allen E-Mails
+- **Wir wollen wissen: P(Spam\|Wörter)**
+  - Die Wahrscheinlichkeit, dass eine E-Mail Spam ist, gegeben die enthaltenen Wörter
+- **Nach Bayes:**
+  - P(Spam\|Wörter) = (P(Wörter\|Spam) × P(Spam)) / P(Wörter)
+  - **P(Spam)**: A-priori-Wahrscheinlichkeit für Spam (z.B. 40% aller E-Mails)
+  - **P(Wörter\|Spam)**: Wahrscheinlichkeit dieser Wörter in Spam-Mails
+  - **P(Wörter)**: Wahrscheinlichkeit dieser Wörter in allen E-Mails
 
 ------------------------------------------------------------------------
 
 ## Die "Naive" Annahme
 
--   **Bei Naive Bayes nehmen wir an, dass alle Wörter unabhängig voneinander auftreten:**
-    -   P(Wörter\|Spam) = P(Wort₁\|Spam) × P(Wort₂\|Spam) × ... × P(Wortₙ\|Spam)
--   **Beispiel**: "Viagra" und "Rabatt" in einer E-Mail
-    -   In Realität: Diese Wörter treten häufig gemeinsam auf
-    -   Naive Annahme: Behandlung als unabhängige Ereignisse
-    -   Trotz dieser Vereinfachung: Überraschend gute Ergebnisse!
+- **Bei Naive Bayes nehmen wir an, dass alle Wörter unabhängig voneinander auftreten:**
+  - P(Wörter\|Spam) = P(Wort₁\|Spam) × P(Wort₂\|Spam) × ... × P(Wortₙ\|Spam)
+- **Beispiel**: "Viagra" und "Rabatt" in einer E-Mail
+  - In Realität: Diese Wörter treten häufig gemeinsam auf
+  - Naive Annahme: Behandlung als unabhängige Ereignisse
+  - Trotz dieser Vereinfachung: Überraschend gute Ergebnisse!
 
 ------------------------------------------------------------------------
 
 ## Wie funktioniert Naive Bayes bei Spam?
 
--   **1. Training:**
-    -   Sammeln von bekannten Spam- und Ham-E-Mails (Trainingskorpus)
-    -   Zählen der Worthäufigkeiten in beiden Kategorien
-    -   Berechnen von P(Wort\|Spam) und P(Wort\|Ham) für alle Wörter
-    -   Ermitteln von P(Spam) und P(Ham) aus dem Trainingskorpus
--   **2. Klassifikation:**
-    -   Berechnen von P(Spam\|E-Mail) und P(Ham\|E-Mail) für neue E-Mail
-    -   Klassifizieren basierend auf der höheren Wahrscheinlichkeit
+- **1. Training:**
+  - Sammeln von bekannten Spam- und Ham-E-Mails (Trainingskorpus)
+  - Zählen der Worthäufigkeiten in beiden Kategorien
+  - Berechnen von P(Wort\|Spam) und P(Wort\|Ham) für alle Wörter
+  - Ermitteln von P(Spam) und P(Ham) aus dem Trainingskorpus
+- **2. Klassifikation:**
+  - Berechnen von P(Spam\|E-Mail) und P(Ham\|E-Mail) für neue E-Mail
+  - Klassifizieren basierend auf der höheren Wahrscheinlichkeit
 
 ------------------------------------------------------------------------
 
 ## Datengrundlage
 
--   E-Mail-Datensatz `emails.csv`
--   Enthält Text der E-Mails und Spam-Kennzeichnung
--   Häufigkeit von Spam und Ham
--   Class Imbalance beachten
+- E-Mail-Datensatz `emails.csv`
+- Enthält Text der E-Mails und Spam-Kennzeichnung
+- Häufigkeit von Spam und Ham
+- Class Imbalance beachten
 
 ------------------------------------------------------------------------
 
 ## Textaufbereitung (Text Mining)
 
--   Nutzung der Pakete `tm` und `SnowballC`
--   Schritte:
-    -   Umwandlung in Kleinschreibung
-    -   Entfernen von Satzzeichen
-    -   Entfernen von Stoppwörtern ("the", "and" ...)
-    -   Wortstamm-Reduktion (Stemming)
+- Nutzung der Pakete `tm` und `SnowballC`
+- Schritte:
+  - Umwandlung in Kleinschreibung
+  - Entfernen von Satzzeichen
+  - Entfernen von Stoppwörtern ("the", "and" ...)
+  - Wortstamm-Reduktion (Stemming)
 
 Ziel: Standardisierung und Reduktion der Textvielfalt
 
@@ -3313,38 +3320,38 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 
 ## Document-Term-Matrix (DTM)
 
--   Erstellung einer DTM zur quantitativen Darstellung der Texte
--   Zeilen = E-Mails, Spalten = Wörter
--   Zellinhalt: Häufigkeit des Wortes pro E-Mail
+- Erstellung einer DTM zur quantitativen Darstellung der Texte
+- Zeilen = E-Mails, Spalten = Wörter
+- Zellinhalt: Häufigkeit des Wortes pro E-Mail
 
 ------------------------------------------------------------------------
 
 ## Reduktion auf häufige Begriffe
 
--   Entfernen seltener Wörter mit `removeSparseTerms`
--   Fokus auf die aussagekräftigsten Begriffe
+- Entfernen seltener Wörter mit `removeSparseTerms`
+- Fokus auf die aussagekräftigsten Begriffe
 
 ------------------------------------------------------------------------
 
 ## Vorbereitung für das Modell
 
--   Umwandlung der DTM in Data Frame
--   Umbenennung der Spaltennamen
--   Zielvariable `spam` als Faktor kodiert
+- Umwandlung der DTM in Data Frame
+- Umbenennung der Spaltennamen
+- Zielvariable `spam` als Faktor kodiert
 
 ------------------------------------------------------------------------
 
 ## Trainings- und Testdaten
 
--   Aufteilung in Trainings- (80%) und Testdaten (20%)
--   Nutzung von `caret`-Paket
+- Aufteilung in Trainings- (80%) und Testdaten (20%)
+- Nutzung von `caret`-Paket
 
 ------------------------------------------------------------------------
 
 ## Vorhersage und Bewertung
 
--   Klassifikation der Testdaten
--   Vergleich mit tatsächlichen Spam-Labels
+- Klassifikation der Testdaten
+- Vergleich mit tatsächlichen Spam-Labels
 
 ## Die Confusion Matrix
 
@@ -3357,74 +3364,74 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 
 ## Die Confusion Matrix: Beispiel Spam-Filter
 
--   **TP**: Korrekt als Spam erkannte E-Mails
--   **FP**: Fälschlicherweise als Spam markierte normale E-Mails
--   **FN**: Nicht erkannter Spam (als normal klassifiziert)
--   **TN**: Korrekt als normal erkannte E-Mails
+- **TP**: Korrekt als Spam erkannte E-Mails
+- **FP**: Fälschlicherweise als Spam markierte normale E-Mails
+- **FN**: Nicht erkannter Spam (als normal klassifiziert)
+- **TN**: Korrekt als normal erkannte E-Mails
 
 ------------------------------------------------------------------------
 
 ## Fehler 1. und 2. Art
 
--   **Fehler 1. Art (Alpha-Fehler):**
-    -   Zurückweisung einer wahren Nullhypothese
-    -   "Falscher Alarm" / False Positive
--   **Fehler 2. Art (Beta-Fehler):**
-    -   Nichtablehnung einer falschen Nullhypothese
-    -   "Verpasster Treffer" / False Negative
--   **Zusammenhang:**
-    -   Meist gegensätzliche Beziehung (Trade-off)
-    -   Verringerung des einen Fehlers erhöht oft den anderen
+- **Fehler 1. Art (Alpha-Fehler):**
+  - Zurückweisung einer wahren Nullhypothese
+  - "Falscher Alarm" / False Positive
+- **Fehler 2. Art (Beta-Fehler):**
+  - Nichtablehnung einer falschen Nullhypothese
+  - "Verpasster Treffer" / False Negative
+- **Zusammenhang:**
+  - Meist gegensätzliche Beziehung (Trade-off)
+  - Verringerung des einen Fehlers erhöht oft den anderen
 
 ------------------------------------------------------------------------
 
 ## Grundlegende Metriken aus der Confusion Matrix
 
--   **Accuracy (Genauigkeit):**
-    -   (TP + TN) / (TP + TN + FP + FN)
-    -   Anteil korrekt klassifizierter Instanzen
-    -   Problem: Irreführend bei unausgewogenen Klassen
--   **Error Rate (Fehlerrate):**
-    -   (FP + FN) / (TP + TN + FP + FN)
-    -   Anteil falsch klassifizierter Instanzen
+- **Accuracy (Genauigkeit):**
+  - (TP + TN) / (TP + TN + FP + FN)
+  - Anteil korrekt klassifizierter Instanzen
+  - Problem: Irreführend bei unausgewogenen Klassen
+- **Error Rate (Fehlerrate):**
+  - (FP + FN) / (TP + TN + FP + FN)
+  - Anteil falsch klassifizierter Instanzen
 
 ------------------------------------------------------------------------
 
 ## Precision und Recall
 
--   **Precision (Präzision, Genauigkeit):**
-    -   TP / (TP + FP)
-    -   "Von allen als positiv vorhergesagten, wie viele sind tatsächlich positiv?"
-    -   Fokus auf falsche Positive (Fehler 1. Art)
-    -   Beispiel: Von allen als Spam markierten E-Mails, wie viele sind wirklich Spam?
+- **Precision (Präzision, Genauigkeit):**
+  - TP / (TP + FP)
+  - "Von allen als positiv vorhergesagten, wie viele sind tatsächlich positiv?"
+  - Fokus auf falsche Positive (Fehler 1. Art)
+  - Beispiel: Von allen als Spam markierten E-Mails, wie viele sind wirklich Spam?
 
 ------------------------------------------------------------------------
 
 ## Precision und Recall
 
--   **Recall (Sensitivität, Trefferquote):**
-    -   TP / (TP + FN)
-    -   "Von allen tatsächlich positiven, wie viele wurden korrekt erkannt?"
-    -   Fokus auf falsche Negative (Fehler 2. Art)
-    -   Beispiel: Von allen Spam-E-Mails, wie viele werden erkannt?
+- **Recall (Sensitivität, Trefferquote):**
+  - TP / (TP + FN)
+  - "Von allen tatsächlich positiven, wie viele wurden korrekt erkannt?"
+  - Fokus auf falsche Negative (Fehler 2. Art)
+  - Beispiel: Von allen Spam-E-Mails, wie viele werden erkannt?
 
 ------------------------------------------------------------------------
 
 ## ROC-Kurve und AUC
 
--   Bewertung der Modellgüte über die ROC-Kurve
--   AUC (Area Under Curve) als Maß für die Trennschärfe
--   Zusätzliche Visualisierung von Konfidenzintervallen möglich
+- Bewertung der Modellgüte über die ROC-Kurve
+- AUC (Area Under Curve) als Maß für die Trennschärfe
+- Zusätzliche Visualisierung von Konfidenzintervallen möglich
 
 ## ROC-Kurve und AUC
 
 ::::: columns
 ::: {.column width="70%"}
--   ROC-Kurve (Receiver Operating Characteristic)
-    -   Trade-off: True Positive Rate vs. False Positive Rate
-    -   Interpretation: näher an linker oberer Ecke = besser
--   Area Under the Curve
-    -   Fläche unter ROC-Kurve (0.5 bis 1.0)
+- ROC-Kurve (Receiver Operating Characteristic)
+  - Trade-off: True Positive Rate vs. False Positive Rate
+  - Interpretation: näher an linker oberer Ecke = besser
+- Area Under the Curve
+  - Fläche unter ROC-Kurve (0.5 bis 1.0)
 :::
 
 ::: {.column width="30%"}
@@ -3436,43 +3443,43 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 
 ## Precision-Recall Kurve
 
--   **Alternative zur ROC-Kurve:**
-    -   Precision gegen Recall für verschiedene Schwellenwerte
--   **Wann verwenden:**
-    -   Bei unausgewogenen Datensätzen
-    -   Fokus auf positive Klasse
--   **Interpretation:**
-    -   Besser: näher an oberer rechter Ecke
+- **Alternative zur ROC-Kurve:**
+  - Precision gegen Recall für verschiedene Schwellenwerte
+- **Wann verwenden:**
+  - Bei unausgewogenen Datensätzen
+  - Fokus auf positive Klasse
+- **Interpretation:**
+  - Besser: näher an oberer rechter Ecke
 
 ------------------------------------------------------------------------
 
 ## Overfitting vs. Underfitting
 
--   **Overfitting:**
-    -   Zu genaues Lernen (inkl. Rauschen)
-    -   Gut im Training, schlecht im Test
--   **Underfitting:**
-    -   Zu einfaches Modell
-    -   Schlecht in Training und Test
--   **Balance durch:**
-    -   Regularisierung
-    -   Angemessene Modellkomplexität
+- **Overfitting:**
+  - Zu genaues Lernen (inkl. Rauschen)
+  - Gut im Training, schlecht im Test
+- **Underfitting:**
+  - Zu einfaches Modell
+  - Schlecht in Training und Test
+- **Balance durch:**
+  - Regularisierung
+  - Angemessene Modellkomplexität
 
 ------------------------------------------------------------------------
 
 ## Nächste Schritte
 
--   Weitere Klassifikatoren testen (z.B. Entscheidungsbäume, SVM)
--   Optimierung der Textaufbereitung
--   Einsatz von Word Embeddings für fortgeschrittene Modelle
+- Weitere Klassifikatoren testen (z.B. Entscheidungsbäume, SVM)
+- Optimierung der Textaufbereitung
+- Einsatz von Word Embeddings für fortgeschrittene Modelle
 
 # Sitzung 14: Abschluss
 
 ## Lernziele dieser Sitzung
 
--   Den gesamten Kurs strukturiert rekapitulieren
--   Den richtigen Test für eine gegebene Forschungsfrage auswählen
--   Ergebnisse korrekt berichten (APA-Style)
+- Den gesamten Kurs strukturiert rekapitulieren
+- Den richtigen Test für eine gegebene Forschungsfrage auswählen
+- Ergebnisse korrekt berichten (APA-Style)
 
 ## Der rote Faden: Von der Frage zur Methode
 
@@ -3493,33 +3500,33 @@ Ziel: Standardisierung und Reduktion der Textvielfalt
 
 ## Ergebnisse korrekt berichten
 
--   **Immer angeben**: Teststatistik, Freiheitsgrade, p-Wert, Effektgröße
--   **t-Test**: *t*(28) = 2.45, *p* = .02, *d* = 0.89
--   **Chi-Quadrat**: χ²(2) = 8.24, *p* = .016, Cramér's V = .23
--   **Korrelation**: *r*(98) = .54, *p* \< .001
--   **ANOVA**: *F*(2, 57) = 4.32, *p* = .018, η² = .13
+- **Immer angeben**: Teststatistik, Freiheitsgrade, p-Wert, Effektgröße
+- **t-Test**: *t*(28) = 2.45, *p* = .02, *d* = 0.89
+- **Chi-Quadrat**: χ²(2) = 8.24, *p* = .016, Cramér's V = .23
+- **Korrelation**: *r*(98) = .54, *p* \< .001
+- **ANOVA**: *F*(2, 57) = 4.32, *p* = .018, η² = .13
 
 ## Häufige Fehler in Bachelorarbeiten
 
--   p-Wert ohne Effektgröße berichten
--   Korrelation als Kausalität interpretieren
--   Voraussetzungen nicht geprüft (Normalverteilung, Varianzhomogenität)
--   Signifikanz mit Relevanz gleichsetzen
--   Fehlende Werte ignorieren statt transparent machen
--   Daten nach dem Schauen anpassen (p-Hacking)
+- p-Wert ohne Effektgröße berichten
+- Korrelation als Kausalität interpretieren
+- Voraussetzungen nicht geprüft (Normalverteilung, Varianzhomogenität)
+- Signifikanz mit Relevanz gleichsetzen
+- Fehlende Werte ignorieren statt transparent machen
+- Daten nach dem Schauen anpassen (p-Hacking)
 
 ## Ein Wort zur Replikationskrise
 
--   Viele publizierte Studien lassen sich nicht replizieren
--   Ursachen: p-Hacking, kleine Stichproben, Publication Bias
--   **Konsequenz für Ihre Arbeit**: Transparenz über Methoden, Voraussetzungsprüfung, Effektgrößen angeben
--   Vorregistrierung als Gold-Standard (für BA-Arbeiten optional, aber bekannt sein)
+- Viele publizierte Studien lassen sich nicht replizieren
+- Ursachen: p-Hacking, kleine Stichproben, Publication Bias
+- **Konsequenz für Ihre Arbeit**: Transparenz über Methoden, Voraussetzungsprüfung, Effektgrößen angeben
+- Vorregistrierung als Gold-Standard (für BA-Arbeiten optional, aber bekannt sein)
 
 ## Stichprobengröße: Wie viele brauche ich?
 
--   Zu kleine Stichproben → zu wenig Power → echte Effekte werden übersehen
--   Faustregel für Abschlussarbeiten: n ≥ 30 pro Gruppe (besser: Poweranalyse)
--   Power-Analyse in R:
+- Zu kleine Stichproben → zu wenig Power → echte Effekte werden übersehen
+- Faustregel für Abschlussarbeiten: n ≥ 30 pro Gruppe (besser: Poweranalyse)
+- Power-Analyse in R:
 
 ``` r
 library(pwr)
@@ -3529,12 +3536,12 @@ pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.80, type = "two.sample")
 
 ## Fehlende Werte – kein Tabuthema
 
--   Immer dokumentieren: Wie viele NAs? In welchen Variablen?
--   Strategien:
-    -   Komplette Beobachtungen (`na.omit()`) – einfach, aber Datenverlust
-    -   Mittelwert-/Medianimputation – nur für MAR-Mechanismus
-    -   Multiple Imputation (`mice`-Paket) – Best Practice
--   **Niemals**: NAs stillschweigend ignorieren
+- Immer dokumentieren: Wie viele NAs? In welchen Variablen?
+- Strategien:
+  - Komplette Beobachtungen (`na.omit()`) – einfach, aber Datenverlust
+  - Mittelwert-/Medianimputation – nur für MAR-Mechanismus
+  - Multiple Imputation (`mice`-Paket) – Best Practice
+- **Niemals**: NAs stillschweigend ignorieren
 
 ## Viel Erfolg!
 
@@ -3544,320 +3551,325 @@ pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.80, type = "two.sample")
 
 ## Von der Korrelation zur Regression
 
--   **Unterschied**: Korrelation beschreibt Zusammenhang, Regression ermöglicht Vorhersagen
--   **Abhängige vs. unabhängige Variable**: Y als Funktion von X
--   **Lineare Beziehung**: Modellierung durch eine Gerade
+- **Unterschied**: Korrelation beschreibt Zusammenhang, Regression ermöglicht Vorhersagen
+- **Abhängige vs. unabhängige Variable**: Y als Funktion von X
+- **Lineare Beziehung**: Modellierung durch eine Gerade
 
 ## Das lineare Regressionsmodell
 
--   **Grundgleichung**: $Y = \beta_0 + \beta_1 X + \varepsilon$
--   **Parameter**:
-    -   Achsenabschnitt (Intercept) $\beta_0$: Wert von Y, wenn X = 0
-    -   Steigung (Slope) $\beta_1$: Änderung in Y bei Erhöhung von X um eine Einheit
-    -   Fehlerterm $\varepsilon$: Zufällige Abweichung (normalverteilt mit Mittelwert 0)
--   **Kleinstquadrateschätzung**: Minimierung der quadrierten Residuen
+- **Grundgleichung**: $Y = \beta_0 + \beta_1 X + \varepsilon$
+- **Parameter**:
+  - Achsenabschnitt (Intercept) $\beta_0$: Wert von Y, wenn X = 0
+  - Steigung (Slope) $\beta_1$: Änderung in Y bei Erhöhung von X um eine Einheit
+  - Fehlerterm $\varepsilon$: Zufällige Abweichung (normalverteilt mit Mittelwert 0)
+- **Kleinstquadrateschätzung**: Minimierung der quadrierten Residuen
 
 ## Durchführung in R
 
--   **Einfache lineare Regression**:
+- **Einfache lineare Regression**:
 
-    # Modell erstellen
+  # Modell erstellen
 
-    model \<- lm(y \~ x, data = daten)
+  model \<- lm(y \~ x, data = daten)
 
-    # Zusammenfassung anzeigen
+  # Zusammenfassung anzeigen
 
-    summary(model)
+  summary(model)
 
-    # Diagnostische Plots
+  # Diagnostische Plots
 
-    par(mfrow = c(2, 2)) plot(model)
+  par(mfrow = c(2, 2)) plot(model)
 
 ## Interpretation der Ergebnisse
 
--   **Regressionskoeffizienten**: Bedeutung von Intercept und Slope
--   **Standardfehler der Koeffizienten**: Präzision der Schätzung
--   **t-Werte und p-Werte**: Signifikanz der Koeffizienten
--   **R²**: Erklärte Varianz bzw. Bestimmtheitsmaß
-    -   Interpretation: Anteil der Varianz in Y, der durch X erklärt wird
-    -   Adjustiertes R²: Korrektur für die Anzahl der Prädiktoren
+- **Regressionskoeffizienten**: Bedeutung von Intercept und Slope
+- **Standardfehler der Koeffizienten**: Präzision der Schätzung
+- **t-Werte und p-Werte**: Signifikanz der Koeffizienten
+- **R²**: Erklärte Varianz bzw. Bestimmtheitsmaß
+  - Interpretation: Anteil der Varianz in Y, der durch X erklärt wird
+  - Adjustiertes R²: Korrektur für die Anzahl der Prädiktoren
 
 ## Voraussetzungen und Diagnostik
 
--   **Linearität**: Beziehung sollte linear sein
--   **Normalverteilung der Residuen**: QQ-Plot zur Überprüfung
--   **Homoskedastizität**: Konstante Varianz der Residuen
--   **Unabhängigkeit der Beobachtungen**: Keine Autokorrelation
--   **Ausreißer und einflussreiche Beobachtungen**: Cook's Distance, Leverage
+- **Linearität**: Beziehung sollte linear sein
+- **Normalverteilung der Residuen**: QQ-Plot zur Überprüfung
+- **Homoskedastizität**: Konstante Varianz der Residuen
+- **Unabhängigkeit der Beobachtungen**: Keine Autokorrelation
+- **Ausreißer und einflussreiche Beobachtungen**: Cook's Distance, Leverage
 
 ## Visualisierung von Regressionsmodellen
 
--   **Streudiagramm mit Regressionslinie**:
+- **Streudiagramm mit Regressionslinie**:
 
-    library(ggplot2) ggplot(daten, aes(x = x, y = y)) + geom_point() + geom_smooth(method = "lm", se = TRUE) + theme_minimal() + labs(title = "Lineare Regression", subtitle = paste("R² =", round(summary(model)\$r.squared, 3)))
+  library(ggplot2) ggplot(daten, aes(x = x, y = y)) + geom_point() + geom_smooth(method = "lm", se = TRUE) + theme_minimal() + labs(title = "Lineare Regression", subtitle = paste("R² =", round(summary(model)\$r.squared, 3)))
 
--   **Residuenplots**:
+- **Residuenplots**:
 
-    # Residuen gegen vorhergesagte Werte
+  # Residuen gegen vorhergesagte Werte
 
-    ggplot(data.frame(fitted = fitted(model), residuals = residuals(model)), aes(x = fitted, y = residuals)) + geom_point() + geom_hline(yintercept = 0, linetype = "dashed", color = "red") + theme_minimal() + labs(title = "Residuen vs. vorhergesagte Werte")
+  ggplot(data.frame(fitted = fitted(model), residuals = residuals(model)), aes(x = fitted, y = residuals)) + geom_point() + geom_hline(yintercept = 0, linetype = "dashed", color = "red") + theme_minimal() + labs(title = "Residuen vs. vorhergesagte Werte")
 
 ## Praktische Anwendungsbeispiele
 
--   **Fairer Preis für gebrauchte Artikel**: Preisvorhersage basierend auf Alter, Zustand, etc.
--   **Verkaufsprognosen**: Vorhersage des Umsatzes basierend auf Werbeausgaben
--   **Biometrische Zusammenhänge**: z.B. Zusammenhang zwischen Größe und Gewicht
+- **Fairer Preis für gebrauchte Artikel**: Preisvorhersage basierend auf Alter, Zustand, etc.
+- **Verkaufsprognosen**: Vorhersage des Umsatzes basierend auf Werbeausgaben
+- **Biometrische Zusammenhänge**: z.B. Zusammenhang zwischen Größe und Gewicht
 
 ## Transformation nicht-linearer Beziehungen
 
--   **Logarithmische Transformation**: Für exponentielle Beziehungen
+- **Logarithmische Transformation**: Für exponentielle Beziehungen
 
--   **Quadratische Transformation**: Für U-förmige Beziehungen
+- **Quadratische Transformation**: Für U-förmige Beziehungen
 
--   **Box-Cox-Transformation**: Systematische Suche nach optimaler Transformation
+- **Box-Cox-Transformation**: Systematische Suche nach optimaler Transformation
 
--   **Beispiel in R**:
+- **Beispiel in R**:
 
-    \`\`\` r \# Log-Transformation model_log \<- lm(log(y) \~ x, data = daten)
+  \`\`\` r \# Log-Transformation model_log \<- lm(log(y) \~ x, data = daten)
 
-    # Quadratische Transformation
+  # Quadratische Transformation
 
-    model_quad \<- lm(y \~ x + I(x\^2), data = daten)
+  model_quad \<- lm(y \~ x + I(x\^2), data = daten)
 
-    # Vergleich der Modelle mittels AIC
+  # Vergleich der Modelle mittels AIC
 
-    AIC(model, model_log, model_quad)
+  AIC(model, model_log, model_quad)
+
+
 
 # Sitzung 10: Logistische Regression
 
--   **Unterschied zur linearen Regression**: Binäre abhängige Variable
--   **Logit-Funktion**: Transformation von Wahrscheinlichkeiten in Log-Odds
--   **Grundgleichung**: $\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X$
--   **Interpretation**: Odds Ratios statt direkter Effekte
+## Was ist die logistische Regression?
+
+- **Unterschied zur linearen Regression**: Binäre abhängige Variable
+- **Logit-Funktion**: Transformation von Wahrscheinlichkeiten in Log-Odds
+- **Grundgleichung**: $\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X$
+- **Interpretation**: Odds Ratios statt direkter Effekte
 
 ## Durchführung der logistischen Regression in R
 
--   **Modellschätzung**:
+- **Modellschätzung**:
 
-    ``` r
-    # Logistische Regression
-    logit_model <- glm(erfolg ~ x, data = daten, family = binomial)
-    summary(logit_model)
+``` r
+  # Logistische Regression
+  logit_model <- glm(erfolg ~ x, data = daten, family = binomial)
+  summary(logit_model)
 
-    # Odds Ratios berechnen
-    exp(coef(logit_model))
-    ```
+  # Odds Ratios berechnen
+  exp(coef(logit_model))
+```
 
--   **Vorhersagen und Evaluation**:
+- **Vorhersagen und Evaluation**:
 
-    ``` r
-    # Wahrscheinlichkeiten vorhersagen
-    pred_probs <- predict(logit_model, type = "response")
+``` r
+  # Wahrscheinlichkeiten vorhersagen
+  pred_probs <- predict(logit_model, type = "response")
 
-    # ROC-Kurve und AUC
-    library(pROC)
-    roc_curve <- roc(daten$erfolg, pred_probs)
-    plot(roc_curve)
-    auc(roc_curve)
-    ```
+  # ROC-Kurve und AUC
+  library(pROC)
+  roc_curve <- roc(daten$erfolg, pred_probs)
+  plot(roc_curve)
+  auc(roc_curve)
+```
 
 ## Anwendungsbeispiele für logistische Regression
 
--   **Medizin**: Vorhersage von Krankheitsrisiken
--   **Marketing**: Conversion-Wahrscheinlichkeit von Kunden
--   **Kreditwesen**: Ausfallwahrscheinlichkeit bei Krediten
+- **Medizin**: Vorhersage von Krankheitsrisiken
+- **Marketing**: Conversion-Wahrscheinlichkeit von Kunden
+- **Kreditwesen**: Ausfallwahrscheinlichkeit bei Krediten
 
 # Sitzung 11: ANOVA und Umfragedesign
 
 ## ANOVA-Grundlagen
 
--   **Vom t-Test zur ANOVA**: Natürliche Erweiterung für mehr als zwei Gruppen
--   **Varianzzerlegung**: Zwischen- vs. Innerhalb-Gruppenvarianz
--   **F-Verteilung und F-Statistik**: Verhältnis der Varianzen
--   **Grundformel**: $F = \frac{\text{Varianz zwischen Gruppen}}{\text{Varianz innerhalb Gruppen}}$
+- **Vom t-Test zur ANOVA**: Natürliche Erweiterung für mehr als zwei Gruppen
+- **Varianzzerlegung**: Zwischen- vs. Innerhalb-Gruppenvarianz
+- **F-Verteilung und F-Statistik**: Verhältnis der Varianzen
+- **Grundformel**: $F = \frac{\text{Varianz zwischen Gruppen}}{\text{Varianz innerhalb Gruppen}}$
 
 ## Einfaktorielle ANOVA
 
--   **Voraussetzungen**:
+- **Voraussetzungen**:
 
-    -   Normalverteilung der Residuen
-    -   Homoskedastizität (Varianzhomogenität)
-    -   Unabhängigkeit der Beobachtungen
+  - Normalverteilung der Residuen
+  - Homoskedastizität (Varianzhomogenität)
+  - Unabhängigkeit der Beobachtungen
 
--   **Durchführung in R**:
+- **Durchführung in R**:
 
-    ``` r
-    # Einfaktorielle ANOVA
-    anova_result <- aov(werte ~ gruppe, data = daten)
-    summary(anova_result)
-    ```
+  ``` r
+  # Einfaktorielle ANOVA
+  anova_result <- aov(werte ~ gruppe, data = daten)
+  summary(anova_result)
+  ```
 
 ## Post-hoc Tests
 
--   **Warum Post-hoc Tests?**: ANOVA sagt nur, dass Unterschiede existieren
+- **Warum Post-hoc Tests?**: ANOVA sagt nur, dass Unterschiede existieren
 
--   **Tukey's HSD**: Häufig verwendeter Test für alle paarweisen Vergleiche
+- **Tukey's HSD**: Häufig verwendeter Test für alle paarweisen Vergleiche
 
--   **Bonferroni-Korrektur**: Kontrolle des Alpha-Fehlers bei multiplen Vergleichen
+- **Bonferroni-Korrektur**: Kontrolle des Alpha-Fehlers bei multiplen Vergleichen
 
--   **Durchführung in R**:
+- **Durchführung in R**:
 
-    ``` r
-    # Tukey's HSD
-    TukeyHSD(anova_result)
+  ``` r
+  # Tukey's HSD
+  TukeyHSD(anova_result)
 
-    # Alternativ mit dem Paket 'multcomp'
-    library(multcomp)
-    post_hoc <- glht(anova_result, linfct = mcp(gruppe = "Tukey"))
-    summary(post_hoc)
-    ```
+  # Alternativ mit dem Paket 'multcomp'
+  library(multcomp)
+  post_hoc <- glht(anova_result, linfct = mcp(gruppe = "Tukey"))
+  summary(post_hoc)
+  ```
 
 ## Visualisierung von ANOVA-Ergebnissen
 
--   **Boxplots mit Post-hoc-Informationen**:
+- **Boxplots mit Post-hoc-Informationen**:
 
-    ``` r
-    library(ggplot2)
-    ggplot(daten, aes(x = gruppe, y = werte, fill = gruppe)) +
-      geom_boxplot() +
-      theme_minimal() +
-      labs(title = "Vergleich der Gruppen (ANOVA)",
-           subtitle = "F(2, 57) = 14.3, p < 0.001")
-    ```
+  ``` r
+  library(ggplot2)
+  ggplot(daten, aes(x = gruppe, y = werte, fill = gruppe)) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(title = "Vergleich der Gruppen (ANOVA)",
+         subtitle = "F(2, 57) = 14.3, p < 0.001")
+  ```
 
--   **Interaktionsplots (für mehrfaktorielle ANOVA)**:
+- **Interaktionsplots (für mehrfaktorielle ANOVA)**:
 
-    ``` r
-    # Für mehrfaktorielle ANOVA
-    interaction.plot(daten$faktor1, daten$faktor2, daten$werte,
-                    mean, xlab = "Faktor 1", ylab = "Mittelwert",
-                    trace.label = "Faktor 2")
-    ```
+  ``` r
+  # Für mehrfaktorielle ANOVA
+  interaction.plot(daten$faktor1, daten$faktor2, daten$werte,
+                  mean, xlab = "Faktor 1", ylab = "Mittelwert",
+                  trace.label = "Faktor 2")
+  ```
 
 ## Umfragen und Datenerhebung
 
 ### Grundsätzliche Aspekte der Datenerhebung
 
--   **Primärdaten vs. Sekundärdaten**: Vor- und Nachteile
--   **Quantitative vs. qualitative Forschung**: Unterschiedliche Ansätze und Zielsetzungen
--   **Mixed Methods**: Kombination verschiedener Ansätze
+- **Primärdaten vs. Sekundärdaten**: Vor- und Nachteile
+- **Quantitative vs. qualitative Forschung**: Unterschiedliche Ansätze und Zielsetzungen
+- **Mixed Methods**: Kombination verschiedener Ansätze
 
 ### Umfragedesign
 
--   **Fragentypen**:
-    -   Offene vs. geschlossene Fragen
-    -   Single-Choice vs. Multiple-Choice
-    -   Likert-Skalen: Abstufungen und Best Practices
--   **Skalendesign**:
-    -   Balance: Gleiche Anzahl positiver und negativer Optionen
-    -   Neutraloption: Ja oder nein?
-    -   Skalenlänge: 5-, 7- oder 10-Punkt-Skalen
+- **Fragentypen**:
+  - Offene vs. geschlossene Fragen
+  - Single-Choice vs. Multiple-Choice
+  - Likert-Skalen: Abstufungen und Best Practices
+- **Skalendesign**:
+  - Balance: Gleiche Anzahl positiver und negativer Optionen
+  - Neutraloption: Ja oder nein?
+  - Skalenlänge: 5-, 7- oder 10-Punkt-Skalen
 
 ### Typische Fehlerquellen und Verzerrungen
 
--   **Stichprobenverzerrung (Sampling Bias)**:
-    -   Convenience Sampling
-    -   Self-Selection Bias
-    -   Non-Response Bias
--   **Antwortverzerrungen**:
-    -   Social Desirability Bias
-    -   Acquiescence Bias (Ja-Sage-Tendenz)
-    -   Extremity Bias (Tendenz zu Extremantworten)
-    -   Central Tendency Bias (Tendenz zur Mitte)
+- **Stichprobenverzerrung (Sampling Bias)**:
+  - Convenience Sampling
+  - Self-Selection Bias
+  - Non-Response Bias
+- **Antwortverzerrungen**:
+  - Social Desirability Bias
+  - Acquiescence Bias (Ja-Sage-Tendenz)
+  - Extremity Bias (Tendenz zu Extremantworten)
+  - Central Tendency Bias (Tendenz zur Mitte)
 
 ### Fallbeispiele von Verzerrungen
 
--   **Survivorship Bias**: Beobachtungen der "Überlebenden"
--   **Verzerrung durch fehlende Daten**: Systematische vs. zufällige fehlende Werte
--   **Kulturelle Unterschiede in der Beantwortung**: Internationale Studien
+- **Survivorship Bias**: Beobachtungen der "Überlebenden"
+- **Verzerrung durch fehlende Daten**: Systematische vs. zufällige fehlende Werte
+- **Kulturelle Unterschiede in der Beantwortung**: Internationale Studien
 
 ### Praktische Tipps für bessere Umfragen
 
--   **Frageformulierung**: Klar, präzise, neutral
--   **Umfragelänge**: Ermüdung und Abbruchquoten
--   **Pretests durchführen**: Frühe Probleme erkennen
--   **Datenqualitätsprüfung**: Validierung während und nach der Erhebung
+- **Frageformulierung**: Klar, präzise, neutral
+- **Umfragelänge**: Ermüdung und Abbruchquoten
+- **Pretests durchführen**: Frühe Probleme erkennen
+- **Datenqualitätsprüfung**: Validierung während und nach der Erhebung
 
 ### Online-Tools und Software
 
--   **Umfragetools**: SurveyMonkey, Google Forms, LimeSurvey, Qualtrics
--   **Integration mit R**: Datenimport und -analyse
+- **Umfragetools**: SurveyMonkey, Google Forms, LimeSurvey, Qualtrics
+- **Integration mit R**: Datenimport und -analyse
+
 
 # Sitzung 12: Abschluss und Ausblick
 
 ## Zusammenfassung der wichtigsten Konzepte
 
--   **Deskriptive Statistik**: Kennzahlen, Verteilungen, Visualisierung
--   **Inferenzstatistik**: Stichproben, Hypothesentests, Konfidenzintervalle
--   **Korrelation und Regression**: Zusammenhänge und Vorhersagen
--   **Kategoriale Datenanalyse**: Chi-Quadrat-Tests und Kontingenztabellen
+- **Deskriptive Statistik**: Kennzahlen, Verteilungen, Visualisierung
+- **Inferenzstatistik**: Stichproben, Hypothesentests, Konfidenzintervalle
+- **Korrelation und Regression**: Zusammenhänge und Vorhersagen
+- **Kategoriale Datenanalyse**: Chi-Quadrat-Tests und Kontingenztabellen
 
 ## Integration der Methoden an praktischen Beispielen
 
--   **Fallstudie**: Durchführung einer vollständigen Datenanalyse
-    1.  Datenimport und -bereinigung
-    2.  Explorative Datenanalyse
-    3.  Hypothesenbildung
-    4.  Statistische Tests
-    5.  Modellierung (Regression)
-    6.  Interpretation und Berichterstattung
+- **Fallstudie**: Durchführung einer vollständigen Datenanalyse
+  1.  Datenimport und -bereinigung
+  2.  Explorative Datenanalyse
+  3.  Hypothesenbildung
+  4.  Statistische Tests
+  5.  Modellierung (Regression)
+  6.  Interpretation und Berichterstattung
 
 ## Bewertungskriterien für die Hausarbeit
 
--   **Datenauswahl und -aufbereitung**: Sinnvolle Auswahl, korrekte Aufbereitung
--   **Methodik**: Angemessene Auswahl und korrekte Anwendung statistischer Verfahren
--   **Visualisierung**: Informative, korrekte und ästhetisch ansprechende Grafiken
--   **Interpretation**: Korrekte Deutung der Ergebnisse, Verständnis der Grenzen
--   **Dokumentation**: Klare, nachvollziehbare Darstellung der Analyse mit R Markdown
+- **Datenauswahl und -aufbereitung**: Sinnvolle Auswahl, korrekte Aufbereitung
+- **Methodik**: Angemessene Auswahl und korrekte Anwendung statistischer Verfahren
+- **Visualisierung**: Informative, korrekte und ästhetisch ansprechende Grafiken
+- **Interpretation**: Korrekte Deutung der Ergebnisse, Verständnis der Grenzen
+- **Dokumentation**: Klare, nachvollziehbare Darstellung der Analyse mit R Markdown
 
 ## Weiterführende statistische Methoden
 
--   **Mehrfaktorielle ANOVA**: Analyse mehrerer Einflussfaktoren und ihrer Interaktionen
--   **Multiple Regression**: Mehrere unabhängige Variablen
--   **Nicht-parametrische Verfahren**: Alternativen bei Verletzung der Normalverteilungsannahme
--   **Zeitreihenanalyse**: Analyse von Daten mit zeitlicher Struktur
--   **Faktorenanalyse**: Reduktion von Variablen auf latente Faktoren
--   **Clusteranalyse**: Identifikation von Gruppen in Daten
--   **Machine Learning**: Vorhersagemodelle und Klassifikation
+- **Mehrfaktorielle ANOVA**: Analyse mehrerer Einflussfaktoren und ihrer Interaktionen
+- **Multiple Regression**: Mehrere unabhängige Variablen
+- **Nicht-parametrische Verfahren**: Alternativen bei Verletzung der Normalverteilungsannahme
+- **Zeitreihenanalyse**: Analyse von Daten mit zeitlicher Struktur
+- **Faktorenanalyse**: Reduktion von Variablen auf latente Faktoren
+- **Clusteranalyse**: Identifikation von Gruppen in Daten
+- **Machine Learning**: Vorhersagemodelle und Klassifikation
 
 ## Praktische Hinweise für statistisches Arbeiten
 
--   **Reproduzierbarkeit**: Verwendung von R Markdown für nachvollziehbare Analysen
--   **Visualisierung vor Berechnung**: Daten immer zuerst visualisieren
--   **Datenvalidierung**: Überprüfung auf Ausreißer, fehlende Werte, unmögliche Werte
--   **Kritisches Denken**: Hinterfragen von Ergebnissen und Methoden
--   **Effektgrößen beachten**: Nicht nur auf p-Werte fixieren
+- **Reproduzierbarkeit**: Verwendung von R Markdown für nachvollziehbare Analysen
+- **Visualisierung vor Berechnung**: Daten immer zuerst visualisieren
+- **Datenvalidierung**: Überprüfung auf Ausreißer, fehlende Werte, unmögliche Werte
+- **Kritisches Denken**: Hinterfragen von Ergebnissen und Methoden
+- **Effektgrößen beachten**: Nicht nur auf p-Werte fixieren
 
 ## Ressourcen für das Selbststudium
 
--   **Bücher**:
-    -   "R for Data Science" von Hadley Wickham und Garrett Grolemund
-    -   "Discovering Statistics Using R" von Andy Field
-    -   "An Introduction to Statistical Learning" von James, Witten, Hastie und Tibshirani
--   **Online-Ressourcen**:
-    -   RStudio Cheatsheets: <https://www.rstudio.com/resources/cheatsheets/>
-    -   R-bloggers: <https://www.r-bloggers.com/>
-    -   Datacamp-Kurse: <https://www.datacamp.com/courses/tech:r>
-    -   Stackoverflow für R-spezifische Fragen
+- **Bücher**:
+  - "R for Data Science" von Hadley Wickham und Garrett Grolemund
+  - "Discovering Statistics Using R" von Andy Field
+  - "An Introduction to Statistical Learning" von James, Witten, Hastie und Tibshirani
+- **Online-Ressourcen**:
+  - RStudio Cheatsheets: <https://www.rstudio.com/resources/cheatsheets/>
+  - R-bloggers: <https://www.r-bloggers.com/>
+  - Datacamp-Kurse: <https://www.datacamp.com/courses/tech:r>
+  - Stackoverflow für R-spezifische Fragen
 
 ## Datenkritisches Denken und ethische Aspekte
 
--   **Datenqualität und -herkunft**: Kritische Bewertung von Datenquellen
--   **Fallstricke der Statistik**: Häufige Fehlinterpretationen und wie man sie vermeidet
--   **Ethik in der Datenanalyse**: Datenschutz, Fairness, Transparenz
--   **Kommunikation statistischer Ergebnisse**: Verantwortungsvoller Umgang mit Daten in der Öffentlichkeit
+- **Datenqualität und -herkunft**: Kritische Bewertung von Datenquellen
+- **Fallstricke der Statistik**: Häufige Fehlinterpretationen und wie man sie vermeidet
+- **Ethik in der Datenanalyse**: Datenschutz, Fairness, Transparenz
+- **Kommunikation statistischer Ergebnisse**: Verantwortungsvoller Umgang mit Daten in der Öffentlichkeit
 
 ## Abschlussdiskussion und Feedback
 
--   **Offene Fragen**: Klärung verbleibender Unklarheiten
--   **Rückblick**: Was waren die wichtigsten Erkenntnisse?
--   **Ausblick**: Wie können die Studierenden die erlernten Methoden in ihren Abschlussarbeiten anwenden?
--   **Kursevaluation**: Feedback zum Seminar und Verbesserungsvorschläge
+- **Offene Fragen**: Klärung verbleibender Unklarheiten
+- **Rückblick**: Was waren die wichtigsten Erkenntnisse?
+- **Ausblick**: Wie können die Studierenden die erlernten Methoden in ihren Abschlussarbeiten anwenden?
+- **Kursevaluation**: Feedback zum Seminar und Verbesserungsvorschläge
 
 ## Tipp des Tages: Statistische Fallstricke vermeiden
 
--   **Data Dredging (p-Hacking)**: Nicht so lange testen, bis ein signifikantes Ergebnis erscheint
--   **HARKing (Hypothesizing After Results are Known)**: Hypothesen vor der Analyse festlegen
--   **Cherry Picking**: Alle relevanten Ergebnisse berichten, nicht nur die "schönen"
--   **Überinterpretation von p-Werten**: p \< 0.05 bedeutet nicht "wahr" oder "wichtig"
--   **Ignorieren von Effektgrößen**: Praktische Bedeutsamkeit ist oft wichtiger als statistische Signifikanz
+- **Data Dredging (p-Hacking)**: Nicht so lange testen, bis ein signifikantes Ergebnis erscheint
+- **HARKing (Hypothesizing After Results are Known)**: Hypothesen vor der Analyse festlegen
+- **Cherry Picking**: Alle relevanten Ergebnisse berichten, nicht nur die "schönen"
+- **Überinterpretation von p-Werten**: p \< 0.05 bedeutet nicht "wahr" oder "wichtig"
+- **Ignorieren von Effektgrößen**: Praktische Bedeutsamkeit ist oft wichtiger als statistische Signifikanz
