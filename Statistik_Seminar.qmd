@@ -402,6 +402,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Logistik
 
 - Nächste Woche nur 1. Session
+- Die ersten Referate: Bitte Rücksprache wegen Datensatz
 
 ## Lernziele dieser Sitzung
 
@@ -436,10 +437,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## summary() zeigt das Problem
 
-```r
-summary(users$Age)
-```
-
+- Aufruf: `summary(users$Age)`
 - `Min.` kann 0 oder sogar negativ sein
 - `Max.` zeigt Werte weit über 100 – unrealistisch
 - Solche Ausreißer sind im rohen Datensatz schwer zu finden
@@ -492,7 +490,7 @@ summary(users$Age)
 - Niedrige Kurtosis (\<3): flache Verteilung mit "leichten Enden" (weniger Extremwerte)
 - In R: `kurtosis(data)` aus dem Paket **moments** oder **e1071**
 
-## Warum Visualisierung auch wichtig ist
+## Warum Visualisierung auch wichtig ist: Anscombes Quartet
 
 ![](images/Anscombe's_quartet_3.svg.png)
 

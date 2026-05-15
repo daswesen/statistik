@@ -121,13 +121,49 @@ BX_Books %>%
 
 
 
+```{r}
+library(readr)
+BX_Users <- read_delim("data/Archiv/BX-Users.csv", 
+    delim = ";", escape_double = FALSE, col_types = cols(Age = col_integer()), 
+    trim_ws = TRUE)
+```
+
+```{r}
+summary(BX_Users)
+```
 
 
+```{r}
+BX_Book_Ratings <- read_delim("data/Archiv/BX-Book-Ratings.csv", 
+    delim = ";", escape_double = FALSE, col_types = cols(`Book-Rating` = col_integer()), 
+    trim_ws = TRUE)
+
+```
 
 
+# Ein Histogramm erstellen
 
+```{r}
+BX_Users %>%
+  filter(!is.na(Age)) %>%
+  ggplot(., aes(x=Age)) +
+  geom_histogram(bins = 200) +
+  theme_minimal()
+```
 
+```{r}
+BX_Users %>%
+  group_by(Age) %>%
+  summarise(n = n())
+```
 
+# Daten zusammenführen
+
+```{r}
+BX_Books %>%
+  full_join(BX_Book_Ratings) %>%
+  full_join(BX_Users)
+```
 
 
 
