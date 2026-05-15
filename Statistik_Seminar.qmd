@@ -596,7 +596,14 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ![](images/joins.png)
 
 
-# Sitzung 5
+# Sitzung 5: Streuungsmaße & Visualisierung
+
+## Lernziele dieser Sitzung
+
+- Streuungsmaße berechnen und interpretieren
+- Boxplot, Violin Plot und Density Plot erstellen und lesen
+- Die Grammatik von ggplot2 verstehen
+- Mit dem Bücher-Datensatz selbständig arbeiten
 
 ## Streuungsmaße
 
@@ -629,7 +636,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Standardabweichung
 
 - Wurzel aus der Varianz: Dieselbe Einheit wie die Ursprungsdaten
-- Berechnung für Grundgesamtheit: $$\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2}$$
+- Berechnung für Grundgesamtheit: $$\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2$$
 - Berechnung für Stichprobe: $$s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}$$
 - In R: `sd(data)`
 
@@ -639,6 +646,14 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 - Ca. 95% der Werte liegen innerhalb von μ ± 2σ
 - Ca. 99,7% der Werte liegen innerhalb von μ ± 3σ ("Drei-Sigma-Regel")
 
+## Wie macht man das in R?
+
+| Kennzahl | R‑Befehl | Kurzbeschreibung |
+|------------------------|------------------------|------------------------|
+| Spannweite | `diff(range(data))` | Abstand = Max − Min |
+| IQR | `IQR(data)` | Mittlere 50% der Daten |
+| Varianz | `var(data)` | Quadrat der Standardabweichung |
+| Standardabweichung | `sd(data)` | Ø‑Abweichung vom Mittelwert |
 
 ## Boxplot
 
@@ -651,42 +666,70 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 - Mittellinie: Median (Q2)
 - Whiskers: Typischerweise bis max. 1,5 × IQR von der Box
 - Punkte außerhalb der Whiskers: potenzielle Ausreißer
-- In R: `boxplot(data)`
+- In ggplot2: `geom_boxplot()`
 
-![](images/Elements_of_a_boxplot.svg.png)
+## Violin Plot
 
-## Wie macht man das in R?
+- Kombiniert Boxplot mit Dichteverteilung
+- Breite des "Violinenkörpers" zeigt, wie viele Werte dort liegen
+- Zeigt, was der Boxplot versteckt: die Form der Verteilung
+- Besonders nützlich beim Vergleich mehrerer Gruppen
+- In ggplot2: `geom_violin()` — kombinierbar mit `geom_boxplot()`
 
-| Kennzahl | R‑Befehl | Kurzbeschreibung |
-|------------------------|------------------------|------------------------|
-| Mittelwert | `mean(data)` | Durchschnitt aller Werte |
-| Median | `median(data)` | Zentralwert (50 %-Quantil) |
-| Minimum | `min(data)` | Kleinster Wert |
-| Maximum | `max(data)` | Größter Wert |
-| Spannweite | `diff(range(data))` | Abstand = Max − Min |
-| Standardabweichung | `sd(data)` | Ø‑Abweichung vom Mittelwert |
-| Varianz | `var(data)` | Quadrat der Standardabweichung |
-| Schiefe | `skewness(data)` *(moments/e1071)* | Asymmetrie der Verteilung |
-| Wölbung (Kurtosis) | `kurtosis(data)` *(moments/e1071)* | "Spitzheit" der Verteilung |
-| Quantile | `quantile(data, c(.25,.5,.75))` | 25 %, 50 %, 75 %-Werte (Quartile) |
+## Demo: Boxplot + Violin Plot
 
-## Übung mit dem Datensatz iris
+## Density Plot
 
-| Kennzahl           | R‑Befehl            | Kurzbeschreibung               |
-|--------------------|---------------------|--------------------------------|
-| Mittelwert         | `mean(data)`        | Durchschnitt aller Werte       |
-| Median             | `median(data)`      | Zentralwert (50 %-Quantil)     |
-| Minimum            | `min(data)`         | Kleinster Wert                 |
-| Maximum            | `max(data)`         | Größter Wert                   |
-| Spannweite         | `diff(range(data))` | Abstand = Max − Min            |
-| Standardabweichung | `sd(data)`          | Ø‑Abweichung vom Mittelwert    |
-| Varianz            | `var(data)`         | Quadrat der Standardabweichung |
+- Geglättete Version des Histogramms (Kerndichteschätzung)
+- X-Achse: Werte, Y-Achse: Dichte (Fläche unter der Kurve = 1)
+- Nicht abhängig von der Klassenbreite wie das Histogramm
+- Ideal um mehrere Gruppen zu vergleichen (überlagerte Flächen)
+- In ggplot2: `geom_density()`
 
+## Demo: Density Plot
 
+## Übungsblock: Bücher-Datensatz
 
-## Demo
+- Berechnen Sie Spannweite, IQR und Standardabweichung der Bewertungen (`Book-Rating`)
+- Wie stark streuen die Bewertungen je nach Altersgruppe der Nutzenden?
+- Erstellen Sie einen Boxplot der Bewertungen
+- Erstellen Sie einen Violin Plot, der Altersgruppen vergleicht
+- Was fällt Ihnen auf?
 
-# Sitzung 5: Datenvisualisierung
+## ggplot2: Die Grammatik der Grafik
+
+- Idee: Visualisierungen bestehen aus Schichten (*Layers*)
+- **Daten** → **Ästhetiken** (`aes()`) → **Geometrien** (`geom_*`)
+- Jede Schicht kann eigene Daten und Eigenschaften haben
+- Vorteil: Systematisch, konsistent, erweiterbar
+
+## ggplot2: Grundstruktur
+
+- `ggplot(data, aes(x = ..., y = ...))` — Daten und Achsen festlegen
+- `+ geom_*()` — Art der Darstellung wählen (Punkte, Balken, Linien, ...)
+- `+ aes(color = ..., fill = ...)` — weitere Ästhetiken hinzufügen
+- `+ labs(title = ..., x = ..., y = ...)` — Beschriftungen
+
+## Wichtige Ästhetiken (`aes()`)
+
+| Ästhetik | Bedeutung | Beispiel |
+|----------|-----------|---------|
+| `x`, `y` | Achsenwerte | `aes(x = Age, y = Rating)` |
+| `color` | Linien- / Punktfarbe | `aes(color = Gruppe)` |
+| `fill` | Füllfarbe | `aes(fill = Gruppe)` |
+| `size` | Größe | `aes(size = Anzahl)` |
+| `alpha` | Transparenz | `alpha = 0.5` |
+
+## Layering: Schichten übereinanderlegen
+
+- Mehrere `geom_*` können kombiniert werden
+- Beispiel: Violin Plot + Boxplot + Datenpunkte
+- Reihenfolge der Schichten bestimmt, was oben liegt
+- So entsteht aus wenigen Zeilen eine informationsreiche Grafik
+
+## Demo: ggplot2
+
+# Sitzung 6: Datenvisualisierung
 
 ## Lernziele dieser Sitzung
 
