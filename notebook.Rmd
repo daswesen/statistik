@@ -3,7 +3,6 @@ title: "Notebook Statistik-Kurs Sommersemester 2026 HAW"
 output:
   html_document:
     df_print: paged
-  pdf_document: default
 ---
 
 # Einleitung
