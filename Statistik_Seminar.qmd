@@ -1,8 +1,9 @@
 ---
 title: "Statistik für die Angewandte Forschung"
-format: beamer
-#  pptx:
-#    incremental: true
+format:
+  pptx:
+    incremental: true
+    latex-auto-install: false
 date: now
 author: "Dr. Tom Alby"
 ---
@@ -404,11 +405,11 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Lernziele dieser Sitzung
 
-- Datensätze mit Joins verknüpfen
 - Typische Datenfehler erkennen und beheben
+- Entscheidungen zur Datenbereinigung treffen und dokumentieren
+- Verteilungen verstehen und mit Histogrammen visualisieren
 - Lagemaße berechnen und interpretieren
 - Den Unterschied zwischen Mittelwert und Median erklären
-- Verteilungen anhand von Histogramm und Streudiagramm beurteilen
 
 ## Typischer Ablauf einer Analyse
 
@@ -429,13 +430,35 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Irgendwas stimmt mit dem Alter nicht
 
-- Vieles wird schneller klar, wenn die Daten visualisiert werden
-- Tatsächlich visualisieren wir Daten immer gleich zu Beginn
-- Welche Visualisierung kennen Sie bereits?
+- Ein erster Blick in die Daten hilft, Probleme zu erkennen
+- `summary()` gibt einen schnellen Überblick über alle Spalten
+- Was fällt Ihnen bei der Ausgabe auf?
 
-## Demo
+## summary() zeigt das Problem
 
-- Histogram mit ggplot
+```r
+summary(users$Age)
+```
+
+- `Min.` kann 0 oder sogar negativ sein
+- `Max.` zeigt Werte weit über 100 – unrealistisch
+- Solche Ausreißer sind im rohen Datensatz schwer zu finden
+- `summary()` macht sie sofort sichtbar
+
+## Zurück zum Alter
+
+- Was machen wir nun mit dieser Erkenntnis?
+- Ergibt es Sinn, dass wir die Nutzer mit einem falschen Alter ausschließen?
+- Oder sind ihre Bewertungen vielleicht doch nützlich?
+- Wichtig: Diese Entscheidungen müssen dokumentiert werden!
+
+## Warum sind Verteilungen wichtig?
+
+- Sie zeigen, wie sich Werte über einen Bereich verteilen
+- Sie verraten, ob Lagemaße (z.B. Mittelwert) überhaupt aussagekräftig sind
+- Bei schiefen Verteilungen ist der Mittelwert **irreführend**
+- Ausreißer werden auf einen Blick sichtbar
+- Grundlage für statistische Tests: Viele Tests setzen eine bestimmte Verteilung voraus
 
 ## Histogramm
 
@@ -445,13 +468,44 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 - Interpretation: Form (symmetrisch/schief), Modalität (uni-/multimodal), Ausreißer
 - Wichtig: Klassenanzahl beeinflusst sichtbare Form
 
+## Demo
+
+- Histogram mit ggplot
+
+## Formparameter
+
+![](images/3-s2.0-B9780128207178000087-f05-03-9780128207178.jpg)
+
+## Schiefe (Skewness)
+
+- Misst die Asymmetrie einer Verteilung
+- Positive Schiefe: rechtsschiefe Verteilung (längerer "Schwanz" nach rechts)
+- Negative Schiefe: linksschiefe Verteilung (längerer "Schwanz" nach links)
+- Schiefe von 0: symmetrische Verteilung (z.B. Normalverteilung)
+- In R: `skewness(data)` aus dem Paket **moments** oder **e1071**
+
+## Wölbung (Kurtosis)
+
+- Misst die "Spitzheit" bzw. "Flachheit" einer Verteilung
+- Normalverteilung hat eine Kurtosis von 3 (manchmal als Exzess-Kurtosis = 0 dargestellt)
+- Hohe Kurtosis (\>3): spitze Verteilung mit "schweren Enden" (mehr Extremwerte)
+- Niedrige Kurtosis (\<3): flache Verteilung mit "leichten Enden" (weniger Extremwerte)
+- In R: `kurtosis(data)` aus dem Paket **moments** oder **e1071**
+
+## Warum Visualisierung auch wichtig ist
+
+![](images/Anscombe's_quartet_3.svg.png)
+
 ## Let's talk about money
 
 ![](images/einkommen.jpeg)
 
 ## Wie könnte man die Einkommensverteilung beschreiben?
 
-![](images/einkommensschichtung.png) \## Im Durchschnitt haben Sie...
+![](images/einkommensschichtung.png) 
+
+
+## Im Durchschnitt haben Sie...
 
 ::::: columns
 ::: {.column width="50%"}
@@ -468,18 +522,6 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 - **Reduktion von Komplexität**: Große Datenmengen werden durch wenige Werte beschreibbar
 - **Kommunikation**: Leichtere Vermittlung von Erkenntnissen an Nicht-Statistiker
 - **Vergleichbarkeit**: Unterschiedliche Datensätze werden vergleichbar
-
-
-
-## Typische Anwendungsfälle
-
-| Kennzahl | Wichtig für... | Beispielanwendung |
-|------------------------|------------------------|------------------------|
-| **Mittelwert** | Durchschnittswerte, Summenbetrachtungen | Durchschnittseinkommen einer Region |
-| **Median** | Typische Werte, robust gegen Ausreißer | Typisches Haushaltseinkommen |
-| **Standardabweichung** | Streuung, Qualitätskontrolle | Produktionsgenauigkeit in der Fertigung |
-| **Quartile/Boxplot** | Verteilungsform, Ausreißererkennung | Identifikation von Ungleichheiten |
-| **Schiefe/Wölbung** | Abweichungen von der Normalverteilung | Risikobewertung im Finanzwesen |
 
 ## Von der Beschreibung zur Inferenz
 
@@ -531,29 +573,15 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ![](images/hadlum.png)
 
-## Warum Visualisierung auch wichtig ist
+## Typische Anwendungsfälle
 
-![](images/Anscombe's_quartet_3.svg.png)
-
-## Formparameter
-
-![](images/3-s2.0-B9780128207178000087-f05-03-9780128207178.jpg)
-
-## Schiefe (Skewness)
-
-- Misst die Asymmetrie einer Verteilung
-- Positive Schiefe: rechtsschiefe Verteilung (längerer "Schwanz" nach rechts)
-- Negative Schiefe: linksschiefe Verteilung (längerer "Schwanz" nach links)
-- Schiefe von 0: symmetrische Verteilung (z.B. Normalverteilung)
-- In R: `skewness(data)` aus dem Paket **moments** oder **e1071**
-
-## Wölbung (Kurtosis)
-
-- Misst die "Spitzheit" bzw. "Flachheit" einer Verteilung
-- Normalverteilung hat eine Kurtosis von 3 (manchmal als Exzess-Kurtosis = 0 dargestellt)
-- Hohe Kurtosis (\>3): spitze Verteilung mit "schweren Enden" (mehr Extremwerte)
-- Niedrige Kurtosis (\<3): flache Verteilung mit "leichten Enden" (weniger Extremwerte)
-- In R: `kurtosis(data)` aus dem Paket **moments** oder **e1071**
+| Kennzahl | Wichtig für... | Beispielanwendung |
+|------------------------|------------------------|------------------------|
+| **Mittelwert** | Durchschnittswerte, Summenbetrachtungen | Durchschnittseinkommen einer Region |
+| **Median** | Typische Werte, robust gegen Ausreißer | Typisches Haushaltseinkommen |
+| **Standardabweichung** | Streuung, Qualitätskontrolle | Produktionsgenauigkeit in der Fertigung |
+| **Quartile/Boxplot** | Verteilungsform, Ausreißererkennung | Identifikation von Ungleichheiten |
+| **Schiefe/Wölbung** | Abweichungen von der Normalverteilung | Risikobewertung im Finanzwesen |
 
 ## Weitere Positionskennwerte: Quantile und Perzentile
 
@@ -1903,7 +1931,7 @@ t.test(würfe, mu = 3.5)
 ## Das statistische Problem
 
 - Ziel: Testen, ob der Mittelwert von Proben vom Sollwert abweicht.
-- Normalformel: \[ \frac{\bar{x} - \mu}{\sigma / \sqrt{n}} \] → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
+- Normalformel: $$\frac{\bar{x} - \mu}{\sigma / \sqrt{n}}$$ → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
 - Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
 - Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
 
@@ -2690,7 +2718,7 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
 
 ## Wie es genau funktioniert
 
-![](images/linear_regression.gif)
+
 
 ------------------------------------------------------------------------
 
@@ -2884,7 +2912,7 @@ $$  \log_{10}(1000) = 3 \quad \text{denn } 10^3 = 1000$$
 
 ## Beispiel:
 
-| Wahrscheinlichkeit (p) | Gegenwahrscheinlichkeit (1 - p) | Verhältnis (Odds) (p : (1 - p)) | Odds (als Zahl) (\frac{p}{1 - p}) | Log-Odds (\log\left(\frac{p}{1 - p}\right)) |
+| Wahrscheinlichkeit (p) | Gegenwahrscheinlichkeit (1 - p) | Verhältnis (Odds) (p : (1 - p)) | | Odds (als Zahl) ($\frac{p}{1-p}$) | Log-Odds ($\log\left(\frac{p}{1-p}\right)$) |
 |---------------|---------------|---------------|---------------|---------------|
 | 0.10 | 0.90 | 1 : 9 | 0.111 | –2.20 |
 | 0.50 | 0.50 | 1 : 1 | 1.000 | 0.00 |
