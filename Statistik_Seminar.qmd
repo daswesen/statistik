@@ -607,27 +607,43 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Streuungsmaße
 
+## Warum sind Streuungsmaße wichtig?
+
+Der Mittelwert allein reicht oft nicht aus:
+
+- Zwei Buchsammlungen, beide Durchschnittsbewertung 3,5 ⭐
+- Sammlung A: fast alle Bücher haben 3 oder 4 Sterne → konsistente Qualität
+- Sammlung B: Hälfte hat 1 Stern, Hälfte hat 5 Sterne → sehr polarisierend
+
+## Streuungsmaße beantworten ...
+
+*Wie unterschiedlich sind die Werte voneinander?*
+
+- Qualitätsbeurteilung: Ist ein Produkt zuverlässig oder unberechenbar?
+- Gruppenvergleiche: Unterscheiden sich zwei Gruppen wirklich?
+- Risikoeinschätzung: Wie stark schwanken Werte um den Erwartungswert?
+
 ## Spannweite (Range)
 
 - Die Spannweite ist der einfachste Streuungsparameter
-- Berechnung: Maximum - Minimum
+- Berechnung: Maximum − Minimum
 - Sehr anfällig für Ausreißer
-- In R: `diff(range(data))` oder `max(data) - min(data)`
+- In R: `` max(`Book-Rating`) - min(`Book-Rating`) ``
 
 ## Interquartilsabstand (IQR)
 
-- Robusteres Streuungsmaß, das Ausreißer besser berücksichtigt
-- Berechnung: 75%-Quartil minus 25%-Quartil (Q3 - Q1)
+- Robusteres Streuungsmaß — Ausreißer haben keinen Einfluss
+- Berechnung: 75%-Quartil minus 25%-Quartil (Q3 − Q1)
 - Enthält die mittleren 50% der Daten
-- In R: `IQR(data)` oder `quantile(data, 0.75) - quantile(data, 0.25)`
+- In R: `` IQR(`Book-Rating`) ``
 
 ## Varianz
 
 - Durchschnittliche quadratische Abweichung vom Mittelwert
 - Berechnung für Grundgesamtheit: $$\sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2$$
 - Berechnung für Stichprobe (korrigierte Varianz): $$s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2$$
-- Einheit: Quadrat der Einheit der Ursprungsdaten
-- In R: `var(data)`
+- Einheit: Quadrat der Einheit der Ursprungsdaten — schwer zu interpretieren
+- In R: `` var(`Book-Rating`) ``
 
 ## Standardabweichung
 
@@ -636,9 +652,9 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Standardabweichung
 
 - Wurzel aus der Varianz: Dieselbe Einheit wie die Ursprungsdaten
-- Berechnung für Grundgesamtheit: $$\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2$$
+- Berechnung für Grundgesamtheit: $$\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2}$$
 - Berechnung für Stichprobe: $$s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}$$
-- In R: `sd(data)`
+- In R: `` sd(`Book-Rating`) ``
 
 ## Interpretation der Standardabweichung im Kontext der Normalverteilung
 
@@ -648,12 +664,18 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Wie macht man das in R?
 
-| Kennzahl | R‑Befehl | Kurzbeschreibung |
-|------------------------|------------------------|------------------------|
-| Spannweite | `diff(range(data))` | Abstand = Max − Min |
-| IQR | `IQR(data)` | Mittlere 50% der Daten |
-| Varianz | `var(data)` | Quadrat der Standardabweichung |
-| Standardabweichung | `sd(data)` | Ø‑Abweichung vom Mittelwert |
+Mit `summarise()` aus dem Tidyverse:
+
+```r
+daten |>
+  summarise(
+    Kennzahl = funktion(variable, na.rm = TRUE)
+  )
+```
+
+→ `na.rm = TRUE` sorgt dafür, dass fehlende Werte ignoriert werden
+
+→ Notebook: vollständiges Beispiel mit dem Bücher-Datensatz
 
 ## Boxplot
 
@@ -678,6 +700,12 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Demo: Boxplot + Violin Plot
 
+→ Notebook
+
+- Wo liegt der Median? Wie groß ist die Box (IQR)?
+- Gibt es Ausreißer?
+- Was verrät die Form des Violin Plots über die Verteilung?
+
 ## Density Plot
 
 - Geglättete Version des Histogramms (Kerndichteschätzung)
@@ -686,15 +714,51 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 - Ideal um mehrere Gruppen zu vergleichen (überlagerte Flächen)
 - In ggplot2: `geom_density()`
 
-## Demo: Density Plot
+## Demo: Density Plot — Old Faithful Geysir
+
+→ Notebook
+
+- Der Mittelwert liegt bei ~71 Minuten — aber kaum ein Ausbruch passiert dann
+- Was verrät die Dichtefunktion, was der Mittelwert verschweigt?
+
+## Demo: Density Plot — Bücher-Datensatz
+
+→ Notebook
+
+- Wie unterscheiden sich die Altersgruppen voneinander?
+- Welche Gruppe bewertet am polarisiertesten?
+
+## Demo: Histogramm der Buchbewertungen
+
+→ Notebook
+
+- Welche Bewertungen kommen am häufigsten vor?
+- Gibt es etwas Auffälliges in der Verteilung?
+
+## Demo: Violin + Boxplot nach Altersgruppe
+
+→ Notebook
+
+- Unterscheiden sich die Altersgruppen in ihrer Streuung?
+- Was zeigt der Violin Plot, was der Boxplot allein verstecken würde?
+
+## Welche Visualisierung wann?
+
+| Visualisierung | Wann verwenden? |
+|----------------|-----------------|
+| Histogramm | Verteilung einer einzelnen Variable erkunden |
+| Density Plot | Verteilung glätten; mehrere Gruppen überlagert vergleichen |
+| Boxplot | Median, Quartile und Ausreißer auf einen Blick; Gruppenvergleich |
+| Violin Plot | Wie Boxplot, aber zeigt zusätzlich die Form der Verteilung |
 
 ## Übungsblock: Bücher-Datensatz
 
-- Berechnen Sie Spannweite, IQR und Standardabweichung der Bewertungen (`Book-Rating`)
-- Wie stark streuen die Bewertungen je nach Altersgruppe der Nutzenden?
-- Erstellen Sie einen Boxplot der Bewertungen
-- Erstellen Sie einen Violin Plot, der Altersgruppen vergleicht
-- Was fällt Ihnen auf?
+1. Berechnen Sie Spannweite, IQR und Standardabweichung der Bewertungen mit `summarise()`
+2. Bilden Sie mit `mutate()` und `cut()` Altersgruppen — streuen die Bewertungen je Gruppe unterschiedlich?
+3. Plotten Sie die Verteilung der Bewertungen als Histogramm
+4. Erstellen Sie einen Violin + Boxplot für den Altersgruppen-Vergleich
+5. Was fällt Ihnen auf? Was überrascht Sie?
+
 
 ## ggplot2: Die Grammatik der Grafik
 

@@ -159,10 +159,151 @@ BX_Users %>%
 # Daten zusammenführen
 
 ```{r}
-BX_Books %>%
+books <- BX_Books %>%
   full_join(BX_Book_Ratings) %>%
   full_join(BX_Users)
 ```
 
 
+# Sitzung 5: Streuungsmaße & Visualisierung
+
+## Streuungsmaße der Buchbewertungen
+
+```{r}
+books |>
+  summarise(
+    Spannweite = max(`Book-Rating`, na.rm = TRUE) - min(`Book-Rating`, na.rm = TRUE),
+    IQR        = IQR(`Book-Rating`, na.rm = TRUE),
+    Varianz    = var(`Book-Rating`, na.rm = TRUE),
+    SD         = sd(`Book-Rating`, na.rm = TRUE)
+  )
+```
+
+## Streuung nach Altersgruppe
+
+```{r}
+books |>
+  filter(!is.na(Age)) |>
+  mutate(Altersgruppe = cut(Age,
+    breaks = c(0, 20, 30, 40, 60, 100),
+    labels = c("bis 20", "21–30", "31–40", "41–60", "über 60"))) |>
+  group_by(Altersgruppe) |>
+  summarise(
+    SD         = sd(`Book-Rating`, na.rm = TRUE),
+    IQR        = IQR(`Book-Rating`, na.rm = TRUE),
+    Mittelwert = mean(`Book-Rating`, na.rm = TRUE)
+  )
+```
+
+## Histogramm der Buchbewertungen
+
+```{r}
+books |>
+  ggplot(aes(x = `Book-Rating`)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
+  labs(title = "Verteilung der Buchbewertungen",
+       x = "Bewertung", y = "Anzahl") +
+  theme_minimal()
+```
+
+## Nur echte Bewertungen (Book-Rating > 0)
+
+```{r}
+books |>
+  filter(`Book-Rating` > 0) |>
+  summarise(
+    Spannweite = max(`Book-Rating`, na.rm = TRUE) - min(`Book-Rating`, na.rm = TRUE),
+    IQR        = IQR(`Book-Rating`, na.rm = TRUE),
+    Varianz    = var(`Book-Rating`, na.rm = TRUE),
+    SD         = sd(`Book-Rating`, na.rm = TRUE)
+  )
+```
+
+```{r}
+books |>
+  filter(`Book-Rating` > 0) |>
+  ggplot(aes(x = `Book-Rating`)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
+  labs(title = "Verteilung der Buchbewertungen",
+       x = "Bewertung", y = "Anzahl") +
+  theme_minimal()
+```
+
+
+## Violin + Boxplot nach Altersgruppe
+
+```{r}
+books |>
+  filter(!is.na(Age)) |>
+  filter(`Book-Rating` > 0) |>
+  mutate(Altersgruppe = cut(Age,
+    breaks = c(0, 20, 30, 40, 60, 100),
+    labels = c("bis 20", "21–30", "31–40", "41–60", "über 60"))) |>
+  ggplot(aes(x = Altersgruppe, y = `Book-Rating`, fill = Altersgruppe)) +
+  geom_violin(alpha = 0.7) +
+  geom_boxplot(width = 0.2, alpha = 0.5) +
+  labs(title = "Bewertungen nach Altersgruppe",
+       x = "Altersgruppe", y = "Bewertung") +
+  theme_minimal()
+```
+
+## Density Plot: Bimodale Verteilung (Old Faithful Geysir)
+
+Der Mittelwert der Wartezeit liegt bei ~71 Minuten — aber schau Dir die Verteilung an:
+
+```{r}
+faithful |>
+  ggplot(aes(x = waiting)) +
+  geom_density(fill = "steelblue", alpha = 0.5) +
+  geom_vline(aes(xintercept = mean(waiting)),
+             color = "red", linetype = "dashed") +
+  labs(title = "Wartezeit zwischen Ausbrüchen — Old Faithful Geysir",
+       subtitle = "Rote Linie: Mittelwert (~71 Min.)",
+       x = "Wartezeit (Minuten)", y = "Dichte") +
+  theme_minimal()
+```
+
+Kaum ein Ausbruch passiert nach ~71 Minuten — es gibt zwei klar getrennte Gruppen. Der Mittelwert ist hier irreführend.
+
+## Density Plot der Buchbewertungen
+
+```{r}
+books |>
+  filter(`Book-Rating` > 0) |>
+  ggplot(aes(x = `Book-Rating`)) +
+  geom_density(fill = "steelblue", alpha = 0.5) +
+  labs(title = "Dichteverteilung der Buchbewertungen",
+       x = "Bewertung", y = "Dichte") +
+  theme_minimal()
+```
+
+## Density Plot: Altersgruppen im Vergleich
+
+```{r}
+books |>
+  filter(Age > 5, Age <= 100, `Book-Rating` > 0) |>
+  mutate(Altersgruppe = cut(Age,
+    breaks = c(5, 20, 30, 40, 60, 100),
+    labels = c("bis 20", "21–30", "31–40", "41–60", "über 60"))) |>
+  ggplot(aes(x = `Book-Rating`, fill = Altersgruppe)) +
+  geom_density(alpha = 0.4) +
+  labs(title = "Bewertungen nach Altersgruppe — Dichteverteilung",
+       x = "Bewertung", y = "Dichte") +
+  theme_minimal()
+```
+
+```{r}
+books |>
+  filter(`Book-Rating` > 0, `Year-Of-Publication` > 1900, `Year-Of-Publication` <= 2004) |>
+  mutate(Bewertung = case_when(
+    `Book-Rating` <= 4  ~ "niedrig (1–4)",
+    `Book-Rating` <= 7  ~ "mittel (5–7)",
+    `Book-Rating` >= 8  ~ "hoch (8–10)"
+  )) |>
+  ggplot(aes(x = `Year-Of-Publication`, fill = Bewertung)) +
+  geom_density(alpha = 0.4) +
+  labs(title = "Erscheinungsjahr nach Bewertungskategorie",
+       x = "Erscheinungsjahr", y = "Dichte") +
+  theme_minimal()
+```
 
