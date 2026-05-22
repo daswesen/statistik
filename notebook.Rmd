@@ -171,6 +171,9 @@ books <- BX_Books %>%
 
 ```{r}
 books |>
+  summarise(Durchschnitt = mean(`Book-Rating`, na.rm = TRUE))
+
+books |>
   summarise(
     Spannweite = max(`Book-Rating`, na.rm = TRUE) - min(`Book-Rating`, na.rm = TRUE),
     IQR        = IQR(`Book-Rating`, na.rm = TRUE),
@@ -178,6 +181,15 @@ books |>
     SD         = sd(`Book-Rating`, na.rm = TRUE)
   )
 ```
+
+```{r}
+cars |>
+  summarise(
+    Durchschnitt = mean(speed),
+    SD = sd(speed)
+  )
+```
+
 
 ## Streuung nach Altersgruppe
 
@@ -235,7 +247,7 @@ books |>
 ```{r}
 books |>
   filter(!is.na(Age)) |>
-  filter(`Book-Rating` > 0) |>
+  #filter(`Book-Rating` > 0) |>
   mutate(Altersgruppe = cut(Age,
     breaks = c(0, 20, 30, 40, 60, 100),
     labels = c("bis 20", "21–30", "31–40", "41–60", "über 60"))) |>
