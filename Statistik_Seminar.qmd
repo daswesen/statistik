@@ -38,21 +38,16 @@ library(tidyverse)
 | 2       | Einführung in R                                 |
 | 3       | Deskriptive Statistik I – Lage- & Streuungsmaße |
 | 4       | Deskriptive Statistik II & Datenmanipulation    |
-| 5       | Datenvisualisierung                             |
-| 6       | Wahrscheinlichkeiten & Verteilungen             |
-| 7       | Inferenzstatistik & t-Test                      |
+| 5       | Streuungsmaße & Visualisierung                  |
+| 6       | Korrelation & Zusammenhangsmaße                 |
+| 7       | Inferenzstatistik light & Likert-Skalen         |
 
 ## Übersicht der Sitzungen (2/2)
 
-| Sitzung | Thema                                  |
-|---------|----------------------------------------|
-| 8       | Chi-Quadrat-Test                       |
-| 9       | Korrelationsanalyse                    |
-| 10      | Regression I – Lineare Regression      |
-| 11      | ANOVA                                  |
-| 12      | Text Mining & Klassifikation           |
-| 13      | Regression II – Logistische Regression |
-| 14      | Abschluss                              |
+| Sitzung | Thema                                          |
+|---------|------------------------------------------------|
+| 8       | Lineare Regression & Visualisierung            |
+| 9+      | Referate (nach Sitzung 8)                      |
 
 ## Erwartungen und Interaktion
 
@@ -793,1100 +788,203 @@ daten |>
 
 ## Demo: ggplot2
 
-# Sitzung 6: Datenvisualisierung
+# Sitzung 6: Korrelation & Zusammenhangsmaße
 
 ## Lernziele dieser Sitzung
 
-- Das richtige Diagramm für eine Fragestellung auswählen
-- Grundprinzipien guter Visualisierung anwenden (Clutter, Highlighting, Storytelling)
-- Diagramme mit ggplot2 erstellen
-- Häufige Fehler bei der Datenvisualisierung vermeiden
+- Korrelation von Kausalität unterscheiden
+- Pearson-, Spearman- und Kendall-Korrelation situationsgerecht einsetzen
+- Korrelationsmatrizen erstellen und interpretieren
+- Typische Fallstricke (Scheinkorrelation, Simpson's Paradoxon) erkennen
 
-## Warum Datenvisualisierung?
+## Was ist eine Korrelation?
 
-The greatest value of a picture is when it forces us to notice what we never expected to see. (John Tukey)
+![](images/1840_bachelors-degrees-awarded-in-library-science_correlates-with_google-searches-for-how-to-hide-a-body.png)
 
-## Warum Datenvisualisierung, Teil 2
+## Was war zuerst da?
 
-![](images/Anscombe's_quartet_3.svg.png)
+![](images/murder.png)
 
-## 5 wichtige Schritte
+## Grundkonzepte der Korrelation
 
-1.  Was ist der Kontext?
-    - An wen wird kommuniziert?
-    - Was soll der Empfänger wissen oder tun?
-    - Welche Daten sind vorhanden, um den Case zu untermauern?
+- **Definition**: Stärke eines Zusammenhangs zwischen Variablen
+- **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkung-Beziehung
 
-## 5 wichtige Schritte
+## Von der Kovarianz zur Korrelation
 
-2.  Welche ist das passendste Visualierung?
-    - Ein oder zwei Zahlen, die im Fokus stehen? =\> Text!
-    - Liniendiagramme für continuous data
-    - Säulendiagramme für kategoriale Daten, müssen bei 0 anfangen
-    - Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
-    - Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
+- **Kovarianz**: Unstandartisiertes Maß für gemeinsame Variation
+  - Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
+- **Pearson-Korrelation**: Standardisierte Kovarianz
+  - Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
+  - Wertebereich: -1 bis +1
 
-## 5 wichtige Schritte
+## Pearson-Korrelation
 
-3.  Entfernen Sie „Clutter"
-    1.  Entfernen Sie alles, das keinen informativen Mehrwert hat (z.B. Farben für die Ästhetik)
-    2.  Arbeiten Sie mit freiem Raum
+- **Voraussetzungen**:
 
-## 5 wichtige Schritte
+  - Lineare Beziehung
+  - Normalverteilung der Variablen (für Hypothesentests)
+  - Keine Ausreißer (starker Einfluss auf r)
 
-4.  Fokussieren Sie die Aufmerksamkeit, wo Sie hin soll
-    - Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
-    - Wohin gehen die Augen?
+- **Interpretation der Stärke**:
 
-## 5 wichtige Schritte
+  - Schwach: \|r\| ≈ 0.1-0.3
+  - Mittel: \|r\| ≈ 0.3-0.5
+  - Stark: \|r\| \> 0.5
 
-::::: columns
-::: {.column width="60%"}
-5.  Nutzen Sie Storytelling
-    - Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
-    - Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
-    - Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
-:::
+- R-Code: `cor.test(daten$x, daten$y)`
 
-::: {.column width="40%"}
-![](images/storytelling.png)
-:::
-:::::
+## Beispiel: Pearson-Korrelation
 
-## Redundant Coding
-
-::::: columns
-::: {.column width="50%"}
-```{r, fig.width=10, fig.height=10, out.width="100%"}
-# Pakete laden
-library(ggplot2)
-
-# Pakete laden
-library(ggplot2)
-
-# Linker Plot (mit Kreisen für alle Arten)
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
-  geom_point(size = 3, alpha = 0.7) +
-  scale_color_manual(values = c("setosa" = "#d8b365", 
-                               "virginica" = "#5ab4ac", 
-                               "versicolor" = "#a6cee3")) +
-  scale_x_continuous(limits = c(4, 8), breaks = seq(4, 8, 1)) +
-  scale_y_continuous(limits = c(2, 4.5), breaks = seq(2, 4.5, 0.5)) +
-  labs(x = "sepal length", y = "sepal width") +
-  theme_bw() +
-  theme(legend.position = "right",
-        legend.title = element_blank(),
-        panel.grid.minor = element_blank(),
-        aspect.ratio = 1) # Macht den Plot quadratisch
-
-# Um den Plot zu speichern mit quadratischen Abmessungen
-# ggsave("iris_plot_left.png", width = 7, height = 7)
-```
-:::
-
-::: {.column width="50%"}
-```{r, fig.width=10, fig.height=10, out.width="100%"}
-# Pakete laden
-library(ggplot2)
-
-# Rechter Plot (mit unterschiedlichen Symbolen für jede Art)
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, 
-                 color = Species, shape = Species)) +
-  geom_point(size = 3, alpha = 0.7) +
-  scale_color_manual(values = c("setosa" = "#a6cee3", 
-                               "virginica" = "#5ab4ac", 
-                               "versicolor" = "#d8b365")) +
-  scale_shape_manual(values = c("setosa" = 16,  # Kreis (gefüllt)
-                               "virginica" = 21, # Kreis (leer)
-                               "versicolor" = 22)) + # Quadrat (leer)
-  scale_x_continuous(limits = c(4, 8), breaks = seq(4, 8, 1)) +
-  scale_y_continuous(limits = c(2, 4.5), breaks = seq(2, 4.5, 0.5)) +
-  labs(x = "sepal length", y = "sepal width") +
-  theme_bw() +
-  theme(legend.position = "right",
-        legend.title = element_blank(),
-        panel.grid.minor = element_blank(),
-        aspect.ratio = 1) # Macht den Plot quadratisch
-
-# Um den Plot zu speichern mit quadratischen Abmessungen
-# ggsave("iris_plot_right.png", width = 7, height = 7)
-```
-:::
-:::::
-
-## Weißer Space ist gut… aber nicht zu viel!
-
-::::: columns
-::: {.column width="50%"}
-```{r}
-# Benötigte Pakete
-library(ggplot2)
-library(dplyr)
-
-# Daten vorbereiten (Titanic-Datensatz)
-# Falls nicht vorhanden: install.packages("titanic")
-library(titanic)
-data("titanic_train")
-
-# Daten aufbereiten
-titanic_data <- titanic_train %>%
-  mutate(
-    Sex = factor(Sex, levels = c("female", "male")),
-    Survived = factor(ifelse(Survived == 1, "survived", "died")),
-    Pclass = factor(Pclass, labels = c("1st", "2nd", "3rd"))
-  ) %>%
-  count(Pclass, Sex, Survived) %>%
-  rename(count = n)
-
-# Linker Plot (komplett ohne Linien, "ugly")
-ggplot(titanic_data, aes(x = Sex, y = count, fill = Sex)) +
-  geom_col() +
-  facet_grid(Pclass ~ Survived) +
-  scale_fill_manual(values = c("female" = "#E69F00", "male" = "#4472C4")) +
-  scale_y_continuous(limits = c(0, 180), breaks = c(0, 50, 100, 150)) +
-  labs(y = "count") +
-  theme(
-    legend.position = "none",
-    panel.spacing = unit(0.5, "mm"),      # Minimaler Abstand zwischen Panels
-    panel.grid.major = element_blank(),   # Keine Hauptgitterlinien
-    panel.grid.minor = element_blank(),   # Keine Nebengitterlinien
-    panel.border = element_blank(),       # Kein Panelrahmen
-    panel.background = element_blank(),   # Kein Panelhintergrund
-    strip.background = element_blank(),   # Kein Hintergrund für Beschriftungen
-    strip.text = element_text(hjust = 0.5, size = 10),
-    axis.line = element_blank(),          # Keine Achsenlinien
-    axis.ticks = element_blank(),         # Keine Achsenmarkierungen
-    axis.title.x = element_blank(),
-    plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "mm")  # Minimaler Außenabstand
-  )
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-# Benötigte Pakete
-library(ggplot2)
-library(dplyr)
-
-# Daten vorbereiten (Titanic-Datensatz)
-# Falls nicht vorhanden: install.packages("titanic")
-library(titanic)
-data("titanic_train")
-
-# Daten aufbereiten
-titanic_data <- titanic_train %>%
-  mutate(
-    Sex = factor(Sex, levels = c("female", "male")),
-    Survived = factor(ifelse(Survived == 1, "survived", "died")),
-    Pclass = factor(Pclass, labels = c("1st", "2nd", "3rd"))
-  ) %>%
-  count(Pclass, Sex, Survived) %>%
-  rename(count = n)
-
-# Rechter Plot (mehr Weißraum, besser lesbar)
-ggplot(titanic_data, aes(x = Sex, y = count, fill = Sex)) +
-  geom_col() +
-  facet_grid(Pclass ~ Survived) +
-  scale_fill_manual(values = c("female" = "#E69F00", "male" = "#4472C4")) +
-  scale_y_continuous(limits = c(0, 180), breaks = c(0, 50, 100, 150)) +
-  labs(y = "count") +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    panel.spacing = unit(5, "mm"),     # Mehr Abstand zwischen Panels
-    panel.background = element_rect(fill = "#F1F1F1", color = NA), # Hellgrauer Hintergrund
-    strip.background = element_rect(fill = "white", color = NA), # Weißer Streifen für Überschriften
-    strip.text = element_text(hjust = 0.5, size = 10),
-    axis.title.x = element_blank(),
-    plot.margin = unit(c(5, 5, 5, 5), "mm")  # Mehr Außenabstand
-  )
-```
-:::
-:::::
-
-## Highlighting
+Hängen Geschwindigkeit und Bremsweg zusammen?
 
 ```{r}
-# Benötigte Pakete laden
-library(nycflights23)
-library(dplyr)
-library(ggplot2)
-
-# Mittlere Ankunftsverspätung pro Fluggesellschaft berechnen
-airline_delays <- flights %>%
-  group_by(carrier) %>%
-  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>%
-  #filter(mean_delay > 0) %>%
-  # Fluggesellschaftsnamen hinzufügen
-  left_join(airlines, by = "carrier") %>%
-  # Nach Verspätung sortieren
-  arrange(mean_delay)
-
-# Einen Vektor für Farben erstellen (alle grau außer ExpressJet, das hervorgehoben wird)
-# ExpressJet hat im Datensatz den Code "EV"
-farben <- ifelse(airline_delays$carrier == "G4", "#B22222", "#AAAAAA")
-
-# Horizontalen Balkenplot erstellen
-ggplot(airline_delays, aes(x = reorder(name, mean_delay), y = mean_delay)) +
-  geom_col(fill = farben) +
-  coord_flip() +  # Für horizontale Balken
-  labs(
-    title = "",
-    x = "",
-    y = "mean arrival delay (min.)"
-  ) +
-  theme_minimal() +
-  theme(
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor.y = element_blank()
-  )
+plot(cars, main = "Geschwindigkeit vs. Bremsweg",
+     xlab = "Geschwindigkeit (mph)", ylab = "Bremsweg (ft)")
 ```
 
-## Wie identifiziert man das richtige Diagramm?
-
-![](images/overview.png)
-
-## Scatter Plot / Streudiagramm
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Beziehung zwischen zwei kontinuierlichen Variablen
-- Jeder Punkt = eine Beobachtung
-- Erkennt Muster, Cluster, Ausreißer und Korrelationen
-- Benötigt numerische X/Y-Achsen
-- Dritte Dimension durch Punktgröße/Farbe möglich
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-set.seed(42)
-scatter_data <- data.frame(
-  x = rnorm(100),
-  y = rnorm(100),
-  gruppe = sample(LETTERS[1:3], 100, replace = TRUE)
-)
-# Korrelation hinzufügen
-scatter_data$y <- scatter_data$y + scatter_data$x - 0.7 + rnorm(100, 0, 0.5)
-ggplot(scatter_data, aes(x = x, y = y, color = gruppe)) +
-  geom_point(size = 3, alpha = 0.7) +
-  scale_color_brewer(palette = "Set1") +
-  theme_minimal() +
-  labs(x = "Variable X", y = "Variable Y", color = "Gruppe")
-```
-:::
-:::::
-
-## Korrelationsmatrix
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Korrelationsstärke zwischen Variablen
-- Farbe/Größe visualisiert Richtung und Stärke
-- Unterscheidet klar positive/negative Korrelationen
-- Identifiziert Muster und redundante Variablen
-- Essentiell für explorative Datenanalyse
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-library(reshape2)
-
-# Direkt eine gültige Korrelationsmatrix erstellen
-set.seed(123)
-vars <- 5
-varNames <- LETTERS[1:vars]
-
-# Simulierte Daten direkt erstellen
-sim_data <- data.frame(
-  A = rnorm(100),
-  B = rnorm(100),
-  C = rnorm(100),
-  D = rnorm(100),
-  E = rnorm(100)
-)
-# Korrelationen hinzufügen
-sim_data$B <- sim_data$B + sim_data$A - 0.7 + rnorm(100, 0, 0.5)
-sim_data$C <- sim_data$C - sim_data$A - 0.4 + rnorm(100, 0, 0.5)
-sim_data$D <- sim_data$D + sim_data$B - 0.6 + rnorm(100, 0, 0.5)
-sim_data$E <- sim_data$E - sim_data$C - 0.5 + sim_data$D - 0.3 + rnorm(100, 0, 0.5)
-
-# Korrelationsmatrix berechnen
-cormat <- round(cor(sim_data), 2)
-melted_cormat <- melt(cormat)
-
-ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
-  geom_tile(color = "white") +
-  scale_fill_gradient2(low = "firebrick", high = "steelblue", mid = "white", 
-                     midpoint = 0, limit = c(-1,1)) +
-  geom_text(aes(label = round(value, 2)), color = "black", size = 3) +
-  theme_minimal() +
-  coord_equal() +
-  labs(fill = "Korrelation")
-```
-:::
-:::::
-
-## Venn-Diagramm
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt gemeinsame und einzigartige Elemente
-- Überschneidungen visualisieren Gemeinsamkeiten
-- Ideal für Vergleich von Kategorien/Merkmalen
-- Funktioniert am besten mit 2-3 Gruppen
-- Wird mit mehr als 5 Gruppen unübersichtlich
-:::
-
-::: {.column width="40%"}
-![](images/relationship_venn_4_3.png)
-:::
-:::::
-
-## UpSet Diagram
-
-::::: columns
-::: {.column width="60%"}
-- Alternative für komplexe Überschneidungen
-- Skalierbarer als klassische Venn-Diagramme
-- Balken visualisieren Überschneidungsgrößen
-- Punkte zeigen beteiligte Mengen
-- Ideal für 4+ Gruppen/komplexe Beziehungen
-:::
-
-::: {.column width="40%"}
-![](images/upset.png)
-:::
-:::::
-
-## Sankey Diagram
-
-::::: columns
-::: {.column width="60%"}
-- Visualisiert Flüsse zwischen Kategorien
-- Pfeilbreite zeigt Volumen/Wert
-- Ideal für Verteilungen und Prozesse
-- Zeigt Herkunft und Ziel von Ressourcen
-- Verdeutlicht Proportionen über mehrere Stufen
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-library(ggalluvial)
-# Sankey/Alluvial Diagramm
-sankey_data <- data.frame(
-  Quelle = rep(c("A", "B", "C"), times = c(3, 2, 2)),
-  Ziel = c("X", "Y", "Z", "X", "Y", "Y", "Z"),
-  Wert = c(5, 3, 2, 2, 3, 1, 4)
-)
-ggplot(sankey_data, aes(axis1 = Quelle, axis2 = Ziel, y = Wert)) +
-  geom_alluvium(aes(fill = Quelle), width = 1/3) +
-  geom_stratum(width = 1/3, fill = "grey80", color = "grey50") +
-  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
-  scale_fill_brewer(palette = "Set1") +
-  theme_minimal() +
-  labs(x = NULL, y = NULL) +
-  theme(legend.position = "none",
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank())
-```
-:::
-:::::
-
-## Horizontal Bar Chart
-
-::::: columns
-::: {.column width="60%"}
-- Vergleicht Werte über Kategorien hinweg
-- Horizontale Anordnung für bessere Lesbarkeit
-- Ideal für lange Namen oder viele Kategorien
-- Perfekt für Rankings und Wertvergleiche
-- Einfach und übersichtlich
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-hbar_data <- data.frame(
-  kategorie = c("Kategorie mit sehr langem Namen A", 
-                "Kategorie B", 
-                "Kategorie C", 
-                "Kategorie D", 
-                "Kategorie E"),
-  wert = c(85, 72, 56, 41, 25)
-)
-ggplot(hbar_data, aes(x = reorder(kategorie, wert), y = wert)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  coord_flip() +
-  theme_minimal() +
-  labs(x = NULL, y = "Wert") +
-  geom_text(aes(label = wert), hjust = -0.2) +
-  ylim(0, max(hbar_data$wert) - 1.15)
-```
-:::
-:::::
-
-## Column Chart
-
-::::: columns
-::: {.column width="60%"}
-- Vergleicht Werte mit vertikalen Balken
-- Ideal für Ranking und Leistungsvergleiche
-- Funktioniert gut mit wenigen, klaren Kategorien
-- Kurze, lesbare Beschriftungen bevorzugen
-- Konsistente Nullbasislinie für faire Vergleiche
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-column_data <- data.frame(
-  kategorie = factor(c("A", "B", "C", "D", "E"), levels = c("A", "B", "C", "D", "E")),
-  wert = c(85, 72, 56, 41, 25)
-)
-ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
-  geom_bar(stat = "identity", width = 0.7) +
-  scale_fill_brewer(palette = "Set2") +
-  theme_minimal() +
-  labs(x = NULL, y = "Wert") +
-  theme(legend.position = "none") +
-  geom_text(aes(label = wert), vjust = -0.5) +
-  ylim(0, max(column_data$wert) - 1.1)
-```
-:::
-:::::
-
-## Vergleich: Horizontal vs. Vertical Bar Charts
-
-| Feature | Horizontal | Vertical |
-|------------------------|------------------------|------------------------|
-| Best for | Long category labels, many items | Time-based or logical progression |
-| Readability | Easier when labels are long | Requires rotation for long labels |
-| Use case | Rankings, survey responses | Trends over time, grouped comparisons |
-| Scan direction | Left to right | Bottom to top |
-| Visual space | Efficient for many categories | Better for fewer, high-impact bars |
-
-## Diverging Bars
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Abweichungen in zwei Richtungen
-- Links/rechts von zentraler Basislinie
-- Ideal für Kontraste (positiv/negativ)
-- Zeigt Gleichgewicht vs. Ungleichgewicht
-- Gut für normalisierte Werte oder Z-Scores
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-diverging_data <- data.frame(
-  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
-  value = c(5, -2, 8, -3, 6, -1, 4, -7)
-)
-ggplot(diverging_data, aes(x = category, y = value, fill = value > 0)) +
-  geom_bar(stat = "identity") +
-  scale_fill_manual(values = c("firebrick", "steelblue"), guide = "none") +
-  coord_flip() +
-  theme_minimal() +
-  labs(y = "Abweichung vom Mittelwert")
-```
-:::
-:::::
-
-## Diverging Lollipop Chart
-
-::::: columns
-::: {.column width="60%"}
-- Elegantere Alternative zu Diverging Bars
-- Nutzt Punkte statt Balken (weniger Tinte)
-- Zeigt Richtung und Magnitude effektiv
-- Ideal wenn genaue Werte sekundär sind
-- Besonders gut für Präsentationen
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-lollipop_data <- data.frame(
-  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
-  value = c(5, -2, 8, -3, 6, -1, 4, -7)
-)
-ggplot(lollipop_data, aes(x = category, y = value, color = value > 0)) +
-  geom_segment(aes(y = 0, x = category, yend = value, xend = category), color = "grey") +
-  geom_point(size = 3) +
-  scale_color_manual(values = c("firebrick", "steelblue"), guide = "none") +
-  coord_flip() +
-  theme_minimal() +
-  labs(y = "Abweichung vom Mittelwert")
-```
-:::
-:::::
-
-## Histogram
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Verteilung numerischer Daten in Bins
-- Balken zeigen Häufigkeiten in Wertebereichen
-- Erkennt Schiefe, Streuung und Ausreißer
-- Zeigt Modi und Clustering in Daten
-- Berührende Balken betonen Kontinuität
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-set.seed(123)
-hist_data <- data.frame(
-  value = c(rnorm(400, mean = 5, sd = 1), rnorm(100, mean = 8, sd = 0.5))
-)
-ggplot(hist_data, aes(x = value)) +
-  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
-  theme_minimal() +
-  labs(y = "Häufigkeit")
-```
-:::
-:::::
-
-## Boxplots
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Minimum, Quartile und Median
-- Kompakte Darstellung von Verteilungen
-- Hebt Streuung und Ausreißer hervor
-- Ideal zum Kategorienvergleich
-- Kann für Laien schwer verständlich sein
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-set.seed(123)
-box_data <- data.frame(
-  category = rep(c("A", "B", "C", "D"), each = 100),
-  value = c(
-    rnorm(100, mean = 5, sd = 1),
-    rnorm(100, mean = 7, sd = 1.5),
-    rnorm(100, mean = 4, sd = 0.8),
-    rnorm(100, mean = 6, sd = 2)
-  )
-)
-ggplot(box_data, aes(x = category, y = value, fill = category)) +
-  geom_boxplot() +
-  scale_fill_brewer(palette = "Set2", guide = "none") +
-  theme_minimal()
-```
-:::
-:::::
-
-## Boxplot mit unseren Verspätungsdaten
-
-```{r}
-# Benötigte Pakete laden
-library(nycflights23)
-library(dplyr)
-library(ggplot2)
-
-# Daten filtern (nur positive Verspätungen) und vorbereiten
-delay_data <- flights %>%
-  left_join(airlines, by = "carrier")  # Fluggesellschaftsnamen hinzufügen
-
-# Reihenfolge der Fluggesellschaften nach Median-Verspätung festlegen
-carrier_order <- delay_data %>%
-  group_by(carrier, name) %>%
-  summarise(median_delay = median(arr_delay, na.rm = TRUE), .groups = "drop") %>%
-  arrange(median_delay)
-
-# Farben definieren (ExpressJet hervorgehoben, Rest grau)
-# (Angenommen, Sie möchten ExpressJet hervorheben, das Code "EV" hat)
-delay_data$color <- ifelse(delay_data$carrier == "G4", "#B22222", "#AAAAAA")
-
-# Boxplot erstellen
-ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name), y = arr_delay)) +
-  geom_boxplot(aes(fill = color), outlier.shape = NA, varwidth = TRUE) +  # outlier.shape = NA entfernt Ausreißer für bessere Lesbarkeit
-  coord_flip() +  # Horizontale Boxplots
-  scale_fill_identity() +  # Verwende die definierten Farben direkt
-  scale_y_continuous(limits = c(-50, 150)) +  # Limitiere y-Achse für bessere Lesbarkeit
-  labs(
-    title = "Verteilung der Ankunftsverspätungen nach Fluggesellschaft",
-    x = "",
-    y = "arrival delay (min.)"
-  ) +
-  theme_minimal() +
-  theme(
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor.y = element_blank()
-  )
-```
-
-## Boxplots mit Violin Plot
-
-::::: columns
-::: {.column width="60%"}
-- Kombiniert Boxplot mit Dichteverteilung
-- Zeigt Form, Streuung und zentrale Tendenz
-- Ideal für Gruppenvergleiche
-- Verdeutlicht Schiefe und Multimodalität
-- Informationsreichere Alternative zum Boxplot
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-set.seed(123)
-violin_data <- data.frame(
-  category = rep(c("A", "B", "C"), each = 100),
-  value = c(
-    c(rnorm(50, 5, 1), rnorm(50, 8, 0.5)),
-    rnorm(100, 7, 1.5),
-    rnorm(100, 6, 0.7)
-  )
-)
-ggplot(violin_data, aes(x = category, y = value, fill = category)) +
-  geom_violin(alpha = 0.7) +
-  geom_boxplot(width = 0.2, fill = "white", alpha = 0.7) +
-  scale_fill_brewer(palette = "Set2", guide = "none") +
-  theme_minimal()
-```
-:::
-:::::
-
-## Choropleth Map
-
-::::: columns
-::: {.column width="60%"}
-- Färbt Regionen basierend auf Datenwerten
-- Zeigt räumliche Muster und Unterschiede
-- Gut für Verhältnisse und Prozentsätze
-- Nutze normalisierte Daten (pro Kopf, %)
-- Vorsicht bei großen Flächenunterschieden
-:::
-
-::: {.column width="40%"}
-![](images/map.png)
-:::
-:::::
-
-## Stacked Area Chart
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Kategorienbeiträge im Zeitverlauf
-- Gestapelte Schichten zeigen Gesamtsumme
-- Gut für Wachstum und Anteile
-- Funktioniert am besten mit wenigen Kategorien
-- Einzelsegmentvergleich schwierig
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-set.seed(42)
-years <- 2010:2020
-area_data <- data.frame(
-  year = rep(years, 4),
-  category = rep(c("A", "B", "C", "D"), each = length(years)),
-  value = c(
-    10:20 + rnorm(11, 0, 1),
-    20:30 - rnorm(11, 0, 1),
-    15:25 + rnorm(11, 0, 2),
-    25:35 + rnorm(11, 0, 1.5)
-  )
-)
-ggplot(area_data, aes(x = year, y = value, fill = category)) +
-  geom_area() +
-  scale_fill_brewer(palette = "Set2") +
-  theme_minimal()
-```
-:::
-:::::
-
-## Stacked 100% Area Chart
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt relative Anteile, nicht absolute Werte
-- Verfolgt Änderungen von Kategorienanteilen
-- Summe immer 100% für leichte Vergleichbarkeit
-- Fokus auf Zusammensetzung, nicht Wachstum
-- Absolute Trends gehen verloren
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-set.seed(42)
-years <- 2010:2020
-area100_data <- data.frame(
-  year = rep(years, 4),
-  category = rep(c("A", "B", "C", "D"), each = length(years)),
-  value = c(
-    10:20 + rnorm(11, 0, 1),
-    20:30 - rnorm(11, 0, 1),
-    15:25 + rnorm(11, 0, 2),
-    25:35 + rnorm(11, 0, 1.5)
-  )
-)
-ggplot(area100_data, aes(x = year, y = value, fill = category)) +
-  geom_area(position = "fill") +
-  scale_y_continuous(labels = scales::percent) +
-  scale_fill_brewer(palette = "Set2") +
-  theme_minimal() +
-  labs(y = "Anteil")
-```
-:::
-:::::
-
-## Stacked 100% Area Chart Beispiel
-
-![](images/earth_overshoot_day.png)
-
-## Waterfall Diagram
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Beiträge zu einer Gesamtsumme
-- Visualisiert Zu- und Abnahmen über Kategorien
-- Hebt schrittweise Veränderungen hervor
-- Ideal für Gewinn- oder Budgetanalysen
-- Zeigt Faktoren für das Endergebnis
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-waterfall_data <- data.frame(
-  stage = factor(c("Start", "Einnahmen", "Kosten", "Steuern", "Ende"), 
-                levels = c("Start", "Einnahmen", "Kosten", "Steuern", "Ende")),
-  value = c(0, 50, -30, -10, 0),
-  end = c(100, 150, 120, 110, 110),
-  start = c(100, 100, 150, 120, 110),
-  type = c("total", "in", "out", "out", "total")
-)
-ggplot(waterfall_data, aes(x = stage, y = value, fill = type)) +
-  geom_rect(aes(x = stage, xmin = as.numeric(stage) - 0.4, 
-                xmax = as.numeric(stage) + 0.4, 
-                ymin = pmin(start, end), ymax = pmax(start, end)), color = "black") +
-  scale_fill_manual(values = c("in" = "steelblue", "out" = "firebrick", "total" = "darkgrey"), 
-                    guide = "none") +
-  theme_minimal() +
-  labs(y = "Wert")
-```
-:::
-:::::
-
-## Heatmap
-
-::::: columns
-::: {.column width="60%"}
-- Nutzt Farbintensität für Matrixwerte
-- Zeigt Muster, Cluster und Anomalien
-- Gut für Korrelationen und Zeitreihen
-- Einfach zu überblicken, weniger präzise
-- Farbskala entscheidend für Interpretation
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-set.seed(42)
-n <- 10
-heatmap_data <- expand.grid(x = 1:n, y = 1:n)
-heatmap_data$value <- matrix(rnorm(n^2), n, n)[cbind(heatmap_data$x, heatmap_data$y)]
-ggplot(heatmap_data, aes(x = x, y = y, fill = value)) +
-  geom_tile() +
-  scale_fill_viridis_c() +
-  theme_minimal() +
-  coord_equal() +
-  labs(x = "", y = "")
-```
-:::
-:::::
-
-## Treemap
-
-::::: columns
-::: {.column width="60%"}
-- Zeigt Teil-Ganzes-Beziehungen mit Rechtecken
-- Größe entspricht dem Wert (Umsatz, Anzahl)
-- Visualisiert Hierarchien und Gruppierungen
-- Gut für Proportionsvergleiche
-- Vorsicht bei zu vielen kleinen Elementen
-:::
-
-::: {.column width="40%"}
-```{r}
-#| echo: false
-#| fig-width: 5
-#| fig-height: 5
-library(ggplot2)
-library(treemapify)
-treemap_data <- data.frame(
-  category = c("A", "B", "C", "D", "E", "F"),
-  subcategory = c("A1", "B1", "C1", "D1", "E1", "F1"),
-  value = c(25, 18, 12, 10, 8, 5)
-)
-ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
-  geom_treemap() +
-  geom_treemap_text(color = "white", fontface = "bold") +
-  scale_fill_brewer(palette = "Set2") +
-  theme_void()
-```
-:::
-:::::
-
-## Treemap
-
-![](images/treemap.png)
-
-## Nein, Sie verwenden bitte keine Pie Charts!
-
-![](images/pie-chart.png)
-
-## Datenvisualisierung mit ggplot2
-
-- Base Plot vs. ggplot2
-- Grammar of Graphics
-- `geom_point()`, `geom_histogram()`, `geom_boxplot()`
-- Ästhetiken: Farbe, Form, Gruppierung
-
-
-# Sitzung 6: Wahrscheinlichkeiten & Verteilungen
-
-## Lernziele dieser Sitzung
-
-- Grundbegriffe der Wahrscheinlichkeitstheorie erklären
-- Diskrete und stetige Verteilungen unterscheiden
-- Die Normalverteilung und ihre Eigenschaften kennen
-- Den Zusammenhang zwischen Verteilungen und Inferenz verstehen
-
-## Organisatorisches
-
-- Die Veranstaltung findet nächste Woche statt!
-- Zu viel los zum Semesterende? Sie können früher abgeben!
-- Bitte bitte bitte beachten Sie die zur Verfügung gestellten Materialien!
-- Nachtrag Stacked Area Charts
-
-## Ihre Aufgabe heute
-
-1.  Notebook ist erstellt (mit der Vorlage)
-2.  Ihre Daten sind importiert
-3.  Forschungsfragen sind ausformuliert im Notebook
-4.  **Erst dann** besprechen wir im 1:1 Ihr weiteres Vorgehen, über dass Sie sich **vorher** Gedanken gemacht haben
-5.  Nur wenn Sie gar nicht weiterkommen (und wirklich alle Materialien gesichtet haben), kommen Sie ohne diese Schritte zum 1:1
-
-## Von der Beschreibung zur Vorhersage
-
-- **Bisherige Sitzungen**: Daten beschreiben, manipulieren, visualisieren
-- **Neuer Schritt**: Von Beschreibung zu Vorhersage und Schlussfolgerung
-- **Schlüsselfrage**: Wie können wir mit Unsicherheit umgehen?
-- **Antwort**: Wahrscheinlichkeitstheorie als mathematisches Fundament
-
-## Warum Wahrscheinlichkeiten für die angewandte Forschung?
-
-- **Stichprobenlogik**\
-  → Wie kann auf eine Grundgesamtheit geschlossen werden, obwohl nur ein Teil beobachtet wurde?
-
-- **Unsicherheit quantifizieren**\
-  → Wie kann die Unsicherheit in empirischen Aussagen formal greifbar gemacht werden?
-
-- **Zufallsvariabilität verstehen**\
-  → Wie unterscheiden sich echte Effekte von zufälligen Schwankungen?
-
-## Warum Wahrscheinlichkeiten für die angewandte Forschung? Teil 2
-
-- **Grundlage für Inferenz**\
-  → Wahrscheinlichkeiten bilden das Fundament für Hypothesentests und Konfidenzintervalle.
-
-- **Bewertung von Evidenz**\
-  → Wie plausibel ist eine Theorie angesichts der beobachteten Daten?
-
-## Praktische Anwendungsbeispiele
-
-- **Medizin**: Ist ein Medikament wirksam oder nur Zufall?
-- **Wirtschaft**: Wie wahrscheinlich ist ein Zahlungsausfall?
-- **Produktentwicklung**: Wie viele Nutzer werden Feature X verwenden?
-- **Marketing**: Welcher von zwei Werbetexten führt zu mehr Conversions?
-- **Qualitätssicherung**: Liegt der Produktionsprozess in kontrollierten Grenzen?
-
-## Einführung in Wahrscheinlichkeiten
-
-### Was ist Zufall?
-
-## Einführung in Wahrscheinlichkeiten
-
-### Was ist Zufall?
-
-- In der Statistik beschreibt „Zufall“ das Eintreten von Ereignissen, deren Ergebnis nicht mit Sicherheit vorhersehbar ist, obwohl alle möglichen Ergebnisse bekannt sind.
-
-- Der Zufall steht nicht für Chaos, sondern für Unsicherheit bei einzelnen Beobachtungen. Bei vielen Wiederholungen entstehen jedoch erkennbare Muster (z. B. 50 % Kopf bei Münzwürfen über viele Versuche).
-
-## Laplace-Wahrscheinlichkeit
-
-Wenn alle Ergebnisse gleich wahrscheinlich sind, kann man die Wahrscheinlichkeit eines Ereignisses berechnen als:
-
-$$P(Ereignis) = \frac{\text{Anzahl günstiger Fälle}}{\text{Anzahl möglicher Fälle}}$$
-
-**Beispiel:** Beim Würfeln ist die Wahrscheinlichkeit, eine 4 zu würfeln: $$\frac{1}{6}$$
-
-## Empirische Wahrscheinlichkeit
-
-Die empirische oder relative Häufigkeit basiert auf Beobachtungen:
-
-$$P(Ereignis) \approx \frac{\text{Anzahl des Eintretens}}{\text{Anzahl der Wiederholungen}}$$
-
-**Beispiel in R:**
+## Beispiel: Pearson-Korrelation
 
 ```{r echo=TRUE}
-set.seed(1234)
-würfe <- sample(1:6, 1000, replace = TRUE)
-mean(würfe == 4)  # Schätzung der Wahrscheinlichkeit für eine 4
+cor.test(cars$speed, cars$dist)
 ```
 
-## Theoretische Wahrscheinlichkeit
+→ r = 0.81, p < 0.001: starker positiver Zusammenhang — plausibel!
 
-- Basierend auf einem **mathematischen Modell**, z. B. einer Verteilung
-- Wird **nicht beobachtet**, sondern **aus Annahmen berechnet**
+## Was ist eine monotone Beziehung?
 
-## Theoretische Wahrscheinlichkeit
+- **Monoton steigend**: Je mehr X, desto mehr Y — aber nicht unbedingt gleichmäßig
+  - Beispiel: Je mehr Bücher jemand liest, desto mehr Empfehlungen gibt er ab
+  - Die Zunahme muss nicht konstant sein — sie geht nur immer in dieselbe Richtung
+- **Monoton fallend**: Je mehr X, desto weniger Y
+  - Beispiel: Je teurer ein Buch, desto seltener wird es ausgeliehen
+- **Nicht monoton**: Die Richtung wechselt irgendwo
+  - Beispiel: Zufriedenheit steigt bis zur Mitte eines Films, dann fällt sie wieder
 
-- Beispiel: Wenn $$X \sim \text{Binomial}(n=10, p=0.3)$$, dann ist:
+→ Spearman funktioniert für alle monotonen Zusammenhänge — Pearson nur für *gerade* Linien
 
-$$ P(X=2) = \binom{10}{2} \cdot 0{,}3^2 \cdot 0{,}7^8 \approx 0{,}2668 $$
+## Alternative Korrelationsmaße
 
-- Die theoretische Wahrscheinlichkeit gibt an, **wie wahrscheinlich ein Ergebnis laut Modell ist**
+- **Spearman-Rangkorrelation**: Für ordinale Daten oder monotone (aber nicht unbedingt lineare) Beziehungen
+  - Idee: Nicht die Werte selbst vergleichen, sondern ihre **Rangplätze** (1., 2., 3., ...)
+  - Robuster gegenüber Ausreißern
+  - R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
 
-→ Sie ist zentral in der Inferenz: **Beobachtungen werden mit der Theorie verglichen**
+## Demo: Spearman-Korrelation — Bücher-Datensatz
 
-## Bedingte Wahrscheinlichkeit
+Buchbewertungen sind ordinal (1–10) — Spearman ist hier besser geeignet als Pearson:
 
-Die bedingte Wahrscheinlichkeit ( P(A\|B) ) beschreibt die Wahrscheinlichkeit für A unter der Bedingung, dass B bereits eingetreten ist.
-
-$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
-
-**Beispiel:** In einer medizinischen Studie haben 20 % der Patienten eine Krankheit (B), und 80 % von diesen zeigen ein Symptom (A). Dann ist:
-
-$$P(A|B) = 0.8$$
-
-## Beispiele von Wahrscheinlichkeiten
-
-| Art | Grundlage | Beispiel |
-|------------------------|------------------------|------------------------|
-| **Klassische (Laplace)** | Symmetrische Ausgangslage | P(4) bei Würfel = 1/6 |
-| **Empirische** | Beobachtete relative Häufigkeit | 234 von 1000 Mails geöffnet → P = 0,234 |
-| **Theoretische** | Abgeleitet aus Verteilungsmodell | P(X = 2) aus Binomial(n=10, p=0.3) |
-| **Bedingte** | P(A\|B): A unter der Bedingung B | P(Fieber \| krank) |
-
-## Von einzelnen Wahrscheinlichkeiten zu Verteilungen
-
-- Eine **Wahrscheinlichkeitsverteilung** beschreibt alle möglichen Ausgänge eines Zufallsexperiments und ihre Wahrscheinlichkeiten.
-
-------------------------------------------------------------------------
-
-## Zwei Typen:
-
-### Diskret (z. B. Würfelwurf)
-
-- Endlich viele mögliche Ergebnisse
-- Jedem Ergebnis wird eine konkrete Wahrscheinlichkeit zugewiesen
-- Beispiel: P(Würfel = 4) = 1/6\
-  → Die **Verteilung** zeigt: Wie wahrscheinlich ist jede Zahl von 1 bis 6?
-
-```{r echo=TRUE}
-barplot(rep(1/6, 6), names.arg = 1:6, col = "skyblue",
-        main ="Diskrete Verteilung: Würfelergebnis", ylab = "Wahrscheinlichkeit")
+```r
+cor.test(books$Age, books$`Book-Rating`, method = "spearman")
 ```
 
-### Stetig (z.B. Körpergröße)
+→ Notebook
 
-- Unendlich viele mögliche Werte (z. B. 172,1 cm, 172,11 cm, …)
-- Einzelwerte haben Wahrscheinlichkeit = 0
-- Stattdessen: Dichtefunktion über Intervalle
-- Beispiel: Wie wahrscheinlich liegt eine Körpergröße zwischen 170 und 175 cm?
+- Hängt das Alter der Lesenden mit der Bewertung zusammen?
+- Wie unterscheidet sich das Ergebnis von Pearson?
+
+## Alternative Korrelationsmaße
+
+- **Kendall's Tau**: Alternative rangbasierte Korrelation
+  - Idee: Vergleiche alle möglichen Paare von Beobachtungen — gehen sie in dieselbe Richtung?
+  - *Konkordant*: Person A liest mehr UND bewertet höher als Person B → passt zusammen ✓
+  - *Diskordant*: Person A liest mehr, bewertet aber niedriger als Person B → widerspricht ✗
+  - Tau = (konkordante − diskordante Paare) / alle Paare
+  - Robuster bei kleinen Stichproben
+  - R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
+
+## Visualisierung: Korrelationsmatrix
 
 ```{r}
-x <- seq(150, 200, by = 0.1)
-y <- dnorm(x, mean = 175, sd = 7)
-plot(x, y, type = "l", col = "darkgreen", lwd = 2,
-     main = "Stetige Verteilung: Körpergröße", ylab = "Dichte", xlab = "Größe in cm")
+# Daten laden
+data(mtcars)
+
+# Korrelation berechnen
+cor_matrix <- cor(mtcars)
+
+# corrplot laden (ggf. vorher installieren)
+library(corrplot)
+
+# Korrelationen visualisieren
+corrplot(cor_matrix, method = "circle")
 ```
 
-## Zufallsvariablen und Verteilungen
+## Fallstricke und Fehlinterpretationen
 
-- **Wichtige diskrete Verteilungen**:
-  - Binomialverteilung (Anzahl Erfolge bei n Versuchen)
-  - Poisson-Verteilung (Anzahl Ereignisse in Zeitintervall)
-- **Wichtige stetige Verteilungen**:
-  - Gleichverteilung (konstante Wahrscheinlichkeitsdichte)
-  - Normalverteilung (Gaußsche Glockenkurve)
+- **Scheinkorrelationen**: Effekt von Drittvariablen
+- **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
+- **Aggregationsprobleme**: Simpson's Paradoxon
+- **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
 
-## Die Normalverteilung im Detail
+## Simpson’s Paradoxon: Studienplatzvergabe
 
-- **Eigenschaften**: Symmetrie, Mittelwert = Median = Modus
-- **Standardnormalverteilung**: Z-Transformation
-- **68-95-99,7 Regel** (Ein-, Zwei-, Dreisigma-Regel)
-- **Praktische Bedeutung**: Warum so viele Phänomene normalverteilt sind
+| Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
+|------------|-------------|------------|--------------|
+| Männer     | 1000        | 600        | 60%          |
+| Frauen     | 1000        | 500        | 50%          |
 
-## Normalverteilung in der Praxis
+## Simpson’s Paradoxon: Studienplatzvergabe
 
-- **Qualitätskontrolle**: Sind Abweichungen noch innerhalb der Spezifikation?
-- **Medizinische Grenzwerte**: Was ist "normal" bei Laborwerten?
-- **Notenverteilung**: Bewusster Umgang mit der Gauß'schen Glockenkurve
-- **Messfehler**: Warum kleine Abweichungen wahrscheinlicher sind als große
+| Fach                   | Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
+|------------------------|------------|-------------|------------|--------------|
+| **Fach A (leicht)**    | Männer     | 800         | 560        | 70%          |
+|                        | Frauen     | 200         | 180        | 90%          |
+| **Fach B (schwierig)** | Männer     | 200         | 40         | 20%          |
+|                        | Frauen     | 800         | 320        | 40%          |
 
-## Aufgabe
+## Fallbeispiel: Kriminalität in NYC
 
-- Welche Verteilungen erwarten Sie in Ihren Forschungsfragen?
-- Welche Wahrscheinlichkeiten erwarten Sie?
+![](images/Giuliani_crime_rate.png)
+
+## Wurden die Verbrecher erst gar nicht geboren?
+
+![](images/baby_pill.png)
+
+## War es das Blei im Benzin?
+
+![](images/blog_lead_crime_main_chart.png)
+
+## Was war es denn nun?
+
+![](images/change_my_mind.png)
+
+## Inter-Rater Reliability
+
+- **Definition**: Konsistenz zwischen verschiedenen Beurteilern
+
+- **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
+
+- **Maße für kategoriale Daten**:
+
+  - Cohen's Kappa (zwei Rater)
+  - Fleiss' Kappa (mehr als zwei Rater)
+
+- **Maße für kontinuierliche Daten**:
+
+  - Intraclass Correlation Coefficient (ICC)
+
+## Visualisierung: Violinen-Diagramm
+
+![](images/spinaliom-vergleich-therapie.png)
+
+## Wann nutze ich eigentlich was?
+
+![](images/entscheidungsbaum.png)
 
 
-# Sitzung 7: Einführung in die Inferenzstatistik
+
+## Übungsblock: Bücher-Datensatz
+
+1. Erstellen Sie einen Scatter Plot: Alter (`Age`) vs. Bewertung (`Book-Rating`)
+2. Berechnen Sie die Korrelation: `cor.test(books$Age, books$\`Book-Rating\`)`
+3. Versuchen Sie Spearman-Korrelation - unterscheidet sich das Ergebnis?
+4. Was fällt Ihnen auf? Wie würden Sie das Ergebnis interpretieren?
+
+→ Notebook
+
+
+# Sitzung 7: Inferenzstatistik & Hypothesentests
+
 
 ## Lernziele dieser Sitzung
 
@@ -2160,604 +1258,68 @@ t = 3.45, p = 0.001 → "Signifikant!"
 | p \< 0.05 | d \< 0.2  | ❌ **"Signifikant trivial"** |
 
 
-# Sitzung 8: Chi-Quadrat-Test für Häufigkeiten
 
-## Lernziele dieser Sitzung
+## Exkurs: Likert-Skalen
 
-- Den Chi-Quadrat-Test für kategoriale Daten anwenden
-- Anpassungstest und Unabhängigkeitstest unterscheiden
-- Residuen und Effektstärken (Cramér's V) berechnen und interpretieren
-- Voraussetzungen prüfen und Alternativen kennen (Fisher's Exakter Test)
+- **Definition**: Ordinale Skala mit typisch 5–7 Stufen
+  - Beispiel: "Stimme gar nicht zu" (1) bis "Stimme völlig zu" (5)
+- **Sehr häufig** in Umfragen und der Forschung — auch in der Bibliothekswissenschaft
+- **Zentrale Frage**: Darf man den Mittelwert bilden?
 
-------------------------------------------------------------------------
+## Exkurs: Likert — Mittelwert oder Median?
 
-## Rückblick: Von t-Tests zu kategorialen Daten
+| Ansatz | Argument | Wann? |
+|--------|----------|-------|
+| Mittelwert | Praktisch, weit verbreitet, erlaubt t-Test | Bei mindestens 5 Stufen, annähernd symmetrisch |
+| Median | Korrekt für ordinale Daten | Wenn Verteilung schief, kleine Stichproben |
+| Strikt ordinal | Theoretisch sauber | Wenn man auf Nummer sicher gehen will |
 
-- **Letzte Woche**: t-Tests für kontinuierliche Daten (Mittelwerte)
-- **Heute**: Tests für kategoriale Daten (Häufigkeiten)
-- **Verbindung**: Beide testen Hypothesen, aber mit verschiedenen Datentypen
-- **Beispiel**: Statt "Ist der mittlere Würfelwert 3.5?" → "Sind alle Würfelseiten gleich häufig?"
+→ In der Praxis: Mittelwert ist akzeptiert, wenn explizit begründet
 
-------------------------------------------------------------------------
+## Exkurs: Likert in R
 
-## Würfel-Motivation: Ein praktisches Problem
+```r
+# Häufigkeiten visualisieren
+tabelle |>
+  ggplot(aes(x = antwort)) +
+  geom_bar(fill = "steelblue") +
+  theme_minimal()
 
-**Situation**: Ein Freund behauptet, sein Würfel sei fair
+# Wenn Mittelwert gewählt:
+mean(umfrage$zufriedenheit, na.rm = TRUE)
+```
 
-**Daten sammeln**: 60 Würfe
+→ Wichtiger als die Wahl: konsequent sein und begründen!
 
-- 1er: 8 mal
-- 2er: 12 mal
-- 3er: 9 mal
-- 4er: 11 mal
-- 5er: 10 mal
-- 6er: 10 mal
+## Exkurs: Chi-Quadrat-Test
 
-## Würfel-Motivation: Ein praktisches Problem
+- **Wann?** Wenn beide Variablen kategorial sind (z.B. Geschlecht × Studienfach)
+- **Frage:** Sind zwei kategoriale Variablen voneinander unabhängig?
+- **Idee:** Vergleiche, wie oft etwas *beobachtet* wurde vs. wie oft man es *erwarten* würde, wenn es keinen Zusammenhang gibt
 
-**Fragen**:
+$$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
-- Ist dieser Würfel fair?
+→ Große Abweichung zwischen beobachtet (O) und erwartet (E) → großes χ² → Hinweis auf Zusammenhang
 
-- Wie können wir das statistisch testen?
+## Exkurs: Chi-Quadrat-Test in R
 
-- Was erwarten wir bei einem fairen Würfel?
-
-**Bei fairem Würfel**: Jede Zahl sollte etwa 10 mal fallen (60 ÷ 6 = 10)
-
-------------------------------------------------------------------------
-
-## Einführung in kategoriale Datenanalyse
-
-- **Charakteristika kategorialer Daten**:
-  - Nominal (Geschlecht, Farben, Würfelzahlen)
-  - Ordinal (Schulnoten, Zufriedenheitsskalen)
-- **Häufigkeitstabellen**: Absolute und relative Häufigkeiten
-- **Kontingenztabellen**: Darstellung von Zusammenhängen zwischen kategorialen Variablen
-
-```{r}
-# Beispiel: Würfeldaten einlesen
-würfel_daten <- c(rep(1, 8), rep(2, 12), rep(3, 9), 
-                  rep(4, 11), rep(5, 10), rep(6, 10))
-
+```r
 # Häufigkeitstabelle erstellen
-table(würfel_daten)
+tabelle <- table(daten$variable1, daten$variable2)
+
+# Chi-Quadrat-Test durchführen
+chisq.test(tabelle)
 ```
 
-------------------------------------------------------------------------
+- p < 0.05 → Die Verteilung ist nicht zufällig — es gibt einen Zusammenhang
+- Effektstärke: Cramér's V (0 = kein Effekt, 1 = perfekter Zusammenhang)
+- **Voraussetzung:** Erwartete Häufigkeiten in jeder Zelle ≥ 5
 
-## Der Chi-Quadrat-Test: Grundprinzip
+→ Notebook
 
-- **Kernidee**: Vergleich beobachteter und erwarteter Häufigkeiten
-- **Formel**: $\chi^2 = \sum \frac{(O - E)^2}{E}$
-  - O: beobachtete Häufigkeit (observed)
-  - E: erwartete Häufigkeit (expected)
-- **Logik**: Große Abweichungen → große χ²-Werte → Hinweis auf Unterschied
 
-------------------------------------------------------------------------
+# Sitzung 8: Lineare Regression & Visualisierung für Kommunikation
 
-```{r}
-# Beobachtete Häufigkeiten
-beobachtet <- c(8, 12, 9, 11, 10, 10)
-names(beobachtet) <- 1:6
-
-# Erwartete Häufigkeiten (fairer Würfel)
-erwartet <- rep(60/6, 6)  # 10 für jede Seite
-
-# Chi-Quadrat-Wert manuell berechnen
-chi_quadrat <- sum((beobachtet - erwartet)^2 / erwartet)
-```
-
-------------------------------------------------------------------------
-
-## Visualisierung: Beobachtet vs Erwartet
-
-```{r}
-# Vergleichsplot erstellen
-barplot(rbind(beobachtet, erwartet), 
-        beside = TRUE, 
-        names.arg = 1:6,
-        legend.text = c("Beobachtet", "Erwartet"),
-        col = c("lightblue", "salmon"),
-        main = "Würfelergebnisse: Beobachtet vs Erwartet",
-        xlab = "Würfelzahl", ylab = "Häufigkeit")
-```
-
-------------------------------------------------------------------------
-
-## Chi-Quadrat-Test in R durchführen
-
-```{r echo=TRUE}
-# Automatischer Chi-Quadrat-Test
-chi_test <- chisq.test(beobachtet)
-
-# Kompakte Ausgabe
-cat("χ² =", chi_test$statistic, 
-    "| df =", chi_test$parameter, 
-    "| p =", round(chi_test$p.value, 4))
-```
-
-------------------------------------------------------------------------
-
-## Freiheitsgrade verstehen
-
-- **Formel für Anpassungstest**: df = Kategorien - 1 = 6 - 1 = 5
-- **Warum -1?**: Wenn 5 Häufigkeiten festgelegt sind, ist die 6. automatisch bestimmt
-- **Einfluss auf kritische Werte**: Mehr Freiheitsgrade → höhere kritische Werte
-
-------------------------------------------------------------------------
-
-## Freiheitsgrade verstehen
-
-```{r echo=TRUE}
-# Kritische Werte anzeigen
-qchisq(0.95, df = 5)  # 95%-Quantil
-qchisq(0.99, df = 5)  # 99%-Quantil
-```
-
-------------------------------------------------------------------------
-
-## Arten von Chi-Quadrat-Tests
-
-### 1. Anpassungstest (Goodness-of-Fit)
-
-- **Zweck**: Vergleich mit theoretischer Verteilung
-- **Beispiel**: Ist unser Würfel fair?
-- **H₀**: Alle Würfelseiten sind gleich wahrscheinlich
-- **H₁**: Mindestens eine Seite weicht ab
-
-## Unser Würfeltest
-
-```{r echo=TRUE}
-
-chisq.test(beobachtet, p = rep(1/6, 6))
-```
-
-------------------------------------------------------------------------
-
-## Arten von Chi-Quadrat-Tests
-
-### 2. Unabhängigkeitstest
-
-- **Zweck**: Zusammenhang zwischen zwei kategorialen Variablen
-- **Beispiel**: Hängt die Würfelzahl vom Werfer ab?
-
-```{r}
-# Simulierte Daten: Zwei Personen würfeln
-set.seed(123)
-person_a <- sample(1:6, 30, replace = TRUE)
-person_b <- sample(1:6, 30, replace = TRUE, 
-                   prob = c(0.1, 0.1, 0.2, 0.2, 0.2, 0.2))
-
-# Kontingenztabelle erstellen
-kontingenztab <- table(
-  Person = rep(c("A", "B"), each = 30),
-  Würfelzahl = c(person_a, person_b)
-)
-print(kontingenztab)
-```
-
-------------------------------------------------------------------------
-
-## Unabhängigkeitstest durchführen
-
-```{r}
-# Chi-Quadrat-Test für Unabhängigkeit
-chi_unabhängigkeit <- chisq.test(kontingenztab)
-print(chi_unabhängigkeit)
-```
-
-------------------------------------------------------------------------
-
-## Arten von Chi-Quadrat-Tests
-
-### 3. Homogenitätstest
-
-- **Zweck**: Vergleich von Verteilungen in verschiedenen Gruppen
-- **Beispiel**: Haben drei verschiedene Würfel die gleiche Verteilung?
-
-------------------------------------------------------------------------
-
-## Voraussetzungen des Chi-Quadrat-Tests
-
-1.  **Unabhängigkeit der Beobachtungen**
-    - Jeder Würfelwurf unabhängig
-    - Keine wiederholten Messungen derselben Person
-
-## Voraussetzungen des Chi-Quadrat-Tests
-
-2.  **Erwartete Häufigkeiten ≥ 5**
-    - In jeder Zelle der Tabelle
-    - Bei Verletzung: Kategorien zusammenfassen oder andere Tests
-
-------------------------------------------------------------------------
-
-## Alternativen bei kleinen Stichproben: Fisher's Exakter Test
-
-- **Wann**: Erwartete Häufigkeiten \< 5 in 2×2-Tabellen
-- **Vorteil**: Exakte p-Werte, keine Approximation
-
-------------------------------------------------------------------------
-
-## Visualisierung kategorialer Daten
-
-```{r}
-# Gruppierte Balkendiagramme
-barplot(kontingenztab, beside = TRUE, 
-        legend.text = TRUE, 
-        col = c("lightblue", "salmon"),
-        main = "Würfelergebnisse nach Person",
-        xlab = "Würfelzahl", ylab = "Häufigkeit")
-```
-
-------------------------------------------------------------------------
-
-## Mosaikplots
-
-```{r}
-# Mosaikplot erstellen
-library(vcd)
-mosaic(kontingenztab, shade = TRUE, 
-       legend = TRUE, 
-       main = "Zusammenhang: Person und Würfelergebnis")
-```
-
-------------------------------------------------------------------------
-
-## Praktische Anwendungsbeispiele
-
-### Marktforschung
-
-- **Frage**: Bevorzugen verschiedene Altersgruppen unterschiedliche Produktfarben?
-- **Test**: Unabhängigkeitstest (Alter × Farbpräferenz)
-
-### Medizin
-
-- **Frage**: Ist ein neues Medikament wirksam?
-- **Test**: Unabhängigkeitstest (Behandlung × Heilung)
-
-------------------------------------------------------------------------
-
-## Praktische Anwendungsbeispiele
-
-### Qualitätskontrolle
-
-- **Frage**: Produziert eine Maschine gleichmäßig?
-- **Test**: Anpassungstest (beobachtete vs erwartete Produktverteilung)
-
-------------------------------------------------------------------------
-
-## TEIL 2: Vertiefung - Residuenanalyse und Effektstärken
-
-**Problem der bisherigen Analyse:**
-
-- Chi-Quadrat-Test sagt nur "es gibt einen Unterschied"
-- **Aber nicht:** Wo? Wie stark? Praktisch relevant?
-
-**Lösung:**
-
-- **Residuenanalyse**: Wo sind die Unterschiede?
-- **Effektstärken**: Wie stark sind sie?
-
-------------------------------------------------------------------------
-
-## Residuenanalyse: Die Grundlagen
-
-**Das Problem:** Chi-Quadrat-Test sagt nur "es gibt einen Unterschied"
-
-**Die Lösung:** Residuen zeigen **wo** die Unterschiede liegen
-
-**Was sind Residuen?**
-
-- **Residuen**: $r = O - E$ (Beobachtet - Erwartet)
-- **Problem der Residuen**: Schwer zu interpretieren (ist +3 viel oder wenig?)
-- **Lösung**: Standardisierte Residuen - vergleichbar zwischen verschiedenen Zellen
-
-------------------------------------------------------------------------
-
-## Von Residuen zu standardisierten Residuen
-
-::::: columns
-::: {.column width="50%"}
-**Rohresiduen-Problem:**
-
-- Zelle A: +3 (von erwartet 10)
-- Zelle B: +3 (von erwartet 100)
-- Gleiche Abweichung, aber sehr unterschiedliche Bedeutung!
-:::
-
-::: {.column width="50%"}
-**Standardisierte Residuen:** $sr = \frac{O - E}{\sqrt{E}}$
-
-- Berücksichtigen die "natürliche" Schwankung
-- Werden vergleichbar zwischen Zellen
-- Größere erwartete Werte → größere natürliche Schwankung
-:::
-:::::
-
-------------------------------------------------------------------------
-
-## Standardisierte Residuen verstehen
-
-**Intuitive Interpretation:**
-
-- **sr = 0**: Genau wie erwartet
-- **sr = +1**: Ein bisschen mehr als erwartet
-- **sr = +2**: Deutlich mehr als erwartet
-- **sr = +3**: Sehr viel mehr als erwartet
-
-## Standardisierte Residuen verstehen
-
-**Interpretationsrichtlinien:**
-
-- $|sr| < 2$: Noch im normalen Bereich der Zufallsschwankung
-- $|sr| > 2$: Ungewöhnlich - vermutlich nicht nur Zufall
-- $|sr| > 3$: Sehr ungewöhnlich - fast sicher nicht nur Zufall
-
-**Vorzeichen:**
-
-- **Positiv (+)**: Mehr als erwartet
-- **Negativ (-)**: Weniger als erwartet
-
-------------------------------------------------------------------------
-
-## Das Problem mit p-Werten
-
-::::: columns
-::: {.column width="50%"}
-**p-Wert beantwortet nur:**
-
-- Gibt es einen Effekt?" (Ja/Nein)
-- Wird bei großen Stichproben fast immer signifikant
-
-**p-Wert sagt NICHT:**
-
-- Wie stark ist der Effekt?
-- Ist der Effekt praktisch relevant?
-:::
-
-::: {.column width="50%"}
-**Beispiel Problem:**
-
-- 10.000 Personen
-- Winziger, praktisch irrelevanter Unterschied
-- Trotzdem p \< 0.001
-- **Ohne Effektstärke:** Fehlinterpretation!
-:::
-:::::
-
-------------------------------------------------------------------------
-
-## Effektstärken: Die Lösung
-
-**Cramér's V** - Die wichtigste Effektstärke für Chi-Quadrat-Tests
-
-**Formel:** $$V = \sqrt{\frac{\chi^2}{n \times (\min(r,c) - 1)}}$$
-
-Wo:
-
-- n = Gesamtstichprobengröße
-- r = Anzahl Zeilen
-- c = Anzahl Spalten
-
-------------------------------------------------------------------------
-
-## Cramér's V interpretieren
-
-::::: columns
-::: {.column width="50%"}
-**Interpretationsrichtlinien:**
-
-- **0.00 - 0.10**: Vernachlässigbarer Effekt
-- **0.10 - 0.30**: Kleiner Effekt
-- **0.30 - 0.50**: Mittlerer Effekt
-- **0.50+**: Großer Effekt
-:::
-
-::: {.column width="50%"}
-**Wichtig:**
-
-- Unabhängig von Stichprobengröße
-- Vergleichbar zwischen Studien
-- Standardisiert zwischen 0 und 1
-:::
-:::::
-
-------------------------------------------------------------------------
-
-## Weitere Effektstärken für 2×2-Tabellen
-
-### Phi-Koeffizient (φ)
-
-**Nur für 2×2-Tabellen:** φ = √(χ² / n)
-
-### Odds Ratio (OR)
-
-**Interpretation:** Um wie viel mal wahrscheinlicher ist ein Ereignis in Gruppe A vs. B?
-
-------------------------------------------------------------------------
-
-## APA-konformes Berichten
-
-**Vollständiger Bericht:**
-
-*"Ein Chi-Quadrat-Unabhängigkeitstest zeigte einen signifikanten Zusammenhang zwischen Geschlecht und Studienfachwahl, χ²(2) = 8.24, p = .016, Cramér's V = .23. Die Residuenanalyse ergab, dass Männer in den Sozialwissenschaften überrepräsentiert waren (sr = 2.68), während Frauen in MINT-Fächern häufiger vertreten waren als erwartet (sr = 1.58)."*
-
-------------------------------------------------------------------------
-
-## Häufige Fehler vermeiden
-
-### ❌ Falsche Annahmen:
-
-- Kontinuierliche Daten kategorisieren nur für Chi-Quadrat-Test
-- "Großes χ² bedeutet automatisch wichtigen Effekt"
-- "Signifikanz = praktische Bedeutsamkeit"
-- Erwartete Häufigkeiten \< 5 ignorieren
-
-## Häufige Fehler vermeiden
-
-### ✅ Richtige Interpretation:
-
-- **Signifikanz UND Effektstärke** zusammen betrachten
-- Angemessene Teststärke durch ausreichende Stichproben
-- Voraussetzungen prüfen
-- **Residuen für detaillierte Analyse nutzen**
-
-## Nicht immer ist es ein Chi Square-Test
-
-"The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections \[...\]. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval \[CI\], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P\<0.001)."
-
-
-# Sitzung 9: Korrelationsanalyse
-
-## Lernziele dieser Sitzung
-
-- Korrelation von Kausalität unterscheiden
-- Pearson-, Spearman- und Kendall-Korrelation situationsgerecht einsetzen
-- Korrelationsmatrizen erstellen und interpretieren
-- Typische Fallstricke (Scheinkorrelation, Simpson's Paradoxon) erkennen
-
-## Was ist eine Korrelation?
-
-![](images/1840_bachelors-degrees-awarded-in-library-science_correlates-with_google-searches-for-how-to-hide-a-body.png)
-
-## Was war zuerst da?
-
-![](images/murder.png)
-
-## Grundkonzepte der Korrelation
-
-- **Definition**: Stärke eines Zusammenhangs zwischen Variablen
-- **Unterschied zu Kausalität**: Korrelation impliziert keine Ursache-Wirkung-Beziehung
-
-## Von der Kovarianz zur Korrelation
-
-- **Kovarianz**: Unstandartisiertes Maß für gemeinsame Variation
-  - Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
-- **Pearson-Korrelation**: Standardisierte Kovarianz
-  - Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
-  - Wertebereich: -1 bis +1
-
-## Pearson-Korrelation
-
-- **Voraussetzungen**:
-
-  - Lineare Beziehung
-  - Normalverteilung der Variablen (für Hypothesentests)
-  - Keine Ausreißer (starker Einfluss auf r)
-
-- **Interpretation der Stärke**:
-
-  - Schwach: \|r\| ≈ 0.1-0.3
-  - Mittel: \|r\| ≈ 0.3-0.5
-  - Stark: \|r\| \> 0.5
-
-- R-Code: `cor.test(daten$x, daten$y)`
-
-## Visualisierung: Streudiagramm
-
-```{r}
-plot(cars)
-```
-
-## Durchführung in R
-
-![](images/pearson.png)
-
-## Alternative Korrelationsmaße
-
-- **Spearman-Rangkorrelation**: Für ordinale Daten oder nicht-lineare monotone Beziehungen
-  - Formel: Pearson-Korrelation der rangtransformierten Daten
-  - Robuster gegenüber Ausreißern
-  - R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
-
-## Alternative Korrelationsmaße
-
-- **Kendall's Tau**: Alternative rangbasierte Korrelation
-  - Basiert auf konkordanten vs. diskordanten Paaren
-  - Robuster bei kleinen Stichproben
-  - R-Code: `cor.test(daten$x, daten$y, method = "kendall")`
-
-## Visualisierung: Korrelationsmatrix
-
-```{r}
-# Daten laden
-data(mtcars)
-
-# Korrelation berechnen
-cor_matrix <- cor(mtcars)
-
-# corrplot laden (ggf. vorher installieren)
-library(corrplot)
-
-# Korrelationen visualisieren
-corrplot(cor_matrix, method = "circle")
-```
-
-## Fallstricke und Fehlinterpretationen
-
-- **Scheinkorrelationen**: Effekt von Drittvariablen
-- **Nichtlineare Beziehungen**: Wenn r = 0 trotz starkem Zusammenhang
-- **Aggregationsprobleme**: Simpson's Paradoxon
-- **Extremwerte und Ausreißer**: Starker Einfluss auf die Korrelation
-
-## Simpson’s Paradoxon: Studienplatzvergabe
-
-| Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
-|------------|-------------|------------|--------------|
-| Männer     | 1000        | 600        | 60%          |
-| Frauen     | 1000        | 500        | 50%          |
-
-## Simpson’s Paradoxon: Studienplatzvergabe
-
-| Fach                   | Geschlecht | Bewerbungen | Zugelassen | Annahmequote |
-|------------------------|------------|-------------|------------|--------------|
-| **Fach A (leicht)**    | Männer     | 800         | 560        | 70%          |
-|                        | Frauen     | 200         | 180        | 90%          |
-| **Fach B (schwierig)** | Männer     | 200         | 40         | 20%          |
-|                        | Frauen     | 800         | 320        | 40%          |
-
-## Fallbeispiel: Kriminalität in NYC
-
-![](images/Giuliani_crime_rate.png)
-
-## Wurden die Verbrecher erst gar nicht geboren?
-
-![](images/baby_pill.png)
-
-## War es das Blei im Benzin?
-
-![](images/blog_lead_crime_main_chart.png)
-
-## Was war es denn nun?
-
-![](images/change_my_mind.png)
-
-## Inter-Rater Reliability
-
-- **Definition**: Konsistenz zwischen verschiedenen Beurteilern
-
-- **Anwendungsbereiche**: Subjektive Bewertungen, medizinische Diagnosen, Content-Analysen
-
-- **Maße für kategoriale Daten**:
-
-  - Cohen's Kappa (zwei Rater)
-  - Fleiss' Kappa (mehr als zwei Rater)
-
-- **Maße für kontinuierliche Daten**:
-
-  - Intraclass Correlation Coefficient (ICC)
-
-## Visualisierung: Violinen-Diagramm
-
-![](images/spinaliom-vergleich-therapie.png)
-
-## Wann nutze ich eigentlich was?
-
-![](images/entscheidungsbaum.png)
-
-
-# Sitzung 10: Regression I – Lineare Regression
 
 ## Lernziele dieser Sitzung
 
@@ -2963,1046 +1525,768 @@ s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5,
 
 ------------------------------------------------------------------------
 
-# Sitzung 13: Regression II – Logistische Regression
 
-## Lernziele dieser Sitzung
+## Datenvisualisierung: Lernziele
 
-- Das Konzept der Log-Odds und der Logit-Transformation erklären
-- Eine logistische Regression in R schätzen und interpretieren
-- Odds Ratios berechnen und kommunizieren
-- Die S-Kurve und ihre Bedeutung verstehen
-- Lineare und logistische Regression gegenüberstellen
+- Das richtige Diagramm für eine Fragestellung auswählen
+- Grundprinzipien guter Visualisierung anwenden (Clutter, Highlighting, Storytelling)
+- Diagramme mit ggplot2 erstellen
+- Häufige Fehler bei der Datenvisualisierung vermeiden
 
-------------------------------------------------------------------------
+## Warum Datenvisualisierung?
 
-## Jetzt wird's binär: Logistische Regression
+The greatest value of a picture is when it forces us to notice what we never expected to see. (John Tukey)
 
-Frage: Stirbt ein Titanic-Passagier oder nicht? Und welche Faktoren führen dazu?
+## Warum Datenvisualisierung, Teil 2
 
-## Was sind Log-Odds?
+![](images/Anscombe's_quartet_3.svg.png)
 
-In der logistischen Regression wird **nicht direkt die Wahrscheinlichkeit** geschätzt, sondern:
+## 5 wichtige Schritte
 
-$$\log\left(\frac{p}{1 - p}\right)$$
+1.  Was ist der Kontext?
+    - An wen wird kommuniziert?
+    - Was soll der Empfänger wissen oder tun?
+    - Welche Daten sind vorhanden, um den Case zu untermauern?
 
-Das ist der sogenannte **Logit** – also der **logarithmierte Quotient der Wahrscheinlichkeit und ihrer Gegenwahrscheinlichkeit**.
+## 5 wichtige Schritte
 
---
+2.  Welche ist das passendste Visualierung?
+    - Ein oder zwei Zahlen, die im Fokus stehen? =\> Text!
+    - Liniendiagramme für continuous data
+    - Säulendiagramme für kategoriale Daten, müssen bei 0 anfangen
+    - Die Beziehungen der Daten untereinander bestimmen die Visualisierung, sofern Sie mehr als eine Variable haben
+    - Vermeiden Sie Tortendiagramme, Donuts, 3D, zweite Y-Achsen
 
-## Was ist ein Logarithmus?
+## 5 wichtige Schritte
 
-- Der **Logarithmus** ist die Umkehrung der Potenzierung:
+3.  Entfernen Sie „Clutter"
+    1.  Entfernen Sie alles, das keinen informativen Mehrwert hat (z.B. Farben für die Ästhetik)
+    2.  Arbeiten Sie mit freiem Raum
 
-$$  \log_{10}(1000) = 3 \quad \text{denn } 10^3 = 1000$$
+## 5 wichtige Schritte
 
-------------------------------------------------------------------------
+4.  Fokussieren Sie die Aufmerksamkeit, wo Sie hin soll
+    - Größe, Position und, ja, manchmal auch Farbe nutzen um zu signalisieren, was wichtig ist
+    - Wohin gehen die Augen?
 
-### Merksatz:
-
-> Der Logarithmus transformiert Werte in ein **lineares Maß**, das für Regressionsmodelle besser handhabbar ist – auch wenn die ursprünglichen Wahrscheinlichkeiten zwischen 0 und 1 liegen.
-
-------------------------------------------------------------------------
-
-## Warum Log-Odds?
-
-- Wahrscheinlichkeiten liegen **zwischen 0 und 1**
-
-- Log-Odds hingegen können **alle Werte zwischen –∞ und +∞** annehmen
-
-- So kann ein **lineares Modell** verwendet werden:
-
-  $$\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 x_1 + \dots + \beta_k x_k $$
-
-------------------------------------------------------------------------
-
-## Beispiel:
-
-| Wahrscheinlichkeit (p) | Gegenwahrscheinlichkeit (1 - p) | Verhältnis (Odds) (p : (1 - p)) | | Odds (als Zahl) ($\frac{p}{1-p}$) | Log-Odds ($\log\left(\frac{p}{1-p}\right)$) |
-|---------------|---------------|---------------|---------------|---------------|
-| 0.10 | 0.90 | 1 : 9 | 0.111 | –2.20 |
-| 0.50 | 0.50 | 1 : 1 | 1.000 | 0.00 |
-| 0.90 | 0.10 | 9 : 1 | 9.000 | 2.20 |
-
-------------------------------------------------------------------------
-
-## Merksatz:
-
-**Log-Odds** sind eine **Umformung der Wahrscheinlichkeit** und erlauben **lineare Modellierung** auf einer unbeschränkten Skala.
-
-------------------------------------------------------------------------
-
-```{r echo=FALSE}
-# Installieren falls nötig
-#install.packages("titanic")
-library(titanic)
-data("titanic_train")
-```
-
-## Zunächst müssen wir die Daten vorbereiten
-
-```{r echo=TRUE}
-titanic <- titanic_train %>%
-  select(Survived, Pclass, Sex, Age) %>%
-  filter(!is.na(Age)) %>%
-  mutate(
-    Survived = factor(Survived, labels = c("Gestorben", "Überlebt")),
-    Sex = factor(Sex),
-    Pclass = factor(Pclass)
-  )
-```
-
-## Der Output
-
-![](images/titanic-logit.png)
-
-```{r}
-model <- glm(Survived ~ Age + Sex + Pclass, data = titanic, family = binomial)
-# summary(model)
-```
-
-## Ausgabe der LogOdds
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-#exp(coef(model))
-```
-
-![](images/logodds.png)
-
-------------------------------------------------------------------------
-
-## S-Kurve
-
-```{r}
-library(titanic)
-library(ggplot2)
-library(dplyr)
-
-data("titanic_train")
-
-# Daten vorbereiten
-titanic <- titanic_train %>%
-  select(Survived, Age) %>%
-  filter(!is.na(Age)) %>%
-  mutate(Survived = factor(Survived, labels = c("Gestorben", "Überlebt")))
-
-ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"))) +
-  geom_point(alpha = 0.2, position = position_jitter(height = 0.05)) +
-  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
-  labs(x = "Alter", y = "Wahrscheinlichkeit zu überleben",
-       title = "S-Kurve: Überlebenswahrscheinlichkeit nach Alter") +
-  theme_minimal()
-```
-
-## S-Kurve II
-
-```{r}
-titanic <- titanic_train %>%
-  select(Survived, Age, Sex) %>%
-  filter(!is.na(Age)) %>%
-  mutate(Survived = factor(Survived, labels = c("Gestorben", "Überlebt")))
-
-ggplot(titanic, aes(x = Age, y = as.numeric(Survived == "Überlebt"), color = Sex)) +
-  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
-  labs(title = "S-Kurve: Überleben nach Alter und Geschlecht", y = "Wahrscheinlichkeit zu überleben") +
-  theme_minimal()
-```
-
-------------------------------------------------------------------------
-
-## Vergleich: Lineare vs. Logistische Regression
-
-| Aspekt         | Lineare Regression    | Logistische Regression         |
-|----------------|-----------------------|--------------------------------|
-| Zielvariable Y | metrisch (z.B. Preis) | binär (z.B. gestorben ja/nein) |
-| Ergebnis       | Gerade                | S-Kurve                        |
-| Vorhersage     | Reeller Zahlenwert    | Wahrscheinlichkeit (0–1)       |
-| Residuen       | Differenz             | Abweichung in Log-Odds         |
-| Interpretation | Effekt pro X          | Odds Ratio                     |
-
-------------------------------------------------------------------------
-
-## Unterschied Korrelation zu Regression
-
-- **Korrelation** beschreibt **Stärke und Richtung** eines **linearen Zusammenhangs** zwischen zwei numerischen Variablen, ohne Einflussrichtung oder Kausalität anzunehmen.
-
-- **Lineare Regression** modelliert eine **gerichtete lineare Beziehung** zwischen einer abhängigen Variable und einer oder mehreren unabhängigen Variablen mit der **Stärke des Einflusses**.
-
-------------------------------------------------------------------------
-
-## Unterschied Korrelation zu Regression
-
-- **Logistische Regression** schätzt die **Wahrscheinlichkeit** für das Eintreten eines **binären Ereignisses** auf Basis einer oder mehrerer Einflussvariablen und liefert eine **gerichtete Interpretation**.
-
-------------------------------------------------------------------------
-
-# Sitzung 11: ANOVA
-
-## Lernziele dieser Sitzung
-
-- ANOVA als Erweiterung des t-Tests auf mehr als zwei Gruppen einordnen
-- Varianzzerlegung und F-Statistik verstehen
-- Eine einfaktorielle ANOVA in R durchführen
-- Post-hoc-Tests (Tukey HSD) korrekt einsetzen
-- Den passenden Test für den eigenen Datensatz wählen
-
-## Was ist ANOVA?
-
-- ANOVA = Analysis of Variance = Varianzanalyse
-- Prüft, ob sich Gruppenmittelwerte signifikant unterscheiden
-- Erweiterung des t-Tests auf mehr als zwei Gruppen
-- Beispiel: Unterschiedet sich die durchschnittliche Miete in verschiedenen Stadtteilen?
-
-------------------------------------------------------------------------
-
-## Wann nutzt man ANOVA?
-
-- Abhängige Variable metrisch (z.B. Einkommen, Preis, Größe)
-- Unabhängige Variable kategorial (z.B. Stadtteil, Behandlungsmethode)
-- Mehr als zwei Gruppen zu vergleichen
-- Ziel: Test auf Mittelwertsunterschiede
-
-------------------------------------------------------------------------
-
-## Grundidee der ANOVA
-
-- Zerlegung der Gesamtvarianz:
-  - **Zwischen-Gruppen-Varianz**: Unterschiede zwischen den Gruppenmitteln
-  - **Innerhalb-Gruppen-Varianz**: Streuung innerhalb der Gruppen
-- Wenn die Zwischen-Gruppen-Varianz groß im Vergleich zur Innerhalb-Gruppen-Varianz ist → Hinweis auf echte Unterschiede
-
-------------------------------------------------------------------------
-
-## Beispiel: Schmerzmittel-Wirkung
-
-- Fragestellung: Unterscheidet sich die durchschnittliche Schmerzreduktion bei drei Medikamenten?
-- Gruppen:
-  - Medikament A
-  - Medikament B
-  - Placebo
-- Abhängige Variable: Schmerzscore nach 30 Minuten (Skala 0-10)
-- ANOVA prüft, ob es signifikante Unterschiede gibt
-
-------------------------------------------------------------------------
-
-## Beispiel: Werbewirkung testen
-
-- Fragestellung: Führt die Art der Werbeanzeige zu unterschiedlichen Kaufabsichten?
-- Gruppen:
-  - Emotionaler Spot
-  - Sachlicher Spot
-  - Keine Werbung (Kontrollgruppe)
-- Abhängige Variable: Kaufwahrscheinlichkeit (Skala 0-100%)
-- ANOVA zeigt, ob mindestens eine Gruppe signifikant abweicht
-
-------------------------------------------------------------------------
-
-## Beispiel: Einfluss von Dünger
-
-- Fragestellung: Hat die Düngersorte Einfluss auf das Pflanzenwachstum?
-- Gruppen:
-  - Dünger X
-  - Dünger Y
-  - Kein Dünger
-- Abhängige Variable: Pflanzenhöhe nach 6 Wochen (in cm)
-- ANOVA prüft auf Unterschiede der mittleren Pflanzenhöhe
-
-------------------------------------------------------------------------
-
-## Hypothesen der ANOVA
-
-- **Nullhypothese (H₀)**: Alle Gruppenmittelwerte sind gleich
-- **Alternativhypothese (H₁)**: Mindestens zwei Gruppen unterscheiden sich im Mittelwert
-
-------------------------------------------------------------------------
-
-## Beispiel in R
-
-```{r echo=FALSE}
-# Beispiel-Datensatz
-set.seed(123)
-data <- data.frame(
-  gruppe = rep(c("A", "B", "C"), each = 20),
-  wert = c(rnorm(20, mean = 5), rnorm(20, mean = 7), rnorm(20, mean = 6))
-)
-```
-
-```{r}
-# ANOVA durchführen
-anova_mod <- aov(wert ~ gruppe, data = data)
-summary(anova_mod)
-```
-
-------------------------------------------------------------------------
-
-## Interpretation der Ausgabe
-
-- **F-Wert**: Teststatistik, je größer desto mehr Hinweis auf Unterschied
-- **p-Wert**: Ist p \< 0.05 → Ablehnung der Nullhypothese
-- Achtung: ANOVA zeigt nur, *dass* ein Unterschied vorliegt, nicht *wo* genau
-
-------------------------------------------------------------------------
-
-## Post-hoc-Tests
-
-- Notwendig, wenn ANOVA signifikant ist
-- Beispiele:
-  - Tukey HSD-Test (bei Varianzhomogenität)
-  - Games-Howell-Test (bei ungleichen Varianzen)
-- Zeigt, zwischen welchen Gruppen die Unterschiede liegen
-
-------------------------------------------------------------------------
-
-## Der Levene-Test
-
-```{r warning=FALSE}
-car::leveneTest(wert ~ gruppe, data = data)
-```
-
-## Tukey HSD-Test
-
-```{r echo=FALSE}
-# TukeyHSD(anova_mod)
-```
-
-![](images/anova.png)
-
-## Ergebnisse visualisieren
-
-```{r}
-plot(TukeyHSD(anova_mod))
-```
-
-## Voraussetzungen der ANOVA
-
-- Unabhängigkeit der Beobachtungen
-- Normalverteilung innerhalb der Gruppen
-- Varianzhomogenität (Levene-Test prüfen)
-- Robustheit bei kleinen Abweichungen gegeben
-
-------------------------------------------------------------------------
-
-## Was tun, wenn Voraussetzungen verletzt sind? Nicht-parametrische Tests
-
-| Parametrisch | Nicht-parametrische Alternative | Wann? |
-|------------------------|------------------------|------------------------|
-| t-Test (unabh.) | Mann-Whitney-U-Test | Keine Normalverteilung, kleine n |
-| t-Test (gepaart) | Wilcoxon-Vorzeichen-Rang-Test | Verbundene Stichproben, ordinal |
-| ANOVA | Kruskal-Wallis-Test | Mehr als 2 Gruppen, keine Normalverteilung |
-
-``` r
-# Beispiele
-wilcox.test(x, y)                          # Mann-Whitney-U
-wilcox.test(before, after, paired = TRUE)  # Wilcoxon gepaart
-kruskal.test(wert ~ gruppe, data = data)   # Kruskal-Wallis
-```
-
-------------------------------------------------------------------------
-
-## Visualisierung von Gruppenunterschieden
-
-- Boxplots
-- Violinplots
-- Balkendiagramme mit Fehlerbalken
-- Plot der Mittelwerte pro Gruppe
-
-## Überblick: Welcher Test wofür?
-
-| Test | Abhängige Variable | Unabhängige Variable | Zweck |
-|------------------|------------------|------------------|------------------|
-| **t-Test** | Metrisch | Kategorial (2 Gruppen) | Mittelwertsunterschied zwischen 2 Gruppen |
-| **Chi-Quadrat-Test** | Kategorial | Kategorial | Zusammenhang oder Verteilung bei Kategorien |
-| **Korrelation** | Metrisch | Metrisch | Zusammenhang/Stärke zwischen zwei Variablen |
-| **ANOVA** | Metrisch | Kategorial (\>2 Gruppen) | Mittelwertsunterschiede zwischen Gruppen |
-| **Lineare Regression** | Metrisch | Metrisch oder kategorial | Einfluss mehrerer Variablen auf metrisches Ergebnis |
-| **Logistische Regression** | Binär (0/1) | Metrisch oder kategorial | Einfluss auf Wahrscheinlichkeit (z.B. Krankheit ja/nein) |
-
-------------------------------------------------------------------------
-
-# Sitzung 12: Text Mining
-
-## Lernziele dieser Sitzung
-
-- Textdaten für eine statistische Analyse aufbereiten
-- Das Bayes'sche Theorem erklären und anwenden
-- Einen Naive-Bayes-Klassifikator in R trainieren und evaluieren
-- Modellgüte mit Confusion Matrix, Precision, Recall und AUC beurteilen
-
-------------------------------------------------------------------------
-
-## Spam oder Ham?
-
-- Unerwünschte Werbe-E-Mails = Spam
-- Begriff stammt aus...?
-- Ziel: Automatische Erkennung von Spam-Mails
-- Klassisches Beispiel für Textklassifikation in der Datenanalyse
-
-------------------------------------------------------------------------
-
-## Bayes'sches Theorem: Grundkonzept
-
-- **Definition:** $P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}$
-- **Bedeutung der Komponenten:**
-  - P(A\|B): Wahrscheinlichkeit von A, gegeben B (posteriori)
-  - P(B\|A): Wahrscheinlichkeit von B, gegeben A (Likelihood)
-  - P(A): Wahrscheinlichkeit von A ohne weitere Information (a priori)
-  - P(B): Wahrscheinlichkeit von B, Normalisierungsfaktor
-- **Einfach ausgedrückt:** Aktualisierung von Wahrscheinlichkeiten basierend auf neuen Informationen
-
-------------------------------------------------------------------------
-
-## Zwei Denkansätze am Beispiel einer Handysuche
-
-- **Ausgangssituation:**
-  - Handy ist verloren
-  - Könnte irgendwo im Haus sein
-  - Begrenzte Zeit zum Suchen
-  - Wie gehen wir vor?
-
-------------------------------------------------------------------------
-
-## Der frequentistische Ansatz
-
-- **Gleichverteilte Aufmerksamkeit** für alle Orte
-- **Systematische, methodische Suche** des gesamten Hauses
-- **Ignoriert persönliche Erfahrungen** und Gewohnheiten
-- **Unveränderter Suchplan**, unabhängig von Zwischenergebnissen
-- **Fragestellung:** "Wie wahrscheinlich ist es, das Handy zu finden, wenn ich hier suche?"
-
-------------------------------------------------------------------------
-
-## Der bayesianische Ansatz
-
-- Beginnt mit **Vorwissen als Prior** ("Wo verliere ich normalerweise Dinge?")
-- **Priorisiert wahrscheinliche Orte** (Sofa, Schreibtisch, Jacke)
-- **Aktualisiert kontinuierlich** die Suchstrategie basierend auf neuen Hinweisen
-- **Integriert subjektive Wahrscheinlichkeiten**
-- **Fragestellung:** "Wo ist das Handy am wahrscheinlichsten, gegeben was ich bereits weiß?"
-
-------------------------------------------------------------------------
-
-## Vergleich der Ansätze
-
-| Frequentistisch                         | Bayesianisch                |
-|-----------------------------------------|-----------------------------|
-| Objektiv                                | Subjektiv                   |
-| Statisch                                | Adaptiv                     |
-| Gleichverteilte Aufmerksamkeit          | Priorisierte Aufmerksamkeit |
-| Berücksichtigt keine Erfahrung          | Nutzt Vorwissen             |
-| Methodisch                              | Opportunistisch             |
-| Keine Wahrscheinlichkeitsaktualisierung | Kontinuierliches Lernen     |
-
-------------------------------------------------------------------------
-
-## Bayes'sches Theorem angewandt auf Spam
-
-- **Wir wollen wissen: P(Spam\|Wörter)**
-  - Die Wahrscheinlichkeit, dass eine E-Mail Spam ist, gegeben die enthaltenen Wörter
-- **Nach Bayes:**
-  - P(Spam\|Wörter) = (P(Wörter\|Spam) × P(Spam)) / P(Wörter)
-  - **P(Spam)**: A-priori-Wahrscheinlichkeit für Spam (z.B. 40% aller E-Mails)
-  - **P(Wörter\|Spam)**: Wahrscheinlichkeit dieser Wörter in Spam-Mails
-  - **P(Wörter)**: Wahrscheinlichkeit dieser Wörter in allen E-Mails
-
-------------------------------------------------------------------------
-
-## Die "Naive" Annahme
-
-- **Bei Naive Bayes nehmen wir an, dass alle Wörter unabhängig voneinander auftreten:**
-  - P(Wörter\|Spam) = P(Wort₁\|Spam) × P(Wort₂\|Spam) × ... × P(Wortₙ\|Spam)
-- **Beispiel**: "Viagra" und "Rabatt" in einer E-Mail
-  - In Realität: Diese Wörter treten häufig gemeinsam auf
-  - Naive Annahme: Behandlung als unabhängige Ereignisse
-  - Trotz dieser Vereinfachung: Überraschend gute Ergebnisse!
-
-------------------------------------------------------------------------
-
-## Wie funktioniert Naive Bayes bei Spam?
-
-- **1. Training:**
-  - Sammeln von bekannten Spam- und Ham-E-Mails (Trainingskorpus)
-  - Zählen der Worthäufigkeiten in beiden Kategorien
-  - Berechnen von P(Wort\|Spam) und P(Wort\|Ham) für alle Wörter
-  - Ermitteln von P(Spam) und P(Ham) aus dem Trainingskorpus
-- **2. Klassifikation:**
-  - Berechnen von P(Spam\|E-Mail) und P(Ham\|E-Mail) für neue E-Mail
-  - Klassifizieren basierend auf der höheren Wahrscheinlichkeit
-
-------------------------------------------------------------------------
-
-## Datengrundlage
-
-- E-Mail-Datensatz `emails.csv`
-- Enthält Text der E-Mails und Spam-Kennzeichnung
-- Häufigkeit von Spam und Ham
-- Class Imbalance beachten
-
-------------------------------------------------------------------------
-
-## Textaufbereitung (Text Mining)
-
-- Nutzung der Pakete `tm` und `SnowballC`
-- Schritte:
-  - Umwandlung in Kleinschreibung
-  - Entfernen von Satzzeichen
-  - Entfernen von Stoppwörtern ("the", "and" ...)
-  - Wortstamm-Reduktion (Stemming)
-
-Ziel: Standardisierung und Reduktion der Textvielfalt
-
-------------------------------------------------------------------------
-
-## Document-Term-Matrix (DTM)
-
-- Erstellung einer DTM zur quantitativen Darstellung der Texte
-- Zeilen = E-Mails, Spalten = Wörter
-- Zellinhalt: Häufigkeit des Wortes pro E-Mail
-
-------------------------------------------------------------------------
-
-## Reduktion auf häufige Begriffe
-
-- Entfernen seltener Wörter mit `removeSparseTerms`
-- Fokus auf die aussagekräftigsten Begriffe
-
-------------------------------------------------------------------------
-
-## Vorbereitung für das Modell
-
-- Umwandlung der DTM in Data Frame
-- Umbenennung der Spaltennamen
-- Zielvariable `spam` als Faktor kodiert
-
-------------------------------------------------------------------------
-
-## Trainings- und Testdaten
-
-- Aufteilung in Trainings- (80%) und Testdaten (20%)
-- Nutzung von `caret`-Paket
-
-------------------------------------------------------------------------
-
-## Vorhersage und Bewertung
-
-- Klassifikation der Testdaten
-- Vergleich mit tatsächlichen Spam-Labels
-
-## Die Confusion Matrix
-
-|                          | Tatsächlich Positiv  | Tatsächlich Negativ  |
-|--------------------------|----------------------|----------------------|
-| **Vorhergesagt Positiv** | True Positives (TP)  | False Positives (FP) |
-| **Vorhergesagt Negativ** | False Negatives (FN) | True Negatives (TN)  |
-
-------------------------------------------------------------------------
-
-## Die Confusion Matrix: Beispiel Spam-Filter
-
-- **TP**: Korrekt als Spam erkannte E-Mails
-- **FP**: Fälschlicherweise als Spam markierte normale E-Mails
-- **FN**: Nicht erkannter Spam (als normal klassifiziert)
-- **TN**: Korrekt als normal erkannte E-Mails
-
-------------------------------------------------------------------------
-
-## Fehler 1. und 2. Art
-
-- **Fehler 1. Art (Alpha-Fehler):**
-  - Zurückweisung einer wahren Nullhypothese
-  - "Falscher Alarm" / False Positive
-- **Fehler 2. Art (Beta-Fehler):**
-  - Nichtablehnung einer falschen Nullhypothese
-  - "Verpasster Treffer" / False Negative
-- **Zusammenhang:**
-  - Meist gegensätzliche Beziehung (Trade-off)
-  - Verringerung des einen Fehlers erhöht oft den anderen
-
-------------------------------------------------------------------------
-
-## Grundlegende Metriken aus der Confusion Matrix
-
-- **Accuracy (Genauigkeit):**
-  - (TP + TN) / (TP + TN + FP + FN)
-  - Anteil korrekt klassifizierter Instanzen
-  - Problem: Irreführend bei unausgewogenen Klassen
-- **Error Rate (Fehlerrate):**
-  - (FP + FN) / (TP + TN + FP + FN)
-  - Anteil falsch klassifizierter Instanzen
-
-------------------------------------------------------------------------
-
-## Precision und Recall
-
-- **Precision (Präzision, Genauigkeit):**
-  - TP / (TP + FP)
-  - "Von allen als positiv vorhergesagten, wie viele sind tatsächlich positiv?"
-  - Fokus auf falsche Positive (Fehler 1. Art)
-  - Beispiel: Von allen als Spam markierten E-Mails, wie viele sind wirklich Spam?
-
-------------------------------------------------------------------------
-
-## Precision und Recall
-
-- **Recall (Sensitivität, Trefferquote):**
-  - TP / (TP + FN)
-  - "Von allen tatsächlich positiven, wie viele wurden korrekt erkannt?"
-  - Fokus auf falsche Negative (Fehler 2. Art)
-  - Beispiel: Von allen Spam-E-Mails, wie viele werden erkannt?
-
-------------------------------------------------------------------------
-
-## ROC-Kurve und AUC
-
-- Bewertung der Modellgüte über die ROC-Kurve
-- AUC (Area Under Curve) als Maß für die Trennschärfe
-- Zusätzliche Visualisierung von Konfidenzintervallen möglich
-
-## ROC-Kurve und AUC
+## 5 wichtige Schritte
 
 ::::: columns
-::: {.column width="70%"}
-- ROC-Kurve (Receiver Operating Characteristic)
-  - Trade-off: True Positive Rate vs. False Positive Rate
-  - Interpretation: näher an linker oberer Ecke = besser
-- Area Under the Curve
-  - Fläche unter ROC-Kurve (0.5 bis 1.0)
+::: {.column width="60%"}
+5.  Nutzen Sie Storytelling
+    - Niemand will einfach nur Auflistungen von Zahlen und Diagrammen sehen.
+    - Schreiben Sie einen Plot. Anfang, eventuell sogar einen Twist, und ein Ende mit Call to Action (in der Wissenschaft reicht eine Diskussion ☺)
+    - Bitte arbeiten Sie nicht einfach nur mechanisch alles ab, was Sie können.
 :::
 
-::: {.column width="30%"}
-![](images/Roccurves.png)
+::: {.column width="40%"}
+![](images/storytelling.png)
 :::
 :::::
 
-------------------------------------------------------------------------
+## Redundant Coding
 
-## Precision-Recall Kurve
+::::: columns
+::: {.column width="50%"}
+```{r, fig.width=10, fig.height=10, out.width="100%"}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_manual(values = c("setosa" = "#d8b365",
+                               "virginica" = "#5ab4ac",
+                               "versicolor" = "#a6cee3")) +
+  scale_x_continuous(limits = c(4, 8), breaks = seq(4, 8, 1)) +
+  scale_y_continuous(limits = c(2, 4.5), breaks = seq(2, 4.5, 0.5)) +
+  labs(x = "sepal length", y = "sepal width") +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        panel.grid.minor = element_blank(),
+        aspect.ratio = 1)
+```
+:::
 
-- **Alternative zur ROC-Kurve:**
-  - Precision gegen Recall für verschiedene Schwellenwerte
-- **Wann verwenden:**
-  - Bei unausgewogenen Datensätzen
-  - Fokus auf positive Klasse
-- **Interpretation:**
-  - Besser: näher an oberer rechter Ecke
+::: {.column width="50%"}
+```{r, fig.width=10, fig.height=10, out.width="100%"}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
+                 color = Species, shape = Species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_manual(values = c("setosa" = "#a6cee3",
+                               "virginica" = "#5ab4ac",
+                               "versicolor" = "#d8b365")) +
+  scale_shape_manual(values = c("setosa" = 16,
+                               "virginica" = 21,
+                               "versicolor" = 22)) +
+  scale_x_continuous(limits = c(4, 8), breaks = seq(4, 8, 1)) +
+  scale_y_continuous(limits = c(2, 4.5), breaks = seq(2, 4.5, 0.5)) +
+  labs(x = "sepal length", y = "sepal width") +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        panel.grid.minor = element_blank(),
+        aspect.ratio = 1)
+```
+:::
+:::::
 
-------------------------------------------------------------------------
+## Weißer Space ist gut… aber nicht zu viel!
 
-## Overfitting vs. Underfitting
+::::: columns
+::: {.column width="50%"}
+```{r}
+library(ggplot2)
+library(dplyr)
+library(titanic)
+data("titanic_train")
+titanic_data <- titanic_train %>%
+  mutate(
+    Sex = factor(Sex, levels = c("female", "male")),
+    Survived = factor(ifelse(Survived == 1, "survived", "died")),
+    Pclass = factor(Pclass, labels = c("1st", "2nd", "3rd"))
+  ) %>%
+  count(Pclass, Sex, Survived) %>%
+  rename(count = n)
+ggplot(titanic_data, aes(x = Sex, y = count, fill = Sex)) +
+  geom_col() +
+  facet_grid(Pclass ~ Survived) +
+  scale_fill_manual(values = c("female" = "#E69F00", "male" = "#4472C4")) +
+  scale_y_continuous(limits = c(0, 180), breaks = c(0, 50, 100, 150)) +
+  labs(y = "count") +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(0.5, "mm"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    strip.background = element_blank(),
+    strip.text = element_text(hjust = 0.5, size = 10),
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "mm")
+  )
+```
+:::
 
-- **Overfitting:**
-  - Zu genaues Lernen (inkl. Rauschen)
-  - Gut im Training, schlecht im Test
-- **Underfitting:**
-  - Zu einfaches Modell
-  - Schlecht in Training und Test
-- **Balance durch:**
-  - Regularisierung
-  - Angemessene Modellkomplexität
+::: {.column width="50%"}
+```{r}
+library(ggplot2)
+library(dplyr)
+library(titanic)
+data("titanic_train")
+titanic_data <- titanic_train %>%
+  mutate(
+    Sex = factor(Sex, levels = c("female", "male")),
+    Survived = factor(ifelse(Survived == 1, "survived", "died")),
+    Pclass = factor(Pclass, labels = c("1st", "2nd", "3rd"))
+  ) %>%
+  count(Pclass, Sex, Survived) %>%
+  rename(count = n)
+ggplot(titanic_data, aes(x = Sex, y = count, fill = Sex)) +
+  geom_col() +
+  facet_grid(Pclass ~ Survived) +
+  scale_fill_manual(values = c("female" = "#E69F00", "male" = "#4472C4")) +
+  scale_y_continuous(limits = c(0, 180), breaks = c(0, 50, 100, 150)) +
+  labs(y = "count") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(5, "mm"),
+    panel.background = element_rect(fill = "#F1F1F1", color = NA),
+    strip.background = element_rect(fill = "white", color = NA),
+    strip.text = element_text(hjust = 0.5, size = 10),
+    axis.title.x = element_blank(),
+    plot.margin = unit(c(5, 5, 5, 5), "mm")
+  )
+```
+:::
+:::::
 
-------------------------------------------------------------------------
+## Highlighting
 
-## Nächste Schritte
-
-- Weitere Klassifikatoren testen (z.B. Entscheidungsbäume, SVM)
-- Optimierung der Textaufbereitung
-- Einsatz von Word Embeddings für fortgeschrittene Modelle
-
-# Sitzung 14: Abschluss
-
-## Lernziele dieser Sitzung
-
-- Den gesamten Kurs strukturiert rekapitulieren
-- Den richtigen Test für eine gegebene Forschungsfrage auswählen
-- Ergebnisse korrekt berichten (APA-Style)
-
-## Der rote Faden: Von der Frage zur Methode
-
-![](images/entscheidungsbaum.png)
-
-## Alle Tests auf einen Blick
-
-| Test | Abhängige Variable | Unabhängige Variable | Zweck |
-|------------------|------------------|------------------|------------------|
-| **t-Test** | Metrisch | Kategorial (2 Gruppen) | Mittelwertsvergleich |
-| **Chi-Quadrat** | Kategorial | Kategorial | Häufigkeiten / Zusammenhang |
-| **Korrelation** | Metrisch | Metrisch | Stärke des Zusammenhangs |
-| **ANOVA** | Metrisch | Kategorial (\>2 Gruppen) | Mittelwertsvergleich |
-| **Lin. Regression** | Metrisch | Metrisch / kategorial | Einfluss & Vorhersage |
-| **Log. Regression** | Binär (0/1) | Metrisch / kategorial | Wahrscheinlichkeit |
-| **Mann-Whitney-U** | Ordinal / metrisch | Kategorial (2 Gruppen) | Wie t-Test, nicht-parametrisch |
-| **Kruskal-Wallis** | Ordinal / metrisch | Kategorial (\>2 Gruppen) | Wie ANOVA, nicht-parametrisch |
-
-## Ergebnisse korrekt berichten
-
-- **Immer angeben**: Teststatistik, Freiheitsgrade, p-Wert, Effektgröße
-- **t-Test**: *t*(28) = 2.45, *p* = .02, *d* = 0.89
-- **Chi-Quadrat**: χ²(2) = 8.24, *p* = .016, Cramér's V = .23
-- **Korrelation**: *r*(98) = .54, *p* \< .001
-- **ANOVA**: *F*(2, 57) = 4.32, *p* = .018, η² = .13
-
-## Häufige Fehler in Bachelorarbeiten
-
-- p-Wert ohne Effektgröße berichten
-- Korrelation als Kausalität interpretieren
-- Voraussetzungen nicht geprüft (Normalverteilung, Varianzhomogenität)
-- Signifikanz mit Relevanz gleichsetzen
-- Fehlende Werte ignorieren statt transparent machen
-- Daten nach dem Schauen anpassen (p-Hacking)
-
-## Ein Wort zur Replikationskrise
-
-- Viele publizierte Studien lassen sich nicht replizieren
-- Ursachen: p-Hacking, kleine Stichproben, Publication Bias
-- **Konsequenz für Ihre Arbeit**: Transparenz über Methoden, Voraussetzungsprüfung, Effektgrößen angeben
-- Vorregistrierung als Gold-Standard (für BA-Arbeiten optional, aber bekannt sein)
-
-## Stichprobengröße: Wie viele brauche ich?
-
-- Zu kleine Stichproben → zu wenig Power → echte Effekte werden übersehen
-- Faustregel für Abschlussarbeiten: n ≥ 30 pro Gruppe (besser: Poweranalyse)
-- Power-Analyse in R:
-
-``` r
-library(pwr)
-# Beispiel: t-Test, mittlerer Effekt (d=0.5), Power=0.80, α=0.05
-pwr.t.test(d = 0.5, sig.level = 0.05, power = 0.80, type = "two.sample")
+```{r}
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
+airline_delays <- flights %>%
+  group_by(carrier) %>%
+  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  left_join(airlines, by = "carrier") %>%
+  arrange(mean_delay)
+farben <- ifelse(airline_delays$carrier == "G4", "#B22222", "#AAAAAA")
+ggplot(airline_delays, aes(x = reorder(name, mean_delay), y = mean_delay)) +
+  geom_col(fill = farben) +
+  coord_flip() +
+  labs(title = "", x = "", y = "mean arrival delay (min.)") +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
 ```
 
-## Fehlende Werte – kein Tabuthema
+## Wie identifiziert man das richtige Diagramm?
 
-- Immer dokumentieren: Wie viele NAs? In welchen Variablen?
-- Strategien:
-  - Komplette Beobachtungen (`na.omit()`) – einfach, aber Datenverlust
-  - Mittelwert-/Medianimputation – nur für MAR-Mechanismus
-  - Multiple Imputation (`mice`-Paket) – Best Practice
-- **Niemals**: NAs stillschweigend ignorieren
+![](images/overview.png)
 
-## Viel Erfolg!
+## Scatter Plot / Streudiagramm
 
-![](images/marketoonist-big-data.png)
+::::: columns
+::: {.column width="60%"}
+- Zeigt Beziehung zwischen zwei kontinuierlichen Variablen
+- Jeder Punkt = eine Beobachtung
+- Erkennt Muster, Cluster, Ausreißer und Korrelationen
+- Benötigt numerische X/Y-Achsen
+- Dritte Dimension durch Punktgröße/Farbe möglich
+:::
 
-# Sitzung 9: Einfache Lineare Regression
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+scatter_data <- data.frame(x = rnorm(100), y = rnorm(100),
+  gruppe = sample(LETTERS[1:3], 100, replace = TRUE))
+scatter_data$y <- scatter_data$y + scatter_data$x - 0.7 + rnorm(100, 0, 0.5)
+ggplot(scatter_data, aes(x = x, y = y, color = gruppe)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_brewer(palette = "Set1") +
+  theme_minimal() +
+  labs(x = "Variable X", y = "Variable Y", color = "Gruppe")
+```
+:::
+:::::
 
-## Von der Korrelation zur Regression
+## Korrelationsmatrix
 
-- **Unterschied**: Korrelation beschreibt Zusammenhang, Regression ermöglicht Vorhersagen
-- **Abhängige vs. unabhängige Variable**: Y als Funktion von X
-- **Lineare Beziehung**: Modellierung durch eine Gerade
+::::: columns
+::: {.column width="60%"}
+- Zeigt Korrelationsstärke zwischen Variablen
+- Farbe/Größe visualisiert Richtung und Stärke
+- Unterscheidet klar positive/negative Korrelationen
+- Identifiziert Muster und redundante Variablen
+- Essentiell für explorative Datenanalyse
+:::
 
-## Das lineare Regressionsmodell
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+library(reshape2)
+set.seed(123)
+sim_data <- data.frame(A = rnorm(100), B = rnorm(100), C = rnorm(100),
+  D = rnorm(100), E = rnorm(100))
+sim_data$B <- sim_data$B + sim_data$A - 0.7 + rnorm(100, 0, 0.5)
+sim_data$C <- sim_data$C - sim_data$A - 0.4 + rnorm(100, 0, 0.5)
+sim_data$D <- sim_data$D + sim_data$B - 0.6 + rnorm(100, 0, 0.5)
+sim_data$E <- sim_data$E - sim_data$C - 0.5 + sim_data$D - 0.3 + rnorm(100, 0, 0.5)
+cormat <- round(cor(sim_data), 2)
+melted_cormat <- melt(cormat)
+ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "firebrick", high = "steelblue", mid = "white",
+                     midpoint = 0, limit = c(-1,1)) +
+  geom_text(aes(label = round(value, 2)), color = "black", size = 3) +
+  theme_minimal() + coord_equal() + labs(fill = "Korrelation")
+```
+:::
+:::::
 
-- **Grundgleichung**: $Y = \beta_0 + \beta_1 X + \varepsilon$
-- **Parameter**:
-  - Achsenabschnitt (Intercept) $\beta_0$: Wert von Y, wenn X = 0
-  - Steigung (Slope) $\beta_1$: Änderung in Y bei Erhöhung von X um eine Einheit
-  - Fehlerterm $\varepsilon$: Zufällige Abweichung (normalverteilt mit Mittelwert 0)
-- **Kleinstquadrateschätzung**: Minimierung der quadrierten Residuen
+## Venn-Diagramm
 
-## Durchführung in R
+::::: columns
+::: {.column width="60%"}
+- Zeigt gemeinsame und einzigartige Elemente
+- Überschneidungen visualisieren Gemeinsamkeiten
+- Ideal für Vergleich von Kategorien/Merkmalen
+- Funktioniert am besten mit 2-3 Gruppen
+- Wird mit mehr als 5 Gruppen unübersichtlich
+:::
 
-- **Einfache lineare Regression**:
+::: {.column width="40%"}
+![](images/relationship_venn_4_3.png)
+:::
+:::::
 
-  # Modell erstellen
+## UpSet Diagram
 
-  model \<- lm(y \~ x, data = daten)
+::::: columns
+::: {.column width="60%"}
+- Alternative für komplexe Überschneidungen
+- Skalierbarer als klassische Venn-Diagramme
+- Balken visualisieren Überschneidungsgrößen
+- Punkte zeigen beteiligte Mengen
+- Ideal für 4+ Gruppen/komplexe Beziehungen
+:::
 
-  # Zusammenfassung anzeigen
+::: {.column width="40%"}
+![](images/upset.png)
+:::
+:::::
 
-  summary(model)
+## Sankey Diagram
 
-  # Diagnostische Plots
+::::: columns
+::: {.column width="60%"}
+- Visualisiert Flüsse zwischen Kategorien
+- Pfeilbreite zeigt Volumen/Wert
+- Ideal für Verteilungen und Prozesse
+- Zeigt Herkunft und Ziel von Ressourcen
+- Verdeutlicht Proportionen über mehrere Stufen
+:::
 
-  par(mfrow = c(2, 2)) plot(model)
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+library(ggalluvial)
+sankey_data <- data.frame(
+  Quelle = rep(c("A", "B", "C"), times = c(3, 2, 2)),
+  Ziel = c("X", "Y", "Z", "X", "Y", "Y", "Z"),
+  Wert = c(5, 3, 2, 2, 3, 1, 4))
+ggplot(sankey_data, aes(axis1 = Quelle, axis2 = Ziel, y = Wert)) +
+  geom_alluvium(aes(fill = Quelle), width = 1/3) +
+  geom_stratum(width = 1/3, fill = "grey80", color = "grey50") +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_fill_brewer(palette = "Set1") +
+  theme_minimal() + labs(x = NULL, y = NULL) +
+  theme(legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+:::
+:::::
 
-## Interpretation der Ergebnisse
+## Horizontal Bar Chart
 
-- **Regressionskoeffizienten**: Bedeutung von Intercept und Slope
-- **Standardfehler der Koeffizienten**: Präzision der Schätzung
-- **t-Werte und p-Werte**: Signifikanz der Koeffizienten
-- **R²**: Erklärte Varianz bzw. Bestimmtheitsmaß
-  - Interpretation: Anteil der Varianz in Y, der durch X erklärt wird
-  - Adjustiertes R²: Korrektur für die Anzahl der Prädiktoren
+::::: columns
+::: {.column width="60%"}
+- Vergleicht Werte über Kategorien hinweg
+- Horizontale Anordnung für bessere Lesbarkeit
+- Ideal für lange Namen oder viele Kategorien
+- Perfekt für Rankings und Wertvergleiche
+- Einfach und übersichtlich
+:::
 
-## Voraussetzungen und Diagnostik
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+hbar_data <- data.frame(
+  kategorie = c("Kategorie mit sehr langem Namen A", "Kategorie B",
+                "Kategorie C", "Kategorie D", "Kategorie E"),
+  wert = c(85, 72, 56, 41, 25))
+ggplot(hbar_data, aes(x = reorder(kategorie, wert), y = wert)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() + theme_minimal() + labs(x = NULL, y = "Wert") +
+  geom_text(aes(label = wert), hjust = -0.2) +
+  ylim(0, max(hbar_data$wert) * 1.15)
+```
+:::
+:::::
 
-- **Linearität**: Beziehung sollte linear sein
-- **Normalverteilung der Residuen**: QQ-Plot zur Überprüfung
-- **Homoskedastizität**: Konstante Varianz der Residuen
-- **Unabhängigkeit der Beobachtungen**: Keine Autokorrelation
-- **Ausreißer und einflussreiche Beobachtungen**: Cook's Distance, Leverage
+## Column Chart
 
-## Visualisierung von Regressionsmodellen
+::::: columns
+::: {.column width="60%"}
+- Vergleicht Werte mit vertikalen Balken
+- Ideal für Ranking und Leistungsvergleiche
+- Funktioniert gut mit wenigen, klaren Kategorien
+- Kurze, lesbare Beschriftungen bevorzugen
+- Konsistente Nullbasislinie für faire Vergleiche
+:::
 
-- **Streudiagramm mit Regressionslinie**:
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+column_data <- data.frame(
+  kategorie = factor(c("A", "B", "C", "D", "E"), levels = c("A", "B", "C", "D", "E")),
+  wert = c(85, 72, 56, 41, 25))
+ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  scale_fill_brewer(palette = "Set2") + theme_minimal() +
+  labs(x = NULL, y = "Wert") + theme(legend.position = "none") +
+  geom_text(aes(label = wert), vjust = -0.5) +
+  ylim(0, max(column_data$wert) * 1.1)
+```
+:::
+:::::
 
-  library(ggplot2) ggplot(daten, aes(x = x, y = y)) + geom_point() + geom_smooth(method = "lm", se = TRUE) + theme_minimal() + labs(title = "Lineare Regression", subtitle = paste("R² =", round(summary(model)\$r.squared, 3)))
+## Vergleich: Horizontal vs. Vertical Bar Charts
 
-- **Residuenplots**:
+| Feature | Horizontal | Vertical |
+|------------------------|------------------------|------------------------|
+| Best for | Long category labels, many items | Time-based or logical progression |
+| Readability | Easier when labels are long | Requires rotation for long labels |
+| Use case | Rankings, survey responses | Trends over time, grouped comparisons |
+| Scan direction | Left to right | Bottom to top |
+| Visual space | Efficient for many categories | Better for fewer, high-impact bars |
 
-  # Residuen gegen vorhergesagte Werte
+## Diverging Bars
 
-  ggplot(data.frame(fitted = fitted(model), residuals = residuals(model)), aes(x = fitted, y = residuals)) + geom_point() + geom_hline(yintercept = 0, linetype = "dashed", color = "red") + theme_minimal() + labs(title = "Residuen vs. vorhergesagte Werte")
+::::: columns
+::: {.column width="60%"}
+- Zeigt Abweichungen in zwei Richtungen
+- Links/rechts von zentraler Basislinie
+- Ideal für Kontraste (positiv/negativ)
+- Zeigt Gleichgewicht vs. Ungleichgewicht
+- Gut für normalisierte Werte oder Z-Scores
+:::
 
-## Praktische Anwendungsbeispiele
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+diverging_data <- data.frame(
+  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
+  value = c(5, -2, 8, -3, 6, -1, 4, -7))
+ggplot(diverging_data, aes(x = category, y = value, fill = value > 0)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("firebrick", "steelblue"), guide = "none") +
+  coord_flip() + theme_minimal() + labs(y = "Abweichung vom Mittelwert")
+```
+:::
+:::::
 
-- **Fairer Preis für gebrauchte Artikel**: Preisvorhersage basierend auf Alter, Zustand, etc.
-- **Verkaufsprognosen**: Vorhersage des Umsatzes basierend auf Werbeausgaben
-- **Biometrische Zusammenhänge**: z.B. Zusammenhang zwischen Größe und Gewicht
+## Diverging Lollipop Chart
 
-## Transformation nicht-linearer Beziehungen
+::::: columns
+::: {.column width="60%"}
+- Elegantere Alternative zu Diverging Bars
+- Nutzt Punkte statt Balken (weniger Tinte)
+- Zeigt Richtung und Magnitude effektiv
+- Ideal wenn genaue Werte sekundär sind
+- Besonders gut für Präsentationen
+:::
 
-- **Logarithmische Transformation**: Für exponentielle Beziehungen
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+lollipop_data <- data.frame(
+  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
+  value = c(5, -2, 8, -3, 6, -1, 4, -7))
+ggplot(lollipop_data, aes(x = category, y = value, color = value > 0)) +
+  geom_segment(aes(y = 0, x = category, yend = value, xend = category), color = "grey") +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("firebrick", "steelblue"), guide = "none") +
+  coord_flip() + theme_minimal() + labs(y = "Abweichung vom Mittelwert")
+```
+:::
+:::::
 
-- **Quadratische Transformation**: Für U-förmige Beziehungen
+## Histogram
 
-- **Box-Cox-Transformation**: Systematische Suche nach optimaler Transformation
+::::: columns
+::: {.column width="60%"}
+- Zeigt Verteilung numerischer Daten in Bins
+- Balken zeigen Häufigkeiten in Wertebereichen
+- Erkennt Schiefe, Streuung und Ausreißer
+- Zeigt Modi und Clustering in Daten
+- Berührende Balken betonen Kontinuität
+:::
 
-- **Beispiel in R**:
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(123)
+hist_data <- data.frame(
+  value = c(rnorm(400, mean = 5, sd = 1), rnorm(100, mean = 8, sd = 0.5)))
+ggplot(hist_data, aes(x = value)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  theme_minimal() + labs(y = "Häufigkeit")
+```
+:::
+:::::
 
-  \`\`\` r \# Log-Transformation model_log \<- lm(log(y) \~ x, data = daten)
+## Boxplots
 
-  # Quadratische Transformation
+::::: columns
+::: {.column width="60%"}
+- Zeigt Minimum, Quartile und Median
+- Kompakte Darstellung von Verteilungen
+- Hebt Streuung und Ausreißer hervor
+- Ideal zum Kategorienvergleich
+- Kann für Laien schwer verständlich sein
+:::
 
-  model_quad \<- lm(y \~ x + I(x\^2), data = daten)
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(123)
+box_data <- data.frame(
+  category = rep(c("A", "B", "C", "D"), each = 100),
+  value = c(rnorm(100, mean = 5, sd = 1), rnorm(100, mean = 7, sd = 1.5),
+            rnorm(100, mean = 4, sd = 0.8), rnorm(100, mean = 6, sd = 2)))
+ggplot(box_data, aes(x = category, y = value, fill = category)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2", guide = "none") + theme_minimal()
+```
+:::
+:::::
 
-  # Vergleich der Modelle mittels AIC
+## Boxplot mit unseren Verspätungsdaten
 
-  AIC(model, model_log, model_quad)
-
-
-
-# Sitzung 10: Logistische Regression
-
-## Was ist die logistische Regression?
-
-- **Unterschied zur linearen Regression**: Binäre abhängige Variable
-- **Logit-Funktion**: Transformation von Wahrscheinlichkeiten in Log-Odds
-- **Grundgleichung**: $\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X$
-- **Interpretation**: Odds Ratios statt direkter Effekte
-
-## Durchführung der logistischen Regression in R
-
-- **Modellschätzung**:
-
-``` r
-  # Logistische Regression
-  logit_model <- glm(erfolg ~ x, data = daten, family = binomial)
-  summary(logit_model)
-
-  # Odds Ratios berechnen
-  exp(coef(logit_model))
+```{r}
+library(nycflights23)
+library(dplyr)
+library(ggplot2)
+delay_data <- flights %>%
+  left_join(airlines, by = "carrier")
+carrier_order <- delay_data %>%
+  group_by(carrier, name) %>%
+  summarise(median_delay = median(arr_delay, na.rm = TRUE), .groups = "drop") %>%
+  arrange(median_delay)
+delay_data$color <- ifelse(delay_data$carrier == "G4", "#B22222", "#AAAAAA")
+ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name), y = arr_delay)) +
+  geom_boxplot(aes(fill = color), outlier.shape = NA, varwidth = TRUE) +
+  coord_flip() +
+  scale_fill_identity() +
+  scale_y_continuous(limits = c(-50, 150)) +
+  labs(title = "Verteilung der Ankunftsverspätungen nach Fluggesellschaft",
+       x = "", y = "arrival delay (min.)") +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank())
 ```
 
-- **Vorhersagen und Evaluation**:
+## Boxplots mit Violin Plot
 
-``` r
-  # Wahrscheinlichkeiten vorhersagen
-  pred_probs <- predict(logit_model, type = "response")
+::::: columns
+::: {.column width="60%"}
+- Kombiniert Boxplot mit Dichteverteilung
+- Zeigt Form, Streuung und zentrale Tendenz
+- Ideal für Gruppenvergleiche
+- Verdeutlicht Schiefe und Multimodalität
+- Informationsreichere Alternative zum Boxplot
+:::
 
-  # ROC-Kurve und AUC
-  library(pROC)
-  roc_curve <- roc(daten$erfolg, pred_probs)
-  plot(roc_curve)
-  auc(roc_curve)
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(123)
+violin_data <- data.frame(
+  category = rep(c("A", "B", "C"), each = 100),
+  value = c(c(rnorm(50, 5, 1), rnorm(50, 8, 0.5)),
+            rnorm(100, 7, 1.5), rnorm(100, 6, 0.7)))
+ggplot(violin_data, aes(x = category, y = value, fill = category)) +
+  geom_violin(alpha = 0.7) +
+  geom_boxplot(width = 0.2, fill = "white", alpha = 0.7) +
+  scale_fill_brewer(palette = "Set2", guide = "none") + theme_minimal()
 ```
+:::
+:::::
 
-## Anwendungsbeispiele für logistische Regression
+## Choropleth Map
 
-- **Medizin**: Vorhersage von Krankheitsrisiken
-- **Marketing**: Conversion-Wahrscheinlichkeit von Kunden
-- **Kreditwesen**: Ausfallwahrscheinlichkeit bei Krediten
+::::: columns
+::: {.column width="60%"}
+- Färbt Regionen basierend auf Datenwerten
+- Zeigt räumliche Muster und Unterschiede
+- Gut für Verhältnisse und Prozentsätze
+- Nutze normalisierte Daten (pro Kopf, %)
+- Vorsicht bei großen Flächenunterschieden
+:::
 
-# Sitzung 11: ANOVA und Umfragedesign
+::: {.column width="40%"}
+![](images/map.png)
+:::
+:::::
 
-## ANOVA-Grundlagen
+## Stacked Area Chart
 
-- **Vom t-Test zur ANOVA**: Natürliche Erweiterung für mehr als zwei Gruppen
-- **Varianzzerlegung**: Zwischen- vs. Innerhalb-Gruppenvarianz
-- **F-Verteilung und F-Statistik**: Verhältnis der Varianzen
-- **Grundformel**: $F = \frac{\text{Varianz zwischen Gruppen}}{\text{Varianz innerhalb Gruppen}}$
+::::: columns
+::: {.column width="60%"}
+- Zeigt Kategorienbeiträge im Zeitverlauf
+- Gestapelte Schichten zeigen Gesamtsumme
+- Gut für Wachstum und Anteile
+- Funktioniert am besten mit wenigen Kategorien
+- Einzelsegmentvergleich schwierig
+:::
 
-## Einfaktorielle ANOVA
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+years <- 2010:2020
+area_data <- data.frame(
+  year = rep(years, 4),
+  category = rep(c("A", "B", "C", "D"), each = length(years)),
+  value = c(10:20 + rnorm(11, 0, 1), 20:30 - rnorm(11, 0, 1),
+            15:25 + rnorm(11, 0, 2), 25:35 + rnorm(11, 0, 1.5)))
+ggplot(area_data, aes(x = year, y = value, fill = category)) +
+  geom_area() + scale_fill_brewer(palette = "Set2") + theme_minimal()
+```
+:::
+:::::
 
-- **Voraussetzungen**:
+## Stacked 100% Area Chart
 
-  - Normalverteilung der Residuen
-  - Homoskedastizität (Varianzhomogenität)
-  - Unabhängigkeit der Beobachtungen
+::::: columns
+::: {.column width="60%"}
+- Zeigt relative Anteile, nicht absolute Werte
+- Verfolgt Änderungen von Kategorienanteilen
+- Summe immer 100% für leichte Vergleichbarkeit
+- Fokus auf Zusammensetzung, nicht Wachstum
+- Absolute Trends gehen verloren
+:::
 
-- **Durchführung in R**:
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+years <- 2010:2020
+area100_data <- data.frame(
+  year = rep(years, 4),
+  category = rep(c("A", "B", "C", "D"), each = length(years)),
+  value = c(10:20 + rnorm(11, 0, 1), 20:30 - rnorm(11, 0, 1),
+            15:25 + rnorm(11, 0, 2), 25:35 + rnorm(11, 0, 1.5)))
+ggplot(area100_data, aes(x = year, y = value, fill = category)) +
+  geom_area(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_brewer(palette = "Set2") + theme_minimal() + labs(y = "Anteil")
+```
+:::
+:::::
 
-  ``` r
-  # Einfaktorielle ANOVA
-  anova_result <- aov(werte ~ gruppe, data = daten)
-  summary(anova_result)
-  ```
+## Stacked 100% Area Chart Beispiel
 
-## Post-hoc Tests
+![](images/earth_overshoot_day.png)
 
-- **Warum Post-hoc Tests?**: ANOVA sagt nur, dass Unterschiede existieren
+## Waterfall Diagram
 
-- **Tukey's HSD**: Häufig verwendeter Test für alle paarweisen Vergleiche
+::::: columns
+::: {.column width="60%"}
+- Zeigt Beiträge zu einer Gesamtsumme
+- Visualisiert Zu- und Abnahmen über Kategorien
+- Hebt schrittweise Veränderungen hervor
+- Ideal für Gewinn- oder Budgetanalysen
+- Zeigt Faktoren für das Endergebnis
+:::
 
-- **Bonferroni-Korrektur**: Kontrolle des Alpha-Fehlers bei multiplen Vergleichen
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+waterfall_data <- data.frame(
+  stage = factor(c("Start", "Einnahmen", "Kosten", "Steuern", "Ende"),
+                levels = c("Start", "Einnahmen", "Kosten", "Steuern", "Ende")),
+  value = c(0, 50, -30, -10, 0),
+  end = c(100, 150, 120, 110, 110),
+  start = c(100, 100, 150, 120, 110),
+  type = c("total", "in", "out", "out", "total"))
+ggplot(waterfall_data, aes(x = stage, y = value, fill = type)) +
+  geom_rect(aes(x = stage, xmin = as.numeric(stage) - 0.4,
+                xmax = as.numeric(stage) + 0.4,
+                ymin = pmin(start, end), ymax = pmax(start, end)), color = "black") +
+  scale_fill_manual(values = c("in" = "steelblue", "out" = "firebrick", "total" = "darkgrey"),
+                    guide = "none") +
+  theme_minimal() + labs(y = "Wert")
+```
+:::
+:::::
 
-- **Durchführung in R**:
+## Heatmap
 
-  ``` r
-  # Tukey's HSD
-  TukeyHSD(anova_result)
+::::: columns
+::: {.column width="60%"}
+- Nutzt Farbintensität für Matrixwerte
+- Zeigt Muster, Cluster und Anomalien
+- Gut für Korrelationen und Zeitreihen
+- Einfach zu überblicken, weniger präzise
+- Farbskala entscheidend für Interpretation
+:::
 
-  # Alternativ mit dem Paket 'multcomp'
-  library(multcomp)
-  post_hoc <- glht(anova_result, linfct = mcp(gruppe = "Tukey"))
-  summary(post_hoc)
-  ```
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+set.seed(42)
+n <- 10
+heatmap_data <- expand.grid(x = 1:n, y = 1:n)
+heatmap_data$value <- matrix(rnorm(n^2), n, n)[cbind(heatmap_data$x, heatmap_data$y)]
+ggplot(heatmap_data, aes(x = x, y = y, fill = value)) +
+  geom_tile() + scale_fill_viridis_c() + theme_minimal() +
+  coord_equal() + labs(x = "", y = "")
+```
+:::
+:::::
 
-## Visualisierung von ANOVA-Ergebnissen
+## Treemap
 
-- **Boxplots mit Post-hoc-Informationen**:
+::::: columns
+::: {.column width="60%"}
+- Zeigt Teil-Ganzes-Beziehungen mit Rechtecken
+- Größe entspricht dem Wert (Umsatz, Anzahl)
+- Visualisiert Hierarchien und Gruppierungen
+- Gut für Proportionsvergleiche
+- Vorsicht bei zu vielen kleinen Elementen
+:::
 
-  ``` r
-  library(ggplot2)
-  ggplot(daten, aes(x = gruppe, y = werte, fill = gruppe)) +
-    geom_boxplot() +
-    theme_minimal() +
-    labs(title = "Vergleich der Gruppen (ANOVA)",
-         subtitle = "F(2, 57) = 14.3, p < 0.001")
-  ```
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+library(ggplot2)
+library(treemapify)
+treemap_data <- data.frame(
+  category = c("A", "B", "C", "D", "E", "F"),
+  subcategory = c("A1", "B1", "C1", "D1", "E1", "F1"),
+  value = c(25, 18, 12, 10, 8, 5))
+ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
+  geom_treemap() +
+  geom_treemap_text(color = "white", fontface = "bold") +
+  scale_fill_brewer(palette = "Set2") + theme_void()
+```
+:::
+:::::
 
-- **Interaktionsplots (für mehrfaktorielle ANOVA)**:
+## Treemap
 
-  ``` r
-  # Für mehrfaktorielle ANOVA
-  interaction.plot(daten$faktor1, daten$faktor2, daten$werte,
-                  mean, xlab = "Faktor 1", ylab = "Mittelwert",
-                  trace.label = "Faktor 2")
-  ```
+![](images/treemap.png)
 
-## Umfragen und Datenerhebung
+## Nein, Sie verwenden bitte keine Pie Charts!
 
-### Grundsätzliche Aspekte der Datenerhebung
+![](images/pie-chart.png)
 
-- **Primärdaten vs. Sekundärdaten**: Vor- und Nachteile
-- **Quantitative vs. qualitative Forschung**: Unterschiedliche Ansätze und Zielsetzungen
-- **Mixed Methods**: Kombination verschiedener Ansätze
+## Datenvisualisierung mit ggplot2
 
-### Umfragedesign
-
-- **Fragentypen**:
-  - Offene vs. geschlossene Fragen
-  - Single-Choice vs. Multiple-Choice
-  - Likert-Skalen: Abstufungen und Best Practices
-- **Skalendesign**:
-  - Balance: Gleiche Anzahl positiver und negativer Optionen
-  - Neutraloption: Ja oder nein?
-  - Skalenlänge: 5-, 7- oder 10-Punkt-Skalen
-
-### Typische Fehlerquellen und Verzerrungen
-
-- **Stichprobenverzerrung (Sampling Bias)**:
-  - Convenience Sampling
-  - Self-Selection Bias
-  - Non-Response Bias
-- **Antwortverzerrungen**:
-  - Social Desirability Bias
-  - Acquiescence Bias (Ja-Sage-Tendenz)
-  - Extremity Bias (Tendenz zu Extremantworten)
-  - Central Tendency Bias (Tendenz zur Mitte)
-
-### Fallbeispiele von Verzerrungen
-
-- **Survivorship Bias**: Beobachtungen der "Überlebenden"
-- **Verzerrung durch fehlende Daten**: Systematische vs. zufällige fehlende Werte
-- **Kulturelle Unterschiede in der Beantwortung**: Internationale Studien
-
-### Praktische Tipps für bessere Umfragen
-
-- **Frageformulierung**: Klar, präzise, neutral
-- **Umfragelänge**: Ermüdung und Abbruchquoten
-- **Pretests durchführen**: Frühe Probleme erkennen
-- **Datenqualitätsprüfung**: Validierung während und nach der Erhebung
-
-### Online-Tools und Software
-
-- **Umfragetools**: SurveyMonkey, Google Forms, LimeSurvey, Qualtrics
-- **Integration mit R**: Datenimport und -analyse
-
-
-# Sitzung 12: Abschluss und Ausblick
-
-## Zusammenfassung der wichtigsten Konzepte
-
-- **Deskriptive Statistik**: Kennzahlen, Verteilungen, Visualisierung
-- **Inferenzstatistik**: Stichproben, Hypothesentests, Konfidenzintervalle
-- **Korrelation und Regression**: Zusammenhänge und Vorhersagen
-- **Kategoriale Datenanalyse**: Chi-Quadrat-Tests und Kontingenztabellen
-
-## Integration der Methoden an praktischen Beispielen
-
-- **Fallstudie**: Durchführung einer vollständigen Datenanalyse
-  1.  Datenimport und -bereinigung
-  2.  Explorative Datenanalyse
-  3.  Hypothesenbildung
-  4.  Statistische Tests
-  5.  Modellierung (Regression)
-  6.  Interpretation und Berichterstattung
-
-## Bewertungskriterien für die Hausarbeit
-
-- **Datenauswahl und -aufbereitung**: Sinnvolle Auswahl, korrekte Aufbereitung
-- **Methodik**: Angemessene Auswahl und korrekte Anwendung statistischer Verfahren
-- **Visualisierung**: Informative, korrekte und ästhetisch ansprechende Grafiken
-- **Interpretation**: Korrekte Deutung der Ergebnisse, Verständnis der Grenzen
-- **Dokumentation**: Klare, nachvollziehbare Darstellung der Analyse mit R Markdown
-
-## Weiterführende statistische Methoden
-
-- **Mehrfaktorielle ANOVA**: Analyse mehrerer Einflussfaktoren und ihrer Interaktionen
-- **Multiple Regression**: Mehrere unabhängige Variablen
-- **Nicht-parametrische Verfahren**: Alternativen bei Verletzung der Normalverteilungsannahme
-- **Zeitreihenanalyse**: Analyse von Daten mit zeitlicher Struktur
-- **Faktorenanalyse**: Reduktion von Variablen auf latente Faktoren
-- **Clusteranalyse**: Identifikation von Gruppen in Daten
-- **Machine Learning**: Vorhersagemodelle und Klassifikation
-
-## Praktische Hinweise für statistisches Arbeiten
-
-- **Reproduzierbarkeit**: Verwendung von R Markdown für nachvollziehbare Analysen
-- **Visualisierung vor Berechnung**: Daten immer zuerst visualisieren
-- **Datenvalidierung**: Überprüfung auf Ausreißer, fehlende Werte, unmögliche Werte
-- **Kritisches Denken**: Hinterfragen von Ergebnissen und Methoden
-- **Effektgrößen beachten**: Nicht nur auf p-Werte fixieren
-
-## Ressourcen für das Selbststudium
-
-- **Bücher**:
-  - "R for Data Science" von Hadley Wickham und Garrett Grolemund
-  - "Discovering Statistics Using R" von Andy Field
-  - "An Introduction to Statistical Learning" von James, Witten, Hastie und Tibshirani
-- **Online-Ressourcen**:
-  - RStudio Cheatsheets: <https://www.rstudio.com/resources/cheatsheets/>
-  - R-bloggers: <https://www.r-bloggers.com/>
-  - Datacamp-Kurse: <https://www.datacamp.com/courses/tech:r>
-  - Stackoverflow für R-spezifische Fragen
-
-## Datenkritisches Denken und ethische Aspekte
-
-- **Datenqualität und -herkunft**: Kritische Bewertung von Datenquellen
-- **Fallstricke der Statistik**: Häufige Fehlinterpretationen und wie man sie vermeidet
-- **Ethik in der Datenanalyse**: Datenschutz, Fairness, Transparenz
-- **Kommunikation statistischer Ergebnisse**: Verantwortungsvoller Umgang mit Daten in der Öffentlichkeit
-
-## Abschlussdiskussion und Feedback
-
-- **Offene Fragen**: Klärung verbleibender Unklarheiten
-- **Rückblick**: Was waren die wichtigsten Erkenntnisse?
-- **Ausblick**: Wie können die Studierenden die erlernten Methoden in ihren Abschlussarbeiten anwenden?
-- **Kursevaluation**: Feedback zum Seminar und Verbesserungsvorschläge
-
-## Tipp des Tages: Statistische Fallstricke vermeiden
-
-- **Data Dredging (p-Hacking)**: Nicht so lange testen, bis ein signifikantes Ergebnis erscheint
-- **HARKing (Hypothesizing After Results are Known)**: Hypothesen vor der Analyse festlegen
-- **Cherry Picking**: Alle relevanten Ergebnisse berichten, nicht nur die "schönen"
-- **Überinterpretation von p-Werten**: p \< 0.05 bedeutet nicht "wahr" oder "wichtig"
-- **Ignorieren von Effektgrößen**: Praktische Bedeutsamkeit ist oft wichtiger als statistische Signifikanz
+- Base Plot vs. ggplot2
+- Grammar of Graphics
+- `geom_point()`, `geom_histogram()`, `geom_boxplot()`
+- Ästhetiken: Farbe, Form, Gruppierung
