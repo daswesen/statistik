@@ -322,3 +322,22 @@ books |>
   theme_minimal()
 ```
 
+```{r}
+cor.test(cars$speed, cars$dist)
+```
+
+```{r}
+books %>%
+  filter(Age > 5) %>%
+  filter(`Book-Rating` > 0) %>%
+  filter(Age < 101) %>%
+  ggplot(., aes(x = Age, y = `Book-Rating`)) +
+  geom_point()
+```
+
+```{r}
+cor.test(books$Age, books$`Book-Rating`)
+```
+
+
+

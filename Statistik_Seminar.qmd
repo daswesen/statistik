@@ -812,11 +812,16 @@ daten |>
 
 ## Von der Kovarianz zur Korrelation
 
-- **Kovarianz**: Unstandartisiertes Maß für gemeinsame Variation
-  - Formel: $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
-- **Pearson-Korrelation**: Standardisierte Kovarianz
-  - Formel: $r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
-  - Wertebereich: -1 bis +1
+- **Kovarianz**: Unstandardisiertes Maß für gemeinsame Variation
+  - $\text{Cov}(X,Y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})$
+  - Problem: Der Wert hängt von den Einheiten ab — schwer zu interpretieren
+
+## Pearson-Korrelation
+
+- Kovarianz ÷ Standardabweichungen beider Variablen:
+  $$r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$$
+- Wir verwenden $s$ (Stichprobe), nicht $\sigma$ (Population), denn wir analysieren keine Vollerhebung
+- Ergebnis: Wertebereich immer zwischen -1 und +1 → direkt vergleichbar
 
 ## Pearson-Korrelation
 
@@ -845,23 +850,37 @@ plot(cars, main = "Geschwindigkeit vs. Bremsweg",
 
 ## Beispiel: Pearson-Korrelation
 
-```{r echo=TRUE}
+```r
 cor.test(cars$speed, cars$dist)
 ```
 
-→ r = 0.81, p < 0.001: starker positiver Zusammenhang — plausibel!
+**Ergebnis:**
+
+| Kennzahl | Wert |
+|---|---|
+| r (Korrelation) | **0.81** |
+| p-Wert | **< 0.001** |
+| 95%-KI | [0.68, 0.89] |
+
+→ Starker positiver Zusammenhang — je schneller das Auto, desto länger der Bremsweg. Plausibel!
 
 ## Was ist eine monotone Beziehung?
 
 - **Monoton steigend**: Je mehr X, desto mehr Y — aber nicht unbedingt gleichmäßig
   - Beispiel: Je mehr Bücher jemand liest, desto mehr Empfehlungen gibt er ab
   - Die Zunahme muss nicht konstant sein — sie geht nur immer in dieselbe Richtung
+
 - **Monoton fallend**: Je mehr X, desto weniger Y
   - Beispiel: Je teurer ein Buch, desto seltener wird es ausgeliehen
-- **Nicht monoton**: Die Richtung wechselt irgendwo
-  - Beispiel: Zufriedenheit steigt bis zur Mitte eines Films, dann fällt sie wieder
 
-→ Spearman funktioniert für alle monotonen Zusammenhänge — Pearson nur für *gerade* Linien
+## Was ist eine monotone Beziehung? (2)
+
+- **Nicht monoton**: Die Richtung wechselt irgendwo
+  - Beispiel: Zufriedenheit steigt bis Mitte eines Films — und fällt dann wieder
+
+. . .
+
+→ Spearman funktioniert für alle monotonen Zusammenhänge, Pearson nur für *gerade* Linien
 
 ## Alternative Korrelationsmaße
 
@@ -870,23 +889,12 @@ cor.test(cars$speed, cars$dist)
   - Robuster gegenüber Ausreißern
   - R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
 
-## Demo: Spearman-Korrelation — Bücher-Datensatz
 
-Buchbewertungen sind ordinal (1–10) — Spearman ist hier besser geeignet als Pearson:
-
-```r
-cor.test(books$Age, books$`Book-Rating`, method = "spearman")
-```
-
-→ Notebook
-
-- Hängt das Alter der Lesenden mit der Bewertung zusammen?
-- Wie unterscheidet sich das Ergebnis von Pearson?
 
 ## Alternative Korrelationsmaße
 
 - **Kendall's Tau**: Alternative rangbasierte Korrelation
-  - Idee: Vergleiche alle möglichen Paare von Beobachtungen — gehen sie in dieselbe Richtung?
+  - Idee: Vergleiche alle möglichen Paare von Beobachtungen, gehen sie in dieselbe Richtung?
   - *Konkordant*: Person A liest mehr UND bewertet höher als Person B → passt zusammen ✓
   - *Diskordant*: Person A liest mehr, bewertet aber niedriger als Person B → widerspricht ✗
   - Tau = (konkordante − diskordante Paare) / alle Paare
