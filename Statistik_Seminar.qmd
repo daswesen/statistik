@@ -44,10 +44,10 @@ library(tidyverse)
 
 ## Übersicht der Sitzungen (2/2)
 
-| Sitzung | Thema                                          |
-|---------|------------------------------------------------|
-| 8       | Lineare Regression & Visualisierung            |
-| 9+      | Referate (nach Sitzung 8)                      |
+| Sitzung | Thema                               |
+|---------|-------------------------------------|
+| 8       | Lineare Regression & Visualisierung |
+| 9+      | Referate (nach Sitzung 8)           |
 
 ## Erwartungen und Interaktion
 
@@ -106,7 +106,7 @@ library(tidyverse)
 ## Der Forschungsprozess
 
 | Schritt | Frage | Beispiel |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **1. Fragestellung** | Was will ich wissen? | Beeinflusst Schlafmangel die Prüfungsleistung? |
 | **2. Theorie & Hypothese** | Was erwarte ich? | Weniger Schlaf → schlechtere Noten |
 | **3. Datenerhebung** | Wie messe ich es? | Befragung von 80 Studierenden |
@@ -118,7 +118,7 @@ library(tidyverse)
 ## Wo hilft Ihnen dieser Kurs?
 
 | Schritt | Inhalt des Kurses |
-|------------------------------------|------------------------------------|
+|----|----|
 | Datenaufbereitung | Sitzung 4 – Datenmanipulation mit R |
 | Analyse: beschreiben | Sitzungen 3–5 – Deskriptive Statistik & Visualisierung |
 | Analyse: testen | Sitzungen 7–13 – Inferenzstatistik, Tests, Regression |
@@ -152,7 +152,7 @@ library(tidyverse)
 ## Skalenniveau
 
 | Statistische Einheit / Merkmalsträger | Merkmal | Ausprägung | Typ / Skala | Erläuterung |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | n1 | Haarfarbe | Rot | Kategorial / nominalskaliert | Keine Abstände |
 | n1 | Postleitzahl | 22703 | Numerisch / nominalskaliert | Keine Abstände |
 | n1 | Schulabschluss | Abitur | Kategorial / ordinalskaliert | willkürliche Abstände |
@@ -163,7 +163,7 @@ library(tidyverse)
 ## Skalenniveau am Beispiel
 
 | title | year | budget | avg_vote |
-|------------------|------------------|------------------|------------------|
+|----|----|----|----|
 | Miss Jerry | 1894 | NA | 5.9 |
 | The Story of the Kelly Gang | 1906 | \$ 2250 | 6.1 |
 | Den sorte drøm | 1911 | NA | 5.8 |
@@ -178,7 +178,7 @@ library(tidyverse)
 ## Analytische Konzepte
 
 | Phase & Leitfrage | Statistisches Äquivalent | Beispiel‑Methoden / Tools |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Rückblick – Was ist passiert?** | **Deskriptive Statistik** | Lage‑ & Streuungsmaße, Häufigkeiten, Balken‑/Liniendiagramme |
 | **Erkenntnis – Warum passiert es?** | **Explorative & inferenzielle Statistik** | Korrelation, t‑Test, ANOVA, χ²‑Test, Konfidenz­intervalle, Regressionsdiagnostik |
 | **Vorausschau – Was wird passieren?** | **Prognostische (inferenzielle) Modelle** | Lineare/Logistische Regression, Random Forest, Zeitreihen‑Forecasts, Konfidenz­intervalle für Prognosen |
@@ -495,8 +495,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 
 ## Wie könnte man die Einkommensverteilung beschreiben?
 
-![](images/einkommensschichtung.png) 
-
+![](images/einkommensschichtung.png)
 
 ## Im Durchschnitt haben Sie...
 
@@ -531,7 +530,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Weitere Beispiele
 
 | Anwendungsgebiet | Kennzahlen | Nutzen |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Medizin** | Referenzwerte (z.B. Blutdruck, BMI) | Diagnostik, Risikoeinschätzung |
 | **Finanzmarkt** | Volatilität (Standardabweichung) | Risikobewertung von Anlagen |
 | **Qualitätssicherung** | Prozessfähigkeitsindizes (basierend auf σ) | Optimierung von Produktionsprozessen |
@@ -569,7 +568,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Typische Anwendungsfälle
 
 | Kennzahl | Wichtig für... | Beispielanwendung |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Mittelwert** | Durchschnittswerte, Summenbetrachtungen | Durchschnittseinkommen einer Region |
 | **Median** | Typische Werte, robust gegen Ausreißer | Typisches Haushaltseinkommen |
 | **Standardabweichung** | Streuung, Qualitätskontrolle | Produktionsgenauigkeit in der Fertigung |
@@ -589,7 +588,6 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Datensätze miteinander verbinden
 
 ![](images/joins.png)
-
 
 # Sitzung 5: Streuungsmaße & Visualisierung
 
@@ -661,7 +659,7 @@ Der Mittelwert allein reicht oft nicht aus:
 
 Mit `summarise()` aus dem Tidyverse:
 
-```r
+``` r
 daten |>
   summarise(
     Kennzahl = funktion(variable, na.rm = TRUE)
@@ -713,7 +711,7 @@ daten |>
 
 → Notebook
 
-- Der Mittelwert liegt bei ~71 Minuten — aber kaum ein Ausbruch passiert dann
+- Der Mittelwert liegt bei \~71 Minuten — aber kaum ein Ausbruch passiert dann
 - Was verrät die Dichtefunktion, was der Mittelwert verschweigt?
 
 ## Demo: Density Plot — Bücher-Datensatz
@@ -740,7 +738,7 @@ daten |>
 ## Welche Visualisierung wann?
 
 | Visualisierung | Wann verwenden? |
-|----------------|-----------------|
+|----|----|
 | Histogramm | Verteilung einer einzelnen Variable erkunden |
 | Density Plot | Verteilung glätten; mehrere Gruppen überlagert vergleichen |
 | Boxplot | Median, Quartile und Ausreißer auf einen Blick; Gruppenvergleich |
@@ -748,12 +746,11 @@ daten |>
 
 ## Übungsblock: Bücher-Datensatz
 
-1. Berechnen Sie Spannweite, IQR und Standardabweichung der Bewertungen mit `summarise()`
-2. Bilden Sie mit `mutate()` und `cut()` Altersgruppen — streuen die Bewertungen je Gruppe unterschiedlich?
-3. Plotten Sie die Verteilung der Bewertungen als Histogramm
-4. Erstellen Sie einen Violin + Boxplot für den Altersgruppen-Vergleich
-5. Was fällt Ihnen auf? Was überrascht Sie?
-
+1.  Berechnen Sie Spannweite, IQR und Standardabweichung der Bewertungen mit `summarise()`
+2.  Bilden Sie mit `mutate()` und `cut()` Altersgruppen — streuen die Bewertungen je Gruppe unterschiedlich?
+3.  Plotten Sie die Verteilung der Bewertungen als Histogramm
+4.  Erstellen Sie einen Violin + Boxplot für den Altersgruppen-Vergleich
+5.  Was fällt Ihnen auf? Was überrascht Sie?
 
 ## ggplot2: Die Grammatik der Grafik
 
@@ -771,13 +768,13 @@ daten |>
 
 ## Wichtige Ästhetiken (`aes()`)
 
-| Ästhetik | Bedeutung | Beispiel |
-|----------|-----------|---------|
-| `x`, `y` | Achsenwerte | `aes(x = Age, y = Rating)` |
-| `color` | Linien- / Punktfarbe | `aes(color = Gruppe)` |
-| `fill` | Füllfarbe | `aes(fill = Gruppe)` |
-| `size` | Größe | `aes(size = Anzahl)` |
-| `alpha` | Transparenz | `alpha = 0.5` |
+| Ästhetik | Bedeutung            | Beispiel                   |
+|----------|----------------------|----------------------------|
+| `x`, `y` | Achsenwerte          | `aes(x = Age, y = Rating)` |
+| `color`  | Linien- / Punktfarbe | `aes(color = Gruppe)`      |
+| `fill`   | Füllfarbe            | `aes(fill = Gruppe)`       |
+| `size`   | Größe                | `aes(size = Anzahl)`       |
+| `alpha`  | Transparenz          | `alpha = 0.5`              |
 
 ## Layering: Schichten übereinanderlegen
 
@@ -818,8 +815,7 @@ daten |>
 
 ## Pearson-Korrelation
 
-- Kovarianz ÷ Standardabweichungen beider Variablen:
-  $$r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$$
+- Kovarianz ÷ Standardabweichungen beider Variablen: $$r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$$
 - Wir verwenden $s$ (Stichprobe), nicht $\sigma$ (Population), denn wir analysieren keine Vollerhebung
 - Ergebnis: Wertebereich immer zwischen -1 und +1 → direkt vergleichbar
 
@@ -850,17 +846,17 @@ plot(cars, main = "Geschwindigkeit vs. Bremsweg",
 
 ## Beispiel: Pearson-Korrelation
 
-```r
+``` r
 cor.test(cars$speed, cars$dist)
 ```
 
 **Ergebnis:**
 
-| Kennzahl | Wert |
-|---|---|
-| r (Korrelation) | **0.81** |
-| p-Wert | **< 0.001** |
-| 95%-KI | [0.68, 0.89] |
+| Kennzahl        | Wert           |
+|-----------------|----------------|
+| r (Korrelation) | **0.81**       |
+| p-Wert          | **\< 0.001**   |
+| 95%-KI          | \[0.68, 0.89\] |
 
 → Starker positiver Zusammenhang — je schneller das Auto, desto länger der Bremsweg. Plausibel!
 
@@ -869,7 +865,6 @@ cor.test(cars$speed, cars$dist)
 - **Monoton steigend**: Je mehr X, desto mehr Y — aber nicht unbedingt gleichmäßig
   - Beispiel: Je mehr Bücher jemand liest, desto mehr Empfehlungen gibt er ab
   - Die Zunahme muss nicht konstant sein — sie geht nur immer in dieselbe Richtung
-
 - **Monoton fallend**: Je mehr X, desto weniger Y
   - Beispiel: Je teurer ein Buch, desto seltener wird es ausgeliehen
 
@@ -888,8 +883,6 @@ cor.test(cars$speed, cars$dist)
   - Idee: Nicht die Werte selbst vergleichen, sondern ihre **Rangplätze** (1., 2., 3., ...)
   - Robuster gegenüber Ausreißern
   - R-Code: `cor.test(daten$x, daten$y, method = "spearman")`
-
-
 
 ## Alternative Korrelationsmaße
 
@@ -979,20 +972,16 @@ corrplot(cor_matrix, method = "circle")
 
 ![](images/entscheidungsbaum.png)
 
-
-
 ## Übungsblock: Bücher-Datensatz
 
-1. Erstellen Sie einen Scatter Plot: Alter (`Age`) vs. Bewertung (`Book-Rating`)
-2. Berechnen Sie die Korrelation: `cor.test(books$Age, books$\`Book-Rating\`)`
-3. Versuchen Sie Spearman-Korrelation - unterscheidet sich das Ergebnis?
-4. Was fällt Ihnen auf? Wie würden Sie das Ergebnis interpretieren?
+1.  Erstellen Sie einen Scatter Plot: Alter (`Age`) vs. Bewertung (`Book-Rating`)
+2.  Berechnen Sie die Korrelation: `cor.test(books$Age, books$\`Book-Rating\`)\`
+3.  Versuchen Sie Spearman-Korrelation - unterscheidet sich das Ergebnis?
+4.  Was fällt Ihnen auf? Wie würden Sie das Ergebnis interpretieren?
 
 → Notebook
 
-
 # Sitzung 7: Inferenzstatistik & Hypothesentests
-
 
 ## Lernziele dieser Sitzung
 
@@ -1001,6 +990,13 @@ corrplot(cor_matrix, method = "circle")
 - Einen t-Test in R durchführen und interpretieren
 - p-Wert und Konfidenzintervall korrekt kommunizieren
 - Fehler 1. und 2. Art sowie Effektgrößen einordnen
+
+## Lernziele dieser Sitzung (Forts.)
+
+- Grundprinzipien des experimentellen Designs benennen (Randomisierung, Biases)
+- Likert-Skalen korrekt analysieren und begründete Entscheidungen zur Auswertung treffen
+- Den Chi-Quadrat-Test für kategoriale Variablen anwenden und interpretieren
+- Den Unterschied zwischen t-Test und ANOVA erklären und eine einfache ANOVA in R durchführen
 
 ## Was ist Inferenzstatistik?
 
@@ -1014,13 +1010,13 @@ corrplot(cor_matrix, method = "circle")
 - Wiederholung über viele → Verteilung der Mittelwerte
 - Was ist der Erwartungswert?
 
-## Würfeln und der Zufall: Zentraler Grenzwertsatz
+## Würfeln und der Zufall: Erwartungswert
 
 - Jeder Studierende würfelt 10x → 1 Mittelwert
 - Wiederholung über viele → Verteilung der Mittelwerte
 - Erwartungswert (fairer Würfel): 3.5
 
-## Würfeln und der Zufall: Zentraler Grenzwertsatz
+## Würfeln und der Zufall: Simulation
 
 ```{r}
 # Simulation des Zentralen Grenzwertsatzes
@@ -1097,12 +1093,17 @@ mean(würfe)
 
 ## t-Test in R (Einzelstichprobe)
 
-::: small
 ```{r}
-mean(würfe)
+#| echo: true
+#| output: false
 t.test(würfe, mu = 3.5)
 ```
-:::
+
+**Ergebnis:** t = -0.29, df = 59, **p = 0.77**
+
+95%-Konfidenzintervall: \[2.97, 3.89\] — enthält 3.5 ✓
+
+→ Kein Hinweis darauf, dass der Würfel gezinkt ist
 
 ## Interpretation des t-Tests
 
@@ -1142,8 +1143,12 @@ t.test(würfe, mu = 3.5)
 ## Das statistische Problem
 
 - Ziel: Testen, ob der Mittelwert von Proben vom Sollwert abweicht.
-- Normalformel: $$\frac{\bar{x} - \mu}{\sigma / \sqrt{n}}$$ → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
-- Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: $$  \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
+- Normalformel: $$\frac{\bar{x} - \mu}{\sigma / \sqrt{n}}$$
+- → funktioniert nur, wenn **σ** (Standardabweichung der Grundgesamtheit) bekannt ist.
+
+## Das statistische Problem: Gossets Lösung
+
+- Bei kleinen n musste Gosset stattdessen **s** (Stichprobenstandardabweichung) verwenden: $$\frac{\bar{x} - \mu}{s / \sqrt{n}}$$
 - Folge: Diese Teststatistik **folgt nicht mehr der Normalverteilung**.
 
 ## Die Lösung
@@ -1229,7 +1234,10 @@ t.test(würfe, mu = 3.5)
 
 - **Angabe des Konfidenzintervalls**: Zusätzliche Information zur Präzision
 - **Standardisierte Berichtsform**: APA-Style für wissenschaftliche Publikationen
-- **Beispiel**: "Ein unabhängiger t-Test zeigte einen signifikanten Unterschied zwischen den Gruppen (t(28) = 2.45, p = 0.02, d = 0.89). Die Experimentalgruppe (M = 25.3, SD = 4.2) erzielte höhere Werte als die Kontrollgruppe (M = 21.7, SD = 3.8)."
+
+## Berichterstattung: APA-Beispiel
+
+> „Ein unabhängiger t-Test zeigte einen signifikanten Unterschied zwischen den Gruppen (t(28) = 2.45, p = 0.02, d = 0.89). Die Experimentalgruppe (M = 25.3, SD = 4.2) erzielte höhere Werte als die Kontrollgruppe (M = 21.7, SD = 3.8)."
 
 ## Fehler beim Hypothesentesten
 
@@ -1265,8 +1273,6 @@ t = 3.45, p = 0.001 → "Signifikant!"
 | p \< 0.05 | d \> 0.5  | ✅ Signifikant & bedeutsam   |
 | p \< 0.05 | d \< 0.2  | ❌ **"Signifikant trivial"** |
 
-
-
 ## Exkurs: Likert-Skalen
 
 - **Definition**: Ordinale Skala mit typisch 5–7 Stufen
@@ -1277,16 +1283,16 @@ t = 3.45, p = 0.001 → "Signifikant!"
 ## Exkurs: Likert — Mittelwert oder Median?
 
 | Ansatz | Argument | Wann? |
-|--------|----------|-------|
+|----|----|----|
 | Mittelwert | Praktisch, weit verbreitet, erlaubt t-Test | Bei mindestens 5 Stufen, annähernd symmetrisch |
 | Median | Korrekt für ordinale Daten | Wenn Verteilung schief, kleine Stichproben |
 | Strikt ordinal | Theoretisch sauber | Wenn man auf Nummer sicher gehen will |
 
-→ In der Praxis: Mittelwert ist akzeptiert, wenn explizit begründet
+**→ In der Praxis: Mittelwert ist akzeptiert, wenn explizit begründet**
 
 ## Exkurs: Likert in R
 
-```r
+``` r
 # Häufigkeiten visualisieren
 tabelle |>
   ggplot(aes(x = antwort)) +
@@ -1298,6 +1304,16 @@ mean(umfrage$zufriedenheit, na.rm = TRUE)
 ```
 
 → Wichtiger als die Wahl: konsequent sein und begründen!
+
+## Welcher Test für welche Daten?
+
+| Variable 1 | Variable 2 | Methode                                 |
+|------------|------------|-----------------------------------------|
+| Kategorie  | Kategorie  | Chi-Quadrat-Test                        |
+| Kategorie  | Zahl       | t-Test (2 Gruppen) / ANOVA (3+ Gruppen) |
+| Zahl       | Zahl       | Korrelation / Regression                |
+
+**→ Wiederholung: Entscheidungsbaum aus Sitzung 6**
 
 ## Exkurs: Chi-Quadrat-Test
 
@@ -1311,7 +1327,7 @@ $$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
 ## Exkurs: Chi-Quadrat-Test in R
 
-```r
+``` r
 # Häufigkeitstabelle erstellen
 tabelle <- table(daten$variable1, daten$variable2)
 
@@ -1319,15 +1335,44 @@ tabelle <- table(daten$variable1, daten$variable2)
 chisq.test(tabelle)
 ```
 
-- p < 0.05 → Die Verteilung ist nicht zufällig — es gibt einen Zusammenhang
+## Exkurs: Chi-Quadrat-Test — Interpretation
+
+- p \< 0.05 → Die Verteilung ist nicht zufällig — es gibt einen Zusammenhang
 - Effektstärke: Cramér's V (0 = kein Effekt, 1 = perfekter Zusammenhang)
 - **Voraussetzung:** Erwartete Häufigkeiten in jeder Zelle ≥ 5
 
 → Notebook
 
+## Exkurs: ANOVA (Analysis of Variance)
+
+- **Wann?** Wenn eine kategoriale Variable **3 oder mehr Gruppen** hat und die Zielvariable metrisch ist
+- **Beispiel**: Unterscheiden sich Bibliotheksnutzung (Stunden/Woche) zwischen Erstsemester, Mittelsemester und Abschlusssemester?
+
+## Exkurs: ANOVA — Idee
+
+- **Idee**: Vergleicht die Varianz *zwischen* den Gruppen mit der Varianz *innerhalb* der Gruppen
+
+$$F = \frac{\text{Varianz zwischen Gruppen}}{\text{Varianz innerhalb der Gruppen}}$$
+
+→ Großes F → Gruppen unterscheiden sich stärker als durch Zufall zu erwarten
+
+## Exkurs: ANOVA in R
+
+``` r
+ergebnis <- aov(zielvariable ~ gruppenvariable, data = daten)
+summary(ergebnis)
+TukeyHSD(ergebnis)
+```
+
+## Exkurs: ANOVA — Interpretation
+
+- p \< 0.05 → Mindestens eine Gruppe unterscheidet sich signifikant
+- **Post-hoc-Test** (Tukey) nötig, um zu wissen *welche* Gruppen
+- Effektstärke: η² (Eta-Quadrat) — Anteil erklärter Varianz
+
+→ Notebook
 
 # Sitzung 8: Lineare Regression & Visualisierung für Kommunikation
-
 
 ## Lernziele dieser Sitzung
 
@@ -1392,8 +1437,6 @@ ggplot(wohnungen, aes(x = flaeche, y = miete)) +
 ------------------------------------------------------------------------
 
 ## Wie es genau funktioniert
-
-
 
 ------------------------------------------------------------------------
 
@@ -1532,7 +1575,6 @@ s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5,
 ```
 
 ------------------------------------------------------------------------
-
 
 ## Datenvisualisierung: Lernziele
 
@@ -1935,7 +1977,7 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
 ## Vergleich: Horizontal vs. Vertical Bar Charts
 
 | Feature | Horizontal | Vertical |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Best for | Long category labels, many items | Time-based or logical progression |
 | Readability | Easier when labels are long | Requires rotation for long labels |
 | Use case | Rankings, survey responses | Trends over time, grouped comparisons |

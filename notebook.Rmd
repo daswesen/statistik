@@ -23,6 +23,8 @@ Dies ist mein schöner Datensatz :)
 summary(mtcars)
 ```
 
+`summary()` gibt uns auf einen Blick Lage- und Streuungsmaße für alle Variablen: Der mittlere Kraftstoffverbrauch liegt bei 20.09 mpg (Spannweite: 10.4–33.9), die Motorleistung im Mittel bei 146.7 PS. Die meisten Autos haben 6 Zylinder (Median). Schon hier sieht man: Mittelwert und Median können deutlich auseinanderliegen — ein erster Hinweis auf schiefe Verteilungen.
+
 ```{r}
 cars
 ```
@@ -131,6 +133,7 @@ BX_Users <- read_delim("data/Archiv/BX-Users.csv",
 summary(BX_Users)
 ```
 
+Wichtige Beobachtungen aus dem Summary: 246.666 Nutzer, mittleres Alter 34.67 Jahre (Median: 32). Aber: das **Maximum liegt bei 244 Jahren** — ein klares Datenproblem, das bereinigt werden muss. Außerdem fehlen bei 97.797 Nutzern (~40%) die Altersangaben (NAs). Das ist eine typische Herausforderung bei realen Datensätzen.
 
 ```{r}
 BX_Book_Ratings <- read_delim("data/Archiv/BX-Book-Ratings.csv", 
@@ -163,6 +166,8 @@ books <- BX_Books %>%
   full_join(BX_Book_Ratings) %>%
   full_join(BX_Users)
 ```
+
+Der Join produziert eine **many-to-many-Warnung**: Ein Buch kann mehrere Bewertungen haben, und ein Nutzer kann mehrere Bücher bewertet haben — das ist hier gewollt. R warnt uns trotzdem, weil solche Joins schnell zu ungewollten Zeilen-Explosionen führen können. Immer prüfen, ob die Zeilenzahl danach sinnvoll ist!
 
 
 # Sitzung 5: Streuungsmaße & Visualisierung
@@ -217,6 +222,8 @@ books |>
        x = "Bewertung", y = "Anzahl") +
   theme_minimal()
 ```
+
+R entfernt hier 310.141 Zeilen mit fehlenden Werten. Das sind Einträge mit `Book-Rating = 0` — im Datensatz bedeutet 0 nicht „schlechteste Bewertung", sondern „keine Bewertung abgegeben". Das Histogramm wäre ohne diese Filterung komplett verzerrt. Deshalb immer zuerst den Datensatz verstehen, bevor man visualisiert.
 
 ## Nur echte Bewertungen (Book-Rating > 0)
 
@@ -326,6 +333,8 @@ books |>
 cor.test(cars$speed, cars$dist)
 ```
 
+**Ergebnis:** r = 0.807, p < 1.49e-12, 95%-KI [0.68, 0.89]. Starke positive Korrelation: je schneller das Auto fährt, desto länger der Bremsweg — das macht physikalisch Sinn. Hier ist Korrelation tatsächlich kausal interpretierbar, weil wir den Mechanismus kennen. Das ist aber die Ausnahme, nicht die Regel.
+
 ```{r}
 books %>%
   filter(Age > 5) %>%
@@ -339,5 +348,98 @@ books %>%
 cor.test(books$Age, books$`Book-Rating`)
 ```
 
+**Ergebnis:** r = -0.054, p < 2.2e-16. Wieder dasselbe Muster wie bei Chi-Quadrat und ANOVA: hochsignifikant, aber praktisch bedeutungslos. Eine Korrelation von -0.054 erklärt weniger als 0.3% der Varianz (r² = 0.003). Ältere Nutzer bewerten also minimal schlechter — aber dieser Effekt ist im Alltag irrelevant. Mit n > 300.000 wird fast alles signifikant.
+
+
+# Sitzung 7: Inferenzstatistik — Chi-Quadrat & ANOVA
+
+## Chi-Quadrat-Test: Zusammenhang zwischen zwei kategorialen Variablen
+
+Frage: Gibt es einen Zusammenhang zwischen Altersgruppe und Bewertungskategorie?
+
+```{r}
+library(tidyverse)
+
+books_chi <- books |>
+  filter(!is.na(Age), `Book-Rating` > 0, Age > 5, Age <= 100) |>
+  mutate(
+    Altersgruppe = cut(Age,
+      breaks = c(5, 20, 30, 40, 60, 100),
+      labels = c("bis 20", "21–30", "31–40", "41–60", "über 60")),
+    Bewertungskategorie = cut(`Book-Rating`,
+      breaks = c(0, 4, 7, 10),
+      labels = c("niedrig (1–4)", "mittel (5–7)", "hoch (8–10)"))
+  )
+
+# Häufigkeitstabelle
+tabelle <- table(books_chi$Altersgruppe, books_chi$Bewertungskategorie)
+tabelle
+```
+
+```{r}
+# Chi-Quadrat-Test
+chisq.test(tabelle)
+```
+
+**Ergebnis:** χ²(8) = 155.95, p < 2.2e-16 → hochsignifikant. Es gibt einen statistisch nachweisbaren Zusammenhang zwischen Altersgruppe und Bewertungskategorie.
+
+```{r}
+# Effektstärke: Cramér's V
+library(rstatix)
+cramer_v(tabelle)
+```
+
+**Aber:** Cramér's V = 0.027 — das ist ein extrem kleiner Effekt. In der Häufigkeitstabelle sehen wir warum: In allen Altersgruppen dominieren hohe Bewertungen (8–10) klar. Das Muster ist nahezu identisch über alle Gruppen.
+
+**Lehrmoment:** Wir haben über 100.000 Bewertungen — bei so großen Stichproben wird fast jeder noch so kleine Unterschied statistisch signifikant. Das p < 0.05 sagt uns nur, dass der Unterschied *existiert*, nicht dass er *wichtig* ist. Immer die Effektgröße berichten!
+
+## ANOVA: Unterscheiden sich Bewertungen zwischen Altersgruppen?
+
+Frage: Bewerten verschiedene Altersgruppen Bücher unterschiedlich? (3+ Gruppen → ANOVA statt t-Test)
+
+```{r}
+books_anova <- books |>
+  filter(!is.na(Age), `Book-Rating` > 0, Age > 5, Age <= 100) |>
+  mutate(Altersgruppe = cut(Age,
+    breaks = c(5, 20, 30, 40, 60, 100),
+    labels = c("bis 20", "21–30", "31–40", "41–60", "über 60")))
+
+# Mittelwerte je Gruppe
+books_anova |>
+  group_by(Altersgruppe) |>
+  summarise(
+    Mittelwert = mean(`Book-Rating`, na.rm = TRUE),
+    SD = sd(`Book-Rating`, na.rm = TRUE),
+    n = n()
+  )
+```
+
+```{r}
+# ANOVA
+ergebnis <- aov(`Book-Rating` ~ Altersgruppe, data = books_anova)
+summary(ergebnis)
+```
+
+**Ergebnis:** F(4, 110303) = 30.46, p < 2.2e-16 → hochsignifikant. Mindestens eine Altersgruppe bewertet Bücher anders als die anderen.
+
+```{r}
+# Post-hoc-Test: Welche Gruppen unterscheiden sich?
+TukeyHSD(ergebnis)
+```
+
+**Tukey-Ergebnis:** Die meisten Gruppenpaare unterscheiden sich signifikant — aber die Mittelwertdifferenzen liegen maximal bei ~0.19 Punkten auf einer 10-Punkte-Skala. Die Gruppe 41–60 Jahre gibt im Schnitt die höchsten, die über 60-Jährigen die niedrigsten Bewertungen. Nicht signifikant unterschiedlich: 21–30 vs. bis 20 und 41–60 vs. bis 20.
+
+**Lehrmoment (wieder):** Auch hier gilt — statistisch signifikant ≠ praktisch bedeutsam. Weniger als 0.2 Punkte Unterschied bei Bewertungen von 1–10 ist kaum relevant. Das ist der gleiche Effekt wie beim Chi-Quadrat-Test: große Stichprobe, winziger Effekt, trotzdem signifikant.
+
+```{r}
+# Visualisierung
+books_anova |>
+  ggplot(aes(x = Altersgruppe, y = `Book-Rating`, fill = Altersgruppe)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Buchbewertungen nach Altersgruppe",
+       x = "Altersgruppe", y = "Bewertung") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
 
 
