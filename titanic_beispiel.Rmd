@@ -1,0 +1,271 @@
+---
+title: "Beispiel-Analyse: Titanic-Datensatz"
+author: "Tom Alby / Matrikelnummer 123456789"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    df_print: paged
+  html_notebook:
+    toc: true
+    toc_float: true
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+---
+
+## 1 Datensatz: Herkunft & Erhebung
+
+Der **Titanic-Datensatz** enthält Passagierdaten der RMS Titanic, die am 15. April 1912 nach einer Kollision mit einem Eisberg sank. Von 2.224 Personen an Bord überlebten nur 710.
+
+Die Daten wurden aus dem Untersuchungsbericht des *British Board of Trade* sowie aus der Datenbank [Encyclopedia Titanica](https://www.encyclopedia-titanica.org/) zusammengestellt. Die hier verwendete Version stammt von der Kaggle-Plattform (ursprünglich von Vanderbilt University, Biostatistics Dept.) und ist ein Standarddatensatz für Lehr- und Lernzwecke in der Datenanalyse.
+
+**Variablen (Auswahl):**
+
+| Variable | Beschreibung | Skalenniveau |
+|----------|--------------|--------------|
+| `pclass` | Ticketklasse (1 = 1. Klasse, 2 = 2. Klasse, 3 = 3. Klasse) | ordinal |
+| `survived` | Überlebt (1 = ja, 0 = nein) | nominal |
+| `sex` | Geschlecht | nominal |
+| `age` | Alter in Jahren | verhältnis |
+| `fare` | Ticketpreis in britischen Pfund | verhältnis |
+| `sibsp` | Anzahl Geschwister / Ehepartner an Bord | verhältnis |
+| `parch` | Anzahl Eltern / Kinder an Bord | verhältnis |
+| `embarked` | Einschiffungshafen (S = Southampton, C = Cherbourg, Q = Queenstown) | nominal |
+
+---
+
+## 2 Daten laden & aufbereiten
+
+```{r laden}
+titanic <- read.csv2("data/titanic.csv", stringsAsFactors = FALSE)
+
+# Relevante Variablen bereinigen
+titanic <- titanic |>
+  mutate(
+    survived  = factor(survived, levels = c(0, 1), labels = c("Nein", "Ja")),
+    pclass    = factor(pclass, levels = c(1, 2, 3), labels = c("1. Klasse", "2. Klasse", "3. Klasse")),
+    sex       = factor(sex, levels = c("female", "male"), labels = c("weiblich", "männlich")),
+    age       = as.numeric(age),
+    fare      = as.numeric(fare)
+  )
+
+glimpse(titanic)
+```
+
+---
+
+## 3 Deskriptive Statistik
+
+### 3.1 Stichprobengröße & fehlende Werte
+
+```{r fehlend}
+cat("Passagiere gesamt:", nrow(titanic), "\n")
+cat("Fehlende Werte (Alter):", sum(is.na(titanic$age)), "\n")
+cat("Fehlende Werte (Ticketpreis):", sum(is.na(titanic$fare)), "\n")
+```
+
+### 3.2 Überlebensrate
+
+```{r ueberlebensrate}
+titanic |>
+  count(survived) |>
+  mutate(Anteil = round(n / sum(n) * 100, 1))
+```
+
+```{r plot-ueberleben, fig.width=5, fig.height=4}
+ggplot(titanic, aes(x = survived, fill = survived)) +
+  geom_bar(width = 0.5) +
+  scale_fill_manual(values = c("Nein" = "#d73027", "Ja" = "#4575b4")) +
+  labs(title = "Überlebt?", x = NULL, y = "Anzahl Passagiere", fill = "Überlebt") +
+  theme_minimal(base_size = 13)
+```
+
+### 3.3 Überlebensrate nach Klasse und Geschlecht
+
+```{r kreuztabelle}
+titanic |>
+  group_by(pclass, sex) |>
+  summarise(
+    n         = n(),
+    überlebt  = sum(survived == "Ja"),
+    Rate_Proz = round(überlebt / n * 100, 1)
+  )
+```
+
+```{r plot-klasse-geschlecht, fig.width=7, fig.height=4}
+titanic |>
+  group_by(pclass, sex) |>
+  summarise(rate = mean(survived == "Ja")) |>
+  ggplot(aes(x = pclass, y = rate, fill = sex)) +
+  geom_col(position = "dodge", width = 0.6) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("weiblich" = "#e08214", "männlich" = "#542788")) +
+  labs(title = "Überlebensrate nach Klasse und Geschlecht",
+       x = NULL, y = "Überlebensrate", fill = "Geschlecht") +
+  theme_minimal(base_size = 13)
+```
+
+### 3.4 Altersverteilung
+
+```{r alter-kennzahlen}
+titanic |>
+  filter(!is.na(age)) |>
+  summarise(
+    n      = n(),
+    Mittel = round(mean(age), 1),
+    SD     = round(sd(age), 1),
+    Min    = min(age),
+    Median = median(age),
+    Max    = max(age)
+  )
+```
+
+```{r plot-alter, fig.width=7, fig.height=4}
+titanic |>
+  filter(!is.na(age)) |>
+  ggplot(aes(x = age, fill = survived)) +
+  geom_histogram(binwidth = 5, position = "identity", alpha = 0.6) +
+  scale_fill_manual(values = c("Nein" = "#d73027", "Ja" = "#4575b4")) +
+  labs(title = "Altersverteilung nach Überleben",
+       x = "Alter (Jahre)", y = "Anzahl", fill = "Überlebt") +
+  theme_minimal(base_size = 13)
+```
+
+---
+
+## 4 Statistische Analysen
+
+### 4.1 t-Test: Ticketpreis nach Überleben
+
+**Forschungsfrage:** Zahlten Überlebende im Schnitt einen höheren Ticketpreis?
+
+- H₀: Der mittlere Ticketpreis unterscheidet sich nicht zwischen Überlebenden und Nicht-Überlebenden.
+- H₁: Es gibt einen Unterschied.
+
+```{r ttest}
+t.test(fare ~ survived, data = titanic |> filter(!is.na(fare)))
+```
+
+```{r plot-ttest, fig.width=5, fig.height=5}
+titanic |>
+  filter(!is.na(fare)) |>
+  ggplot(aes(x = survived, y = fare, fill = survived)) +
+  geom_boxplot(width = 0.4, outlier.alpha = 0.3) +
+  scale_fill_manual(values = c("Nein" = "#d73027", "Ja" = "#4575b4")) +
+  scale_y_log10() +
+  labs(title = "Ticketpreis nach Überlebensstatus (log-Skala)",
+       x = "Überlebt", y = "Ticketpreis (£, log)") +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+> Überlebende zahlten im Schnitt signifikant mehr (p < .05) – ein Hinweis auf den Einfluss der Klasse.
+
+---
+
+### 4.2 Chi-Quadrat-Test: Geschlecht und Überleben
+
+**Forschungsfrage:** Hängt das Überleben vom Geschlecht ab?
+
+- H₀: Geschlecht und Überleben sind unabhängig voneinander.
+- H₁: Es gibt einen Zusammenhang.
+
+```{r chisq}
+tab <- table(titanic$sex, titanic$survived)
+tab
+chisq.test(tab)
+```
+
+```{r plot-chisq, fig.width=6, fig.height=4}
+as.data.frame(tab) |>
+  rename(Geschlecht = Var1, Überlebt = Var2) |>
+  group_by(Geschlecht) |>
+  mutate(Anteil = Freq / sum(Freq)) |>
+  ggplot(aes(x = Geschlecht, y = Anteil, fill = Überlebt)) +
+  geom_col(position = "fill", width = 0.5) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("Nein" = "#d73027", "Ja" = "#4575b4")) +
+  labs(title = "Überleben nach Geschlecht", x = NULL, y = "Anteil") +
+  theme_minimal(base_size = 13)
+```
+
+> Der Chi-Quadrat-Test zeigt einen hochsignifikanten Zusammenhang (p < .001): Frauen überlebten deutlich häufiger als Männer ("Women and children first").
+
+---
+
+### 4.3 Korrelation: Alter und Ticketpreis
+
+**Forschungsfrage:** Gibt es einen Zusammenhang zwischen dem Alter eines Passagiers und dem bezahlten Ticketpreis?
+
+```{r korrelation}
+titanic_clean <- titanic |> filter(!is.na(age), !is.na(fare))
+
+cor.test(titanic_clean$age, titanic_clean$fare, method = "pearson")
+```
+
+```{r plot-korr, fig.width=6, fig.height=5}
+ggplot(titanic_clean, aes(x = age, y = fare)) +
+  geom_point(alpha = 0.2, color = "#555555") +
+  geom_smooth(method = "lm", color = "#d73027", se = TRUE) +
+  scale_y_log10() +
+  labs(title = "Alter vs. Ticketpreis",
+       x = "Alter (Jahre)", y = "Ticketpreis (£, log)") +
+  theme_minimal(base_size = 13)
+```
+
+> Die Korrelation ist schwach positiv (r ≈ 0.1, p < .05): Ältere Passagiere zahlten tendenziell etwas mehr, der Zusammenhang ist aber gering.
+
+---
+
+### 4.4 Logistische Regression: Was beeinflusst das Überleben?
+
+**Forschungsfrage:** Welchen Einfluss haben Geschlecht, Klasse und Alter auf die Überlebenswahrscheinlichkeit?
+
+```{r logit}
+titanic_logit <- titanic |>
+  filter(!is.na(age)) |>
+  mutate(survived_bin = ifelse(survived == "Ja", 1, 0))
+
+modell <- glm(survived_bin ~ sex + pclass + age,
+              data   = titanic_logit,
+              family = binomial)
+
+summary(modell)
+```
+
+```{r logit-odds, fig.width=7, fig.height=4}
+# Odds Ratios visualisieren
+broom::tidy(modell, exponentiate = TRUE, conf.int = TRUE) |>
+  filter(term != "(Intercept)") |>
+  ggplot(aes(x = reorder(term, estimate), y = estimate,
+             ymin = conf.low, ymax = conf.high)) +
+  geom_pointrange(color = "#4575b4", size = 0.8) +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "grey50") +
+  coord_flip() +
+  labs(title = "Odds Ratios der logistischen Regression",
+       x = NULL, y = "Odds Ratio (> 1 = höhere Überlebenschance)") +
+  theme_minimal(base_size = 13)
+```
+
+> Das Geschlecht hat den stärksten Einfluss: Männer hatten eine deutlich geringere Überlebenschance als Frauen (OR für `sexmännlich` ≈ 0.08, also weit unter 1). Auch 2. und 3. Klasse (vs. 1. Klasse) sowie höheres Alter reduzierten die Überlebenswahrscheinlichkeit signifikant.
+
+---
+
+## 5 Zusammenfassung
+
+| Methode | Fragestellung | Ergebnis |
+|---------|--------------|----------|
+| t-Test | Ticketpreis: Überlebende vs. Nicht-Überlebende | signifikanter Unterschied (p < .05) |
+| Chi-Quadrat | Zusammenhang Geschlecht & Überleben | hochsignifikant (p < .001) |
+| Korrelation | Alter & Ticketpreis | schwach positiv (r ≈ 0.1) |
+| Log. Regression | Prädiktoren für Überleben | Geschlecht, Klasse, Alter alle signifikant |
+
+---
+
+*Hinweis: Dieser Datensatz enthält nur Passagiere, zu denen Daten vorlagen. Besatzungsmitglieder sind nicht enthalten.*

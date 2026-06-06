@@ -351,6 +351,42 @@ cor.test(books$Age, books$`Book-Rating`)
 **Ergebnis:** r = -0.054, p < 2.2e-16. Wieder dasselbe Muster wie bei Chi-Quadrat und ANOVA: hochsignifikant, aber praktisch bedeutungslos. Eine Korrelation von -0.054 erklärt weniger als 0.3% der Varianz (r² = 0.003). Ältere Nutzer bewerten also minimal schlechter — aber dieser Effekt ist im Alltag irrelevant. Mit n > 300.000 wird fast alles signifikant.
 
 
+# Sitzung 7: Inferenzstatistik — t-Test
+
+## Einstichproben-t-Test: Ist der Würfel fair?
+
+Wir simulieren 60 Würfelwürfe und testen, ob der Mittelwert signifikant von 3.5 abweicht (Erwartungswert eines fairen Würfels).
+
+```{r}
+set.seed(422)
+würfe <- sample(1:6, 60, replace = TRUE)
+mean(würfe)
+```
+
+```{r}
+t.test(würfe, mu = 3.5)
+```
+
+**Ergebnis:** t = -0.29, df = 59, p = 0.77. Das 95%-Konfidenzintervall [2.97, 3.89] enthält den Wert 3.5 — kein Hinweis darauf, dass der Würfel gezinkt ist. Wir behalten H₀ bei.
+
+## Zweistichproben-t-Test: Bewerten Männer und Frauen unterschiedlich?
+
+Frage: Gibt es einen Unterschied in den Buchbewertungen zwischen zwei Altersgruppen?
+
+```{r}
+gruppe_jung <- books |>
+  filter(`Book-Rating` > 0, Age >= 18, Age <= 30) |>
+  pull(`Book-Rating`)
+
+gruppe_aelter <- books |>
+  filter(`Book-Rating` > 0, Age >= 45, Age <= 60) |>
+  pull(`Book-Rating`)
+
+t.test(gruppe_jung, gruppe_aelter)
+```
+
+**Ergebnis:** Auch hier: hochsignifikant (p < 2.2e-16) wegen der riesigen Stichprobe, aber die Mittelwerte liegen sehr nah beieinander. Effektgröße (Cohen's d) wäre winzig — das ist das gleiche Prinzip wie bei ANOVA und Chi-Quadrat.
+
 # Sitzung 7: Inferenzstatistik — Chi-Quadrat & ANOVA
 
 ## Chi-Quadrat-Test: Zusammenhang zwischen zwei kategorialen Variablen

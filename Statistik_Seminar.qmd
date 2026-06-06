@@ -106,7 +106,7 @@ library(tidyverse)
 ## Der Forschungsprozess
 
 | Schritt | Frage | Beispiel |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **1. Fragestellung** | Was will ich wissen? | Beeinflusst Schlafmangel die Prüfungsleistung? |
 | **2. Theorie & Hypothese** | Was erwarte ich? | Weniger Schlaf → schlechtere Noten |
 | **3. Datenerhebung** | Wie messe ich es? | Befragung von 80 Studierenden |
@@ -118,7 +118,7 @@ library(tidyverse)
 ## Wo hilft Ihnen dieser Kurs?
 
 | Schritt | Inhalt des Kurses |
-|----|----|
+|------------------------------------|------------------------------------|
 | Datenaufbereitung | Sitzung 4 – Datenmanipulation mit R |
 | Analyse: beschreiben | Sitzungen 3–5 – Deskriptive Statistik & Visualisierung |
 | Analyse: testen | Sitzungen 7–13 – Inferenzstatistik, Tests, Regression |
@@ -152,7 +152,7 @@ library(tidyverse)
 ## Skalenniveau
 
 | Statistische Einheit / Merkmalsträger | Merkmal | Ausprägung | Typ / Skala | Erläuterung |
-|----|----|----|----|----|
+|---------------|---------------|---------------|---------------|---------------|
 | n1 | Haarfarbe | Rot | Kategorial / nominalskaliert | Keine Abstände |
 | n1 | Postleitzahl | 22703 | Numerisch / nominalskaliert | Keine Abstände |
 | n1 | Schulabschluss | Abitur | Kategorial / ordinalskaliert | willkürliche Abstände |
@@ -163,7 +163,7 @@ library(tidyverse)
 ## Skalenniveau am Beispiel
 
 | title | year | budget | avg_vote |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | Miss Jerry | 1894 | NA | 5.9 |
 | The Story of the Kelly Gang | 1906 | \$ 2250 | 6.1 |
 | Den sorte drøm | 1911 | NA | 5.8 |
@@ -178,7 +178,7 @@ library(tidyverse)
 ## Analytische Konzepte
 
 | Phase & Leitfrage | Statistisches Äquivalent | Beispiel‑Methoden / Tools |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Rückblick – Was ist passiert?** | **Deskriptive Statistik** | Lage‑ & Streuungsmaße, Häufigkeiten, Balken‑/Liniendiagramme |
 | **Erkenntnis – Warum passiert es?** | **Explorative & inferenzielle Statistik** | Korrelation, t‑Test, ANOVA, χ²‑Test, Konfidenz­intervalle, Regressionsdiagnostik |
 | **Vorausschau – Was wird passieren?** | **Prognostische (inferenzielle) Modelle** | Lineare/Logistische Regression, Random Forest, Zeitreihen‑Forecasts, Konfidenz­intervalle für Prognosen |
@@ -530,7 +530,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Weitere Beispiele
 
 | Anwendungsgebiet | Kennzahlen | Nutzen |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Medizin** | Referenzwerte (z.B. Blutdruck, BMI) | Diagnostik, Risikoeinschätzung |
 | **Finanzmarkt** | Volatilität (Standardabweichung) | Risikobewertung von Anlagen |
 | **Qualitätssicherung** | Prozessfähigkeitsindizes (basierend auf σ) | Optimierung von Produktionsprozessen |
@@ -568,7 +568,7 @@ arrange(summarise(group_by(flights, carrier), n = n()), desc(n))
 ## Typische Anwendungsfälle
 
 | Kennzahl | Wichtig für... | Beispielanwendung |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Mittelwert** | Durchschnittswerte, Summenbetrachtungen | Durchschnittseinkommen einer Region |
 | **Median** | Typische Werte, robust gegen Ausreißer | Typisches Haushaltseinkommen |
 | **Standardabweichung** | Streuung, Qualitätskontrolle | Produktionsgenauigkeit in der Fertigung |
@@ -738,7 +738,7 @@ daten |>
 ## Welche Visualisierung wann?
 
 | Visualisierung | Wann verwenden? |
-|----|----|
+|------------------------------------|------------------------------------|
 | Histogramm | Verteilung einer einzelnen Variable erkunden |
 | Density Plot | Verteilung glätten; mehrere Gruppen überlagert vergleichen |
 | Boxplot | Median, Quartile und Ausreißer auf einen Blick; Gruppenvergleich |
@@ -1055,7 +1055,7 @@ curve(dnorm(x, mean=mean(sample_means), sd=sd(sample_means)),
 
 ## Die Logik des Hypothesentestens
 
-- **Indirekter Beweis**: Wir falsifizieren H₀ statt H₁ zu beweisen
+- **Indirekter Beweis**: Wir prüfen, ob die Daten unter H₀ unwahrscheinlich wären, nicht ob H₀ falsch ist
 - **Analogie zum Gerichtsprozess**: "Unschuldig bis zum Beweis der Schuld"
 - **Entscheidungsbaum**: Wann wird H₀ beibehalten oder verworfen?
 
@@ -1115,6 +1115,10 @@ t.test(würfe, mu = 3.5)
 - Ein signifikantes Ergebnis heißt nicht, dass es „wichtig“ ist
 - Es heißt nur: Unterschied ist **nicht gut durch Zufall erklärbar**
 - Immer im Kontext interpretieren (Effektgröße, Relevanz)
+
+## Beispiel Moderna
+
+The trial enrolled 30,420 volunteers who were randomly assigned in a 1:1 ratio to receive either vaccine or placebo (15,210 participants in each group). More than 96% of participants received both injections, and 2.2% had evidence (serologic, virologic, or both) of SARS-CoV-2 infection at baseline. Symptomatic Covid-19 illness was confirmed in 185 participants in the placebo group (56.5 per 1000 person-years; 95% confidence interval \[CI\], 48.7 to 65.3) and in 11 participants in the mRNA-1273 group (3.3 per 1000 person-years; 95% CI, 1.7 to 6.0); vaccine efficacy was 94.1% (95% CI, 89.3 to 96.8%; P\<0.001).\[ Efficacy was similar across key secondary analyses, including assessment 14 days after the first dose, analyses that included participants who had evidence of SARS-CoV-2 infection at baseline, and analyses in participants 65 years of age or older. \[…\] Severe Covid-19 occurred in 30 participants, with one fatality; all 30 were in the placebo group.
 
 ## Konfidenzintervalle
 
@@ -1241,10 +1245,18 @@ t.test(würfe, mu = 3.5)
 
 ## Fehler beim Hypothesentesten
 
+![](images/types-of-error.png)
+
+## Fehler beim Hypothesentesten
+
 - **Fehler 1. Art (α-Fehler)**: Falsch-positive Entscheidung (H₀ fälschlicherweise verwerfen)
 - **Fehler 2. Art (β-Fehler)**: Falsch-negative Entscheidung (H₀ fälschlicherweise beibehalten)
 - **Power (1-β)**: Wahrscheinlichkeit, einen tatsächlich vorhandenen Effekt zu entdecken
 - **Balanceakt**: Abwägung zwischen α und β
+
+## Spezifität (1-**α)** und Sensitivität (1-**β)**
+
+![](images/corona.png)
 
 ## Effektgröße beim t-Test: Cohen's d
 
@@ -1283,7 +1295,7 @@ t = 3.45, p = 0.001 → "Signifikant!"
 ## Exkurs: Likert — Mittelwert oder Median?
 
 | Ansatz | Argument | Wann? |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Mittelwert | Praktisch, weit verbreitet, erlaubt t-Test | Bei mindestens 5 Stufen, annähernd symmetrisch |
 | Median | Korrekt für ordinale Daten | Wenn Verteilung schief, kleine Stichproben |
 | Strikt ordinal | Theoretisch sauber | Wenn man auf Nummer sicher gehen will |
@@ -1977,7 +1989,7 @@ ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
 ## Vergleich: Horizontal vs. Vertical Bar Charts
 
 | Feature | Horizontal | Vertical |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Best for | Long category labels, many items | Time-based or logical progression |
 | Readability | Easier when labels are long | Requires rotation for long labels |
 | Use case | Rankings, survey responses | Trends over time, grouped comparisons |
