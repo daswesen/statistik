@@ -478,4 +478,111 @@ books_anova |>
   theme(legend.position = "none")
 ```
 
+# Sitzung 8: Regression & logistische Regression
+
+## Lineare Regression: Mieten vorhersagen
+
+Wir starten mit dem Beispiel aus den Folien: Kann man aus der Wohnfläche die Miete vorhersagen?
+
+```{r}
+wohnungen <- data.frame(
+  flaeche = c(30, 45, 60, 70, 80, 90, 100, 110, 120),
+  miete = c(450, 600, 720, 850, 1000, 1150, 1250, 1400, 1550)
+)
+
+modell_lm <- lm(miete ~ flaeche, data = wohnungen)
+summary(modell_lm)
+```
+
+**Ergebnis:** Pro zusätzlichem Quadratmeter steigt die Miete um ca. 12 €, das R² liegt nahe 1 — die Fläche erklärt fast die gesamte Varianz. So schöne Werte gibt es nur bei konstruierten Beispieldaten; echte Daten streuen deutlich mehr.
+
+```{r}
+ggplot(wohnungen, aes(x = flaeche, y = miete)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal()
+```
+
+## Multiple Regression mit echten(eren) Daten
+
+```{r}
+Wohnungen_mit_Energieeffizienz <- read_csv("data/Wohnungen_mit_Energieeffizienz.csv")
+
+modell_multi <- lm(miete ~ flaeche + saniert + energieeffizienz,
+                   data = Wohnungen_mit_Energieeffizienz)
+summary(modell_multi)
+```
+
+**Interpretation:** Jeder Koeffizient zeigt den Effekt *bei Konstanthaltung der anderen Variablen*. Sanierung und bessere Energieeffizienzklassen erhöhen die Miete zusätzlich zur Fläche.
+
+## Logistische Regression: Überleben auf der Titanic
+
+Bisher haben wir eine Zahl vorhergesagt (Miete in Euro). Oft ist die Zielvariable aber nur ja/nein: Wird ein Buch ausgeliehen? Ist eine E-Mail Spam? Hier: Überlebt ein Passagier den Untergang der Titanic?
+
+```{r}
+titanic <- read.csv2("data/titanic.csv")
+```
+
+### Warum keine Gerade?
+
+```{r}
+ggplot(titanic, aes(x = fare, y = survived)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  geom_hline(yintercept = c(0, 1), linetype = "dashed") +
+  labs(x = "Ticketpreis (£)", y = "Überlebt (0/1)") +
+  theme_minimal()
+```
+
+Die Gerade sagt beim teuersten Ticket (£512) eine "Überlebenswahrscheinlichkeit" von 1,48 vorher — 148 % gibt es nicht. Wir brauchen etwas, das immer zwischen 0 und 1 bleibt.
+
+### Die S-Kurve
+
+```{r}
+ggplot(titanic, aes(x = fare, y = survived)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"),
+              se = FALSE, color = "blue") +
+  geom_hline(yintercept = c(0, 1), linetype = "dashed") +
+  labs(x = "Ticketpreis (£)", y = "Überlebenswahrscheinlichkeit") +
+  theme_minimal()
+```
+
+### Das Modell
+
+Aus `lm()` wird `glm()` plus `family = binomial` — sonst ändert sich fast nichts:
+
+```{r}
+modell_logit <- glm(survived ~ age + sex + factor(pclass),
+                    family = binomial,
+                    data = titanic)
+summary(modell_logit)
+```
+
+**Interpretation über die Vorzeichen:** `sexmale` negativ → Männer überlebten seltener. `factor(pclass)2/3` negativ → je schlechter die Klasse, desto geringer die Überlebenschance. `age` negativ → Ältere überlebten seltener. "Frauen und Kinder zuerst" — die Daten bestätigen es.
+
+### Konkrete Vorhersagen
+
+```{r}
+neue_passagiere <- data.frame(
+  age = c(30, 30),
+  sex = c("female", "male"),
+  pclass = c(1, 3)
+)
+
+predict(modell_logit, newdata = neue_passagiere, type = "response")
+```
+
+**Ergebnis:** Eine 30-jährige Frau in der 1. Klasse hat laut Modell ca. 92 % Überlebenswahrscheinlichkeit, ein 30-jähriger Mann in der 3. Klasse ca. 9 %.
+
+### Für Neugierige: Odds Ratios (Selbststudium)
+
+Die Koeffizienten eines `glm()` sind sogenannte Log-Odds — schwer zu lesen. Mit `exp()` werden daraus **Odds Ratios**: Werte über 1 erhöhen die Chance, Werte unter 1 senken sie.
+
+```{r}
+exp(coef(modell_logit))
+```
+
+**Lesebeispiel:** Das Odds Ratio für `sexmale` liegt bei ca. 0.08 — die Überlebens-*Chance* (Odds) eines Mannes betrug nur etwa 8 % der einer Frau (bei gleichem Alter und gleicher Klasse). Wichtig: Odds sind nicht dasselbe wie Wahrscheinlichkeiten — für konkrete Wahrscheinlichkeiten nutzen wir `predict(..., type = "response")` wie oben.
+
 

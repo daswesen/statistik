@@ -46,7 +46,7 @@ library(tidyverse)
 
 | Sitzung | Thema                               |
 |---------|-------------------------------------|
-| 8       | Lineare Regression & Visualisierung |
+| 8       | Regression & Prinzipien der Visualisierung |
 | 9+      | Referate (nach Sitzung 8)           |
 
 ## Erwartungen und Interaktion
@@ -1384,7 +1384,7 @@ TukeyHSD(ergebnis)
 
 → Notebook
 
-# Sitzung 8: Lineare Regression & Visualisierung für Kommunikation
+# Sitzung 8: Regression & Prinzipien der Visualisierung
 
 ## Lernziele dieser Sitzung
 
@@ -1392,6 +1392,8 @@ TukeyHSD(ergebnis)
 - R² und Residuenplots zur Modellbeurteilung nutzen
 - Multiple Regression mit kategorialen Prädiktoren anwenden
 - Den Unterschied zwischen Korrelation und Regression erklären
+- Verstehen, wann man logistische statt linearer Regression braucht
+- Grundprinzipien guter Visualisierung kennen und anwenden
 
 ------------------------------------------------------------------------
 
@@ -1545,7 +1547,11 @@ model <- lm(miete ~ flaeche + saniert + energieeffizienz, data = Wohnungen_mit_E
 #summary(model)
 ```
 
-## ![](images/logit.png)
+------------------------------------------------------------------------
+
+## Die Ausgabe von summary(model)
+
+![](images/logit.png)
 
 ## Wie funktioniert das mit der Linie mit mehr als zwei Variablen?
 
@@ -1585,6 +1591,140 @@ gitter$miete <- predict(modell, newdata = gitter)
 # Regressionsfläche als Linien zeichnen
 s3d$plane3d(modell, draw_polygon = TRUE, polygon_args = list(col = rgb(0.1, 0.5, 0.1, 0.3)))
 ```
+
+------------------------------------------------------------------------
+
+## Und wenn die Frage nur "ja oder nein" ist?
+
+- Bisher haben wir eine **Zahl** vorhergesagt (Miete in Euro)
+- Oft ist die Zielvariable aber nur **ja/nein**:
+  - Wird ein Buch ausgeliehen oder nicht?
+  - Ist eine E-Mail Spam?
+  - Bricht jemand das Studium ab?
+  - Überlebt ein Passagier den Untergang der Titanic?
+- Dafür gibt es die **logistische Regression**
+
+------------------------------------------------------------------------
+
+## Unser Beispiel: Die Titanic
+
+- 1.309 Passagiere, `survived`: 1 = überlebt, 0 = nicht überlebt
+- Außerdem: Alter, Geschlecht, Ticketklasse, Ticketpreis ...
+- **Frage:** Wovon hing das Überleben ab?
+
+```{r}
+#| echo: true
+titanic <- read.csv2("data/titanic.csv")
+```
+
+------------------------------------------------------------------------
+
+## Erster Versuch: einfach wieder eine Gerade?
+
+```{r}
+#| echo: false
+#| warning: false
+ggplot(titanic, aes(x = fare, y = survived)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  geom_hline(yintercept = c(0, 1), linetype = "dashed") +
+  labs(x = "Ticketpreis (£)", y = "Überlebt (0/1)") +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
+## Warum die Gerade hier nicht funktioniert
+
+- Die Punkte liegen nur auf 0 oder 1 – die Gerade läuft mittendurch
+- Beim teuersten Ticket (£512) sagt sie **1,48** vorher
+- Eine Überlebenswahrscheinlichkeit von 148 %?
+- Wir brauchen etwas, das **immer zwischen 0 und 1** bleibt
+
+------------------------------------------------------------------------
+
+## Die Lösung: eine S-Kurve
+
+```{r}
+#| echo: false
+#| warning: false
+ggplot(titanic, aes(x = fare, y = survived)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"),
+              se = FALSE, color = "blue") +
+  geom_hline(yintercept = c(0, 1), linetype = "dashed") +
+  labs(x = "Ticketpreis (£)", y = "Überlebenswahrscheinlichkeit") +
+  theme_minimal()
+```
+
+------------------------------------------------------------------------
+
+## Das ist die logistische Regression
+
+- Die S-Kurve bleibt **immer zwischen 0 und 1**
+- Das Ergebnis lesen wir als **Wahrscheinlichkeit**
+- Gute Nachricht: In R ändert sich fast nichts
+
+```{r}
+#| echo: true
+modell <- glm(survived ~ age + sex + factor(pclass),
+              family = binomial,
+              data = titanic)
+```
+
+- Aus `lm()` wird `glm()` plus `family = binomial` – das war's
+
+------------------------------------------------------------------------
+
+<!-- Screenshot stammt aus der Kaggle-Version des Datensatzes (großgeschriebene Variablennamen) -->
+
+## Die Ausgabe von summary(modell)
+
+![](images/titanic-logit.png)
+
+------------------------------------------------------------------------
+
+## Interpretation ohne viel Mathe
+
+- Vorzeichen lesen wie bei der linearen Regression: **Minus = Wahrscheinlichkeit sinkt**
+- `sexmale` negativ → Männer überlebten seltener
+- `pclass 2/3` negativ → je schlechter die Klasse, desto geringer die Chance
+- `age` negativ → Ältere überlebten seltener
+- "Frauen und Kinder zuerst" – die Daten bestätigen es
+- Wie groß die Effekte genau sind (Odds Ratios): Selbststudium für Neugierige
+
+------------------------------------------------------------------------
+
+## Konkrete Vorhersagen mit predict()
+
+```{r}
+#| echo: true
+neue_passagiere <- data.frame(
+  age = c(30, 30),
+  sex = c("female", "male"),
+  pclass = c(1, 3)
+)
+
+predict(modell, newdata = neue_passagiere, type = "response")
+```
+
+------------------------------------------------------------------------
+
+## Was sagt uns das Modell?
+
+- 30-jährige Frau, 1. Klasse: ca. **92 %** Überlebenswahrscheinlichkeit
+- 30-jähriger Mann, 3. Klasse: ca. **9 %**
+- Aus den Koeffizienten werden konkrete Wahrscheinlichkeiten – das ist die Stärke des Modells
+
+------------------------------------------------------------------------
+
+## Linear oder logistisch?
+
+|              | Lineare Regression  | Logistische Regression        |
+|--------------|---------------------|-------------------------------|
+| Zielvariable | Zahl (z. B. Miete)  | ja/nein (z. B. überlebt)      |
+| Ergebnis     | vorhergesagter Wert | Wahrscheinlichkeit (0–1)      |
+| R-Funktion   | `lm()`              | `glm(..., family = binomial)` |
 
 ------------------------------------------------------------------------
 
@@ -2345,10 +2485,3 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 ## Nein, Sie verwenden bitte keine Pie Charts!
 
 ![](images/pie-chart.png)
-
-## Datenvisualisierung mit ggplot2
-
-- Base Plot vs. ggplot2
-- Grammar of Graphics
-- `geom_point()`, `geom_histogram()`, `geom_boxplot()`
-- Ästhetiken: Farbe, Form, Gruppierung
