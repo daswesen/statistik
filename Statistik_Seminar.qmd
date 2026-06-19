@@ -44,10 +44,10 @@ library(tidyverse)
 
 ## Übersicht der Sitzungen (2/2)
 
-| Sitzung | Thema                               |
-|---------|-------------------------------------|
+| Sitzung | Thema                                      |
+|---------|--------------------------------------------|
 | 8       | Regression & Prinzipien der Visualisierung |
-| 9+      | Referate (nach Sitzung 8)           |
+| 9+      | Referate (nach Sitzung 8)                  |
 
 ## Erwartungen und Interaktion
 
@@ -2485,3 +2485,285 @@ ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
 ## Nein, Sie verwenden bitte keine Pie Charts!
 
 ![](images/pie-chart.png)
+
+# Session 9: Kognitive Verzerrungen
+
+## Bestätigungsfehler
+
+**Was ist es?**
+
+Man sucht, interpretiert und erinnert Informationen bevorzugt so, dass sie die eigene Ausgangshypothese bestätigen.
+
+. . .
+
+**Beispiel**
+
+Eine Bibliothekarin glaubt, dass Nutzer:innen keine Schulungen brauchen – und notiert nur die Fälle, in denen Suchen auf Anhieb klappen.
+
+------------------------------------------------------------------------
+
+## Ankereffekt
+
+**Was ist es?**
+
+Der erste genannte Wert (der »Anker«) beeinflusst alle nachfolgenden Schätzungen unverhältnismäßig stark.
+
+. . .
+
+**Beispiel**
+
+Im Nutzerbefragungsbogen steht als Einstiegsfrage: »Nutzen Sie das Archiv mehr als 10× pro Monat?« – folgende Angaben orientieren sich an dieser Zahl.
+
+------------------------------------------------------------------------
+
+## Verfügbarkeitsheuristik
+
+**Was ist es?**
+
+Leicht erinnerbare Ereignisse werden als häufiger oder wahrscheinlicher eingeschätzt als statistisch gerechtfertigt.
+
+. . .
+
+**Beispiel**
+
+Weil zuletzt drei Titelseiten über Datenpannen erschienen, überschätzen Mitarbeitende das tatsächliche Risiko eines Angriffs auf das eigene System.
+
+------------------------------------------------------------------------
+
+## Rückschaufehler
+
+**Was ist es?**
+
+Nach Bekanntwerden eines Ergebnisses glaubt man, es von Anfang an gewusst zu haben (»Ich hab's doch gesagt!«).
+
+. . .
+
+**Beispiel**
+
+Nach dem Rückgang der Printausleihe um 40 % sind alle überzeugt, den Trend schon vor Jahren vorhergesagt zu haben.
+
+------------------------------------------------------------------------
+
+## Survivorship Bias
+
+![](images/Survivorship-bias.svg.png)
+
+## Survivorship Bias
+
+**Was ist es?**
+
+Nur die »Überlebenden« eines Prozesses werden analysiert; die ausgesonderten Fälle bleiben unsichtbar.
+
+. . .
+
+**Beispiel**
+
+Studie zu »erfolgreichen Open-Access-Zeitschriften« – die Dutzende Journals, die nach zwei Jahren eingestellt wurden, tauchen in der Analyse nicht auf.
+
+------------------------------------------------------------------------
+
+## Selektionsbias
+
+**Was ist es?**
+
+Die Stichprobe repräsentiert die Grundgesamtheit nicht systematisch – bestimmte Gruppen sind über- oder unterrepräsentiert.
+
+. . .
+
+**Beispiel**
+
+Eine Online-Umfrage zur Bibliotheksnutzung erreicht nur internetaffine Personen unter 40; ältere Nutzer:innen ohne Smartphone fehlen komplett.
+
+------------------------------------------------------------------------
+
+## Nonresponse Bias
+
+**Was ist es?**
+
+Die Personen, die nicht antworten, unterscheiden sich systematisch von denen, die antworten – das Ergebnis ist verzerrt.
+
+. . .
+
+**Beispiel**
+
+Zufriedene Bibliotheksbesucher:innen füllen den Feedback-Bogen seltener aus als unzufriedene; die Auswertung zeigt ein zu negatives Bild.
+
+------------------------------------------------------------------------
+
+## Recall Bias
+
+**Was ist es?**
+
+Befragte erinnern sich selektiv oder ungenau, was zu systematischen Fehlern in retrospektiven Erhebungen führt.
+
+. . .
+
+**Beispiel**
+
+Befragte unterschätzen, wie oft sie eine Datenbank im vergangenen Monat genutzt haben – tatsächliche Logins laut Serverlog liegen doppelt so hoch.
+
+------------------------------------------------------------------------
+
+## P-Hacking
+
+**Was ist es?**
+
+So lange verschiedene Tests, Variablen oder Subgruppen ausprobieren, bis ein signifikantes Ergebnis (p \< 0,05) erscheint – dann nur dieses berichten.
+
+. . .
+
+**Beispiel**
+
+Von 20 getesteten Schlagwortkombinationen zeigt eine zufällig p = 0,04 – diese wird veröffentlicht, die anderen 19 Versuche nicht erwähnt.
+
+------------------------------------------------------------------------
+
+## HARKing
+
+**Was ist es?**
+
+**H**ypothesizing **A**fter **R**esults are **K**nown: Eine Hypothese wird erst nach dem Sehen der Daten formuliert, aber als ursprünglich geplant ausgegeben.
+
+. . .
+
+**Beispiel**
+
+Nach Auswertung der Nutzungsdaten fällt ein Muster auf – dieses wird nachträglich als »Forschungsfrage« in den Bericht hineingeschrieben.
+
+------------------------------------------------------------------------
+
+## Overfitting
+
+**Was ist es?**
+
+Ein Modell passt sich so stark an die Trainingsdaten an, dass es auf neuen Daten versagt – es lernt Rauschen statt Muster.
+
+. . .
+
+**Beispiel**
+
+Ein Empfehlungsalgorithmus für Bibliotheksmedien erzielt 95 % Treffsicherheit auf historischen Daten, empfiehlt Neuzugängen aber nur Klassiker aus dem Vorjahr.
+
+------------------------------------------------------------------------
+
+## Omitted Variable Bias
+
+**Was ist es?**
+
+Eine wichtige Einflussvariable fehlt im Modell – der geschätzte Effekt anderer Variablen wird dadurch verzerrt.
+
+. . .
+
+**Beispiel**
+
+Studie zeigt: Mehr Bibliotheksbesuche → bessere Noten. Aber »Lernmotivation« fehlt als Variable; sie erklärt beides.
+
+------------------------------------------------------------------------
+
+## Cherry Picking
+
+**Was ist es?**
+
+Nur die Datenpunkte oder Zeiträume werden gezeigt, die die gewünschte These stützen – ungünstige Daten werden verschwiegen.
+
+. . .
+
+**Beispiel**
+
+Der Jahresbericht zeigt den Ausleihzeitraum Oktober–Dezember – in dem traditionell die höchsten Zahlen anfallen. Der schwache Sommer bleibt unerwähnt.
+
+------------------------------------------------------------------------
+
+## Abgeschnittene Y-Achse
+
+**Was ist es?**
+
+Die Y-Achse beginnt nicht bei null, sodass kleine Unterschiede dramatisch groß wirken.
+
+. . .
+
+**Beispiel**
+
+Ein Balkendiagramm beginnt bei 9.800 statt 0 – ein Unterschied von 50 Ausleihen sieht aus wie eine Verdoppelung.
+
+------------------------------------------------------------------------
+
+## Simpsons Paradoxon
+
+**Was ist es?**
+
+Ein Trend, der in allen Teilgruppen gilt, verschwindet oder kehrt sich um, wenn die Gruppen zusammengefasst werden.
+
+. . .
+
+**Beispiel**
+
+Datenbankschulungen wirken bei Erst- und Drittsemestern separat positiv auf die Recherchegüte – aggregiert sieht man keinen Effekt, weil Drittsemester seltener teilnehmen.
+
+------------------------------------------------------------------------
+
+## Ökologischer Fehlschluss
+
+**Was ist es?**
+
+Aus Gruppenmerkmalen werden unzulässig Schlüsse auf Individuen gezogen.
+
+. . .
+
+**Beispiel**
+
+Stadtteile mit hoher Bibliotheksdichte haben niedrigere Arbeitslosigkeit → Schluss: Bibliotheksnutzer:innen sind seltener arbeitslos. Falsch.
+
+------------------------------------------------------------------------
+
+## Publikationsbias
+
+**Was ist es?**
+
+Positive oder signifikante Ergebnisse werden häufiger veröffentlicht als Null-Ergebnisse – das publizierte Bild ist systematisch schiefer als die Realität.
+
+. . .
+
+**Beispiel**
+
+Meta-Analyse zur Wirksamkeit von Informationskompetenz-Schulungen findet kaum Studien ohne Effekt – obwohl viele solcher Studien durchgeführt, aber nie eingereicht wurden.
+
+------------------------------------------------------------------------
+
+## Messfehler-Verzerrung
+
+**Was ist es?**
+
+Systematische Fehler im Messinstrument führen dazu, dass die Realität konstant über- oder unterschätzt wird.
+
+. . .
+
+**Beispiel**
+
+Der Zähler am Bibliothekseingang erfasst nur Eintretende, nicht Austretende – Doppelzählungen bei Drehkreuz-Pannen verzerren alle Besuchsstatistiken.
+
+------------------------------------------------------------------------
+
+## Framing-Effekt
+
+**Was ist es?**
+
+Identische Information führt zu unterschiedlichen Entscheidungen, je nachdem wie sie präsentiert wird.
+
+. . .
+
+**Beispiel**
+
+»90 % der Anfragen werden beantwortet« klingt besser als »1 von 10 Anfragen bleibt unbeantwortet« – obwohl es dieselbe Aussage ist.
+
+------------------------------------------------------------------------
+
+## Checkliste vor jeder Analyse
+
+::: incremental
+- Wie wurde die Stichprobe erhoben? **Wer fehlt?**
+- Welche Hypothese hatte ich vorher – und wie beeinflusst sie meine Auswertung?
+- Zeige ich **alle** Daten oder nur die bequemen?
+- Könnte eine fehlende Variable mein Ergebnis erklären?
+- Wie würde jemand, der anderer Meinung ist, dieselben Daten lesen?
+:::

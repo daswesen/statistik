@@ -585,4 +585,387 @@ exp(coef(modell_logit))
 
 **Lesebeispiel:** Das Odds Ratio für `sexmale` liegt bei ca. 0.08 — die Überlebens-*Chance* (Odds) eines Mannes betrug nur etwa 8 % der einer Frau (bei gleichem Alter und gleicher Klasse). Wichtig: Odds sind nicht dasselbe wie Wahrscheinlichkeiten — für konkrete Wahrscheinlichkeiten nutzen wir `predict(..., type = "response")` wie oben.
 
+# Sitzung 8: Prinzipien der Datenvisualisierung
+
+> "The greatest value of a picture is when it forces us to notice what we never expected to see." (John Tukey)
+
+Für einige Beispiele brauchen wir zusätzliche Packages — einmalig installieren:
+
+```{r eval=FALSE}
+install.packages(c("titanic", "nycflights23", "reshape2",
+                   "ggalluvial", "treemapify", "scales"))
+```
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+## Redundant Coding
+
+Nicht jeder kann Farben gleich gut unterscheiden (ca. 8 % der Männer haben eine Rot-Grün-Schwäche). Deshalb kodieren wir wichtige Unterscheidungen doppelt: hier Farbe **und** Form.
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
+                 color = Species, shape = Species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_manual(values = c("setosa" = "#a6cee3",
+                                "virginica" = "#5ab4ac",
+                                "versicolor" = "#d8b365")) +
+  scale_shape_manual(values = c("setosa" = 16,
+                                "virginica" = 21,
+                                "versicolor" = 22)) +
+  labs(x = "sepal length", y = "sepal width") +
+  theme_bw() +
+  theme(legend.title = element_blank())
+```
+
+## Weißer Space: Clutter entfernen, aber lesbar bleiben
+
+Gleiche Daten, zwei Layouts: Zu wenig Abstand zwischen den Facetten macht die Grafik unleserlich — etwas weißer Raum hilft. Aber: Weißer Raum ist Mittel zum Zweck, kein Selbstzweck.
+
+```{r message=FALSE}
+library(titanic)
+data("titanic_train")
+
+titanic_data <- titanic_train %>%
+  mutate(
+    Sex = factor(Sex, levels = c("female", "male")),
+    Survived = factor(ifelse(Survived == 1, "survived", "died")),
+    Pclass = factor(Pclass, labels = c("1st", "2nd", "3rd"))
+  ) %>%
+  count(Pclass, Sex, Survived) %>%
+  rename(count = n)
+
+ggplot(titanic_data, aes(x = Sex, y = count, fill = Sex)) +
+  geom_col() +
+  facet_grid(Pclass ~ Survived) +
+  scale_fill_manual(values = c("female" = "#E69F00", "male" = "#4472C4")) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(5, "mm"),
+    panel.background = element_rect(fill = "#F1F1F1", color = NA),
+    strip.background = element_rect(fill = "white", color = NA)
+  )
+```
+
+## Highlighting
+
+Wenn eine Aussage im Fokus steht, bekommt nur das relevante Element eine Signalfarbe — der Rest tritt in Grau zurück. Die Augen des Betrachters gehen sofort dorthin.
+
+```{r message=FALSE}
+library(nycflights23)
+
+airline_delays <- flights %>%
+  group_by(carrier) %>%
+  summarise(mean_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  left_join(airlines, by = "carrier") %>%
+  arrange(mean_delay)
+
+farben <- ifelse(airline_delays$carrier == "G4", "#B22222", "#AAAAAA")
+
+ggplot(airline_delays, aes(x = reorder(name, mean_delay), y = mean_delay)) +
+  geom_col(fill = farben) +
+  coord_flip() +
+  labs(x = "", y = "mean arrival delay (min.)") +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
+
+## Diagrammtypen-Galerie
+
+Welches Diagramm passt zu welcher Frage? Die folgenden Beispiele nutzen simulierte Daten — der Code ist bewusst kurz gehalten, damit Sie ihn als Vorlage für Ihre eigenen Daten verwenden können.
+
+### Scatter Plot / Streudiagramm
+
+Beziehung zwischen zwei kontinuierlichen Variablen; erkennt Muster, Cluster, Ausreißer.
+
+```{r}
+set.seed(42)
+scatter_data <- data.frame(x = rnorm(100), y = rnorm(100),
+  gruppe = sample(LETTERS[1:3], 100, replace = TRUE))
+scatter_data$y <- scatter_data$y + scatter_data$x - 0.7 + rnorm(100, 0, 0.5)
+
+ggplot(scatter_data, aes(x = x, y = y, color = gruppe)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_brewer(palette = "Set1") +
+  theme_minimal() +
+  labs(x = "Variable X", y = "Variable Y", color = "Gruppe")
+```
+
+### Korrelationsmatrix
+
+Korrelationsstärke zwischen mehreren Variablen auf einen Blick — essentiell für explorative Datenanalyse.
+
+```{r message=FALSE}
+library(reshape2)
+set.seed(123)
+sim_data <- data.frame(A = rnorm(100), B = rnorm(100), C = rnorm(100),
+  D = rnorm(100), E = rnorm(100))
+sim_data$B <- sim_data$B + sim_data$A - 0.7 + rnorm(100, 0, 0.5)
+sim_data$C <- sim_data$C - sim_data$A - 0.4 + rnorm(100, 0, 0.5)
+sim_data$D <- sim_data$D + sim_data$B - 0.6 + rnorm(100, 0, 0.5)
+sim_data$E <- sim_data$E - sim_data$C - 0.5 + sim_data$D - 0.3 + rnorm(100, 0, 0.5)
+
+cormat <- round(cor(sim_data), 2)
+melted_cormat <- melt(cormat)
+
+ggplot(melted_cormat, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "firebrick", high = "steelblue", mid = "white",
+                       midpoint = 0, limit = c(-1, 1)) +
+  geom_text(aes(label = round(value, 2)), color = "black", size = 3) +
+  theme_minimal() + coord_equal() + labs(fill = "Korrelation")
+```
+
+### Sankey Diagram
+
+Flüsse zwischen Kategorien; die Breite zeigt das Volumen.
+
+```{r message=FALSE}
+library(ggalluvial)
+sankey_data <- data.frame(
+  Quelle = rep(c("A", "B", "C"), times = c(3, 2, 2)),
+  Ziel = c("X", "Y", "Z", "X", "Y", "Y", "Z"),
+  Wert = c(5, 3, 2, 2, 3, 1, 4))
+
+ggplot(sankey_data, aes(axis1 = Quelle, axis2 = Ziel, y = Wert)) +
+  geom_alluvium(aes(fill = Quelle), width = 1/3) +
+  geom_stratum(width = 1/3, fill = "grey80", color = "grey50") +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_fill_brewer(palette = "Set1") +
+  theme_minimal() + labs(x = NULL, y = NULL) +
+  theme(legend.position = "none", axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+```
+
+### Horizontal Bar Chart
+
+Ideal für Rankings und lange Kategorienamen.
+
+```{r}
+hbar_data <- data.frame(
+  kategorie = c("Kategorie mit sehr langem Namen A", "Kategorie B",
+                "Kategorie C", "Kategorie D", "Kategorie E"),
+  wert = c(85, 72, 56, 41, 25))
+
+ggplot(hbar_data, aes(x = reorder(kategorie, wert), y = wert)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() + theme_minimal() + labs(x = NULL, y = "Wert") +
+  geom_text(aes(label = wert), hjust = -0.2) +
+  ylim(0, max(hbar_data$wert) * 1.15)
+```
+
+### Column Chart
+
+Vertikale Balken für wenige, klare Kategorien — Basislinie immer bei 0!
+
+```{r}
+column_data <- data.frame(
+  kategorie = factor(c("A", "B", "C", "D", "E")),
+  wert = c(85, 72, 56, 41, 25))
+
+ggplot(column_data, aes(x = kategorie, y = wert, fill = kategorie)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  scale_fill_brewer(palette = "Set2") + theme_minimal() +
+  labs(x = NULL, y = "Wert") + theme(legend.position = "none") +
+  geom_text(aes(label = wert), vjust = -0.5) +
+  ylim(0, max(column_data$wert) * 1.1)
+```
+
+### Diverging Bars
+
+Abweichungen in zwei Richtungen von einer zentralen Basislinie (z.B. positiv/negativ, Z-Scores).
+
+```{r}
+diverging_data <- data.frame(
+  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
+  value = c(5, -2, 8, -3, 6, -1, 4, -7))
+
+ggplot(diverging_data, aes(x = category, y = value, fill = value > 0)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("firebrick", "steelblue"), guide = "none") +
+  coord_flip() + theme_minimal() + labs(y = "Abweichung vom Mittelwert")
+```
+
+### Diverging Lollipop Chart
+
+Elegantere Alternative zu Diverging Bars — weniger "Tinte", gleiche Information.
+
+```{r}
+lollipop_data <- data.frame(
+  category = factor(LETTERS[1:8], levels = LETTERS[8:1]),
+  value = c(5, -2, 8, -3, 6, -1, 4, -7))
+
+ggplot(lollipop_data, aes(x = category, y = value, color = value > 0)) +
+  geom_segment(aes(y = 0, x = category, yend = value, xend = category),
+               color = "grey") +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("firebrick", "steelblue"), guide = "none") +
+  coord_flip() + theme_minimal() + labs(y = "Abweichung vom Mittelwert")
+```
+
+### Histogram
+
+Verteilung numerischer Daten in Bins — hier mit zwei Modi (kennen wir vom Old-Faithful-Beispiel).
+
+```{r}
+set.seed(123)
+hist_data <- data.frame(
+  value = c(rnorm(400, mean = 5, sd = 1), rnorm(100, mean = 8, sd = 0.5)))
+
+ggplot(hist_data, aes(x = value)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  theme_minimal() + labs(y = "Häufigkeit")
+```
+
+### Boxplots
+
+Kompakter Kategorienvergleich: Median, Quartile, Ausreißer.
+
+```{r}
+set.seed(123)
+box_data <- data.frame(
+  category = rep(c("A", "B", "C", "D"), each = 100),
+  value = c(rnorm(100, mean = 5, sd = 1), rnorm(100, mean = 7, sd = 1.5),
+            rnorm(100, mean = 4, sd = 0.8), rnorm(100, mean = 6, sd = 2)))
+
+ggplot(box_data, aes(x = category, y = value, fill = category)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2", guide = "none") + theme_minimal()
+```
+
+### Boxplot mit echten Daten: Verspätungen + Highlighting
+
+Boxplots und Highlighting kombiniert — die Fluggesellschaft mit der höchsten mittleren Verspätung sticht heraus.
+
+```{r message=FALSE, warning=FALSE}
+delay_data <- flights %>%
+  left_join(airlines, by = "carrier")
+
+carrier_order <- delay_data %>%
+  group_by(carrier, name) %>%
+  summarise(median_delay = median(arr_delay, na.rm = TRUE), .groups = "drop") %>%
+  arrange(median_delay)
+
+delay_data$color <- ifelse(delay_data$carrier == "G4", "#B22222", "#AAAAAA")
+
+ggplot(delay_data, aes(x = factor(name, levels = carrier_order$name),
+                       y = arr_delay)) +
+  geom_boxplot(aes(fill = color), outlier.shape = NA, varwidth = TRUE) +
+  coord_flip() +
+  scale_fill_identity() +
+  scale_y_continuous(limits = c(-50, 150)) +
+  labs(title = "Verteilung der Ankunftsverspätungen nach Fluggesellschaft",
+       x = "", y = "arrival delay (min.)") +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank())
+```
+
+### Violin Plot + Boxplot
+
+Zeigt zusätzlich die Form der Verteilung — Gruppe A ist bimodal, das sieht man im Boxplot allein nicht!
+
+```{r}
+set.seed(123)
+violin_data <- data.frame(
+  category = rep(c("A", "B", "C"), each = 100),
+  value = c(c(rnorm(50, 5, 1), rnorm(50, 8, 0.5)),
+            rnorm(100, 7, 1.5), rnorm(100, 6, 0.7)))
+
+ggplot(violin_data, aes(x = category, y = value, fill = category)) +
+  geom_violin(alpha = 0.7) +
+  geom_boxplot(width = 0.2, fill = "white", alpha = 0.7) +
+  scale_fill_brewer(palette = "Set2", guide = "none") + theme_minimal()
+```
+
+### Stacked Area Chart
+
+Beiträge von Kategorien zur Gesamtsumme im Zeitverlauf.
+
+```{r}
+set.seed(42)
+years <- 2010:2020
+area_data <- data.frame(
+  year = rep(years, 4),
+  category = rep(c("A", "B", "C", "D"), each = length(years)),
+  value = c(10:20 + rnorm(11, 0, 1), 20:30 - rnorm(11, 0, 1),
+            15:25 + rnorm(11, 0, 2), 25:35 + rnorm(11, 0, 1.5)))
+
+ggplot(area_data, aes(x = year, y = value, fill = category)) +
+  geom_area() + scale_fill_brewer(palette = "Set2") + theme_minimal()
+```
+
+### Stacked 100% Area Chart
+
+Gleiche Daten, aber relative Anteile statt absoluter Werte — Fokus auf Zusammensetzung.
+
+```{r}
+ggplot(area_data, aes(x = year, y = value, fill = category)) +
+  geom_area(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_brewer(palette = "Set2") + theme_minimal() + labs(y = "Anteil")
+```
+
+### Waterfall Diagram
+
+Schrittweise Zu- und Abnahmen bis zum Endergebnis — typisch für Budget- oder Gewinnanalysen.
+
+```{r}
+waterfall_data <- data.frame(
+  stage = factor(c("Start", "Einnahmen", "Kosten", "Steuern", "Ende"),
+                 levels = c("Start", "Einnahmen", "Kosten", "Steuern", "Ende")),
+  value = c(0, 50, -30, -10, 0),
+  end = c(100, 150, 120, 110, 110),
+  start = c(100, 100, 150, 120, 110),
+  type = c("total", "in", "out", "out", "total"))
+
+ggplot(waterfall_data, aes(x = stage, y = value, fill = type)) +
+  geom_rect(aes(x = stage, xmin = as.numeric(stage) - 0.4,
+                xmax = as.numeric(stage) + 0.4,
+                ymin = pmin(start, end), ymax = pmax(start, end)),
+            color = "black") +
+  scale_fill_manual(values = c("in" = "steelblue", "out" = "firebrick",
+                               "total" = "darkgrey"), guide = "none") +
+  theme_minimal() + labs(y = "Wert")
+```
+
+### Heatmap
+
+Farbintensität für Matrixwerte — gut für Muster, Cluster, Zeitreihen.
+
+```{r}
+set.seed(42)
+n <- 10
+heatmap_data <- expand.grid(x = 1:n, y = 1:n)
+heatmap_data$value <- matrix(rnorm(n^2), n, n)[cbind(heatmap_data$x, heatmap_data$y)]
+
+ggplot(heatmap_data, aes(x = x, y = y, fill = value)) +
+  geom_tile() + scale_fill_viridis_c() + theme_minimal() +
+  coord_equal() + labs(x = "", y = "")
+```
+
+### Treemap
+
+Teil-Ganzes-Beziehungen: Die Fläche entspricht dem Wert.
+
+```{r message=FALSE}
+library(treemapify)
+treemap_data <- data.frame(
+  category = c("A", "B", "C", "D", "E", "F"),
+  subcategory = c("A1", "B1", "C1", "D1", "E1", "F1"),
+  value = c(25, 18, 12, 10, 8, 5))
+
+ggplot(treemap_data, aes(area = value, fill = category, label = subcategory)) +
+  geom_treemap() +
+  geom_treemap_text(color = "white", fontface = "bold") +
+  scale_fill_brewer(palette = "Set2") + theme_void()
+```
+
+**Und zum Schluss:** Nein, Sie verwenden bitte keine Pie Charts! Menschen sind schlecht darin, Winkel zu vergleichen — ein (horizontaler) Bar Chart zeigt dieselbe Information fast immer besser.
+
 
